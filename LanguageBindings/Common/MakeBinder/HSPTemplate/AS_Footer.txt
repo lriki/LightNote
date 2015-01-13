@@ -1,0 +1,167 @@
+
+//------------------------------------------------------------------------------
+// internal
+//------------------------------------------------------------------------------
+#func LException_SetEnableWrappedException "LException_SetEnableWrappedException" int
+
+//------------------------------------------------------------------------------
+// module
+//------------------------------------------------------------------------------
+#module "LNote"
+
+//--------------------------------------------------------------------------
+// LNote_Init
+#deffunc _LNote_Init
+	_LConfig_SetUserWindowHandle@ hwnd
+	__LNote_Init@
+	return stat
+	
+//--------------------------------------------------------------------------
+// LNote_Update
+#deffunc _LNote_Update
+	__LNote_Update@
+	await 0
+	return stat
+	
+//--------------------------------------------------------------------------
+// LFile_ExistDirectoryOrEXE(stat: 0=なし 1=ディレクトリに存在(優先) 2=EXEに存在)
+#deffunc LFile_ExistDirectoryOrEXE str p1
+	_LFileIO_FileExists@ p1
+	if stat != 0 : return 1
+	exist p1
+	if strsize != -1 : return 2
+	return 0
+
+//--------------------------------------------------------------------------
+// LNote_InitAudio
+#deffunc _LNote_InitAudio
+	LException_SetEnableWrappedException@ 1
+	_LConfig_SetUserWindowHandle@ hwnd
+	__LNote_InitAudio@
+	return
+
+//--------------------------------------------------------------------------
+// LAudio_PlayBGM
+#deffunc _LAudio_PlayBGM str p1, int p2, int p3, int p4
+	LFile_ExistDirectoryOrEXE p1
+	if stat == 2 {
+		sdim buf, strsize
+		bload p1, buf, strsize
+		_LAudio_PlayBGMMem@ buf, strsize, p2, p3, p4
+	} else : if stat == 1 {
+		__LAudio_PlayBGM@ p1, p2, p3, p4
+	} else {
+		_LException_Raise@ LN_ERR_FILE_NOT_FOUND@, p1, __file__, __line__, "_LAudio_PlayBGM"
+	}
+	return
+
+//--------------------------------------------------------------------------
+// LAudio_PlayBGS
+#deffunc _LAudio_PlayBGS str p1, int p2, int p3, int p4
+	LFile_ExistDirectoryOrEXE p1
+	if stat == 2 {
+		sdim buf, strsize
+		bload p1, buf, strsize
+		_LAudio_PlayBGSMem@ buf, strsize, p2, p3, p4
+	} else : if stat == 1 {
+		__LAudio_PlayBGS@ p1, p2, p3, p4
+	} else {
+		_LException_Raise@ LN_ERR_FILE_NOT_FOUND@, p1, __file__, __line__, "_LAudio_PlayBGS"
+	}
+	return
+
+//--------------------------------------------------------------------------
+// LAudio_PlayME
+#deffunc _LAudio_PlayME str p1, int p2, int p3
+	LFile_ExistDirectoryOrEXE p1
+	if stat == 2 {
+		sdim buf, strsize
+		bload p1, buf, strsize
+		_LAudio_PlayMEMem@ buf, strsize, p2, p3
+	} else : if stat == 1 {
+		__LAudio_PlayME@ p1, p2, p3
+	} else {
+		_LException_Raise@ LN_ERR_FILE_NOT_FOUND@, p1, __file__, __line__, "_LAudio_PlayME"
+	}
+	return
+
+//--------------------------------------------------------------------------
+// LAudio_PlaySE
+#deffunc _LAudio_PlaySE str p1, int p2, int p3
+	LFile_ExistDirectoryOrEXE p1
+	if stat == 2 {
+		sdim buf, strsize
+		bload p1, buf, strsize
+		_LAudio_PlaySEMem@ buf, strsize, p2, p3
+	} else : if stat == 1 {
+		__LAudio_PlaySE@ p1, p2, p3
+	} else {
+		_LException_Raise@ LN_ERR_FILE_NOT_FOUND@, p1, __file__, __line__, "_LAudio_PlaySE"
+	}
+	return
+
+//--------------------------------------------------------------------------
+// LAudio_PlaySE3D
+#deffunc _LAudio_PlaySE3D str p1, double p2, double p3, double p4, double p5, int p6, int p7
+	LFile_ExistDirectoryOrEXE p1
+	if stat == 2 {
+		sdim buf, strsize
+		bload p1, buf, strsize
+		_LAudio_PlaySE3DMem@ buf, strsize, p2, p3, p4, p5, p6, p7
+	} else : if stat == 1 {
+		__LAudio_PlaySE3D@ p1, p2, p3, p4, p5, p6, p7
+	} else {
+		_LException_Raise@ LN_ERR_FILE_NOT_FOUND@, p1, __file__, __line__, "_LAudio_PlaySE3D"
+	}
+	return
+
+//--------------------------------------------------------------------------
+#defcfunc _GetFloatInternal var p1, int p2
+	v = lpeek(p1, 4 * p2)
+	t = 0.0
+	lpoke t, 4, (v & 0x80000000) | (((v & 0x7fffffff) >> 3) + ((v & 0x7fffffff) ! 0) * 0x38000000)
+	lpoke t, 0, v << 29
+	return t
+	
+//--------------------------------------------------------------------------
+// _LVector3_Set
+#deffunc _LVector3_Set var p1, double p2, double p3, double p4
+	dim p1, 3
+	__LVector3_Set@ p1, p2, p3, p4
+	return
+
+//--------------------------------------------------------------------------
+// _LVector3_Get
+#deffunc LVector3_Get var p1, var p2, var p3, var p4
+	p2 = _GetFloatInternal(p1, 0)
+	p3 = _GetFloatInternal(p1, 1)
+	p4 = _GetFloatInternal(p1, 2)
+	return
+	
+#global
+
+// 例外発生時にコールバックされるラベルの登録
+#define LException_SetHandler(%1) oncmd gosub %1, LN_EXCEPTION_WIN32_MESSAGE
+
+goto *lexception_default_label_dummy
+
+// デフォルトの例外ジャンプ
+*lexception_default_label
+	LException_ProcDefault
+	// HSP外部からの SendMessage() によるコールバック内では、
+	// end ひとつだけだと終了できないみたい。
+	// (ひとつめ:PostQuit → ふたつめ:Dispatch のように流れている？)
+	end
+	end
+	return
+
+*lexception_default_label_dummy
+
+// デフォルト登録
+LException_SetHandler *lexception_default_label
+
+#endif
+
+//=============================================================================
+//
+//=============================================================================

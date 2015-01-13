@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.CommonUtils.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.DXTK.dds.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.DXTK.DDSTextureLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.IndexBufferBase.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.ModelRendererBase.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.PngTextureLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.Renderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.RenderStateBase.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.RibbonRendererBase.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.RingRendererBase.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.SpriteRendererBase.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.TrackRendererBase.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.VertexBufferBase.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRendererDX9.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.Base.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.Base.Pre.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.DeviceObject.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.IndexBuffer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.ModelLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.ModelRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.Renderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.RendererImplemented.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.RenderState.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.RibbonRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.RingRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.Shader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.SpriteRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.TextureLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.TrackRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.VertexBuffer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerSoundXAudio2\EffekseerSoundXAudio2.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerSoundXAudio2\EffekseerSound\EffekseerSoundXAudio2.SoundImplemented.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerSoundXAudio2\EffekseerSound\EffekseerSoundXAudio2.SoundLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerSoundXAudio2\EffekseerSound\EffekseerSoundXAudio2.SoundPlayer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\EffekseerSoundXAudio2\EffekseerSound\EffekseerSoundXAudio2.SoundVoice.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Base.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Base.Pre.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Client.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.ClientImplemented.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Color.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.CriticalSection.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.DefaultEffectLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.DefaultFile.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Effect.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectImplemented.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNode.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeModel.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeRibbon.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeRing.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeRoot.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeSprite.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeTrack.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.FCurves.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.File.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Instance.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.InstanceContainer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.InstanceGlobal.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.InstanceGroup.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.InternalStruct.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Manager.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.ManagerImplemented.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Matrix43.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Matrix44.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Model.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.ModelLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.RectF.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Server.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.ServerImplemented.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Setting.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Socket.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.SoundLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.TextureLoader.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Thread.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Vector2D.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Vector3D.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Renderer\Effekseer.ModelRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Renderer\Effekseer.ParticleRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Renderer\Effekseer.RibbonRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Renderer\Effekseer.RingRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Renderer\Effekseer.SpriteRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Renderer\Effekseer.TrackRenderer.h" />
+    <ClInclude Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Sound\Effekseer.SoundPlayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.DXTK.DDSTextureLoader.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.IndexBufferBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.ModelRendererBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.PngTextureLoader.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.Renderer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.RenderStateBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.RibbonRendererBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.RingRendererBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.SpriteRendererBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.TrackRendererBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererCommon\EffekseerRenderer.VertexBufferBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.DeviceObject.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.IndexBuffer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.ModelLoader.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.ModelRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.Renderer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.RenderState.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.RibbonRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.RingRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.Shader.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.SpriteRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.TextureLoader.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.TrackRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerRendererDX9\EffekseerRenderer\EffekseerRendererDX9.VertexBuffer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerSoundXAudio2\EffekseerSound\EffekseerSoundXAudio2.Sound.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerSoundXAudio2\EffekseerSound\EffekseerSoundXAudio2.SoundLoader.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerSoundXAudio2\EffekseerSound\EffekseerSoundXAudio2.SoundPlayer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\EffekseerSoundXAudio2\EffekseerSound\EffekseerSoundXAudio2.SoundVoice.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Client.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Color.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.CriticalSection.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.DefaultEffectLoader.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.DefaultFile.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Effect.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNode.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeModel.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeRibbon.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeRing.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeRoot.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeSprite.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.EffectNodeTrack.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.FCurves.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Instance.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.InstanceContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.InstanceGlobal.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.InstanceGroup.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Manager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Matrix43.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Matrix44.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.RectF.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Server.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Setting.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Socket.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Thread.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Vector2D.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\Effekseer\Effekseer\Effekseer\Effekseer.Vector3D.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3C154071-1A30-4245-AD95-DB6DC6F89023}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>DepsEffekseer</RootNamespace>
+    <SccProjectName>
+    </SccProjectName>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;..\..\Source\Dependencies\Effekseer\Effekseer</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;..\..\Source\Dependencies\Effekseer\Effekseer</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

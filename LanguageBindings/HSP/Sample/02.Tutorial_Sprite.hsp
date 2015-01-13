@@ -1,0 +1,50 @@
+//==============================================================================
+// スプライトのチュートリアル
+//------------------------------------------------------------------------------
+/*  スプライトは画面上に2D画像を表示するための仕組みです。
+
+	2D画像を表示するためには以下の2つのオブジェクトが必要になります。
+	・テクスチャ	… 画像そのものを表します。
+	・スプライト	… テクスチャをどの位置に表示するか等の情報を持ちます。
+
+	("スプライト"という透明な板にテクスチャを張り付けるようなイメージを
+	 想像するとわかりやすかもしれません)
+*/
+//==============================================================================
+
+#include "lnote.as"
+
+	LNote_Init
+
+	// 画像ファイルからテクスチャを作成します
+	LTexture_CreateFromFile "Media/20140309.png"
+	texture = stat
+
+	// texture を表示するためのスプライトを作成します
+	LSprite_Create texture
+	sprite = stat
+
+	// Sprite は SceneNode の機能を継承しており、
+	// LSceneNode_～ の全ての関数を使用できます。
+	// ここでは、LSceneNode_SetPosition() を使用して表示位置を設定しています。
+	LNode_SetPosition sprite, 160, 30, 0
+
+	// 同様に、VisualNode の機能も継承しています。
+	// ここでは、LVisualNode_SetOpacity() を使用して不透明度を 75% にしています。
+	LVisual_SetOpacity sprite, 0.75
+	
+*main	// メインループ
+	
+	
+	LNote_Update
+	if (stat == LN_FALSE) : goto *exit
+	goto *main
+	
+*exit
+	
+	// lnHandle で表される各オブジェクトは、LObject_Release() で削除できます。
+	// LObject_Release() で削除しなくても、LNote_End() ですべて削除されます。
+	LObject_Release sprite
+	LObject_Release texture
+
+	LNote_End

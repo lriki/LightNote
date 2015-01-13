@@ -1,0 +1,6 @@
+
+■ GLリソースは、必ず GLResource::onCommitGLResource() で作成・更新を行うこと
+	GLResource::onCommitGLResource() はユーザーが各 create() を呼べない & 描画中ではない時に呼ばれる
+	
+
+

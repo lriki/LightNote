@@ -1,0 +1,279 @@
+/*lnfx1*/
+@BEGINHLSL
+#line 1 "D:\\Proj\\LightNote\\Source\\Core\\Resource\\Shader\\PointParticle.fx.tmp"
+
+
+#line 9
+float2 lnBoneTextureReciprocalSize = float2 ( 1.0 / 4.0 , 1.0 / 256.0 ) ; 
+
+#line 12
+texture lnBoneTexture ; 
+sampler2D lnBoneSampler = sampler_state 
+{ 
+    Texture = < lnBoneTexture > ; 
+    MinFilter = Point ; 
+    MagFilter = Point ; 
+    MipFilter = None ; 
+    AddressU = Clamp ; 
+    AddressV = Clamp ; 
+} ; 
+
+struct MMM_SKINNING_INPUT 
+{ 
+    float4 Pos : POSITION ; 
+    float4 BlendWeight : BLENDWEIGHT ; 
+    float4 BlendIndices : BLENDINDICES ; 
+    float4 Color : COLOR0 ; 
+    float3 Normal : NORMAL ; 
+    float2 Tex : TEXCOORD0 ; 
+    float4 AddUV1 : TEXCOORD1 ; 
+    float4 AddUV2 : TEXCOORD2 ; 
+    float4 AddUV3 : TEXCOORD3 ; 
+    float4 AddUV4 : TEXCOORD4 ; 
+    float4 SdefC : TEXCOORD5 ; 
+    float3 SdefR0 : TEXCOORD6 ; 
+    float3 SdefR1 : TEXCOORD7 ; 
+    float EdgeWeight : TEXCOORD8 ; 
+    float Index : PSIZE15 ; 
+} ; 
+
+struct MMM_SKINNING_OUTPUT 
+{ 
+    float4 Position ; 
+    float3 Normal ; 
+} ; 
+
+
+
+MMM_SKINNING_OUTPUT MMM_SkinnedPositionNormal ( 
+float4 position , 
+float3 normal , 
+float4 weights , 
+float4 indices , 
+float4 sdefC , 
+float3 sdefR0 , 
+float3 sdefR1 ) 
+{ 
+    MMM_SKINNING_OUTPUT o ; 
+    o . Position = 0.0 ; 
+    o . Normal = 0.0 ; 
+    
+    float2 uv = lnBoneTextureReciprocalSize ; 
+    float weights_array [ 4 ] ; 
+    weights_array [ 0 ] = weights . x ; 
+    weights_array [ 1 ] = weights . y ; 
+    weights_array [ 2 ] = weights . z ; 
+    weights_array [ 3 ] = weights . w ; 
+    
+    int index_array [ 4 ] ; 
+    index_array [ 0 ] = ( int ) indices . x ; 
+    index_array [ 1 ] = ( int ) indices . y ; 
+    index_array [ 2 ] = ( int ) indices . z ; 
+    index_array [ 3 ] = ( int ) indices . w ; 
+    
+    float last_weight = 0.0 ; 
+    
+#line 79
+    int iBone = 0 ; 
+    for ( ; iBone < 4 - 3 ; ++ iBone ) 
+    { 
+        if ( weights_array [ iBone ] != 0.0 ) 
+        { 
+            last_weight = last_weight + weights_array [ iBone ] ; 
+            
+            float4 tc0 = float4 ( 0.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+            float4 tc1 = float4 ( 1.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+            float4 tc2 = float4 ( 2.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+            float4 tc3 = float4 ( 3.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+            
+            float4x4 bone = float4x4 ( 
+            tex2Dlod ( lnBoneSampler , tc0 ) , 
+            tex2Dlod ( lnBoneSampler , tc1 ) , 
+            tex2Dlod ( lnBoneSampler , tc2 ) , 
+            tex2Dlod ( lnBoneSampler , tc3 ) ) ; 
+            
+            o . Position += mul ( position , bone ) * weights_array [ iBone ] ; 
+            o . Normal += ( mul ( float4 ( normal , 1.0 ) , bone ) * weights_array [ iBone ] ) . xyz ; 
+        } 
+    } 
+    
+#line 103
+    last_weight = 1.0 - last_weight ; 
+    
+    float4 tc0 = float4 ( 0.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+    float4 tc1 = float4 ( 1.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+    float4 tc2 = float4 ( 2.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+    float4 tc3 = float4 ( 3.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+    
+    float4x4 bone = float4x4 ( 
+    tex2Dlod ( lnBoneSampler , tc0 ) , 
+    tex2Dlod ( lnBoneSampler , tc1 ) , 
+    tex2Dlod ( lnBoneSampler , tc2 ) , 
+    tex2Dlod ( lnBoneSampler , tc3 ) ) ; 
+    
+    o . Position += mul ( position , bone ) * last_weight ; 
+    o . Normal += ( mul ( float4 ( normal , 1.0 ) , bone ) * last_weight ) . xyz ; 
+    return o ; 
+} 
+
+#line 0
+
+
+#line 7
+float4x4 gWorldMatrix : WORLD ; 
+float4x4 gViewProjMatrix : VIEWPROJECTION ; 
+float gProj_11_Div_00 ; 
+
+#line 12
+float3 gCameraPosition ; 
+
+float gTime ; 
+
+float3 gGlobalAccel ; 
+float gGravityPower ; 
+bool gIsSequential ; 
+bool gIsParticleLoop ; 
+bool gIsDynamic ; 
+
+#line 31
+texture gMaterialTexture : MATERIALTEXTURE ; 
+sampler gTexSampler = sampler_state 
+{ 
+    texture = < gMaterialTexture > ; 
+    MINFILTER = NONE ; 
+    MAGFILTER = NONE ; 
+} ; 
+
+#line 40
+struct VS_OUTPUT 
+{ 
+    float4 Pos : POSITION ; 
+    float Size : PSIZE ; 
+    float4 Color : COLOR0 ; 
+} ; 
+
+#line 50
+VS_OUTPUT vsBasic ( 
+float3 in_pos_ : POSITION , 
+float3 in_velocity_ : TEXCOORD0 , 
+float3 in_accel_ : TEXCOORD1 , 
+float3 in_axis_ : TEXCOORD2 , 
+float3 in_angle_data_ : TEXCOORD3 , 
+float3 in_size_data_ : TEXCOORD4 , 
+float4 in_time_data_ : TEXCOORD5 , 
+float4 in_fade_data_ : TEXCOORD6 , 
+uniform bool sequential_ , 
+uniform bool loop_ , 
+uniform bool is_dynamic_ ) 
+{ 
+    VS_OUTPUT o ; 
+    
+#line 71
+    float time = ( gTime - in_time_data_ . x ) ; 
+    
+#line 75
+    if ( sequential_ ) 
+    { 
+        
+#line 80
+        if ( time < 0 ) 
+        { 
+            o . Pos = float4 ( 0 , 0 , 0 , 0 ) ; 
+            o . Size = 0 ; 
+            o . Color = float4 ( 0 , 0 , 0 , 0 ) ; 
+            return o ; 
+        } 
+        
+#line 89
+    } 
+    
+#line 95
+    
+    
+#line 98
+    if ( loop_ ) 
+    { 
+        time = fmod ( time , in_time_data_ . y ) ; 
+    } 
+    
+#line 107
+    o . Color . rgba = 1.0 ; 
+    
+#line 111
+    o . Color . a *= saturate ( time / in_time_data_ . z ) ; 
+    
+#line 114
+    o . Color . a *= saturate ( ( in_time_data_ . y - time ) / in_time_data_ . w ) ; 
+    
+#line 117
+    o . Color . a *= in_fade_data_ . x ; 
+    
+#line 123
+    float t2 = 0.5 * time * time ; 
+    
+#line 126
+    float3 pos = in_pos_ + ( in_velocity_ * time ) + ( ( in_accel_ ) * t2 ) ; 
+    
+#line 129
+    float angle = in_angle_data_ . x + ( in_angle_data_ . y * time ) + ( in_angle_data_ . z * t2 ) ; 
+    
+#line 132
+    float s = sin ( angle ) ; 
+    float c = cos ( angle ) ; 
+    float4x4 ang_mat = float4x4 ( 
+    ( in_axis_ . x * in_axis_ . x * ( 1 - c ) + c ) , ( in_axis_ . x * in_axis_ . y * ( 1 - c ) + in_axis_ . z * s ) , ( in_axis_ . z * in_axis_ . x * ( 1 - c ) - in_axis_ . y * s ) , 0 , 
+    ( in_axis_ . x * in_axis_ . y * ( 1 - c ) - in_axis_ . z * s ) , ( in_axis_ . y * in_axis_ . y * ( 1 - c ) + c ) , ( in_axis_ . y * in_axis_ . z * ( 1 - c ) + in_axis_ . x * s ) , 0 , 
+    ( in_axis_ . z * in_axis_ . x * ( 1 - c ) + in_axis_ . y * s ) , ( in_axis_ . y * in_axis_ . z * ( 1 - c ) - in_axis_ . x * s ) , ( in_axis_ . z * in_axis_ . z * ( 1 - c ) + c ) , 0 , 
+    0 , 0 , 0 , 1 ) ; 
+    
+#line 141
+    o . Pos = mul ( float4 ( pos , 1.0f ) , ang_mat ) ; 
+    if ( ! is_dynamic_ ) 
+    { 
+        o . Pos = mul ( o . Pos , gWorldMatrix ) ; 
+    } 
+    
+#line 148
+    o . Pos . xyz += gGlobalAccel * t2 ; 
+    
+#line 151
+    if ( length ( o . Pos . xyz ) != 0.0 && gGravityPower != 0.0 ) 
+    { 
+        o . Pos . xyz += ( normalize ( o . Pos . xyz ) * - gGravityPower ) * t2 ; 
+    } 
+    
+#line 161
+    float size = in_size_data_ . x + ( in_size_data_ . y * time ) + ( ( in_size_data_ . z ) * t2 ) ; 
+    float dist = length ( gCameraPosition . xyz - o . Pos . xyz ) ; 
+    o . Size = 1000.0 * size * gProj_11_Div_00 / dist ; 
+    
+#line 171
+    o . Pos = mul ( o . Pos , gViewProjMatrix ) ; 
+    
+#line 185
+    return o ; 
+} 
+
+#line 191
+float4 psBasic ( 
+float4 in_color_ : COLOR0 , 
+float2 in_uv_ : TEXCOORD0 ) : COLOR0 
+{ 
+    
+#line 209
+    return tex2D ( gTexSampler , in_uv_ ) * in_color_ ; 
+} 
+
+#line 215
+technique MainDraw 
+{ 
+    pass P0 
+    { 
+        
+#line 221
+        VertexShader = compile vs_2_0 vsBasic ( gIsSequential , gIsParticleLoop , gIsDynamic ) ; 
+        PixelShader = compile ps_2_0 psBasic ( ) ; 
+    } 
+} 
+
+@ENDHLSL

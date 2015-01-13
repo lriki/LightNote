@@ -1,0 +1,1684 @@
+*test_LRect_Contains
+	LRect_Set rect, 10, 10, 20, 30
+	LRect_Contains rect, 15, 15, r
+	PRINT_INT r
+    /*test_end*/
+
+*test_LException_Raise
+    /*◆*/
+    /*test_end*/
+
+*test_LException_GetLastErrorCode
+	LTexture_CreateFromFile tex, "aaa"
+	LException_GetLastErrorCode
+    PRINT_INT stat
+    /*test_end*/
+
+*test_LException_ProcDefault
+    /*◆*/
+    /*test_end*/
+
+*test_LObject_Release
+	LTexture_Create tex, 32, 32
+	LObject_Release tex
+    /*test_end*/
+
+*test_LObject_AddRef
+	LTexture_Create tex, 32, 32	// 参照カウントが 1 になる
+	LObject_AddRef tex			// 参照カウントが 2 になる
+	LObject_Release tex			// 参照カウントが 1 になる
+	LObject_Release tex			// 参照カウントが 0 になり、削除される
+    /*test_end*/
+
+*test_LObject_GetRefCount
+	LTexture_Create tex, 32, 32	// 参照カウントが 1 になる
+	LObject_GetRefCount tex, count
+    PRINT_INT count
+    /*test_end*/
+
+*test_LVector2_GetLength
+    LVector2_Set vec, 10.0, 20.0
+    LVector2_GetLength vec, len
+    PRINT_DOUBLE len
+    /*test_end*/
+
+*test_LVector2_GetSquareLength
+    LVector2_Set vec, 10.0, 20.0
+    LVector2_GetSquareLength vec, len
+    PRINT_DOUBLE len
+    /*test_end*/
+
+*test_LVector2_Normalize
+    LVector2_Set vec1, 10.0, 20.0
+    LVector2_Set vec2, 0, 0
+    LVector2_Normalize vec2, vec1
+    PRINT_VEC2 vec2
+    /*test_end*/
+
+*test_LVector3_SetVec2
+    /*◆*/
+    /*test_end*/
+
+*test_LVector3_GetLength
+    LVector3_Set vec0, 10.0, 20.0, 30.0
+    LVector3_GetLength vec0, len
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_GetSquareLength
+    LVector3_Set vec0, 10.0, 20.0, 30.0
+    LVector3_GetSquareLength vec0, len
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_Normalize
+    LVector3_Set vec0, 10.0, 20.0, 30.0
+    LVector3_Set vec1, 0, 0, 0		// 出力格納先
+    LVector3_Normalize vec0, vec1
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_Dot
+    LVector3_Set vec0, 10.0, 20.0, 30.0
+    LVector3_Set vec1, 40.0, 50.0, 60.0
+    LVector3_Dot vec0, vec1, v
+    PRINT_DOUBLE v
+    /*test_end*/
+
+*test_LVector3_Cross
+    LVector3_Set vec0, 0, 0, 0		// 出力格納先
+    LVector3_Set vec1, 10.0, 20.0, 30.0
+    LVector3_Set vec2, 40.0, 50.0, 60.0
+    LVector3_Cross vec0, vec1, vec2
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_Reflect
+    LVector3_Set vec0, 0, 0, 0		// 出力格納先
+    LVector3_Set vec1, 10.0, 20.0, 30.0
+    LVector3_Set vec2, 0.0, 1.0, 0.0
+    LVector3_Reflect vec0, vec1, vec2
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_Slide
+    LVector3_Set vec0, 0, 0, 0		// 出力格納先
+    LVector3_Set vec1, 10.0, 20.0, 30.0
+    LVector3_Set vec2, 0.0, 1.0, 0.0
+    LVector3_Slide vec0, vec1, vec2
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_Lerp
+    LVector3_Set vec0, 0, 0, 0		// 出力格納先
+    LVector3_Set vec1, 10.0, 20.0, 30.0
+    LVector3_Set vec2, 40.0, 50.0, 60.0
+    LVector3_Lerp vec0, vec1, vec2, 0.5
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_CatmullRom
+    LVector3_Set vec0, 0, 0, 0		// 出力格納先
+    LVector3_Set vec1, 10.0, 20.0, 30.0
+    LVector3_Set vec2, 40.0, 50.0, 60.0
+    LVector3_Set vec3, 10.0, 10.0, 10.0
+    LVector3_Set vec4, 20.0, 20.0, 20.0
+    LVector3_CatmullRom vec0, vec1, vec2, vec3, vec4, 0.5
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_Transform
+    LVector3_Set vec0, 0, 0, 0		// 出力格納先
+    LVector3_Set vec1, 10.0, 20.0, 30.0
+    LMatrix_Identity mat0
+    LMatrix_RotateX mat0, 0.2
+    LVector3_Transform vec0, vec1, mat0
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_TransformCoord
+    LVector3_Set vec0, 0, 0, 0		// 出力格納先
+    LVector3_Set vec1, 10.0, 20.0, 30.0
+    LMatrix_Identity mat0
+    LMatrix_RotateX mat0, 0.2
+    LVector3_TransformCoord vec0, vec1, mat0
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_RotateAxis
+    LVector3_Set vec0, 0, 0, 0		// 出力格納先
+    LVector3_Set vec1, 10.0, 20.0, 30.0
+    LVector3_Set vec2, 0.0, 1.0, 0.0
+    LVector3_RotateAxis vec0, vec1, vec2, 0.2
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_RotateMatrix
+    LVector3_Set vec0, 0, 0, 0		// 出力格納先
+    LVector3_Set vec1, 10.0, 20.0, 30.0
+    LMatrix_Identity mat0
+    LMatrix_RotateY mat0, 0.2
+    LVector3_RotateMatrix vec0, vec1, mat0
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LMatrix_Identity
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_Multiply
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_Translate
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_TranslateVec3
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_RotateX
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_RotateY
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_RotateZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_Rotate
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_RotateVec3
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_RotateAxis
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_RotateQuaternion
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_Scale
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_ScaleXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_ScaleVec3
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_Inverse
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_Transpose
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_ViewTransformLH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_ViewTransformRH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_PerspectiveFovLH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_PerspectiveFovRH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_OrthoLH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_OrthoRH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_GetRight
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_GetUp
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_GetFront
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_GetPosition
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_ToEuler
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_Decompose
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_TransformBasis
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_Identity
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_RotationAxis
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_RotationMatrix
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_RotationYawPitchRoll
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_Normalize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_Conjugate
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_Multiply
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_Slerp
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LRandom_SetSeed
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LRandom_GetInt
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LRandom_GetIntRange
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LRandom_GetIntDeflect
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_CreateFromMemory
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_Close
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_GetSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_GetPosition
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_Seek
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_Read
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_ReadAsync
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_Load
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_LoadAsync
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_GetLoadedData
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_GetAsyncLoadState
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_SaveAsync
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_GetAsyncSaveState
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFile_Exists
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LDirectory_MoveCurrentDirectory
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LDirectory_ReturnCurrentDirectory
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LInput_IsPress
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LInput_IsTrigger
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LInput_IsOffTrigger
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LInput_IsRepeat
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LInput_GetPower
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LInput_GetAxisState
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_GetController
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_IsPress
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_IsTrigger
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_IsOffTrigger
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_IsRepeat
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_GetPower
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_GetAxisState
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_GetPressedDeviceButton
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_GetDeviceButtonType
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_AttachVirtualButton
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LController_DetachVirtualButton
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlayBGM
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlayBGMMem
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_StopBGM
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlayBGS
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlayBGSMem
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_StopBGS
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlayME
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlayMEMem
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_StopME
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlaySE
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlaySE3D
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlaySE3DXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlaySEMem
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlaySE3DMem
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_PlaySE3DMemXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_StopSE
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_SetMetreUnitDistance
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_SetBGMVolume
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_SetBGSVolume
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LAudio_GetInternalGameSound
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSoundListener_SetPosition
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSoundListener_SetPositionXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSoundListener_SetDirection
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSoundListener_SetDirectionXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSoundListener_SetUpDirection
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSoundListener_SetUpDirectionXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSoundListener_Velocity
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSoundListener_VelocityXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_CreateMem
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_SetVolume
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_GetVolume
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_SetPitch
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_GetPitch
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_SetLoopState
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_IsLoop
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_GetPlayState
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_Play
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_Stop
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_Pause
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_FadeVolume
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_GetUnitsPlayed
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_GetTotalUnits
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_GetUnitsParSecond
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_Is3DSound
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_SetEmitterPosition
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_SetEmitterPositionXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_SetEmitterVelocity
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_SetEmitterVelocityXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSound_SetEmitterDistance
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_CreateFromFile
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_CreateEx
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_CreateFromFileEx
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_GetWidth
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_GetHeight
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_GetRealWidth
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_GetRealHeight
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_Clear
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_ClearRGBA
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_DrawText
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_DrawTextXY
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTexture_BitBlt
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_CreateBitmapFontFromFile
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_CreateCopy
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_SetDefaultFont
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_SetName
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_GetName
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_SetSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_GetSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_SetColor
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_GetColor
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_SetEdgeColor
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_GetEdgeColor
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_SetEdgeSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_GetEdgeSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_SetBold
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_IsBold
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_SetItalic
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_IsItalic
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_SetAntiAlias
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_IsAntiAlias
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LFont_GetTextSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetName
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetName
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetPosition
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetPositionXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetPosition
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetPositionXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetAngle
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetAngleXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetAngle
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetAngleXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetScale
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetScaleXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetScale
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetScaleXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetCenter
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetCenterXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetCenter
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetCenterXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetMatrix
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetMatrix
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetRotateOrder
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetRotateOrder
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetPlacementType
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_GetPlacementType
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_AddChild
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_RemoveChild
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_Update
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_SetEnableAutoUpdate
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSceneNode_IsEnableAutoUpdate
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetVisible
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetOpacity
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetColorScale
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetBlendColor
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetTone
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetUVTransform
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetBlendMode
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetCullingMode
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetEnableDepthTest
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetEnableDepthWrite
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVisualNode_SetShader
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_Create3D
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_SetTexture
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_SetSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_SetSrcRect
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_SetSrcRectXYWH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_GetSrcRect
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_GetSrcRectXYWH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_SetFlipH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_IsFlipH
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_SetFlipV
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSprite_IsFlipV
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSpritePath_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSpritePath_SetPathBlendMode
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSpritePath_SetPathTransform
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSpritePath_DrawSprite
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LModel_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LEffect_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LEffect_Play
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LEffect_Stop
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LEffect_IsPlaying
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LShader_CreateFromFile
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LViewPane_GetDefaultViewPane
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LViewPane_SetBackgroundColor
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LViewPane_AttachLayer
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LViewPane_DetachLayer
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LLayer_SetPriority
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LLayer_GetPriority
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LViewFilter_Update
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LViewFilter_SetEnableAutoUpdate
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LViewFilter_IsEnableAutoUpdate
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LToneFilter_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LToneFilter_SetTone
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTransitionFilter_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTransitionFilter_Freeze
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTransitionFilter_Transition
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LBlurFilter_Create
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LBlurFilter_Blur
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_GetDefault3DCamera
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_GetDefault2DCamera
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetCameraType
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetPosition
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetPositionXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetLookAt
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetLookAtXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetUpDirection
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetUpDirectionXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetAngle
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetAngleXYZ
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetMatrix
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetFovY
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_SetNearFarClip
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_GetViewMatrix
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_GetProjectionMatrix
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LCamera_GetViewProjectionMatrix
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetWindowTitle
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetWindowSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetBackbufferSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetWindowResizeEnabled
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetBackbufferResizeMode
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetToggleFullscreenEnabled
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetLogFileEnabled
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetConsoleEnabled
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_RegisterArchive
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetFileAccessPriority
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetDirectMusicInitMode
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetSoundMaxCacheCount
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SoundPlayTypeThreshold
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetFrameRate
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetEnableFrameWait
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetAutoUpdateTimeScale
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_RegisterFontFile
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetTextureCacheSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetShaderCacheSize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LConfig_SetUserWindowHandle
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LManager_Initialize
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LManager_InitializeFileIO
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LManager_InitializeAudio
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LManager_InitializeInput
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LManager_Update
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LManager_ResetFrameDelay
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LManager_IsEndRequested
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LManager_Terminate
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSize_Set
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LSize_Get
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LRect_Set
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LRect_Get
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVector2_Set
+    LVector2_Set vec, 10.0, 20.0
+    PRINT_VEC2 vec
+    /*test_end*/
+
+*test_LVector2_Get
+    LVector2_Set vec, 10.0, 20.0
+    PRINT_VEC2 vec
+    /*test_end*/
+
+*test_LVector3_Set
+    LVector3_Set vec0, 0.1, 0.2, 0.3
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector3_Get
+    LVector3_Set vec0, 0.1, 0.2, 0.3
+    PRINT_VEC3 vec0
+    /*test_end*/
+
+*test_LVector4_Set
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LVector4_Get
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_Set
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LMatrix_Get
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_Set
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LQuaternion_Get
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LRandom_Set
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LRandom_Get
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LColor_Set
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LColor_Get
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LColorF_Set
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LColorF_Get
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTone_Set
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+
+*test_LTone_Get
+    ◆新しく生成されたコード。テストコードを記述する。
+    コードを記述しない(テストやサンプルを作らない)場合は◆を /**/ で囲むこと。
+    /*test_end*/
+

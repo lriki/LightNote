@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Affector.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Animation.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\AnimationInstance.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\AnimationManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Animation_xmlHandler.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Base.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\BasicImage.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\BasicRenderedStringParser.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\BidiVisualMapping.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\BoundSlot.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\CentredRenderedString.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\ChainedXMLHandler.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Clipboard_cegui.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Colour.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\ColourRect.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\CompositeResourceProvider.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Config_xmlHandler.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\CoordConverter.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\DataContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\DefaultLogger.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\DefaultRenderedStringParser.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\DefaultResourceProvider.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\DynamicModule.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Element.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Event.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\EventArgs.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\EventSet.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\EventSignal.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\EventSignalSet.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Exceptions.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\FactoryModule.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\FactoryRegisterer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\ComponentBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\Dimensions.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\EventAction.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\EventLinkDefinition.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\FormattingSetting.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\FrameComponent.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\ImageryComponent.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\ImagerySection.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\LayerSpecification.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\NamedArea.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\PropertyDefinitionBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\PropertyInitialiser.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\SectionSpecification.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\StateImagery.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\TextComponent.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\WidgetComponent.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\WidgetLookFeel.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\WidgetLookManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\falagard\XMLHandler_galagard.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Font.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\FontManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Font_xmlHandler.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\FormattedRenderedString.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\FreeTypeFont.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\FribidiVisualMapping.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\GeometryBuffer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\GlobalEventSet.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\GUIContext.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\GUILayout_xmlHandler.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\IconvStringTranscoder.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Image.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\ImageCodec.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\ImageCodecModules\STB\ImageCodecModule_cbt.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\ImageCodecModules\STB\ImageCodec_cbt.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\ImageCodecModules\STB\stb_image.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\ImageManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\JustifiedRenderedString.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\JustifiedRenderedStringWordWrapper.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\KeyFrame.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\LeftAlignedRenderedString.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\LinkedEvent.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Logger.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\minibidi.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\MinibidiVisualMapping.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\MinizipResourceProvider.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\MouseCursor.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\NamedElement.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\NamedXMLResourceManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\PCRERegexMatcher.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\PixmapFont.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Property.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\PropertyHelper.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\PropertySet.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Quaternion.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Rect.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderedString.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderedStringComponent.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderedStringImageComponent.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderedStringTextComponent.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderedStringWidgetComponent.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderEffectManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RendererModules\Direct3D9\CEDX9GeometryBuffer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RendererModules\Direct3D9\CEDX9Renderer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RendererModules\Direct3D9\CEDX9Texture.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RendererModules\Direct3D9\CEDX9TextureTarget.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RendererModules\Direct3D9\CEDX9ViewportTarget.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderingSurface.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderingWindow.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderQueue.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RenderTarget.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\RightAlignedRenderedString.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Scheme.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\SchemeManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Scheme_xmlHandler.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\ScriptModule.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\SimpleTimer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\String.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\SubscriberSlot.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\System.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\SystemKeys.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\TextUtils.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ButtonBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ClippedContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Combobox.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ComboDropList.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\DefaultWindow.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\DragContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Editbox.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\FrameWindow.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\GridLayoutContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\GroupBox.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\HorizontalLayoutContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ItemEntry.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ItemListBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ItemListbox.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\LayoutCell.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\LayoutContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Listbox.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ListboxItem.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ListboxTextItem.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ListHeader.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ListHeaderSegment.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Menubar.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\MenuBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\MenuItem.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\MultiColumnList.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\MultiLineEditbox.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\PopupMenu.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ProgressBar.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\PushButton.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\RadioButton.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ScrollablePane.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Scrollbar.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ScrolledContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ScrolledItemListBase.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\SequentialLayoutContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Slider.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Spinner.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\TabButton.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\TabControl.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Thumb.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Titlebar.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\ToggleButton.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Tooltip.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\Tree.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\TreeItem.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\widgets\VerticalLayoutContainer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Win32StringTranscoder.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowFactory.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowFactoryManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererManager.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Button_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Default_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Editbox_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\FrameWindow_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\ItemEntry_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\ItemListbox_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Listbox_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\ListHeaderSegment_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\ListHeader_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Menubar_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\MenuItem_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Module_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\MultiColumnList_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\MultiLineEditbox_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\PopupMenu_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\ProgressBar_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\ScrollablePane_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Scrollbar_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Slider_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\StaticImage_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\StaticText_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Static_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\TabButton_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\TabControl_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Titlebar_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\ToggleButton_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Tooltip_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\WindowRendererSets\Core\Tree_wrsets.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\Window_cegui.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLAttributes.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLHandler.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLParser.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLParserModules\TinyXML\tinystr.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLParserModules\TinyXML\tinyxml.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLParserModules\TinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLParserModules\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLParserModules\TinyXML\XMLParserModule_tinyxml.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLParserModules\TinyXML\XMLParser_tinyxml.cpp" />
+    <ClCompile Include="..\..\Source\Dependencies\CEGUI\src\XMLSerializer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\Source\Dependencies\CEGUI\src\CMakeLists.txt">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\Dependencies\CEGUI\src\XMLParserModules\TinyXML\tinystr.h" />
+    <ClInclude Include="..\..\Source\Dependencies\CEGUI\src\XMLParserModules\TinyXML\tinyxml.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AD521C15-1287-400A-9255-E5F7131EA0B9}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>DepsCEGUI</RootNamespace>
+    <SccProjectName>
+    </SccProjectName>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;NOMINMAX;CEGUI_STATIC;CEGUI_TINYXML_HAS_2_6_API;HAVE_CONFIG_H;PCRE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;..\..\Source\Dependencies\CEGUI\include;..\..\Source\Dependencies\pcre;..\..\Source\Dependencies\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;NOMINMAX;CEGUI_STATIC;CEGUI_TINYXML_HAS_2_6_API;HAVE_CONFIG_H;PCRE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;..\..\Source\Dependencies\CEGUI\include;..\..\Source\Dependencies\pcre;..\..\Source\Dependencies\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

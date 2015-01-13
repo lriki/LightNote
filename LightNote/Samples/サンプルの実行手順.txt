@@ -1,0 +1,3 @@
+①ライブラリ本体(Projects/LightNote.sln) を「Release.DLL」でビルドする
+②0.CopyDLL.bat を実行する
+③LightNote.Samples.sln からどうぞ

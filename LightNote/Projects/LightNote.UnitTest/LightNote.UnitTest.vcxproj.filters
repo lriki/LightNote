@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gtest">
+      <UniqueIdentifier>{05f5c2a5-2f71-4919-be5e-900a97be9e96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{faa5c7fc-cbeb-43c3-bc16-c20289c928c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\IO">
+      <UniqueIdentifier>{564ba2cd-2317-4a75-823f-03b6698197d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Base">
+      <UniqueIdentifier>{4686c135-6727-435e-8cf0-05f80f43e20e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\IO_PathName.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dependencies\gtest\src\gtest-all.cc">
+      <Filter>gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\Test.cpp" />
+    <ClCompile Include="..\..\Test\TestUtils.cpp" />
+    <ClCompile Include="..\..\Test\Core\IO\Core_IO_Manager.cpp">
+      <Filter>Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\Core\IO\Core_IO_Archive.cpp">
+      <Filter>Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\Core\Base\Test_Base_Encoding.cpp">
+      <Filter>Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\Core\Base\Test_Base_Exception.cpp">
+      <Filter>Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\Core\Base\Test_Base_String.cpp">
+      <Filter>Core\Base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Test\TestConfig.h" />
+    <ClInclude Include="..\..\Test\TestUtils.h" />
+  </ItemGroup>
+</Project>

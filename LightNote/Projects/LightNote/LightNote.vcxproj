@@ -1,0 +1,1100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug.DLL|Win32">
+      <Configuration>Debug.DLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug.Lib|Win32">
+      <Configuration>Debug.Lib</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release.DLL|Win32">
+      <Configuration>Release.DLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release.Lib|Win32">
+      <Configuration>Release.Lib</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B234A15E-DCDD-47F7-A828-78297D772F43}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>LightNote</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">
+    <TargetName>LNote.Static</TargetName>
+    <OutDir>$(SolutionDir)Debug\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">
+    <TargetName>LNote.Debug</TargetName>
+    <OutDir>$(SolutionDir)Debug\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">
+    <TargetName>LNote.Static</TargetName>
+    <OutDir>$(SolutionDir)Release\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">
+    <TargetName>LNote</TargetName>
+    <OutDir>$(SolutionDir)Release\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)Debug\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)Release\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;$(DXSDK_DIR)Include;..\..\Source;..\..\Source\Dependencies;..\..\Source\Dependencies\libogg\include;..\..\Source\Dependencies\libvorbis\include;..\..\Source\Dependencies\bullet;..\..\Source\Dependencies\glew\include;..\..\Source\Dependencies\freetype\include;..\..\Source\Dependencies\OpenAL;..\..\Source\Dependencies\Effekseer;..\..\Source\Dependencies\Effekseer\Effekseer;..\..\Source\Dependencies\CEGUI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;LNOTE_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;$(DXSDK_DIR)Include;..\..\Source;..\..\Source\Dependencies;..\..\Source\Dependencies\libogg\include;..\..\Source\Dependencies\libvorbis\include;..\..\Source\Dependencies\bullet;..\..\Source\Dependencies\glew\include;..\..\Source\Dependencies\freetype\include;..\..\Source\Dependencies\OpenAL;..\..\Source\Dependencies\Effekseer;..\..\Source\Dependencies\Effekseer\Effekseer;..\..\Source\Dependencies\CEGUI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;$(DXSDK_DIR)Include;..\..\Source;..\..\Source\Dependencies;..\..\Source\Dependencies\libogg\include;..\..\Source\Dependencies\libvorbis\include;..\..\Source\Dependencies\bullet;..\..\Source\Dependencies\glew\include;..\..\Source\Dependencies\freetype\include;..\..\Source\Dependencies\OpenAL;..\..\Source\Dependencies\Effekseer;..\..\Source\Dependencies\Effekseer\Effekseer;..\..\Source\Dependencies\CEGUI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;LNOTE_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;$(DXSDK_DIR)Include;..\..\Source;..\..\Source\Dependencies;..\..\Source\Dependencies\libogg\include;..\..\Source\Dependencies\libvorbis\include;..\..\Source\Dependencies\bullet;..\..\Source\Dependencies\glew\include;..\..\Source\Dependencies\freetype\include;..\..\Source\Dependencies\OpenAL;..\..\Source\Dependencies\Effekseer;..\..\Source\Dependencies\Effekseer\Effekseer;..\..\Source\Dependencies\CEGUI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="..\..\Source\Core\Graphics\Device\OpenGL\Note.txt" />
+    <Text Include="..\..\Source\C_API\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\Core\Animation\AnimationClip.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\AnimationController.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\AnimationTimelineBase.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\BezierTable.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\EventAnimation.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\FadeValue.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\FixedLengthScalar.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\ModelMotion.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\QuaternionAnimation.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\RoundTripValue.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\Scalar.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\ScalarAnimation.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\SQTTransformAnimation.h" />
+    <ClInclude Include="..\..\Source\Core\Animation\Types.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\AudioUtil.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\AudioDeviceBase.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\AudioPlayerBase.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\DirectMusic\DirectMusic.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\DirectMusic\DirectMusicAudioDevice.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\DirectMusic\DirectMusicAudioPlayer.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\DirectMusic\lndmusic.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\NullDevice\NullAudioDevice.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\NullDevice\NullAudioPlayer.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\OpenAL\ALAudioDevice.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\OpenAL\ALAudioPlayer.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\OpenAL\ALLib.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\XAudio2\XA2AudioDevice.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Device\XAudio2\XA2AudioPlayer.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\GameAudio.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Interface.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Resource\AudioResourceManager.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Resource\AudioSource.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Sound.h" />
+    <ClInclude Include="..\..\Source\Core\Audio\Types.h" />
+    <ClInclude Include="..\..\Source\Core\Base\BoolArray.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Cache.h" />
+    <ClInclude Include="..\..\Source\Core\Base\CommandLineArguments.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Container\List.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Container\Map.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Container\NodeList.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Container\Stack.h" />
+    <ClInclude Include="..\..\Source\Core\Base\DebugEngine.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Delegate.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Encoding.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Error.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Exception.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Foreach.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Hash.h" />
+    <ClInclude Include="..\..\Source\Core\Base\HierarchyNode.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Interface.h" />
+    <ClInclude Include="..\..\Source\Core\Base\ITypeInfoAccess.h" />
+    <ClInclude Include="..\..\Source\Core\Base\ReferenceList.h" />
+    <ClInclude Include="..\..\Source\Core\Base\LogFile.h" />
+    <ClInclude Include="..\..\Source\Core\Base\MemoryManager.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Misc.h" />
+    <ClInclude Include="..\..\Source\Core\Base\CRT.h" />
+    <ClInclude Include="..\..\Source\Core\Base\NonCopyable.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Parser.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Profiler.h" />
+    <ClInclude Include="..\..\Source\Core\Base\RefClass.h" />
+    <ClInclude Include="..\..\Source\Core\Base\RefClassTemplate.h" />
+    <ClInclude Include="..\..\Source\Core\Base\ReferenceBuffer.h" />
+    <ClInclude Include="..\..\Source\Core\Base\ReferenceObject.h" />
+    <ClInclude Include="..\..\Source\Core\Base\ReferenceObjectArray.h" />
+    <ClInclude Include="..\..\Source\Core\Base\RefPtr.h" />
+    <ClInclude Include="..\..\Source\Core\Base\RefString.h" />
+    <ClInclude Include="..\..\Source\Core\Base\SharingKey.h" />
+    <ClInclude Include="..\..\Source\Core\Base\SortedArray.h" />
+    <ClInclude Include="..\..\Source\Core\Base\STLUtils.h" />
+    <ClInclude Include="..\..\Source\Core\Base\String.h" />
+    <ClInclude Include="..\..\Source\Core\Base\StringUtils.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Table.h" />
+    <ClInclude Include="..\..\Source\Core\Base\TChar.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Time.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Typedef.h" />
+    <ClInclude Include="..\..\Source\Core\Base\Unicode.h" />
+    <ClInclude Include="..\..\Source\Core\BuildSetting.h" />
+    <ClInclude Include="..\..\Source\Core\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Config.h" />
+    <ClInclude Include="..\..\Source\Core\ConfigData.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\EffectBase.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\EffectEngineBase.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\Effekseer\EffekseerDriverLNote.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\Effekseer\EffekseerEffectCore.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\Effekseer\EffekseerEffectEngine.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\Effekseer\EffekseerEffectInstance.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\Effekseer\EffekseerSoundLoaderXAudio2.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\Effekseer\EffekseerTextureLoaderDX9.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\Interface.h" />
+    <ClInclude Include="..\..\Source\Core\Effect\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\Archive.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\ArchiveMaker.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\ASyncProcessObject.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\BinaryReader.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\Common.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\File.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\FileUtil.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\InFile.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\Interface.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\OutFile.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\PathName.h" />
+    <ClInclude Include="..\..\Source\Core\FileIO\StreamObject.h" />
+    <ClInclude Include="..\..\Source\Core\Game\FPSController.h" />
+    <ClInclude Include="..\..\Source\Core\Game\GameTime.h" />
+    <ClInclude Include="..\..\Source\Core\Geometry\Collision.h" />
+    <ClInclude Include="..\..\Source\Core\Geometry\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Geometry\DrawingShapes.h" />
+    <ClInclude Include="..\..\Source\Core\Geometry\Geometry.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\BatchGeometryRenderer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Bitmap.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\BitmapPainter.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\BitmapTextRenderer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\BitmapUtil.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Camera.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\DebugText.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Font\BitmapFont.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Font\Font.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Font\FontManagerBase.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Font\FreeTypeFont.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Font\FreeTypeFontManager.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Font\FreeTypeFontRenderer.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\FormattedTextRenderer.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\GeometryRenderer.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Gizmo.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\GraphicsUtil.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Grid.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Image\Image.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Image\PngImage.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\ConvertBlendedMesh.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelConstraintCore.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelCore.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelFaceCore.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelFrameCore.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelIKCore.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelIKLimitter.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelMaterialCore.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelRigidBodyCore.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\MMDModelLoader.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Model.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\ModelConstraint.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\ModelFace.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\ModelFrame.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\ModelIK.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\ModelManager.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\ModelPMXIKSolver.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\ModelRigidBody.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Motion.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\MotionController.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\PMDTypes.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\PMXLoader.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\VMDLoader.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Model\Xfile\AllocateHierarchy.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\PointParticle.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\PointParticleParameter.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\ProfilerRenderer.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\RenderState.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\RingRenderer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\ScreenEffect.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\SpriteRenderer.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\TextRenderer.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\Types.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Common\VertexTypes.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\CompilationException.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\DeviceObjects.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\CanvasBase.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\Canvas.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Canvas.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9GraphicsDevice.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9IndexBuffer.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Module.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Renderer.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Shader.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Texture.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9VertexBuffer.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\GraphicsDevice.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\IndexBuffer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\Renderer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\Shader.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\Texture.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\DirectX9\VertexBuffer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\GraphicsDeviceBase.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\GraphicsResource.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\LNFXManager.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLCanvas.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLGraphicsDevice.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLIndexBuffer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLPlatformContext.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLRenderer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLResource.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLShader.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLShaderManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLTexture.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLUtil.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\OpenGL\GLVertexBuffer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\RendererBase.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\ShaderBase.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\ShaderVariableBase.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Device\Texture.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Interface.h" />
+    <ClInclude Include="..\..\Source\Core\Graphics\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Common.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Data\ClassDefinition.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Data\Collection.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Data\DependencyObject.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Data\Event.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Data\EventArgs.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Data\Property.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Data\ResourceDictionary.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Data\UIException.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Data\Variant.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Drawing\DrawingContext.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Interactions\AnimationTimeline.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Interactions\EventTrigger.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Interactions\Setter.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Interactions\Storyboard.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Interactions\Trigger.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Interactions\TriggerAction.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Interactions\TriggerBase.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Template\UIElementFactory.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Template\UIElementTemplate.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\Template\XMLLayoutReader.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\UIElements\Panel.h" />
+    <ClInclude Include="..\..\Source\Core\GUI\UIElements\UIElement.h" />
+    <ClInclude Include="..\..\Source\Core\Input\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Input\GameController.h" />
+    <ClInclude Include="..\..\Source\Core\Input\GLFW\GLFWInputDevice.h" />
+    <ClInclude Include="..\..\Source\Core\Input\InputDeviceBase.h" />
+    <ClInclude Include="..\..\Source\Core\Input\Joypad.h" />
+    <ClInclude Include="..\..\Source\Core\Input\Keyboard.h" />
+    <ClInclude Include="..\..\Source\Core\Input\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\Input\Mouse.h" />
+    <ClInclude Include="..\..\Source\Core\Input\Touch.h" />
+    <ClInclude Include="..\..\Source\Core\Input\Win32\JoypadDevice.h" />
+    <ClInclude Include="..\..\Source\Core\Input\Win32\Win32InputDevice.h" />
+    <ClInclude Include="..\..\Source\Core\Input\Win32\XInputModule.h" />
+    <ClInclude Include="..\..\Source\Core\InternalCommon.h" />
+    <ClInclude Include="..\..\Source\Core\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\Math\Asm.h" />
+    <ClInclude Include="..\..\Source\Core\Math\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Math\Math.h" />
+    <ClInclude Include="..\..\Source\Core\Math\Matrix.h" />
+    <ClInclude Include="..\..\Source\Core\Math\Quaternion.h" />
+    <ClInclude Include="..\..\Source\Core\Math\Random.h" />
+    <ClInclude Include="..\..\Source\Core\Math\SQTTransform.h" />
+    <ClInclude Include="..\..\Source\Core\Math\Vector2.h" />
+    <ClInclude Include="..\..\Source\Core\Math\Vector3.h" />
+    <ClInclude Include="..\..\Source\Core\Math\Vector4.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\BodyBase.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\BulletUtil.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\CharacterObject.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\CollisionBody\CollisionBody.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\CollisionBody\CollisionBox.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\IDebugRenderer.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\Joint\JointBase.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\RigidBody\Plane.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\RigidBody\RigidBody.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\RigidBody\Shapes.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\RigidBody\TriangleMesh.h" />
+    <ClInclude Include="..\..\Source\Core\Physics\Types.h" />
+    <ClInclude Include="..\..\Source\Core\Resource\LNResource.h" />
+    <ClInclude Include="..\..\Source\Core\Resource\LocaleManager.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\Common.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\DrawCommand.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\ImageFilter\BlurImageFilter.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\ImageFilter\ImageFilter.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\ImageFilter\ToneImageFilter.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\ImageFilter\TransitionImageFilter.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\Layer.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\Pane.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneGraph.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\BatchSprite.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Camera.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Effect.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Grid.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Light.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Mesh.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Model.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\NodeRenderParam.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\PointParticle.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Proxy.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\SceneNode.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Sprite.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Sprite3D.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\SpriteNodeRenderer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\SpritePath.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Terrain.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Tilemap.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Util.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\ViewFrustumObject.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\Viewport.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\VisualNode.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneNode\VisualNodeRenderer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Scene\SceneShader\BaseClasses.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneShader\MMETextureObject.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneShader\MMETypes.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneShader\OffscreenScene.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneShader\SceneShader.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneShader\SceneShaderManager.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneShader\SceneShaderTechnique.h" />
+    <ClInclude Include="..\..\Source\Core\Scene\SceneShader\SceneShaderUtil.h" />
+    <ClInclude Include="..\..\Source\Core\System\Common.h" />
+    <ClInclude Include="..\..\Source\Core\System\Common\ApplicationBase.h" />
+    <ClInclude Include="..\..\Source\Core\System\Common\EventListenerList.h" />
+    <ClInclude Include="..\..\Source\Core\System\Common\MouseCursorVisibleCounter.h" />
+    <ClInclude Include="..\..\Source\Core\System\Common\PerfStopwatch.h" />
+    <ClInclude Include="..\..\Source\Core\System\Common\WindowBase.h" />
+    <ClInclude Include="..\..\Source\Core\System\Common\WindowManagerBase.h" />
+    <ClInclude Include="..\..\Source\Core\System\Environment.h" />
+    <ClInclude Include="..\..\Source\Core\System\Event.h" />
+    <ClInclude Include="..\..\Source\Core\System\GLFW\GLFWWindow.h" />
+    <ClInclude Include="..\..\Source\Core\System\GLFW\GLFWWindowManager.h" />
+    <ClInclude Include="..\..\Source\Core\System\Interface.h" />
+    <ClInclude Include="..\..\Source\Core\System\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\System\Stopwatch.h" />
+    <ClInclude Include="..\..\Source\Core\System\Win32\SystemUtil.h" />
+    <ClInclude Include="..\..\Source\Core\System\Win32\Win32Window.h" />
+    <ClInclude Include="..\..\Source\Core\System\Win32\Win32WindowManager.h" />
+    <ClInclude Include="..\..\Source\Core\Task\ITaskExecuteHandler.h" />
+    <ClInclude Include="..\..\Source\Core\Task\Manager.h" />
+    <ClInclude Include="..\..\Source\Core\Task\ParallelTask.h" />
+    <ClInclude Include="..\..\Source\Core\Task\Task.h" />
+    <ClInclude Include="..\..\Source\Core\Threading\Atomic.h" />
+    <ClInclude Include="..\..\Source\Core\Threading\Barrier.h" />
+    <ClInclude Include="..\..\Source\Core\Threading\EventFlag.h" />
+    <ClInclude Include="..\..\Source\Core\Threading\Mutex.h" />
+    <ClInclude Include="..\..\Source\Core\Threading\ReadWriteMutex.h" />
+    <ClInclude Include="..\..\Source\Core\Threading\Semaphore.h" />
+    <ClInclude Include="..\..\Source\Core\Threading\Thread.h" />
+    <ClInclude Include="..\..\Source\Core\Types.h" />
+    <ClInclude Include="..\..\Source\Core\Utility\ProgressIndicator.h" />
+    <ClInclude Include="..\..\Source\C_API\FuncLibManager.h" />
+    <ClInclude Include="..\..\Source\C_API\LFAudio.h" />
+    <ClInclude Include="..\..\Source\C_API\LFBase.h" />
+    <ClInclude Include="..\..\Source\C_API\LFCommon.h" />
+    <ClInclude Include="..\..\Source\C_API\LFFile.h" />
+    <ClInclude Include="..\..\Source\C_API\LFFramework.h" />
+    <ClInclude Include="..\..\Source\C_API\LFGraphics.h" />
+    <ClInclude Include="..\..\Source\C_API\LFInput.h" />
+    <ClInclude Include="..\..\Source\C_API\LFInternal.h" />
+    <ClInclude Include="..\..\Source\C_API\LFMath.h" />
+    <ClInclude Include="..\..\Source\C_API\LFScene.h" />
+    <ClInclude Include="..\..\Source\C_API\LFSystem.h" />
+    <ClInclude Include="..\..\Source\C_API\LFTypedef.h" />
+    <ClInclude Include="..\..\Source\C_API\lnote.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\Core\Animation\AnimationClip.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\AnimationController.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\AnimationTimelineBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\BezierTable.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\EventAnimation.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\FixedLengthScalar.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\ModelMotion.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\QuaternionAnimation.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\Scalar.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\ScalarAnimation.cpp" />
+    <ClCompile Include="..\..\Source\Core\Animation\SQTTransformAnimation.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\AudioUtil.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\AudioDeviceBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\AudioPlayerBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\DirectMusic\DirectMusic.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\DirectMusic\DirectMusicAudioDevice.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\DirectMusic\DirectMusicAudioPlayer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\OpenAL\ALAudioDevice.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\OpenAL\ALAudioPlayer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\OpenAL\ALLib.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\XAudio2\XA2AudioDevice.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Device\XAudio2\XA2AudioPlayer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\GameAudio.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Manager_audio.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Resource\AudioResourceManager.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Resource\AudioSource.cpp" />
+    <ClCompile Include="..\..\Source\Core\Audio\Sound.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Cache.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\DebugEngine.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Encoding.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Error.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Exception.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Hash.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\LogFile.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\MemoryManager.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Misc.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Parser.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Profiler.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\ReferenceObject.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\RefString.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\sjis2utf16table.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Base\String.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\StringUtils.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Table.cpp" />
+    <ClCompile Include="..\..\Source\Core\Base\Unicode.cpp" />
+    <ClCompile Include="..\..\Source\Core\Effect\EffectBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Effect\EffectEngineBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Effect\Effekseer\EffekseerDriverLNote.cpp" />
+    <ClCompile Include="..\..\Source\Core\Effect\Effekseer\EffekseerEffectCore.cpp" />
+    <ClCompile Include="..\..\Source\Core\Effect\Effekseer\EffekseerEffectEngine.cpp" />
+    <ClCompile Include="..\..\Source\Core\Effect\Effekseer\EffekseerEffectInstance.cpp" />
+    <ClCompile Include="..\..\Source\Core\Effect\Manager_effect.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\Archive.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\ArchiveMaker.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\ASyncProcessObject.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\BinaryReader.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\File.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\FileUtil.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\InFile.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\Manager_fileio.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\OutFile.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\PathName.cpp" />
+    <ClCompile Include="..\..\Source\Core\FileIO\StreamObject.cpp" />
+    <ClCompile Include="..\..\Source\Core\Game\FPSController.cpp" />
+    <ClCompile Include="..\..\Source\Core\Geometry\DrawingShapes.cpp" />
+    <ClCompile Include="..\..\Source\Core\Geometry\Geometry_kernel.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\BatchGeometryRenderer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Bitmap.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\BitmapPainter.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\BitmapTextRenderer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\BitmapUtil.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Camera_graphics.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Common_graphics.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\DebugText.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Font\BitmapFont.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Font\Font.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Font\FontManagerBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Font\FreeTypeFont.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Font\FreeTypeFontManager.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Font\FreeTypeFontRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\FormattedTextRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\GeometryRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\GraphicsUtil.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Grid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Image\Image.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Image\PngImage.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelConstraintCore.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelCore.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelFaceCore.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelFrameCore.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelIKCore.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelIKLimitter.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelMaterialCore.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Core\ModelRigidBodyCore.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\MMDModelLoader.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Model.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\ModelConstraint.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\ModelFace.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\ModelFrame.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\ModelIK.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\ModelManager.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\ModelPMXIKSolver.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\ModelRigidBody.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Motion.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\MotionController.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\PMXLoader.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\VMDLoader.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Xfile\AllocateHierarchy.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\Model\Xfile\ModelCore_x.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\PointParticle_graphics.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\ProfilerRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\RingRenderer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\ScreenEffect.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\SpriteRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Common\TextRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\CompilationException.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\CanvasBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\Canvas_dx9.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Canvas.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9GraphicsDevice.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9IndexBuffer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Module.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Renderer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Shader.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9Texture.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\DX9VertexBuffer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\GraphicsDevice_dx9.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\IndexBuffer_dx9.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\Renderer_dx9.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\Shader_dx9.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\Texture_dx9.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\DirectX9\VertexBuffer_dx9.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\GraphicsDeviceBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\LNFXManager.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLCanvas.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLGraphicsDevice.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLIndexBuffer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLPlatformContext.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLRenderer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLShader.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLShaderManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLTexture.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLUtil.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\OpenGL\GLVertexBuffer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\RendererBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\ShaderBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\ShaderVariableBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Device\Texture.cpp" />
+    <ClCompile Include="..\..\Source\Core\Graphics\Manager_graphcis.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Data\ClassDefinition.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Data\Collection.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Data\DependencyObject.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Data\Event.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Data\EventArgs.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Data\Property.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Data\ResourceDictionary.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Data\UIException.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Data\Variant.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Drawing\DrawingContext.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Interactions\AnimationTimeline.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Interactions\EventTrigger.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Interactions\Setter.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Interactions\Storyboard.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Interactions\Trigger.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Interactions\TriggerAction.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Interactions\TriggerBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Manager_gui.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Template\UIElementFactory.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Template\UIElementTemplate.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\Template\XMLLayoutReader.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\UIElements\Panel.cpp" />
+    <ClCompile Include="..\..\Source\Core\GUI\UIElements\UIElement.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\GameController.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\GLFW\GLFWInputDevice.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\InputDeviceBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\Joypad.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\Keyboard.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\Manager_input.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\Mouse.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\Touch.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\Win32\JoypadDevice.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\Win32\Win32InputDevice.cpp" />
+    <ClCompile Include="..\..\Source\Core\Input\Win32\XInputModule.cpp" />
+    <ClCompile Include="..\..\Source\Core\Manager.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\Math.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\Matrix.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\Quaternion.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\Random.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\SQTTransform.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\Vector2.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\Vector3.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\Vector4.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\BodyBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\CharacterObject.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\CollisionBody\CollisionBody.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\CollisionBody\CollisionBox.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\DebugRenderer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\Joint\JointBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\Manager_physics.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\RigidBody\Plane.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\RigidBody\RigidBody.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\RigidBody\Shapes_physics.cpp" />
+    <ClCompile Include="..\..\Source\Core\Physics\RigidBody\TriMesh.cpp" />
+    <ClCompile Include="..\..\Source\Core\Resource\LNResource.cpp" />
+    <ClCompile Include="..\..\Source\Core\Resource\LocaleManager.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\DrawCommand.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\ImageFilter\BlurImageFilter.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\ImageFilter\ImageFilter.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\ImageFilter\ToneImageFilter.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\ImageFilter\TransitionImageFilter.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\Layer.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\Manager_scene.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\Pane.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneGraph.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\BatchSprite.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Camera.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Effect_scene.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Grid_scene.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Light.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Mesh_scene.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Model_scene.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\NodeRenderParam.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\PointParticle.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Proxy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\SceneNode.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Sprite.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Sprite3D.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\SpriteNodeRenderer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\SpritePath.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Tilemap.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\Viewport.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\VisualNode.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneNode\VisualNodeRenderer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Scene\SceneShader\MMEBaseClasses.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneShader\MMETextureObject.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneShader\OffscreenScene.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneShader\SceneShader.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneShader\SceneShaderManager.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneShader\SceneShaderTechnique.cpp" />
+    <ClCompile Include="..\..\Source\Core\Scene\SceneShader\SceneShaderUtil.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Common\ApplicationBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Common\MouseCursorVisibleCounter.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Common\WindowBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Common\WindowManagerBase.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Environment.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\GLFW\GLFWWindow.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\GLFW\GLFWWindowManager.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Manager_system.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Win32\Stopwatch.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Win32\SystemUtil_win32.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Win32\Win32Window.cpp" />
+    <ClCompile Include="..\..\Source\Core\System\Win32\Win32WindowManager.cpp" />
+    <ClCompile Include="..\..\Source\Core\Task\Manager_task.cpp" />
+    <ClCompile Include="..\..\Source\Core\Task\ParallelTask.cpp" />
+    <ClCompile Include="..\..\Source\Core\Task\Task.cpp" />
+    <ClCompile Include="..\..\Source\Core\Threading\Win32\Atomic.cpp" />
+    <ClCompile Include="..\..\Source\Core\Threading\Win32\Barrier.cpp" />
+    <ClCompile Include="..\..\Source\Core\Threading\Win32\EventFlag.cpp" />
+    <ClCompile Include="..\..\Source\Core\Threading\Win32\Mutex.cpp" />
+    <ClCompile Include="..\..\Source\Core\Threading\Win32\ReadWriteMutex.cpp" />
+    <ClCompile Include="..\..\Source\Core\Threading\Win32\Semaphore.cpp" />
+    <ClCompile Include="..\..\Source\Core\Threading\Win32\Thread.cpp" />
+    <ClCompile Include="..\..\Source\Core\Utility\ProgressIndicator.cpp" />
+    <ClCompile Include="..\..\Source\C_API\FuncLibManager.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFAudio.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFBase.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFFile.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFFramework.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFGraphics.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFInput.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFInternal.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFMath.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFScene.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFSystem.cpp" />
+    <ClCompile Include="..\..\Source\C_API\LFTypedef.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Source\Core\Base\Delegate.inc">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

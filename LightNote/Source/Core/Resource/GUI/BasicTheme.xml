@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary>
+
+    <ImageBrush x:Key="FrameImage" ImageSource="D:/Proj/LightNote/Projects/Win32-msvc10/Test/Window2.png" />
+
+    <ControlTemplate TargetType="Window">
+        <Border
+            FrameImage="LNResource/GUI/Window.png"
+            BackgroundImage="LNResource/GUI/Window.png">
+            <Border
+                FrameImage="LNResource/GUI/Window.png"
+                BackgroundImage="LNResource/GUI/Window.png"
+                Margin="30, 30, 30, 50">
+                    <ContentPresenter />
+            </Border>
+        </Border>
+    </ControlTemplate>
+    
+    <ControlTemplate TargetType="Button">
+        <Border
+            FrameImage="LNResource/GUI/Window.png"
+            BackgroundImage="LNResource/GUI/Window.png">
+            <ContentPresenter />
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>

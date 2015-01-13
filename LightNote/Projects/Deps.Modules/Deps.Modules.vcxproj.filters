@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="glew">
+      <UniqueIdentifier>{ec76cd83-0413-4add-acc1-6823cba43a44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="camellia">
+      <UniqueIdentifier>{02f13e38-7a90-4c1e-8516-e74f12549007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LNUnicodeUtils">
+      <UniqueIdentifier>{5df55420-db15-45bf-bfec-cd26899ca8c2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\Dependencies\GL\glew.h">
+      <Filter>glew</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Dependencies\GL\wglew.h">
+      <Filter>glew</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Dependencies\GL\wglext.h">
+      <Filter>glew</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Dependencies\camellia\camellia.h">
+      <Filter>camellia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Dependencies\LNUnicodeUtils\LNUnicodeUtils.h">
+      <Filter>LNUnicodeUtils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\Dependencies\GL\glew.c">
+      <Filter>glew</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dependencies\camellia\camellia.cpp">
+      <Filter>camellia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dependencies\LNUnicodeUtils\LNUnicodeUtils.cpp">
+      <Filter>LNUnicodeUtils</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

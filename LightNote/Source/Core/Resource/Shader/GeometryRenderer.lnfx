@@ -1,0 +1,125 @@
+/*lnfx1*/
+//==============================================================================
+// GeometryRenderer
+//------------------------------------------------------------------------------
+//  îƒópÇÃå`èÛï`âÊ
+//==============================================================================
+@BEGINHLSL
+
+float4x4		gWorldMatrix;
+float4x4		gViewProjMatrix;
+
+texture gTexture;
+sampler2D gTexSampler = sampler_state
+{
+	texture = <gTexture>;
+	MINFILTER = NONE;
+	MAGFILTER = NONE;
+};
+
+struct VS_OUTPUT
+{
+	float4 Pos		: POSITION;
+	float4 Color	: COLOR0;
+	float2 TexUV	: TEXCOORD0;
+};
+
+//-------------------------------------------------------------------------
+// vertex shader
+//-------------------------------------------------------------------------
+VS_OUTPUT vsBasic(
+	float3 inPos		: POSITION,
+	float4 inColor		: COLOR0,
+	float2 inTexUV		: TEXCOORD0 )
+{
+	VS_OUTPUT o;
+	o.Pos	= mul( float4( inPos, 1.0f ), gWorldMatrix );
+	o.Pos	= mul( o.Pos, gViewProjMatrix );
+	o.Color	= inColor;
+	o.TexUV	= inTexUV;
+	return o;
+}
+
+//-------------------------------------------------------------------------
+// pixel shader
+//-------------------------------------------------------------------------
+float4 psBasic(
+	float4 inColor		: COLOR0,
+	float2 inTexUV		: TEXCOORD0 ) : COLOR0
+{
+	return tex2D( gTexSampler, inTexUV ) * inColor;
+}
+
+//-------------------------------------------------------------------------
+// technique
+//-------------------------------------------------------------------------
+technique MainDraw
+{
+	pass P0
+	{
+		VertexShader = compile vs_2_0 vsBasic();
+		PixelShader	 = compile ps_2_0 psBasic();
+	}
+}
+
+@ENDHLSL
+//==============================================================================
+// GLSL
+//==============================================================================
+//--------------------------------------------------------------------------
+// vertex shader
+//--------------------------------------------------------------------------
+@BEGINGLSL[vsBasic]
+
+uniform mat4	gWorldMatrix;
+uniform mat4	gViewProjMatrix;
+
+// Input
+attribute vec3	ln_Position;	// Name fixed
+attribute vec4	ln_Color0;		// Name fixed
+attribute vec2	ln_TexCoord0;	// Name fixed
+
+// Output
+varying vec4	vColor;
+varying vec2	vTexUV;
+
+void main()
+{
+	gl_Position	= vec4( ln_Position, 1.0 ) * gWorldMatrix * gViewProjMatrix;
+	vColor		= ln_Color0;
+	vTexUV		= ln_TexCoord0;
+	vTexUV.y	= 1.0 - vTexUV.y;
+}
+
+@ENDGLSL
+//-------------------------------------------------------------------------
+// pixel shader
+//-------------------------------------------------------------------------
+@BEGINGLSL[psBasic]
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform sampler2D gTexture;
+
+varying vec4	vColor;
+varying vec2	vTexUV;
+
+void main(void)
+{
+	gl_FragColor = texture2D( gTexture, vTexUV ) * vColor;
+}
+
+@ENDGLSL
+//-------------------------------------------------------------------------
+// technique
+//-------------------------------------------------------------------------
+@BEGININFO
+<Technique Name="MainDraw">
+	<Pass Name="P0">
+		<VertexShader EntryPoint="vsBasic"/>
+		<PixelShader EntryPoint="psBasic"/>
+	</Pass>
+</Technique>
+@ENDINFO

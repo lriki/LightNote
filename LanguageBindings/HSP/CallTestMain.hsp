@@ -1,0 +1,201 @@
+// dumpbin /exports /out:tmp.txt LNote.dll
+
+#include "lnote.as"
+
+#define PRINT_INT(%1) mes "" + %1
+#define PRINT_DOUBLE(%1) mes "" + %1
+#define PRINT_VEC2(%1) LVector2_Get %1, x, y : mes "" + x + ", " + y
+#define PRINT_VEC3(%1) LVector3_Get %1, x, y, z : mes "" + x + ", " + y + ", " + z
+
+
+	LConfig_SetConsoleEnabled LN_TRUE
+	__LManager_Initialize
+	
+#include "CallTest.hsp"
+
+	LManager_Terminate
+	end
+
+
+
+
+
+
+#if 0
+
+#define TEST_EPSILON		0.0001
+
+#define TEST(%1, %2)		if (%1 != %2) : mes "Test failed. line:" + __LINE__ 
+#define TEST_DOUBLE(%1, %2)	if (%1 < %2 - TEST_EPSILON || %2 + TEST_EPSILON < %1) : mes "Test failed. line:" + __LINE__ 
+
+	mediaDir = "../../LightNote/Samples/Media/"
+
+	LConfig_SetWindowTitle "test"
+	LConfig_SetWindowSize 800, 600
+	LConfig_SetBackbufferSize 800, 600
+	LConfig_SetWindowResizeEnabled LN_FALSE
+	LConfig_SetBackbufferResizeMode LN_BACKBUFFERRESIZEMODE_SCALING_WITH_LETTER_BOX
+	LConfig_SetToggleFullscreenEnabled LN_TRUE
+	LConfig_SetLogFileEnabled LN_FALSE
+	LConfig_SetConsoleEnabled LN_FALSE
+	LConfig_RegisterArchive mediaDir + "SampleArchive.lna", "test"
+	LConfig_SetFileAccessPriority LN_FILEACCESSPRIORITY_DIRECTORY_FIRST
+	LConfig_SetDirectMusicInitMode LN_DMINITMODE_NOT_USE
+	LConfig_SetSoundMaxCacheCount 32
+	LConfig_SoundPlayTypeThreshold 100000
+	LConfig_SetFrameRate 60
+	LConfig_SetEnableFrameWait LN_TRUE
+	LConfig_SetAutoUpdateTimeScale 0.0
+	LConfig_RegisterFontFile mediaDir + "VLGothic/VL-Gothic-Regular.ttf"
+	LConfig_SetTextureCacheSize 32
+	LConfig_SetShaderCacheSize 32
+	LConfig_SetUserWindowHandle 0
+	
+	LSize_Set size, 1, 2
+	LSize_Get size, w, h
+	TEST w, 1
+	TEST h, 2
+	
+	LRect_Set rect, 1, 2, 3, 4
+	LRect_Get rect, x, y, w, h
+	LRect_Contains rect, 1, 2, result
+	TEST x, 1
+	TEST y, 2
+	TEST w, 3
+	TEST h, 4
+	TEST result, 1
+	
+	//----------------------------------------------------------------------
+	// Math
+	
+	LVector2_Set vec, 0.1, 0.2
+	LVector2_Get vec, x, y
+	TEST_DOUBLE x, 0.1
+	TEST_DOUBLE y, 0.2
+	LVector2_GetLength vec, len
+	LVector2_GetSquareLength vec, len
+	LVector2_Normalize vec, vec
+	
+	LMatrix_Set mat1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+	
+	LVector3_Set vec1, 0.1, 0.2, 0.3
+	LVector3_Set vec2, 0.4, 0.5, 0.6
+	LVector3_Set vec3, 0.0, 1.0, 0.0
+	LVector3_Get vec1, x, y, z
+	LVector3_GetLength vec1, len
+	LVector3_GetSquareLength vec1, len
+	LVector3_Normalize vec1, vec2
+	LVector3_Dot vec1, vec2, v
+	LVector3_Cross vec1, vec1, vec2
+	LVector3_Reflect vec1, vec1, vec2
+	LVector3_Slide vec1, vec1, vec2
+	LVector3_Lerp vec1, vec1, vec2, 0.5
+	LVector3_CatmullRom vec1, vec1, vec2, vec1, vec2, 0.5
+	LVector3_Transform vec1, vec2, mat1
+	LVector3_TransformCoord vec1, vec2, mat1
+	LVector3_RotateAxis vec1, vec1, vec2, 0.5
+	LVector3_RotateMatrix vec1, vec2, mat1
+	
+	LMatrix_Identity mat1
+	LMatrix_Identity mat2
+	LMatrix_Identity mat3
+	LQuaternion_Identity qua1
+	LMatrix_Get mat1, m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44
+	TEST_DOUBLE m11, 1.0
+	TEST_DOUBLE m12, 0.0
+	TEST_DOUBLE m13, 0.0
+	TEST_DOUBLE m14, 0.0
+	TEST_DOUBLE m21, 0.0
+	TEST_DOUBLE m22, 1.0
+	TEST_DOUBLE m23, 0.0
+	TEST_DOUBLE m24, 0.0
+	TEST_DOUBLE m31, 0.0
+	TEST_DOUBLE m32, 0.0
+	TEST_DOUBLE m33, 1.0
+	TEST_DOUBLE m34, 0.0
+	TEST_DOUBLE m41, 0.0
+	TEST_DOUBLE m42, 0.0
+	TEST_DOUBLE m43, 0.0
+	TEST_DOUBLE m44, 1.0
+	LMatrix_Multiply mat1, mat2, mat3
+	LMatrix_Translate mat1, 1, 2, 3
+	LMatrix_TranslateVec3 mat1, vec1
+	LMatrix_RotateX mat1, 0.5
+	LMatrix_RotateY mat1, 0.5
+	LMatrix_RotateZ mat1, 0.5
+	LMatrix_Rotate mat1, 0.1, 0.2, 0.3	// default
+	LMatrix_RotateVec3 mat1, vec1
+	LMatrix_RotateAxis mat1, vec1, 0.5
+	LMatrix_RotateQuaternion mat1, qua1
+	LMatrix_Scale mat1, 0.5
+	LMatrix_ScaleXYZ mat1, 1, 2, 3
+	LMatrix_ScaleVec3 mat1, vec3
+	LMatrix_Inverse mat1, mat2
+	LMatrix_ViewTransformLH mat1, vec1, vec2, vec3
+	LMatrix_ViewTransformRH mat1, vec1, vec2, vec3
+	LMatrix_PerspectiveFovLH mat1, 0.5, 0.6, 0.1, 1000
+	LMatrix_PerspectiveFovRH mat1, 0.5, 0.6, 0.1, 1000
+	LMatrix_OrthoLH mat1, 640, 480, 1, 1000
+	LMatrix_OrthoRH mat1, 640, 480, 1, 1000
+	LMatrix_GetRight mat1, vec1
+	LMatrix_GetUp mat1, vec1
+	LMatrix_GetFront mat1, vec1
+	LMatrix_GetPosition mat1, vec1
+	LMatrix_ToEuler mat1, vec1
+	LMatrix_Decompose mat1, vec1, vec2, vec3
+	LMatrix_TransformBasis mat1, mat2
+
+	LQuaternion_Set vec2, 1, 2, 3, 4
+	LQuaternion_Get vec2, x, y, z, w
+	LQuaternion_Identity qua2
+	LQuaternion_RotationAxis qua1, vec3, 0.5
+	LQuaternion_RotationMatrix qua1, mat1
+	LQuaternion_RotationYawPitchRoll qua1, 1, 2, 3
+	LQuaternion_Normalize qua2, qua1
+	LQuaternion_Conjugate qua2, qua1
+	LQuaternion_Multiply qua1, qua1, qua2
+	LQuaternion_Slerp qua1, qua1, qua2, 0.5
+	
+	LRandom_SetSeed random1, 10
+	LRandom_GetInt random1, v
+	LRandom_GetIntRange random1, 10, 20, v
+	LRandom_GetIntDeflect random1, 10, 20, v
+	//LRandom_GetFloat random1, v
+	//LRandom_GetFloatRange random1, 10, 20, v
+	//LRandom_GetFloatDeflect random1, 10, 20, v
+	
+	
+	//LException_Raise
+	//LException_GetLastErrorCode
+	//LException_ProcDefault
+	
+	//LObject_Release
+	//LObject_AddRef
+	//LObject_GetRefCount
+	
+	//LManager_Initialize
+	__LManager_Initialize
+	
+LTexture_CreateFromFile tex1, mediaDir + "20140309.png"
+LSprite_Create spr1, tex1
+
+
+	LSceneNode_SetName spr1, "my_sprite5"
+
+	LSceneNode_GetName spr1, name
+	//dialog "" + name, 0, ""
+
+do
+
+	LManager_Update
+	
+	
+	LManager_IsEndRequested endRequested
+until (endRequested == LN_TRUE)
+
+//onexit
+	
+LManager_Terminate
+end
+
+#endif

@@ -1,0 +1,26 @@
+
+
+■追加していないソースファイル
+src/
+FribidiVisualMapping.cpp
+IconvStringTranscoder.cpp
+minibidi.cpp
+MinibidiVisualMapping.cpp
+MinizipResourceProvider.cpp
+
+■CMakeで生成されたファイル3つを以下にコピーした
+cegui\include\CEGUI\ModuleConfig.h
+cegui\include\CEGUI\Version.h
+cegui\include\CEGUI\Config.h
+
+■tinyxmlのソースはそのまま追加。
+
+■定義の見つからないといわれるtemplate関数をinline化
+D:\Proj\LightNote\Source\Dependencies\CEGUI\include\CEGUI\falagard\FormattingSetting.h
+
+■WindowRendererSets 以下のファイルは _wrsets サフィックスを付加
+
+
+■getWindowFactoryModule() の実装が見つからなかったので、
+　呼び出しを消してassert() するようにした。
+　マークは/*xcvb*/

@@ -1,0 +1,23 @@
+using System;
+using System.Runtime.InteropServices;
+
+namespace LNote
+{
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void ExceptionCallback(ErrorCode errorCode);
+    
+ENUM_LIST
+    public class API
+    {
+    
+#if DEBUG
+    	const string DLLName = "LNote.Debug.dll";
+#else
+    	const string DLLName = "LNote.dll";
+#endif
+        const CharSet DLLCharSet = CharSet.Ansi;
+        const CallingConvention DefaultCallingConvention = CallingConvention.Cdecl;
+        
+API_LIST
+    }
+}

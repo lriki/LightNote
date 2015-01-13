@@ -1,0 +1,37 @@
+
+
+
+-------------------------------------------------------------------------------
+■ WPF の Visual、UIElement、FramworkElement、Control、Shape の違い
+
+・継承関係はこんな感じ。
+	Control < FramworkElement < UIElement < Visual
+	Shape   < FramworkElement < UIElement < Visual
+	
+・Visual は以下のような要素を持つ
+	・透明度
+	・クリッピング領域
+	・Visual 子要素
+	・ヒットテスト
+	・Transform
+	・Viewport3DVisualやDrawingVisual(内部クラス？)に派生している。
+
+・UIElement
+	・レイアウトに関する基本情報 (measuer メソッド)
+	・MouseDown や DragDrop 等ほぼ共通のイベントはここ。
+	・MSDN上では派生は FramworkElement のみ
+
+・FramworkElement
+	・AcutualHeight、MaxHeight SizeChanged イベント等、サイズに関わる情報
+	・DataContext
+	・Style
+	・ToolTip
+
+・Control は以下のような要素を持つ
+	・外観の色 (背景色等)
+	・フォント
+	・TabIndex
+	・この Control に適用している ControlTemplate
+	
+
+

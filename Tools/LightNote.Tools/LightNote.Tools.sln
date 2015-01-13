@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lumino", "Lumino\Lumino.csproj", "{4DB47BD9-E5F6-41B3-BF01-CD40F3094111}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveMaker", "ArchiveMaker\ArchiveMaker.csproj", "{E0A66B89-D6F7-4C2F-9ABF-B9373F693C92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DB47BD9-E5F6-41B3-BF01-CD40F3094111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DB47BD9-E5F6-41B3-BF01-CD40F3094111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DB47BD9-E5F6-41B3-BF01-CD40F3094111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB47BD9-E5F6-41B3-BF01-CD40F3094111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0A66B89-D6F7-4C2F-9ABF-B9373F693C92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0A66B89-D6F7-4C2F-9ABF-B9373F693C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0A66B89-D6F7-4C2F-9ABF-B9373F693C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0A66B89-D6F7-4C2F-9ABF-B9373F693C92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

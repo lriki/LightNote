@@ -1,0 +1,178 @@
+/*lnfx1*/
+@BEGINHLSL
+#line 1 "D:\\Proj\\LightNote\\Source\\Core\\Resource\\Shader\\BasicPane_BufferingBlar.fx.tmp"
+
+
+#line 9
+float2 lnBoneTextureReciprocalSize = float2 ( 1.0 / 4.0 , 1.0 / 256.0 ) ; 
+
+#line 12
+texture lnBoneTexture ; 
+sampler2D lnBoneSampler = sampler_state 
+{ 
+    Texture = < lnBoneTexture > ; 
+    MinFilter = Point ; 
+    MagFilter = Point ; 
+    MipFilter = None ; 
+    AddressU = Clamp ; 
+    AddressV = Clamp ; 
+} ; 
+
+struct MMM_SKINNING_INPUT 
+{ 
+    float4 Pos : POSITION ; 
+    float4 BlendWeight : BLENDWEIGHT ; 
+    float4 BlendIndices : BLENDINDICES ; 
+    float4 Color : COLOR0 ; 
+    float3 Normal : NORMAL ; 
+    float2 Tex : TEXCOORD0 ; 
+    float4 AddUV1 : TEXCOORD1 ; 
+    float4 AddUV2 : TEXCOORD2 ; 
+    float4 AddUV3 : TEXCOORD3 ; 
+    float4 AddUV4 : TEXCOORD4 ; 
+    float4 SdefC : TEXCOORD5 ; 
+    float3 SdefR0 : TEXCOORD6 ; 
+    float3 SdefR1 : TEXCOORD7 ; 
+    float EdgeWeight : TEXCOORD8 ; 
+    float Index : PSIZE15 ; 
+} ; 
+
+struct MMM_SKINNING_OUTPUT 
+{ 
+    float4 Position ; 
+    float3 Normal ; 
+} ; 
+
+
+
+MMM_SKINNING_OUTPUT MMM_SkinnedPositionNormal ( 
+float4 position , 
+float3 normal , 
+float4 weights , 
+float4 indices , 
+float4 sdefC , 
+float3 sdefR0 , 
+float3 sdefR1 ) 
+{ 
+    MMM_SKINNING_OUTPUT o ; 
+    o . Position = 0.0 ; 
+    o . Normal = 0.0 ; 
+    
+    float2 uv = lnBoneTextureReciprocalSize ; 
+    float weights_array [ 4 ] ; 
+    weights_array [ 0 ] = weights . x ; 
+    weights_array [ 1 ] = weights . y ; 
+    weights_array [ 2 ] = weights . z ; 
+    weights_array [ 3 ] = weights . w ; 
+    
+    int index_array [ 4 ] ; 
+    index_array [ 0 ] = ( int ) indices . x ; 
+    index_array [ 1 ] = ( int ) indices . y ; 
+    index_array [ 2 ] = ( int ) indices . z ; 
+    index_array [ 3 ] = ( int ) indices . w ; 
+    
+    float last_weight = 0.0 ; 
+    
+#line 79
+    int iBone = 0 ; 
+    for ( ; iBone < 4 - 3 ; ++ iBone ) 
+    { 
+        if ( weights_array [ iBone ] != 0.0 ) 
+        { 
+            last_weight = last_weight + weights_array [ iBone ] ; 
+            
+            float4 tc0 = float4 ( 0.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+            float4 tc1 = float4 ( 1.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+            float4 tc2 = float4 ( 2.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+            float4 tc3 = float4 ( 3.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+            
+            float4x4 bone = float4x4 ( 
+            tex2Dlod ( lnBoneSampler , tc0 ) , 
+            tex2Dlod ( lnBoneSampler , tc1 ) , 
+            tex2Dlod ( lnBoneSampler , tc2 ) , 
+            tex2Dlod ( lnBoneSampler , tc3 ) ) ; 
+            
+            o . Position += mul ( position , bone ) * weights_array [ iBone ] ; 
+            o . Normal += ( mul ( float4 ( normal , 1.0 ) , bone ) * weights_array [ iBone ] ) . xyz ; 
+        } 
+    } 
+    
+#line 103
+    last_weight = 1.0 - last_weight ; 
+    
+    float4 tc0 = float4 ( 0.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+    float4 tc1 = float4 ( 1.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+    float4 tc2 = float4 ( 2.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+    float4 tc3 = float4 ( 3.5f * uv . x , ( index_array [ iBone ] + 0.5f ) * uv . y , 0 , 1 ) ; 
+    
+    float4x4 bone = float4x4 ( 
+    tex2Dlod ( lnBoneSampler , tc0 ) , 
+    tex2Dlod ( lnBoneSampler , tc1 ) , 
+    tex2Dlod ( lnBoneSampler , tc2 ) , 
+    tex2Dlod ( lnBoneSampler , tc3 ) ) ; 
+    
+    o . Position += mul ( position , bone ) * last_weight ; 
+    o . Normal += ( mul ( float4 ( normal , 1.0 ) , bone ) * last_weight ) . xyz ; 
+    return o ; 
+} 
+
+#line 0
+
+
+#line 7
+float gBlurPower ; 
+float4 gBlurColor ; 
+float4x4 gBlurMatrix ; 
+
+struct VS_OUTPUT 
+{ 
+    float4 Pos : POSITION ; 
+    float2 TexUV : TEXCOORD0 ; 
+} ; 
+
+#line 18
+texture gSecondaryTexture ; 
+sampler gSecondarySampler = sampler_state 
+{ 
+    Texture = < gSecondaryTexture > ; 
+    MinFilter = POINT ; 
+    MagFilter = POINT ; 
+    MipFilter = NONE ; 
+    AddressU = CLAMP ; 
+    AddressV = CLAMP ; 
+} ; 
+
+#line 32
+VS_OUTPUT vsBufferingBulr ( 
+float3 in_pos_ : POSITION , 
+float2 in_uv_ : TEXCOORD0 ) 
+{ 
+    VS_OUTPUT o ; 
+    o . Pos = mul ( float4 ( in_pos_ , 1.0f ) , gBlurMatrix ) ; 
+    o . TexUV = in_uv_ ; 
+    return o ; 
+} 
+
+#line 45
+float4 psBufferingBulr ( 
+float2 in_uv_ : TEXCOORD0 ) : COLOR 
+{ 
+    float4 out_color = tex2D ( gSecondarySampler , in_uv_ ) ; 
+    out_color . a *= gBlurPower ; 
+    out_color *= gBlurColor ; 
+    
+#line 59
+    return out_color ; 
+} 
+
+#line 65
+technique MainDraw 
+{ 
+    pass P0 
+    { 
+        VertexShader = compile vs_2_0 vsBufferingBulr ( ) ; 
+        PixelShader = compile ps_2_0 psBufferingBulr ( ) ; 
+    } 
+} 
+
+@ENDHLSL
