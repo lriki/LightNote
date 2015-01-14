@@ -8,6 +8,9 @@
 #include "../Core/Graphics/Common/FormattedTextRenderer.h"
 // ../../Samples/Media
 
+//#include <Lumino.Math\include\LuminoMath.h>
+
+
 #ifdef LNOTE_FUNCLIB_TEST
 
 int mapdata[] = {
@@ -32,7 +35,6 @@ int main()
 	//	_p(f);
 	//}
 
-	
 
 	LNHandle tex2;
 	LNTexture_CreateFromFile(&tex2, "D:/Proj/lightnote/LightNote/Samples/Media/Spark1.png");
