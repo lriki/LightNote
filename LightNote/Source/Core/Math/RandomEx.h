@@ -32,6 +32,9 @@ class Random
 public:
 	LN_TYPE_INFO_ACCESS_DECL;
 
+	Random() : Lumino::Randomizer() {}
+	Random(int seed) : Lumino::Randomizer(seed) {}
+
 public:
 	//----------------------------------------------------------------------
 	///**

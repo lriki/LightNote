@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "../Math/LMath.h"
 #include "Common.h"
 #include "Interface.h"
 

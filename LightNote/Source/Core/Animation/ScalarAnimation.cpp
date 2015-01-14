@@ -6,8 +6,7 @@
 #include <algorithm>
 #include <tinyxml2/tinyxml2.h>
 #include <Dependencies/cpp-TimSort/timsort.hpp>
-#include "../Math/Math.h"
-#include "../Math/Random.h"
+#include "../Math/LMath.h"
 #include "ScalarAnimation.h"
 
 namespace LNote
@@ -186,13 +185,13 @@ namespace Animation
 					// 等加速度
 					case LN_ANIM_INTER_ACCEL:
 					{
-						mValue = LMath::accel( p0, key0->Velocity, key0->Accel, static_cast< lnFloat >( mCurrentFramePos - key0->FramePos )  );
+						mValue = LMath::QuadAccel( p0, key0->Velocity, key0->Accel, static_cast< lnFloat >( mCurrentFramePos - key0->FramePos )  );
 						break;
 					}
 					// 三次補間
 					case LN_ANIM_INTER_CUBIC:
 					{
-						mValue = LMath::cubic(
+						mValue = LMath::Hermite(
 							p0, p1, 
 							key0->RightSlope,
 							key1->LeftSlope,
@@ -210,7 +209,7 @@ namespace Animation
                         
 						// この補間には、begin のひとつ前と end のひとつ後の値が必要。
 						// それぞれが始点、終点の場合はループするように補間する
-						mValue = LMath::catmullRom(
+						mValue = LMath::CatmullRom(
 							( ( key0->FramePos == begin.FramePos ) ? end.Value : (key0 - 1)->Value ),
 							p0,
 							p1,
@@ -268,7 +267,7 @@ namespace Animation
 
 		if ( rand_seed != 0 )
 		{
-			Math::Random random( rand_seed );
+			LRandom random( rand_seed );
 
 			int key_count = mSourceKeyFrameList.size();
 			for ( int i = 0; i < key_count; ++i )
@@ -277,11 +276,11 @@ namespace Animation
 				ScalarAnimationSourceKey& ek = mSourceKeyFrameList[i];
 
 				k.FramePos    = ek.FramePos;
-				k.Value       = random.getFloatRange( ek.Value, ek.ValueRand );
-				k.Velocity    = random.getFloatRange( ek.Velocity, ek.VelocityRand );
-				k.Accel       = random.getFloatRange( ek.Accel, ek.AccelRand );
-				k.LeftSlope   = random.getFloatRange( ek.LeftSlope, ek.LeftSlopeRand );
-				k.RightSlope  = random.getFloatRange( ek.RightSlope, ek.RightSlopeRand );
+				k.Value       = random.GetFloatRange( ek.Value, ek.ValueRand );
+				k.Velocity    = random.GetFloatRange( ek.Velocity, ek.VelocityRand );
+				k.Accel       = random.GetFloatRange( ek.Accel, ek.AccelRand );
+				k.LeftSlope   = random.GetFloatRange( ek.LeftSlope, ek.LeftSlopeRand );
+				k.RightSlope  = random.GetFloatRange( ek.RightSlope, ek.RightSlopeRand );
 			}
 		}
 		else

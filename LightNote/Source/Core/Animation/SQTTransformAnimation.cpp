@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include <algorithm>
 #include <Dependencies/cpp-TimSort/timsort.hpp>
-#include "../Math/Math.h"
+#include "../Math/LMath.h"
 #include "SQTTransformAnimation.h"
 
 namespace LNote
@@ -49,7 +49,7 @@ namespace Animation
         key.FramePos = framePos;
         key.Position = pos;
         key.Rotation = rot;
-        key.Rotation.normalize();
+        key.Rotation.Normalize();
 
 		key.PosXInterBezier.initialize( interpolation_x[0], interpolation_x[4], interpolation_x[8], interpolation_x[12] );
 		key.PosYInterBezier.initialize( interpolation_y[0], interpolation_y[4], interpolation_y[8], interpolation_y[12] );
@@ -140,16 +140,16 @@ namespace Animation
         float inter;
 
 		inter = k1.PosXInterBezier.getInterValue( rate );
-        this->mTransform.Translation.x = k0.Position.x * (1.0f - inter) + k1.Position.x * inter;
+        this->mTransform.Translation.X = k0.Position.X * (1.0f - inter) + k1.Position.X * inter;
 
         inter = k1.PosYInterBezier.getInterValue( rate );
-        this->mTransform.Translation.y = k0.Position.y * (1.0f - inter) + k1.Position.y * inter;
+        this->mTransform.Translation.Y = k0.Position.Y * (1.0f - inter) + k1.Position.Y * inter;
 
         inter = k1.PosZInterBezier.getInterValue( rate );
-        this->mTransform.Translation.z = k0.Position.z * (1.0f - inter) + k1.Position.z * inter;
+        this->mTransform.Translation.Z = k0.Position.Z * (1.0f - inter) + k1.Position.Z * inter;
 
         inter = k1.RotInterBezier.getInterValue( rate );
-		LQuaternion::slerp( &this->mTransform.Rotation, k0.Rotation, k1.Rotation, inter );
+		this->mTransform.Rotation = LQuaternion::Slerp(k0.Rotation, k1.Rotation, inter);
     }
 
 	//----------------------------------------------------------------------

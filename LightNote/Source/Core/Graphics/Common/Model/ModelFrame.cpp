@@ -68,7 +68,7 @@ namespace Graphics
 			ln_foreach( ModelFrame2* c, mChildren )
 			{
                 LMatrix mat = c->mLocalTransform;
-                mat.translation( mModelFrameCore->OffsetFromParent );
+                mat.Translation( mModelFrameCore->OffsetFromParent );
                 mat *= mCombinedGlobalMatrix;
 			    c->setGlobalMatrix( mat, updateDepth );
 		    }
@@ -95,7 +95,7 @@ namespace Graphics
 		mCombinedGlobalMatrix = mLocalTransform;
 
 		// 親からの平行移動量
-		mCombinedGlobalMatrix.translation( mModelFrameCore->OffsetFromParent );
+		mCombinedGlobalMatrix.Translation( mModelFrameCore->OffsetFromParent );
 
 		
 
@@ -125,7 +125,7 @@ namespace Graphics
 	void ModelFrame2::updateGlobalMatrix( bool hierarchical )
 	{
 		mCombinedGlobalMatrix = mLocalTransform;
-		mCombinedGlobalMatrix.translation( mModelFrameCore->OffsetFromParent );
+		mCombinedGlobalMatrix.Translation( mModelFrameCore->OffsetFromParent );
 		if ( mParentFrame != NULL )
 			mCombinedGlobalMatrix *= mParentFrame->mCombinedGlobalMatrix;
 
@@ -148,10 +148,8 @@ namespace Graphics
 		if ( mModelFrameCore->IsMoveProvided )
         {
 			ModelFrame2* parent = mOwnerModel->getFrame( mModelFrameCore->ProvidedParentBoneIndex );
-			LVector3 t;
-			LVector3::lerp( 
-				&t, 
-				LVector3::ZERO, 
+			LVector3 t = LVector3::Lerp(  
+				LVector3::Zero, 
 				parent->getLocalTransformPtr()->Translation,
 				mModelFrameCore->ProvidedRatio );
 			getLocalTransformPtr()->Translation += t;
@@ -161,8 +159,7 @@ namespace Graphics
         if ( mModelFrameCore->IsRotateProvided )
         {
 			ModelFrame2* parent = mOwnerModel->getFrame( mModelFrameCore->ProvidedParentBoneIndex );
-			LQuaternion q;
-			LQuaternion::slerp( &q, LQuaternion::IDENTITY, parent->getLocalTransformPtr()->Rotation, mModelFrameCore->ProvidedRatio );
+			LQuaternion q = LQuaternion::Slerp(LQuaternion::Identity, parent->getLocalTransformPtr()->Rotation, mModelFrameCore->ProvidedRatio );
             getLocalTransformPtr()->Rotation *= q;
         }
 	}
@@ -216,7 +213,7 @@ namespace Graphics
     {
         // ローカルな変換にワールドを適用
 	    mWorldMatrix = mLocalTransform;
-        mWorldMatrix.translation( mOffset );
+        mWorldMatrix.Translation( mOffset );
         mWorldMatrix *= parent_mat_;
 
 	    // 子供の計算
@@ -262,7 +259,7 @@ namespace Graphics
 		    for ( ; itr != end; ++itr )
 		    {
                 LMatrix mat = (*itr)->mLocalTransform;
-                mat.translation( mOffset ); // TODO ここでいいのかチェックがいるかも
+                mat.Translation( mOffset ); // TODO ここでいいのかチェックがいるかも
                 mat *= mWorldMatrix;
 			    (*itr)->setWorldMatrix( mat, update_depth_ );
 		    }
@@ -327,11 +324,7 @@ namespace Graphics
             これにあたるものっぽい。
             サンプルでも描画の直前に対象ボーン行列にこの行列を乗算している。
         */
-        LMatrix::translation(
-            &mInvTransform,
-            -mOrgPosition.x,
-            -mOrgPosition.y,
-            -mOrgPosition.z );	 
+		mInvTransform = LMatrix::Translation(-mOrgPosition);
 
 	    mIKLimitAngle = false;
 
@@ -356,8 +349,8 @@ namespace Graphics
 	//----------------------------------------------------------------------
     void ModelFrame::reset()
     {
-        mLocalTransform = LSQTTransform::IDENTITY;
-        mLocalTransform.Translation = LVector3::ZERO;//mOffset;///mOrgPosition;//
+        mLocalTransform = LSQTTransform::Identity;
+        mLocalTransform.Translation = LVector3::Zero;//mOffset;///mOrgPosition;//
         //mWorldMatrix = mLocalTransform;
         updateWorldMatrixFromLocalAndParent();
 
@@ -369,7 +362,7 @@ namespace Graphics
     void ModelFrame::updateWorldMatrixFromLocalAndParent()
     {
         mWorldMatrix = mLocalTransform;
-        mWorldMatrix.translation( mOffset );
+        mWorldMatrix.Translation( mOffset );
         if ( mParent ) mWorldMatrix *= mParent->mWorldMatrix;
     }
 

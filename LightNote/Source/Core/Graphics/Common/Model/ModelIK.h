@@ -102,15 +102,15 @@ public:
     {
         if ( mLimits[0] )
         {
-            axis_->x = 0.0f;
+            axis_->X = 0.0f;
         }
         if ( mLimits[1] )
         {
-            axis_->y = 0.0f;
+            axis_->Y = 0.0f;
         }
         if ( mLimits[2] )
         {
-            axis_->z = 0.0f;
+            axis_->Z = 0.0f;
         }
     }
 
@@ -235,7 +235,7 @@ public:
         // 回転角度制限
         IKRotationLimit lim1;
         lim1.mMinRot[0] = -LMath::PI;
-        lim1.mMaxRot[0] = -LMath::DegToRad( 3.0f );//-0.002f;////3度ぐらい制限を設けてやると上手くいく。
+        lim1.mMaxRot[0] = -LMath::ToRadians( 3.0f );//-0.002f;////3度ぐらい制限を設けてやると上手くいく。
         //lim1.mMinRot[0] = LMath::DegToRad( 3.0f );    // 右手座標系
         //lim1.mMaxRot[0] = LMath::PI;
         lim1.mMinRot[1] = 0;
@@ -248,7 +248,7 @@ public:
 
         IKRotationLimit lim2;
         lim2.mMinRot[0] = -LMath::PI;
-        lim2.mMaxRot[0] = -LMath::DegToRad( 3.0f );//-0.002f;//
+		lim2.mMaxRot[0] = -LMath::ToRadians(3.0f);//-0.002f;//
         //lim2.mMinRot[0] = LMath::DegToRad( 3.0f );    // 右手座標系
         //lim2.mMaxRot[0] = LMath::PI;
         lim2.mMinRot[1] = 0;

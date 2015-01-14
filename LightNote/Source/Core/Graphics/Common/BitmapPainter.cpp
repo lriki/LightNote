@@ -33,12 +33,12 @@ namespace Graphics
 
 		const LVector2& size = mTexture->getSize();
 		lnByte* data = (lnByte*)mTexture->lock();
-		size_t dataSize = Util::getSurfaceFormatPixelByteCount(mTexture->getSurfaceFormat()) * (int)size.x * (int)size.y;
+		size_t dataSize = Util::getSurfaceFormatPixelByteCount(mTexture->getSurfaceFormat()) * (int)size.X * (int)size.Y;
 
 		mBitmap = LN_NEW Bitmap();
 		mBitmap->create(
 			data, dataSize,
-			(int)size.x, (int)size.y,
+			(int)size.X, (int)size.Y,
 			Util::convertSurfaceFormatToBitmapFormat(mTexture->getSurfaceFormat()),
 			false);
 

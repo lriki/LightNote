@@ -33,16 +33,16 @@ using namespace LNote::Core;
 // xyz に Vector3 に代入
 #define LNFUNC_SUBSTITUTE_VECTOR3_TO_XYZ( vec3_, x_, y_, z_ ) \
         const LVector3& v3 = ( vec3_ ); \
-        *x_ = v3.x; \
-        *y_ = v3.y; \
-        *z_ = v3.z;
+        *x_ = v3.X; \
+        *y_ = v3.Y; \
+        *z_ = v3.Z;
 
 // LNVector に Vector3 を代入
 #define LNFUNC_SUBSTITUTE_VECTOR3_TO_LNVector( vec3, outVec ) \
         const LVector3& v3 = ( vec3 ); \
-        outVec->X = v3.x; \
-        outVec->Y = v3.y; \
-        outVec->Z = v3.z;
+        outVec->X = v3.X; \
+        outVec->Y = v3.Y; \
+        outVec->Z = v3.Z;
 
 // LNMatrix に LMatrix を代入
 #define LNFUNC_SUBSTITUTE_Matrix_To_LNMatrix( mat, outMat ) \
@@ -115,14 +115,14 @@ namespace Function
 #define TO_REFOBJ( type, h )	static_cast<type*>( FuncLibManager::getReferenceObject( static_cast<int>( h ) ) )
 //#define TO_INTERFACE( type, h )	static_cast<type*>( FuncLibManager::getReferenceObject( static_cast<int>( h ) ) )
 
-#define TO_CORE_VEC3_PTR( v )	reinterpret_cast<Core::Math::Vector3*>( v )
-#define TO_CORE_VEC3_REF( v )	reinterpret_cast<const Core::Math::Vector3&>( *v )
-#define TO_CORE_VEC2_PTR( v )	reinterpret_cast<Core::Math::Vector2*>( v )
-#define TO_CORE_VEC2_REF( v )	reinterpret_cast<const Core::Math::Vector2&>( *v )
-#define TO_CORE_MAT_PTR( v )	reinterpret_cast<Core::Math::Matrix*>( v )
-#define TO_CORE_MAT_REF( v )	reinterpret_cast<const Core::Math::Matrix&>( *v )
-#define TO_CORE_QUA_PTR( v )	reinterpret_cast<Core::Math::Quaternion*>( v )
-#define TO_CORE_QUA_REF( v )	reinterpret_cast<const Core::Math::Quaternion&>( *v )
+#define TO_CORE_VEC3_PTR( v )	reinterpret_cast<LNote::LVector3*>( v )
+#define TO_CORE_VEC3_REF( v )	reinterpret_cast<const LNote::LVector3&>( *v )
+#define TO_CORE_VEC2_PTR( v )	reinterpret_cast<LNote::LVector2*>( v )
+#define TO_CORE_VEC2_REF( v )	reinterpret_cast<const LNote::LVector2&>( *v )
+#define TO_CORE_MAT_PTR( v )	reinterpret_cast<LNote::LMatrix*>( v )
+#define TO_CORE_MAT_REF( v )	reinterpret_cast<const LNote::LMatrix&>( *v )
+#define TO_CORE_QUA_PTR( v )	reinterpret_cast<LNote::LQuaternion*>( v )
+#define TO_CORE_QUA_REF( v )	reinterpret_cast<const LNote::LQuaternion&>( *v )
 
 #define TO_CORE_COLOR32( v )	*((LColor*)v)
 #define TO_CORE_COLOR( v )		*((LColorF*)v)

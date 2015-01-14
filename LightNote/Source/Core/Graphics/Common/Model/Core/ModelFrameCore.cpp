@@ -82,11 +82,7 @@ namespace Graphics
             これにあたるものっぽい。
             サンプルでも描画の直前に対象ボーン行列にこの行列を乗算している。
         */
-        LMatrix::translation(
-            &mSkinningOffsetInv,
-            -OrgPosition.x,
-            -OrgPosition.y,
-            -OrgPosition.z );
+		mSkinningOffsetInv = LMatrix::Translation(-OrgPosition);
 
 		//ln_foreach( int index, ChildFrameIndexArray )
 		//{

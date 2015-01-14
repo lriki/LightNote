@@ -195,13 +195,13 @@ namespace Animation
 			        // 等加速度
 			        case LN_ANIM_INTER_ACCEL:
 			        {
-                        mValue = LMath::accel( p0, key->Velocity, key->Accel, static_cast< lnFloat >( mCurrentFramePos - key->FramePos )  );
+                        mValue = LMath::QuadAccel( p0, key->Velocity, key->Accel, static_cast< lnFloat >( mCurrentFramePos - key->FramePos )  );
                         break;
 			        }
 			        // 速度カーブ
 			        case LN_ANIM_INTER_CUBIC:
 			        {
-				        mValue = LMath::cubic(
+				        mValue = LMath::Hermite(
 					        p0, p1, 
                             ( key + 1 )->RightSlope,
                             ( key + 1 )->LeftSlope,
@@ -219,7 +219,7 @@ namespace Animation
                         
 				        // この補間には、begin のひとつ前と end のひとつ後の値が必要。
 				        // それぞれが始点、終点の場合はループするように補間する
-				        mValue = LMath::catmullRom(
+				        mValue = LMath::CatmullRom(
                             ( ( key == begin ) ? end->Value : ( key - 1 )->Value ),
 					        p0,
 					        p1,

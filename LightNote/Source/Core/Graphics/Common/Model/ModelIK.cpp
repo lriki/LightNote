@@ -78,7 +78,7 @@ namespace Graphics
         effFrame->updateGlobalMatrix( false );
 
         // IKボーン位置の取得(目標位置)
-        LVector3 targetPos = targetFrame->getGlobalMatrix().getPosition();
+        LVector3 targetPos = targetFrame->getGlobalMatrix().GetPosition();
 
 		for ( lnU16 it = 0; it < mIKCore->CalcCount; ++it )
         {
@@ -89,27 +89,25 @@ namespace Graphics
                 //LVector3 jointPos = frame->getGlobalMatrix().getPosition();
 
                 // エフェクタの位置
-                LVector3 effPos = effFrame->getGlobalMatrix().getPosition();
+                LVector3 effPos = effFrame->getGlobalMatrix().GetPosition();
 
                 // ワールド座標系から注目ノードの局所座標系への変換
-				LMatrix invCoord;
-                LMatrix::inverse( &invCoord, frame->getGlobalMatrix() );
+				LMatrix invCoord = LMatrix::Inverse(frame->getGlobalMatrix());
 
                 // 各ベクトルの座標変換を行い、検索中のボーンi基準の座標系にする
                 // (1) 注目ノード→エフェクタ位置へのベクトル(a)(注目ノード)
-				LVector3 localEffPos;
-                LVector3::transform( &localEffPos, effPos, invCoord );
+				LVector3 localEffPos = LVector3::TransformCoord(effPos, invCoord);
+                
                 // (2) 基準関節i→目標位置へのベクトル(b)(ボーンi基準座標系)
-				LVector3 localTargetPos;
-                LVector3::transform( &localTargetPos, targetPos, invCoord );
+				LVector3 localTargetPos = LVector3::TransformCoord(targetPos, invCoord);
 
                 // (1) 基準関節→エフェクタ位置への方向ベクトル
-                localEffPos.normalize();
+                localEffPos.Normalize();
 			    // (2) 基準関節→目標位置への方向ベクトル
-                localTargetPos.normalize();
+                localTargetPos.Normalize();
 
 				// 回転角
-				float rotationDotProduct = LVector3::dot( localEffPos, localTargetPos ); 
+				float rotationDotProduct = LVector3::Dot( localEffPos, localTargetPos ); 
                 float rotationAngle = acosf( rotationDotProduct );
                
                 //回転量制限をかける
@@ -119,18 +117,18 @@ namespace Graphics
                      rotationAngle = -LMath::PI * mIKCore->Fact * (iLink + 1);
 
                 // 回転軸
-                LVector3 rotationAxis;
-                LVector3::cross( &rotationAxis, localEffPos, localTargetPos );
+				LVector3 rotationAxis = LVector3::Cross(localEffPos, localTargetPos);
+                
 				if (frame->getFrameCore()->IKLimitter)
 					frame->getFrameCore()->IKLimitter->adjustAxisLimits( &rotationAxis );
-				rotationAxis.normalize();
+				rotationAxis.Normalize();
             
-                if ( !LMath::isNaN( rotationAngle ) && rotationAngle > 1.0e-3f && !rotationAxis.isNaN() )
+				if (!LMath::IsNaN(rotationAngle) && rotationAngle > 1.0e-3f && !rotationAxis.IsNaNOrInf())
 			    {
                     // 関節回転量の補正
-                    LQuaternion rotQuat( rotationAxis, rotationAngle );
+                    LQuaternion rotQuat(rotationAxis, rotationAngle);
                     
-                    LQuaternion::multiply( &frame->getLocalTransformPtr()->Rotation, frame->getLocalTransformPtr()->Rotation, rotQuat );
+					frame->getLocalTransformPtr()->Rotation = LQuaternion::Multiply(frame->getLocalTransformPtr()->Rotation, rotQuat);
                     if (frame->getFrameCore()->IKLimitter)
 						frame->getFrameCore()->IKLimitter->adjustRotation( frame->getLocalTransformPtr() );
 					
@@ -162,16 +160,15 @@ namespace Graphics
 
 #if 1
 
-        LVector3 euler;
-        LQuaternion::toEuler( &euler, bone_rot );
+		LVector3 euler = bone_rot.ToEulerAngles();
 
         bool limit = false;
         IKRotationLimit& lim = itr->second;
-        limit |= lim.adjust( &euler.x, 0 );
-        limit |= lim.adjust( &euler.y, 1 );
-        limit |= lim.adjust( &euler.z, 2 );
+        limit |= lim.adjust( &euler.X, 0 );
+        limit |= lim.adjust( &euler.Y, 1 );
+        limit |= lim.adjust( &euler.Z, 2 );
 
-        LQuaternion::fromEuler( &bone_rot, euler );
+		bone_rot = LQuaternion::RotationEulerAngles(euler);
 
         return limit;
 
@@ -373,7 +370,7 @@ namespace Graphics
 
 
         //ターゲット位置の取得
-        target_pos = target_bone->getWorldMatrix().getPosition();
+        target_pos = target_bone->getWorldMatrix().GetPosition();
 
         ///int add_iterations = 0;
 
@@ -387,30 +384,30 @@ namespace Graphics
                 
 
                 // エフェクタの位置
-                eff_pos = eff_bone->getWorldMatrix().getPosition();
+                eff_pos = eff_bone->getWorldMatrix().GetPosition();
 
                 // 注目ノードの位置の取得
-                joint_pos = node->getWorldMatrix().getPosition();
+                joint_pos = node->getWorldMatrix().GetPosition();
 
                 // ワールド座標系から注目ノードの局所座標系への変換
-                LMatrix::inverse( &inv_coord, node->getWorldMatrix() );
+				inv_coord =  LMatrix::Inverse(node->getWorldMatrix());
 
                 // 各ベクトルの座標変換を行い、検索中のボーンi基準の座標系にする
                 // (1) 注目ノード→エフェクタ位置へのベクトル(a)(注目ノード)
-                LVector3::transform( &local_eff_pos, eff_pos, inv_coord );
+				local_eff_pos = LVector3::TransformCoord(eff_pos, inv_coord);
                 // (2) 基準関節i→目標位置へのベクトル(b)(ボーンi基準座標系)
-                LVector3::transform( &local_target_pos, target_pos, inv_coord );
+				local_target_pos = LVector3::TransformCoord(target_pos, inv_coord);
 
 
                 // 十分近ければ終了 (無い方が幾分かマシな気がする…)
                 LVector3 diff = local_eff_pos - local_target_pos;
-                if ( LVector3::dot( diff, diff ) < 0.0000001f )	return;
+                if ( LVector3::Dot( diff, diff ) < 0.0000001f )	return;
 
 
                 // (1) 基準関節→エフェクタ位置への方向ベクトル
-                local_eff_pos.normalize();
+                local_eff_pos.Normalize();
 			    // (2) 基準関節→目標位置への方向ベクトル
-                local_target_pos.normalize();
+                local_target_pos.Normalize();
 
                 // 十分近ければ終了
                 //lnFloat dot = ;
@@ -418,9 +415,9 @@ namespace Graphics
                 //if ( LVector3::dot( local_eff_pos, local_target_pos ) > 1 - 1.0e-5f ) continue;
 
                 // 回転角
-			    float rot_angle = acosf( LVector3::dot( local_eff_pos, local_target_pos ) );
+			    float rot_angle = acosf( LVector3::Dot( local_eff_pos, local_target_pos ) );
 
-                if ( 0.00000001f >= fabsf( LVector3::dot( local_eff_pos, local_target_pos ) ) )	continue;
+                if ( 0.00000001f >= fabsf( LVector3::Dot( local_eff_pos, local_target_pos ) ) )	continue;
                
                 //回転量制限をかける
                 if ( rot_angle > LMath::PI * mFact * (node_idx + 1))
@@ -431,25 +428,24 @@ namespace Graphics
 				//else if( mFact < rot_angle )	rot_angle = mFact;
 
                 // 回転軸
-                LVector3 rot_axis;
-                LVector3::cross( &rot_axis, local_eff_pos, local_target_pos );
+				LVector3 rot_axis = LVector3::Cross(local_eff_pos, local_target_pos);
                 mModelCore->getIKLimitter()->adjustAxis( node->getName().c_str(), &rot_axis );   // 制限
-                rot_axis.normalize();
+                rot_axis.Normalize();
 
                 //if( LVector3::dot( rot_axis, rot_axis ) < 0.0000001f )	continue;
 
             
                 //if ( 0.0000001f < fabsf( rot_angle ) )
-                if ( !LMath::isNaN( rot_angle ) && rot_angle > 1.0e-3f && !rot_axis.isNaN() )
+				if (!LMath::IsNaN(rot_angle) && rot_angle > 1.0e-3f && !rot_axis.IsNaNOrInf())
 			    {
                     // 関節回転量の補正
-                    LQuaternion rot_quat( rot_axis, rot_angle );
+                    LQuaternion rot_quat(rot_axis, rot_angle);
 
                     //if ( frames_[ bone_idx ].isIKLimit() )	_limitAngle( &rot_quat, rot_quat );
                     //rot_quat.normalize();
                     //LQuaternion::multiply( &node->mLocalTransform.Rotation, node->mLocalTransform.Rotation, rot_quat );
                     
-                    LQuaternion::multiply( &node->mLocalTransform.Rotation, node->mLocalTransform.Rotation, rot_quat );
+					node->mLocalTransform.Rotation = LQuaternion::Multiply(node->mLocalTransform.Rotation, rot_quat);
                     if ( mModelCore->getIKLimitter()->adjustRotation( node ) )
                     {
                         //add_iterations += 1;
@@ -573,19 +569,17 @@ namespace Graphics
 	//----------------------------------------------------------------------
     void ModelIK::_limitAngle( LQuaternion* pvec_out_, const LQuaternion& pvec_src_ )
     {
-        LVector3 angle;
-
 	    // XYZ軸回転の取得
-        LQuaternion::toEuler( &angle, pvec_src_ );
+		LVector3 angle = pvec_src_.ToEulerAngles();
 
 	    // 角度制限
-	    if ( angle.x < -3.14159f )	angle.x = -3.14159f;
-	    if ( -0.002f < angle.x )    angle.x = -0.002f;
-	    angle.y = 0.0f;
-	    angle.z = 0.0f;
+	    if ( angle.X < -3.14159f )	angle.X = -3.14159f;
+	    if ( -0.002f < angle.X )    angle.X = -0.002f;
+	    angle.Y = 0.0f;
+	    angle.Z = 0.0f;
 
 	    // XYZ軸回転からクォータニオンへ
-        LQuaternion::fromEuler( pvec_out_, angle );
+		*pvec_out_ = LQuaternion::RotationEulerAngles(angle);
 
         //LN_PRINT_NOT_IMPL_FUNCTION;
     }

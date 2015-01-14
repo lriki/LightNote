@@ -266,8 +266,8 @@ namespace Graphics
 		lnFloat ou = 0.0f;
 		lnFloat ov = 0.0f;
 		if ( mGraphicsDevice->getGraphicsAPI() == LN_GRAPHICSAPI_DIRECTX9 ) {
-			ou = 0.5f / viewSize.x;
-			ov = 0.5f / viewSize.y;
+			ou = 0.5f / viewSize.X;
+			ov = 0.5f / viewSize.Y;
 		}
 		drawSquare(
 			-1.0f,  1.0f, 0xffffffff, 0.0f + ou, 0.0f + ov,

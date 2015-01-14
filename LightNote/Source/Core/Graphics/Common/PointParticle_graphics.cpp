@@ -161,7 +161,7 @@ namespace Graphics
 
             for ( i = 0; i < v_num; ++i )
             {
-                t = fmod( frame - vb[ i ].TimeData.x, vb[ i ].TimeData.y );
+                t = fmod( frame - vb[ i ].TimeData.X, vb[ i ].TimeData.Y );
                 
                 if ( abs( t ) < frame - last_frame )
                 {
@@ -242,7 +242,7 @@ namespace Graphics
             vertices[ i ].Accel.Set(
                 random.getFloatEx( data_.Accel.X, data_.AccelRand.X, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeX ),
                 random.getFloatEx( data_.Accel.Y, data_.AccelRand.Y, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeY ),
-                random.getFloatEx( data_.Accel.z, data_.AccelRand.Z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeZ ) );
+                random.getFloatEx( data_.Accel.Z, data_.AccelRand.Z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeZ ) );
 
             vertices[ i ].Axis.Set(
                 random.getFloatEx( data_.Axis.X, data_.AxisRand.X, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AxisRandTypeX ),

@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "../../../Resource/LNResource.h"
-#include "../../../Math/Math.h"
+#include "../../../Math/LMath.h"
 #include "ALAudioPlayer.h"
 #include "ALAudioDevice.h"
 

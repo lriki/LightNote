@@ -13,9 +13,7 @@
 #include <vector>
 #include <map>
 #include "../../../Base/RefString.h"
-#include "../../../Math/Vector3.h"
-#include "../../../Math/Quaternion.h"
-#include "../../../Math/SQTTransform.h"
+#include "../../../Math/LMath.h"
 #include "../../../Animation/ModelMotion.h"
 #include "../../../Animation/Scalar.h"
 #include "../../../Animation/SQTTransformAnimation.h"

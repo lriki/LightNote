@@ -118,14 +118,14 @@ namespace Graphics
             m->Diffuse = pmdMaterial.col4Diffuse;
             m->Power = pmdMaterial.fShininess;
 
-            m->Specular.R = pmdMaterial.col3Specular.x;
-            m->Specular.G = pmdMaterial.col3Specular.y;
-            m->Specular.B = pmdMaterial.col3Specular.z;
+            m->Specular.R = pmdMaterial.col3Specular.X;
+            m->Specular.G = pmdMaterial.col3Specular.Y;
+            m->Specular.B = pmdMaterial.col3Specular.Z;
             m->Specular.A = 1.0f;
 
-            m->Ambient.R = pmdMaterial.col3Ambient.x;
-            m->Ambient.G = pmdMaterial.col3Ambient.y;
-            m->Ambient.B = pmdMaterial.col3Ambient.z;
+            m->Ambient.R = pmdMaterial.col3Ambient.X;
+            m->Ambient.G = pmdMaterial.col3Ambient.Y;
+            m->Ambient.B = pmdMaterial.col3Ambient.Z;
 
 			// テクスチャ名がある場合はテクスチャ作成
 		    if ( pmdMaterial.szTextureFileName[0] != '\0' )
@@ -456,12 +456,11 @@ namespace Graphics
 				}
 
 				// ボーン行列 → 剛体行列変換用
-				LMatrix::rotationYawPitchRoll( 
-					&body->BoneOffset, 
-					pmdBody.vec3Rotation.y,
-					pmdBody.vec3Rotation.x,
-					pmdBody.vec3Rotation.z );
-				body->BoneOffset.translation( pmdBody.vec3Position );
+				body->BoneOffset = LMatrix::RotationYawPitchRoll(
+					pmdBody.vec3Rotation.Y,
+					pmdBody.vec3Rotation.X,
+					pmdBody.vec3Rotation.Z );
+				body->BoneOffset.Translation( pmdBody.vec3Position );
 				//LMatrix bias;
 				//bias.rotationZ( pmdBody.vec3Rotation.z );
 				//bias.rotationX( pmdBody.vec3Rotation.x );
@@ -470,7 +469,7 @@ namespace Graphics
 				//body->BoneOffset = bias;
 
 				// 剛体行列 → ボーン行列変換用
-				LMatrix::inverse( &body->InvBoneOffset, body->BoneOffset );
+				body->InvBoneOffset = LMatrix::Inverse(body->BoneOffset);
 				
 				// 剛体情報
 				body->Mass = pmdBody.fMass;
@@ -554,10 +553,10 @@ namespace Graphics
 		){
 			ModelIKLimitter2* limitter = LN_NEW ModelIKLimitter2();
 			limitter->EnableRotationLimit = true;
-			limitter->RotationMin = LVector3( LMath::DegToRad( 3.0f ), 0, 0 );	//3度ぐらい制限を設けてやると上手くいく。
+			limitter->RotationMin = LVector3( LMath::ToRadians( 3.0f ), 0, 0 );	//3度ぐらい制限を設けてやると上手くいく。
 			limitter->RotationMax = LVector3( LMath::PI, 0, 0 );
 			limitter->Mirror[0] = true;
-			limitter->Restitution = 0.99f;
+			limitter->Restitution.Set(0.99f, 0.99f, 0.99f);
 			frame->IKLimitter = limitter;
 		}
 		// "左足" or "左足"

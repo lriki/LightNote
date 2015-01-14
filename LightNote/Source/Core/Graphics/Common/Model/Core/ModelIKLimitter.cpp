@@ -5,8 +5,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "../../../../Math/Vector3.h"
-#include "../../../../Math/SQTTransform.h"
+#include "../../../../Math/LMath.h"
 #include "ModelIKLimitter.h"
 
 namespace LNote
@@ -25,9 +24,9 @@ namespace Graphics
 	//----------------------------------------------------------------------
 	ModelIKLimitter2::ModelIKLimitter2()
 	{
-		RotationMin.set( -LMath::PI, -LMath::PI, -LMath::PI );
-		RotationMax.set( LMath::PI, LMath::PI, LMath::PI );
-		Restitution.set( 0.5f, 0.5f, 0.5f );
+		RotationMin.Set( -LMath::PI, -LMath::PI, -LMath::PI );
+		RotationMax.Set( LMath::PI, LMath::PI, LMath::PI );
+		Restitution.Set( 0.5f, 0.5f, 0.5f );
 		
         for (int i = 0; i < 3; i++)
             Mirror[i] = false;
@@ -99,14 +98,13 @@ namespace Graphics
 	{
 		if ( !EnableRotationLimit ) return;
 
-		LVector3 euler;
-		LQuaternion::toEuler( &euler, localTransform->Rotation );
+		LVector3 euler = localTransform->Rotation.ToEulerAngles();
 
-        euler.x = adjustRotation( euler.x, 0 );
-        euler.y = adjustRotation( euler.y, 1 );
-        euler.z = adjustRotation( euler.z, 2 );
+        euler.X = adjustRotation( euler.X, 0 );
+        euler.Y = adjustRotation( euler.Y, 1 );
+        euler.Z = adjustRotation( euler.Z, 2 );
 
-        LQuaternion::fromEuler( &localTransform->Rotation, euler );
+		localTransform->Rotation = LQuaternion::RotationEulerAngles(euler);
 	}
 
 	//----------------------------------------------------------------------
@@ -128,15 +126,15 @@ namespace Graphics
 
 		if ( AxisLimits[0] )
         {
-            rot->x = 0.0f;
+            rot->X = 0.0f;
         }
         if ( AxisLimits[1] )
         {
-            rot->y = 0.0f;
+            rot->Y = 0.0f;
         }
         if ( AxisLimits[2] )
         {
-            rot->z = 0.0f;
+            rot->Z = 0.0f;
         }
 	}
 

@@ -530,8 +530,8 @@ static DIDATAFORMAT gKeyboardDataFormat =
         if ( mWindow->isActive() )
         {
             POINT pt;
-		    pt.x = static_cast<LONG>( point.x );
-		    pt.y = static_cast<LONG>( point.y );
+		    pt.x = static_cast<LONG>( point.X );
+		    pt.y = static_cast<LONG>( point.Y );
 		    ::ClientToScreen( mWindowHandle, &pt );
 		    ::SetCursorPos( pt.x, pt.y );
         }

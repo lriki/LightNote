@@ -59,7 +59,7 @@ namespace Graphics
 
 		// 初期姿勢
 		LMatrix startTransform = mRigidBodyCore->BoneOffset;
-		startTransform.translation( mRelatedFrame->getFrameCore()->OrgPosition );
+		startTransform.Translation( mRelatedFrame->getFrameCore()->OrgPosition );
 
 		// 剛体生成
 		Physics::RigidBody::ConfigData configData;
@@ -210,7 +210,7 @@ namespace Graphics
 			const LMatrix& bodyMat = mRigidBody->getWorldMatrix();
 
 			// 正常な姿勢であれば覚えておく
-			if ( !bodyMat.containsNaN() )
+			if ( !bodyMat.IsNaNOrInf() )
 			{
 				mOldWorldTransform = bodyMat;
 			}
@@ -247,8 +247,8 @@ namespace Graphics
 				//「静止」の処理を入れるときはこの辺で bodyMat を操作する
 
 				// 姿勢が壊れていればリセット
-				if ( bodyMat.containsNaN() ) {
-					bodyMat.identity();
+				if (bodyMat.IsNaNOrInf()) {
+					bodyMat = LMatrix::Identity;
 				}
 
 				// フレーム姿勢を剛体姿勢に合わせる
@@ -376,7 +376,7 @@ struct KinematicMotionState
 		lnFloat xs = sin( pitch );
 		lnFloat ys = sin( yaw );
 		lnFloat zs = sin( roll );
-		out->set(
+		out->Set(
 			yc * xc, xc * xs * ys - zs * yc, zc * xs * yc + zs * ys, 0,
 			zs * xc, zs * xs * ys + zc * yc, zs * xs * yc - zc * ys, 0,
 			-xs,     xc * ys,                xc * yc,                0,
@@ -416,9 +416,9 @@ struct KinematicMotionState
 //		#pragma comment (lib, "d3dx9.lib");
 		// 剛体のローカル剛体の姿勢
 		LMatrix bias;
-		bias.rotationZ( pmd_rigidbody_->vec3Rotation.z );
-		bias.rotationX( pmd_rigidbody_->vec3Rotation.x );
-		bias.rotationY( pmd_rigidbody_->vec3Rotation.y );
+		bias.RotationZ( pmd_rigidbody_->vec3Rotation.Z );
+		bias.RotationX( pmd_rigidbody_->vec3Rotation.X );
+		bias.RotationY( pmd_rigidbody_->vec3Rotation.Y );
 		/*
 		D3DXMatrixRotationYawPitchRoll(
 			(D3DXMATRIX*)&bias, 
@@ -435,10 +435,10 @@ struct KinematicMotionState
 		//	btmRotationMat.getOpenGLSubMatrix( (btScalar*)&bias );
 		//	//bias.transpose();
 		//}
-		bias.translation( 
-			pmd_rigidbody_->vec3Position.x,
-			pmd_rigidbody_->vec3Position.y,
-			pmd_rigidbody_->vec3Position.z  );
+		bias.Translation( 
+			pmd_rigidbody_->vec3Position.X,
+			pmd_rigidbody_->vec3Position.Y,
+			pmd_rigidbody_->vec3Position.Z  );
 		//xyz
 		//zxy
 		//yzx
@@ -447,12 +447,12 @@ struct KinematicMotionState
 		mBoneOffset = bias;
 		
 		mInvBoneOffset = bias;
-		mInvBoneOffset.inverse();
+		mInvBoneOffset.Inverse();
 		//D3DXMatrixInverse( (D3DXMATRIX*)&mInvBoneOffset, NULL, (D3DXMATRIX*)&bias );
 
 		// 剛体はボーンのトランスフォームのうち、位置のみ依存する
 		LMatrix startTransform = bias;// * startTransform;
-		startTransform.translation( mFrame->getWorldMatrix().getPosition() );
+		startTransform.Translation( mFrame->getWorldMatrix().GetPosition() );
 		//startTransform = bias * startTransform;
 
 		//_p( pmd_rigidbody_->szName );

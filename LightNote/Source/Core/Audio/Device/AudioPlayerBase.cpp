@@ -70,7 +70,7 @@ namespace Audio
 	void AudioPlayerBase::setVolume( int volume )
 	{
         mVolume = static_cast< float >( volume );
-        mVolume = Math::limit( mVolume, 0.0f, 100.0f );
+        mVolume = LMath::Clamp( mVolume, 0.0f, 100.0f );
 	}
 
 	//----------------------------------------------------------------------
@@ -79,7 +79,7 @@ namespace Audio
 	void AudioPlayerBase::setPitch( int pitch )
 	{
 		mPitch = static_cast< float >( pitch );
-        mPitch = Math::limit( mPitch, 50.0f, 200.0f );
+		mPitch = LMath::Clamp(mPitch, 50.0f, 200.0f);
 	}
 
 	//----------------------------------------------------------------------

@@ -670,7 +670,7 @@ namespace Graphics
         r->setVertexBuffer( mVertexBuffer, true );
         r->setIndexBuffer( mIndexBuffer );
         mShaderParam.varViewProjMatrix->setMatrix( mViewProjMatrix );
-		mShaderParam.varViewPixelSize->setVector( LVector4( mViewPixelSize.x, mViewPixelSize.y, 0, 0 ) );
+		mShaderParam.varViewPixelSize->setVector( LVector4( mViewPixelSize.X, mViewPixelSize.Y, 0, 0 ) );
 
         IShaderPass* pass = mShaderParam.techMainDraw->getPassByIndex( 0 );
        

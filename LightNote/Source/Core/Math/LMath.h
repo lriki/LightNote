@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <LuminoMath.h>
+#include "../../Dependencies/Lumino.Math/include/LuminoMath.h"
 
 namespace LNote
 {
@@ -14,6 +14,22 @@ typedef Lumino::Matrix			LMatrix;
 typedef Lumino::Quaternion		LQuaternion;
 typedef Lumino::SQTTransform	LSQTTransform;
 //typedef Lumino::Randomizer		LRandom;
+
+class LMathUtils
+{
+public:
+
+#if LNOTE_INCLUDED_DIRECTX_HEADER
+	// D3DXVECTOR3 ‚É•ÏŠ·
+	static D3DXVECTOR3 toD3DXVECTOR3(const LVector3& v)
+	{
+		return D3DXVECTOR3(
+			static_cast< float >(v.X),
+			static_cast< float >(v.Y),
+			static_cast< float >(v.Z));
+	}
+#endif
+};
 
 class LMatrixUtils
 {

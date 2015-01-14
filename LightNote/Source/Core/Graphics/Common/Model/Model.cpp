@@ -137,7 +137,7 @@ namespace Graphics
 	void Model2::setWorldMatrix( const LMatrix& matrix )
 	{
 		mWorldMatrix = matrix;
-		LMatrix::inverse( &mWorldMatrixInv, mWorldMatrix );
+		mWorldMatrixInv = LMatrix::Inverse(mWorldMatrix);
 	}
 
 	//----------------------------------------------------------------------
@@ -149,7 +149,7 @@ namespace Graphics
 		// ルートフレームから階層更新
 		ln_foreach( ModelFrame2* frame, mRootFrames )
 		{
-			frame->updateGlobalMatrixHierarchy( LMatrix::IDENTITY );
+			frame->updateGlobalMatrixHierarchy( LMatrix::Identity );
 		}
 
 		
@@ -167,7 +167,7 @@ namespace Graphics
 		// ルートフレームから階層更新
 		ln_foreach( ModelFrame2* frame, mRootFrames )
 		{
-			frame->updateGlobalMatrixHierarchy( LMatrix::IDENTITY );
+			frame->updateGlobalMatrixHierarchy( LMatrix::Identity );
 		}
 
 
@@ -225,7 +225,7 @@ namespace Graphics
 		//		外部で行っているため。
 		ln_foreach( ModelFrame2& frame, mFrames )
 		{
-			*frame.getLocalTransformPtr() = LSQTTransform::IDENTITY;
+			*frame.getLocalTransformPtr() = LSQTTransform::Identity;
 		}
 	}
 

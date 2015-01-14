@@ -182,7 +182,7 @@ public:
 
 		mSpriteRenderer->drawRequest2D(
 			LVector3(x, y, 0),
-			LVector3::ZERO,
+			LVector3::Zero,
 			mGlyphsTexture,
 			srcRect,
 			0xFFFFFFFF);

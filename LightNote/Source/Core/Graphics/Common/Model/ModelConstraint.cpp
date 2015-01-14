@@ -54,15 +54,14 @@ namespace Graphics
 		// モデルのローカル空間内でのジョイントの位置と姿勢
 		LMatrix jointOffset;
 #if 1
-		LMatrix::rotationYawPitchRoll( 
-			&jointOffset, 
-			jointCore->Rotation.y,
-			jointCore->Rotation.x,
-			jointCore->Rotation.z );
-		jointOffset.translation(
-			jointCore->Position.x,
-			jointCore->Position.y,
-			jointCore->Position.z );
+		jointOffset = LMatrix::RotationYawPitchRoll(
+			jointCore->Rotation.Y,
+			jointCore->Rotation.X,
+			jointCore->Rotation.Z );
+		jointOffset.Translation(
+			jointCore->Position.X,
+			jointCore->Position.Y,
+			jointCore->Position.Z );
 #else
 		LMatrix bias;
 		bias.rotationZ( jointCore->Rotation.z );
@@ -76,8 +75,8 @@ namespace Graphics
 
 		LMatrix worldInvA = bodyA->getRigidBody()->getWorldMatrix();
 		LMatrix worldInvB = bodyB->getRigidBody()->getWorldMatrix();
-		worldInvA.inverse();
-		worldInvB.inverse();
+		worldInvA.Inverse();
+		worldInvB.Inverse();
 		
 		// 各剛体のローカルから見たジョイント位置
 		LMatrix frameInA = jointOffset * worldInvA;
@@ -101,37 +100,37 @@ namespace Graphics
 		const LVector3& springPos = jointCore->SpringPositionStiffness;
 		
 		// 0 : translation X
-	    if ( springPos.x != 0.0f )
+	    if ( springPos.X != 0.0f )
 	    {
 		    mDofSpringJoint->enableSpring( 0, true );
-		    mDofSpringJoint->setStiffness( 0, springPos.x );
+		    mDofSpringJoint->setStiffness( 0, springPos.X );
 	    }
 
 		// 1 : translation Y
-	    if ( springPos.y != 0.0f )
+	    if ( springPos.Y != 0.0f )
 	    {
 		    mDofSpringJoint->enableSpring( 1, true );
-		    mDofSpringJoint->setStiffness( 1, springPos.y );
+		    mDofSpringJoint->setStiffness( 1, springPos.Y );
 	    }
 
 		// 2 : translation Z
-	    if ( springPos.z != 0.0f )
+	    if ( springPos.Z != 0.0f )
 	    {
 		    mDofSpringJoint->enableSpring( 2, true );
-		    mDofSpringJoint->setStiffness( 2, springPos.z );
+		    mDofSpringJoint->setStiffness( 2, springPos.Z );
 	    }
 
 		// 3 : rotation X (3rd Euler rotational around new position of X axis, range [-PI+epsilon, PI-epsilon] )
 		// 4 : rotation Y (2nd Euler rotational around new position of Y axis, range [-PI/2+epsilon, PI/2-epsilon] )
 		// 5 : rotation Z (1st Euler rotational around Z axis, range [-PI+epsilon, PI-epsilon] )
 	    mDofSpringJoint->enableSpring( 3, true );	
-		mDofSpringJoint->setStiffness( 3, jointCore->SpringRotationStiffness.x );
+		mDofSpringJoint->setStiffness( 3, jointCore->SpringRotationStiffness.X );
 
 	    mDofSpringJoint->enableSpring( 4, true );	
-		mDofSpringJoint->setStiffness( 4, jointCore->SpringRotationStiffness.y );
+		mDofSpringJoint->setStiffness( 4, jointCore->SpringRotationStiffness.Y );
 
 	    mDofSpringJoint->enableSpring( 5, true );	
-		mDofSpringJoint->setStiffness( 5, jointCore->SpringRotationStiffness.z );
+		mDofSpringJoint->setStiffness( 5, jointCore->SpringRotationStiffness.Z );
 
 		//springPos.dump();
 
@@ -140,9 +139,9 @@ namespace Graphics
 
 
 		
-		const LVector3 posA = bodyA->getRigidBody()->getWorldMatrix().getPosition();
-		const LVector3 posB = bodyB->getRigidBody()->getWorldMatrix().getPosition();
-		mRigidBodyDistance = (posA - posB).getLength();
+		const LVector3 posA = bodyA->getRigidBody()->getWorldMatrix().GetPosition();
+		const LVector3 posB = bodyB->getRigidBody()->getWorldMatrix().GetPosition();
+		mRigidBodyDistance = (posA - posB).GetLength();
 	}
 
 	//----------------------------------------------------------------------
@@ -154,18 +153,18 @@ namespace Graphics
 
 		ModelRigidBody2* bodyA = mOwnerModel->getRigidBody( mJointCore->RigidBodyAIndex );
 		ModelRigidBody2* bodyB = mOwnerModel->getRigidBody( mJointCore->RigidBodyBIndex );
-		const LVector3 posA = bodyA->getRigidBody()->getWorldMatrix().getPosition();
-		const LVector3 posB = bodyB->getRigidBody()->getWorldMatrix().getPosition();
+		const LVector3 posA = bodyA->getRigidBody()->getWorldMatrix().GetPosition();
+		const LVector3 posB = bodyB->getRigidBody()->getWorldMatrix().GetPosition();
 
-		float d = (posA - posB).getLength();
+		float d = (posA - posB).GetLength();
 		if ( d - mRigidBodyDistance > 2.0f )	// 最大 2.0。これ以上離さない
 		{
 			LVector3 diff = posA - posB;		// B にこれを乗算すれば、Aになる
-			diff.normalize();
+			diff.Normalize();
 			diff *= (d - mRigidBodyDistance);	// これを最大移動量にする
 
 			LMatrix matB = bodyB->getRigidBody()->getWorldMatrix();
-			matB.translation( diff );
+			matB.Translation( diff );
 			bodyB->getRigidBody()->moveToForced( matB );
 		}
 	}
@@ -217,10 +216,10 @@ namespace Graphics
 	void LMatrixTobtTransform( btTransform* out, const LMatrix& in )
 	{
 		btMatrix3x3 btm(
-			in.m00, in.m10, in.m20,
-			in.m01, in.m11, in.m21,
-			in.m02, in.m12, in.m22 );
-		*out = btTransform( btm, btVector3( in.m30, in.m31, in.m32 ) );
+			in.M[0][0], in.M[1][0], in.M[2][0],
+			in.M[0][1], in.M[1][1], in.M[2][1],
+			in.M[0][2], in.M[1][2], in.M[2][2]);
+		*out = btTransform(btm, btVector3(in.M[3][0], in.M[3][1], in.M[3][2]));
 	}
 
 	//----------------------------------------------------------------------
@@ -241,13 +240,10 @@ namespace Graphics
 		//	pmd_constraint_->vec3Rotation.x, 
 		//	pmd_constraint_->vec3Rotation.z );
 		LMatrix bias;
-		bias.rotationZ( pmd_constraint_->vec3Rotation.z );
-		bias.rotationX( pmd_constraint_->vec3Rotation.x );
-		bias.rotationY( pmd_constraint_->vec3Rotation.y );
-		jointOffset.translation(
-			pmd_constraint_->vec3Position.x,
-			pmd_constraint_->vec3Position.y,
-			pmd_constraint_->vec3Position.z);
+		bias.RotationZ( pmd_constraint_->vec3Rotation.Z );
+		bias.RotationX( pmd_constraint_->vec3Rotation.X );
+		bias.RotationY( pmd_constraint_->vec3Rotation.Y );
+		jointOffset.Translation(pmd_constraint_->vec3Position);
 //#pragma comment (lib, "d3dx9.lib");
 
 		//jointOffset.cdump();
@@ -286,8 +282,8 @@ namespace Graphics
 		//printf("%f %f %f \n", im._21, im._22, im._23);
 		//printf("%f %f %f \n", im._31, im._32, im._33);
 		//printf("%f %f %f \n", im._41, im._42, im._43);
-		worldInvA.inverse();
-		worldInvB.inverse();
+		worldInvA.Inverse();
+		worldInvB.Inverse();
 
 		//worldInvB.cdump();
 		
@@ -397,54 +393,54 @@ namespace Graphics
 		// 各種制限パラメータのセット
 	    mDofSpringJoint->setLinearLowerLimit(
 			LVector3(
-				pmd_constraint_->vec3PosLimitL.x, 
-				pmd_constraint_->vec3PosLimitL.y, 
-				pmd_constraint_->vec3PosLimitL.z ));
+				pmd_constraint_->vec3PosLimitL.X, 
+				pmd_constraint_->vec3PosLimitL.Y, 
+				pmd_constraint_->vec3PosLimitL.Z ));
 	    mDofSpringJoint->setLinearUpperLimit(
 			LVector3(
-				pmd_constraint_->vec3PosLimitU.x, 
-				pmd_constraint_->vec3PosLimitU.y, 
-				pmd_constraint_->vec3PosLimitU.z ));
+				pmd_constraint_->vec3PosLimitU.X, 
+				pmd_constraint_->vec3PosLimitU.Y, 
+				pmd_constraint_->vec3PosLimitU.Z ));
 	    mDofSpringJoint->setAngularLowerLimit( 
 			LVector3(
-				pmd_constraint_->vec3RotLimitL.x, 
-				pmd_constraint_->vec3RotLimitL.y, 
-				pmd_constraint_->vec3RotLimitL.z ));
+				pmd_constraint_->vec3RotLimitL.X, 
+				pmd_constraint_->vec3RotLimitL.Y, 
+				pmd_constraint_->vec3RotLimitL.Z ));
 	    mDofSpringJoint->setAngularUpperLimit(
 			LVector3(
-				pmd_constraint_->vec3RotLimitU.x, 
-				pmd_constraint_->vec3RotLimitU.y, 
-				pmd_constraint_->vec3RotLimitU.z ));
+				pmd_constraint_->vec3RotLimitU.X, 
+				pmd_constraint_->vec3RotLimitU.Y, 
+				pmd_constraint_->vec3RotLimitU.Z ));
 		
 		const LVector3& springPos = pmd_constraint_->vec3SpringPos;
 		
 		// 0 : translation X
-	    if ( springPos.x != 0.0f )
+	    if ( springPos.X != 0.0f )
 	    {
 		    mDofSpringJoint->enableSpring( 0, true );
-		    mDofSpringJoint->setStiffness( 0, springPos.x );
+		    mDofSpringJoint->setStiffness( 0, springPos.X );
 	    }
 
 		// 1 : translation Y
-	    if ( springPos.y != 0.0f )
+	    if ( springPos.Y != 0.0f )
 	    {
 		    mDofSpringJoint->enableSpring( 1, true );
-		    mDofSpringJoint->setStiffness( 1, springPos.y );
+		    mDofSpringJoint->setStiffness( 1, springPos.Y );
 	    }
 
 		// 2 : translation Z
-	    if ( springPos.z != 0.0f )
+	    if ( springPos.Z != 0.0f )
 	    {
 		    mDofSpringJoint->enableSpring( 2, true );
-		    mDofSpringJoint->setStiffness( 2, springPos.z );
+		    mDofSpringJoint->setStiffness( 2, springPos.Z );
 	    }
 
 		// 3 : rotation X (3rd Euler rotational around new position of X axis, range [-PI+epsilon, PI-epsilon] )
 		// 4 : rotation Y (2nd Euler rotational around new position of Y axis, range [-PI/2+epsilon, PI/2-epsilon] )
 		// 5 : rotation Z (1st Euler rotational around Z axis, range [-PI+epsilon, PI-epsilon] )
-	    mDofSpringJoint->enableSpring( 3, true );	mDofSpringJoint->setStiffness( 3, pmd_constraint_->vec3SpringRot.x );
-	    mDofSpringJoint->enableSpring( 4, true );	mDofSpringJoint->setStiffness( 4, pmd_constraint_->vec3SpringRot.y );
-	    mDofSpringJoint->enableSpring( 5, true );	mDofSpringJoint->setStiffness( 5, pmd_constraint_->vec3SpringRot.z );
+	    mDofSpringJoint->enableSpring( 3, true );	mDofSpringJoint->setStiffness( 3, pmd_constraint_->vec3SpringRot.X );
+	    mDofSpringJoint->enableSpring( 4, true );	mDofSpringJoint->setStiffness( 4, pmd_constraint_->vec3SpringRot.Y );
+	    mDofSpringJoint->enableSpring( 5, true );	mDofSpringJoint->setStiffness( 5, pmd_constraint_->vec3SpringRot.Z );
 
 		//mDofSpringJoint->setDamping(3, 0.01f);
 		//mDofSpringJoint->setDamping(4, 0.01f);

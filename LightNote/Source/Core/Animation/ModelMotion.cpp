@@ -134,7 +134,7 @@ namespace Animation
         key.FrameNo  = frame_;
         key.VMD.Position = pos_;
         key.VMD.Rotation = rot_;
-        key.VMD.Rotation.getQuaternion().normalize();
+        key.VMD.Rotation.getQuaternion().Normalize();
 
         key.VMD.PosXInterBezier.initialize( interpolation_x[0], interpolation_x[4], interpolation_x[8], interpolation_x[12] );
 		key.VMD.PosYInterBezier.initialize( interpolation_y[0], interpolation_y[4], interpolation_y[8], interpolation_y[12] );
@@ -220,16 +220,16 @@ namespace Animation
 
 
             inter = k1.VMD.PosXInterBezier.getInterValue( rate );
-            mTransform.Translation.x = k0.VMD.Position.x * (1.0f - inter) + k1.VMD.Position.x * inter;
+            mTransform.Translation.X = k0.VMD.Position.x * (1.0f - inter) + k1.VMD.Position.x * inter;
 
             inter = k1.VMD.PosYInterBezier.getInterValue( rate );
-            mTransform.Translation.y = k0.VMD.Position.y * (1.0f - inter) + k1.VMD.Position.y * inter;
+            mTransform.Translation.Y = k0.VMD.Position.y * (1.0f - inter) + k1.VMD.Position.y * inter;
 
             inter = k1.VMD.PosZInterBezier.getInterValue( rate );
-            mTransform.Translation.z = k0.VMD.Position.z * (1.0f - inter) + k1.VMD.Position.z * inter;
+            mTransform.Translation.Z = k0.VMD.Position.z * (1.0f - inter) + k1.VMD.Position.z * inter;
 
             inter = k1.VMD.RotInterBezier.getInterValue( rate );
-            LQuaternion::slerp( &mTransform.Rotation, k0.VMD.Rotation.getQuaternion(), k1.VMD.Rotation.getQuaternion(), inter );
+			mTransform.Rotation = LQuaternion::Slerp(k0.VMD.Rotation.getQuaternion(), k1.VMD.Rotation.getQuaternion(), inter);
 
         }
         else

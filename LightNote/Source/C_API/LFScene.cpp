@@ -292,7 +292,7 @@ LNOTEAPI LNHandle LSceneGraph_(LNHandle viewPane);
 	{
 		LN_CHECK_ARG_HANDLE(sceneNode);
 
-		TO_SCENENODE(sceneNode)->setRotateOrder((Core::Math::RotationOrder)rotOrder);
+		TO_SCENENODE(sceneNode)->setRotateOrder((Lumino::RotationOrder)rotOrder);
 		return ::LN_OK;
 	}
 

@@ -6,7 +6,7 @@
 //
 //-------------------------------------------------------------------------
 #include "stdafx.h"
-#include "../Math/Math.h"
+#include "../Math/LMath.h"
 #include "Geometry.h"
 
 
@@ -31,37 +31,37 @@ namespace Core
 	// 任意の2点からボックスを作る
     void LBox::create( const LVector3& p0_, const LVector3& p1_ )
     {
-        if ( p0_.x < p1_.x )
+        if ( p0_.X < p1_.X )
         {
-            Min.x = p0_.x;
-            Max.x = p1_.x;
+            Min.X = p0_.X;
+            Max.X = p1_.X;
         }
         else
         {
-            Min.x = p1_.x;
-            Max.x = p0_.x;
+            Min.X = p1_.X;
+            Max.X = p0_.X;
         }
 
-        if ( p0_.y < p1_.y )
+        if ( p0_.Y < p1_.Y )
         {
-            Min.y = p0_.y;
-            Max.y = p1_.y;
+            Min.Y = p0_.Y;
+            Max.Y = p1_.Y;
         }
         else
         {
-            Min.y = p1_.y;
-            Max.y = p0_.y;
+            Min.Y = p1_.Y;
+            Max.Y = p0_.Y;
         }
 
-        if ( p0_.z < p1_.z )
+        if ( p0_.Z < p1_.Z )
         {
-            Min.z = p0_.z;
-            Max.z = p1_.z;
+            Min.Z = p0_.Z;
+            Max.Z = p1_.Z;
         }
         else
         {
-            Min.z = p1_.z;
-            Max.z = p0_.z;
+            Min.Z = p1_.Z;
+            Max.Z = p0_.Z;
         }
     }
 
@@ -98,20 +98,19 @@ namespace Core
 	// 3点から作成する
     void LPlane::create( const LVector3& p0_, const LVector3& p1_, const LVector3& p2_ )
     {
-        LVector3 n;
-        LVector3::cross( &n, ( p1_ - p0_ ), ( p2_ - p0_ ) );
-        n.normalize();
+		LVector3 n = LVector3::Cross((p1_ - p0_), (p2_ - p0_));
+        n.Normalize();
 
-        a = n.x;
-        b = n.y;
-        c = n.z;
-        d = -LVector3::dot( p0_, n ); 
+        a = n.X;
+        b = n.Y;
+        c = n.Z;
+        d = -LVector3::Dot( p0_, n ); 
     }
 
 	// 平面と 3D ベクトルの内積を計算する (w = 1 として計算する)
     lnFloat LPlane::dotCoord( const LVector3& v0_ ) const
     {
-        return ( a * v0_.x ) + ( b * v0_.y ) + ( c * v0_.z ) + d;//*1
+        return ( a * v0_.X ) + ( b * v0_.Y ) + ( c * v0_.Z ) + d;//*1
     }
 
 	// 点が平面の内側にあるかを判定する
@@ -206,15 +205,15 @@ namespace Core
 	    Far    = far_clip_;
 
         // 右上から時計回りに手前、奥の四角形を作っていく
-        NearClip[ 0 ].set( 0, 0, Near );
-	    NearClip[ 1 ].set( width_, 0, Near );
-	    NearClip[ 2 ].set( 0, height_, Near );
-	    NearClip[ 3 ].set( width_, height_, Near );
+        NearClip[ 0 ].Set( 0, 0, Near );
+	    NearClip[ 1 ].Set( width_, 0, Near );
+	    NearClip[ 2 ].Set( 0, height_, Near );
+	    NearClip[ 3 ].Set( width_, height_, Near );
 
-        FarClip[ 0 ].set( 0, 0, Far );
-	    FarClip[ 1 ].set( width_, 0, Far );
-	    FarClip[ 2 ].set( 0, height_, Far );
-	    FarClip[ 3 ].set( width_, height_, Far );
+        FarClip[ 0 ].Set( 0, 0, Far );
+	    FarClip[ 1 ].Set( width_, 0, Far );
+	    FarClip[ 2 ].Set( 0, height_, Far );
+	    FarClip[ 3 ].Set( width_, height_, Far );
 
         // Planes
         LVector3 origin( 0.0f, 0.0f, 0.0f );
@@ -250,8 +249,8 @@ namespace Core
         {
             for ( int i = 0; i < 4; ++i )
             {
-                NearClip[ i ].transform( *transform_ );
-                FarClip[ i ].transform( *transform_ );
+                NearClip[ i ].TransformCoord( *transform_ );
+                FarClip[ i ].TransformCoord( *transform_ );
             } 
         }
 

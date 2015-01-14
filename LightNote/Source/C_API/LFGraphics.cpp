@@ -73,7 +73,7 @@ LNOTE_TYPE_INFO_IMPL(Graphics::Texture, LNTexture);
 	LNResult LNTexture_GetWidth(LNHandle texture, int* width)
 	{
 		LN_CHECK_ARG_HANDLE(texture);
-		*width = static_cast<int>(TO_REFOBJ(Core::Graphics::Texture, texture)->getSize().x);
+		*width = static_cast<int>(TO_REFOBJ(Core::Graphics::Texture, texture)->getSize().X);
 		return ::LN_OK;
 	}
 
@@ -83,7 +83,7 @@ LNOTE_TYPE_INFO_IMPL(Graphics::Texture, LNTexture);
 	LNResult LNTexture_GetHeight(LNHandle texture, int* width)
 	{
 		LN_CHECK_ARG_HANDLE(texture);
-		*width = static_cast<int>(TO_REFOBJ(Core::Graphics::Texture, texture)->getSize().y);
+		*width = static_cast<int>(TO_REFOBJ(Core::Graphics::Texture, texture)->getSize().Y);
 		return ::LN_OK;
 	}
 
@@ -93,7 +93,7 @@ LNOTE_TYPE_INFO_IMPL(Graphics::Texture, LNTexture);
 	LNResult LNTexture_GetRealWidth(LNHandle texture, int* width)
 	{
 		LN_CHECK_ARG_HANDLE(texture);
-		*width = static_cast<int>(TO_REFOBJ(Core::Graphics::Texture, texture)->getRealSize().x);
+		*width = static_cast<int>(TO_REFOBJ(Core::Graphics::Texture, texture)->getRealSize().X);
 		return ::LN_OK;
 	}
 
@@ -103,7 +103,7 @@ LNOTE_TYPE_INFO_IMPL(Graphics::Texture, LNTexture);
 	LNResult LNTexture_GetRealHeight(LNHandle texture, int* width)
 	{
 		LN_CHECK_ARG_HANDLE(texture);
-		*width = static_cast<int>(TO_REFOBJ(Core::Graphics::Texture, texture)->getRealSize().y);
+		*width = static_cast<int>(TO_REFOBJ(Core::Graphics::Texture, texture)->getRealSize().Y);
 		return ::LN_OK;
 	}
 
@@ -150,7 +150,7 @@ LNOTE_TYPE_INFO_IMPL(Graphics::Texture, LNTexture);
 		LN_CHECK_ARG_HANDLE(texture);
 
 		Core::Graphics::Texture* tex = TO_REFOBJ(Core::Graphics::Texture, texture);
-		LNRect rc = { x, y, (int)tex->getSize().x, (int)tex->getSize().y };
+		LNRect rc = { x, y, (int)tex->getSize().X, (int)tex->getSize().Y };
 
 		LN_FUNC_TRY_BEGIN;
 		tex->setFont(TO_REFOBJ(Core::Graphics::Font, font));

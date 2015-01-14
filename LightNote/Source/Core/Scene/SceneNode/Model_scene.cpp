@@ -114,7 +114,7 @@ public:
 			if ( frame )
 				return *frame->getBackendGlobalMatrix();
 		}
-		return LMatrix::IDENTITY;
+		return LMatrix::Identity;
 	}
 
 	//----------------------------------------------------------------------

@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../Math/SQTTransform.h"
+#include "../Math/LMath.h"
 #include "Types.h"
 #include "BezierTable.h"
 #include "AnimationTimelineBase.h"

@@ -170,7 +170,7 @@ namespace Graphics
 			// 追加UV
 			for ( int j = 0; j < getAdditionalUVCount(); i++)
 			{
-				v->AdditionalUV[i].set(
+				v->AdditionalUV[i].Set(
 					reader->readFloat(),
 					reader->readFloat(),
 					reader->readFloat(),
@@ -321,13 +321,13 @@ namespace Graphics
 			// Diffuse
 			LVector4 color;
 			reader->read( &color, sizeof(lnFloat) * 4 );
-			m->Diffuse.set( color.x, color.y, color.z, color.w );
+			m->Diffuse.set( color.X, color.Y, color.Z, color.W );
 
 			// Specular
 			reader->read( &color, sizeof(lnFloat) * 3 );
-			m->Specular.R = color.x;
-            m->Specular.G = color.y;
-            m->Specular.B = color.z;
+			m->Specular.R = color.X;
+            m->Specular.G = color.Y;
+            m->Specular.B = color.Z;
             m->Specular.A = 1.0f;
 
 			// Specular係数
@@ -335,9 +335,9 @@ namespace Graphics
 
 			// Ambient
 			reader->read( &color, sizeof(lnFloat) * 3 );
-			m->Ambient.R = color.x;
-            m->Ambient.G = color.y;
-            m->Ambient.B = color.z;
+			m->Ambient.R = color.X;
+            m->Ambient.G = color.Y;
+            m->Ambient.B = color.Z;
             m->Ambient.A = 1.0f;
 
 			// 描画フラグ
@@ -707,18 +707,18 @@ namespace Graphics
 			{
 				case 0:
 					bodyCore->ColShapeData.Type = CollisionShapeType_Sphere;
-					bodyCore->ColShapeData.Sphere.Radius = size.x;
+					bodyCore->ColShapeData.Sphere.Radius = size.X;
 					break;
 				case 1:
 					bodyCore->ColShapeData.Type = CollisionShapeType_Box;
-					bodyCore->ColShapeData.Box.Width = size.x;
-					bodyCore->ColShapeData.Box.Height = size.y;
-					bodyCore->ColShapeData.Box.Depth = size.z;
+					bodyCore->ColShapeData.Box.Width = size.X;
+					bodyCore->ColShapeData.Box.Height = size.Y;
+					bodyCore->ColShapeData.Box.Depth = size.Z;
 					break;
 				case 2:
 					bodyCore->ColShapeData.Type = CollisionShapeType_Capsule;
-					bodyCore->ColShapeData.Capsule.Radius = size.x;
-					bodyCore->ColShapeData.Capsule.Height = size.y;
+					bodyCore->ColShapeData.Capsule.Radius = size.X;
+					bodyCore->ColShapeData.Capsule.Height = size.Y;
 					break;
 			}
 			
@@ -729,27 +729,27 @@ namespace Graphics
 			// 回転(x,y,z) -> ラジアン角
 			LVector3 Rotation;
 			reader->read( &Rotation, sizeof(float) * 3 );
-			if (LMath::isNaN(Rotation.x))
+			if (LMath::IsNaN(Rotation.X))
 			{
-				Rotation.x = 0;
+				Rotation.X = 0;
 			}
-			if (LMath::isNaN(Rotation.y))
+			if (LMath::IsNaN(Rotation.Y))
 			{
-				Rotation.y = 0;
+				Rotation.Y = 0;
 			}
-			if (LMath::isNaN(Rotation.z))
+			if (LMath::IsNaN(Rotation.Z))
 			{
-				Rotation.z = 0;
+				Rotation.Z = 0;
 			}
 
 			// オフセット行列化
 			LMatrix bias;
-			bias.rotationZ( Rotation.z );
-			bias.rotationX( Rotation.x );
-			bias.rotationY( Rotation.y );
-			bias.translation( Position - mModelCore->FrameArray[bodyCore->RelatedFrameIndex]->OrgPosition );
+			bias.RotationZ( Rotation.Z );
+			bias.RotationX( Rotation.X );
+			bias.RotationY( Rotation.Y );
+			bias.Translation( Position - mModelCore->FrameArray[bodyCore->RelatedFrameIndex]->OrgPosition );
 			bodyCore->BoneOffset = bias;
-			LMatrix::inverse( &bodyCore->InvBoneOffset, bodyCore->BoneOffset );
+			bodyCore->InvBoneOffset = LMatrix::Inverse(bodyCore->BoneOffset);
 
 			// 剛体基本情報
 			bodyCore->Mass				= reader->readFloat();
@@ -812,9 +812,9 @@ namespace Graphics
 			reader->read( &jointCore->SpringPositionStiffness, sizeof(LVector3) );
 			reader->read( &jointCore->SpringRotationStiffness, sizeof(LVector3) );
 			
-			jointCore->SpringRotationStiffness.x = LMath::DegToRad( jointCore->SpringRotationStiffness.x );
-			jointCore->SpringRotationStiffness.y = LMath::DegToRad( jointCore->SpringRotationStiffness.y );
-			jointCore->SpringRotationStiffness.z = LMath::DegToRad( jointCore->SpringRotationStiffness.z );
+			jointCore->SpringRotationStiffness.X = LMath::ToRadians(jointCore->SpringRotationStiffness.X);
+			jointCore->SpringRotationStiffness.Y = LMath::ToRadians(jointCore->SpringRotationStiffness.Y);
+			jointCore->SpringRotationStiffness.Z = LMath::ToRadians(jointCore->SpringRotationStiffness.Z);
 		}
 	}
 

@@ -254,8 +254,8 @@ private:
 		Graphics::IGraphicsDevice* device = manager->getGraphicsDevice();
 
         mViewSize = view_size;
-        lnU32 w = static_cast< lnU32 >( view_size.x );
-        lnU32 h = static_cast< lnU32 >( view_size.y );
+        lnU32 w = static_cast< lnU32 >( view_size.X );
+        lnU32 h = static_cast< lnU32 >( view_size.Y );
 
         //-----------------------------------------------------
         // リソース作成
@@ -370,7 +370,7 @@ private:
 			    mTransitionMaskTexture = mask;
                 
                 // あいまいさの範囲を 0.0～1.0 に変換する
-                int v = LMath::limit( vague, 1, 255 );
+                int v = LMath::Clamp( vague, 1, 255 );
 			    mTransitionVague = static_cast< lnFloat >( v ) / 255.f;
 
                 mTransitionFactor.start( -mTransitionVague, 1.0f, duration );
@@ -404,7 +404,7 @@ private:
         lnFloat scale,
         const LVector3& center )
     {
-        mBlurMatrix.identity();
+		mBlurMatrix = LMatrix::Identity;
 
         // ブラーの適用を無しにする場合
         if ( power == 0.0 )

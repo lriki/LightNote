@@ -86,7 +86,7 @@ namespace Graphics
 		for ( int i = 0; i < ik->LoopCount; i++ )
 		{
 			// ターゲットボーンのグローバル位置
-			LVector3 targetPos = ikTargetBone->getGlobalMatrix().getPosition();
+			LVector3 targetPos = ikTargetBone->getGlobalMatrix().GetPosition();
 
 			for( lnU8 iLink = 0 ; iLink < ik->IKLinks.size() ; ++iLink )
 		    {
@@ -95,28 +95,26 @@ namespace Graphics
 				ModelFrame2* ikLinkFrame = mOwnerModel->getFrame( ikLink.LinkBoneIndex );
 
 				// エフェクタの位置
-                LVector3 effPos = effector->getGlobalMatrix().getPosition();
+                LVector3 effPos = effector->getGlobalMatrix().GetPosition();
 
 				// ワールド座標系から注目ノードの局所座標系への変換
 				// (IKリンク基準のローカル座標系へ変換する行列)
-				LMatrix invCoord;
-                LMatrix::inverse( &invCoord, ikLinkFrame->getGlobalMatrix() );
+				LMatrix invCoord = LMatrix::Inverse(ikLinkFrame->getGlobalMatrix());
 
 				// 各ベクトルの座標変換を行い、検索中のボーンi基準の座標系にする
                 // (1) 注目ノード→エフェクタ位置へのベクトル(a)(注目ノード)
-				LVector3 localEffPos;
-                LVector3::transform( &localEffPos, effPos, invCoord );
+				LVector3 localEffPos = LVector3::TransformCoord(effPos, invCoord);
+                
                 // (2) 基準関節i→目標位置へのベクトル(b)(ボーンi基準座標系)
-				LVector3 localTargetPos;
-                LVector3::transform( &localTargetPos, targetPos, invCoord );
+				LVector3 localTargetPos = LVector3::TransformCoord(targetPos, invCoord);
 
                 // (1) 基準関節→エフェクタ位置への方向ベクトル
-                localEffPos.normalize();
+                localEffPos.Normalize();
 			    // (2) 基準関節→目標位置への方向ベクトル
-                localTargetPos.normalize();
+                localTargetPos.Normalize();
 
 				// 回転角
-				float rotationDotProduct = LVector3::dot( localEffPos, localTargetPos );
+				float rotationDotProduct = LVector3::Dot( localEffPos, localTargetPos );
 				if (rotationDotProduct > 1.f) rotationDotProduct = 1.f;
                 float rotationAngle = acosf( rotationDotProduct );
                
@@ -136,18 +134,18 @@ namespace Graphics
 #endif
 
                 // 回転軸
-                LVector3 rotationAxis;
-                LVector3::cross( &rotationAxis, localEffPos, localTargetPos );
+				LVector3 rotationAxis = LVector3::Cross(localEffPos, localTargetPos);
+                
 				//if (frame->getFrameCore()->IKLimitter)
 				//	frame->getFrameCore()->IKLimitter->adjustAxisLimits( &rotationAxis );
-				rotationAxis.normalize();
+				rotationAxis.Normalize();
 
 
-				if ( !LMath::isNaN( rotationAngle ) && rotationAngle > 1.0e-3f && !rotationAxis.isNaN() )
+				if (!LMath::IsNaN(rotationAngle) && rotationAngle > 1.0e-3f && !rotationAxis.IsNaNOrInf())
 			    {
 					// 関節回転量の補正
                     LQuaternion rotQuat( rotationAxis, rotationAngle );
-                    LQuaternion::multiply( &ikLinkFrame->getLocalTransformPtr()->Rotation, ikLinkFrame->getLocalTransformPtr()->Rotation, rotQuat );
+					ikLinkFrame->getLocalTransformPtr()->Rotation = LQuaternion::Multiply(ikLinkFrame->getLocalTransformPtr()->Rotation, rotQuat);
 					
 					// 回転制限
 					limitRotation( ikLink, ikLinkFrame );
@@ -178,6 +176,30 @@ namespace Graphics
 		LQuaternion& localRot = ikLinkFrame->getLocalTransformPtr()->Rotation;
 
 		// オイラー角へ変換
+		LVector3 r;
+		bool locked;
+		Lumino::RotationOrder type;
+		r = localRot.ToEulerAngles(Lumino::RotationOrder_XYZ, &locked);
+		if (!locked) {
+			type = Lumino::RotationOrder_XYZ;
+		}
+		else {
+			r = localRot.ToEulerAngles(Lumino::RotationOrder_YZX, &locked);
+			if (!locked) {
+				type = Lumino::RotationOrder_YZX;
+			}
+			else {
+				r = localRot.ToEulerAngles(Lumino::RotationOrder_ZXY, &locked);
+				if (!locked) {
+					type = Lumino::RotationOrder_ZXY;
+				}
+				else {
+					// あり得ないはずだが…
+					LN_ERR2_ASSERT_S(0);
+				}
+			}
+		}
+		/*
 		int type = 0;
 		float rx, ry, rz;
 		if ( LQuaternion::factoringXYZ( &rx, &ry, &rz, localRot ) ) {
@@ -197,13 +219,16 @@ namespace Graphics
 				}
 			}
 		}
+		*/
 
 		// 角度修正
-		LVector3 euler( rx, ry, rz );
-		euler.normalizeEular();
-		euler.clamp( ikLink.MinLimit, ikLink.MaxLimit );
+		//LVector3 euler( rx, ry, rz );
+		//euler.normalizeEular();
+		r.Clamp( ikLink.MinLimit, ikLink.MaxLimit );
 		
 		// 戻す
+		localRot = LQuaternion::RotationEulerAngles(r, type);
+		/*
 		LMatrix rotMat;
 		switch ( type )
         {
@@ -220,6 +245,7 @@ namespace Graphics
 				LQuaternion::rotationMatrix( &localRot, rotMat );
                 break;
         }
+		*/
 	}
 
 } // namespace Graphics

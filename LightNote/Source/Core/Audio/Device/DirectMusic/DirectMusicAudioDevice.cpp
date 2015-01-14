@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "../../../System/Environment.h"
-#include "../../../Math/Math.h"
+#include "../../../Math/LMath.h"
 #include "DirectMusic.h"
 #include "DirectMusicAudioPlayer.h"
 #include "DirectMusicAudioDevice.h"

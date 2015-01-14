@@ -677,16 +677,16 @@ btThreadSupportInterface* createSolverThreadSupport(int maxNumThreads)
 
             if ( hit_pos_ )
             {
-		        hit_pos_->x = result_callback.m_hitPointWorld.getX();
-		        hit_pos_->y = result_callback.m_hitPointWorld.getY();
-		        hit_pos_->z = result_callback.m_hitPointWorld.getZ();
+		        hit_pos_->X = result_callback.m_hitPointWorld.getX();
+		        hit_pos_->Y = result_callback.m_hitPointWorld.getY();
+		        hit_pos_->Z = result_callback.m_hitPointWorld.getZ();
             }
 
             if ( hit_normal_ )
             {
-		        hit_normal_->x = result_callback.m_hitNormalWorld.getX();
-		        hit_normal_->y = result_callback.m_hitNormalWorld.getY();
-		        hit_normal_->z = result_callback.m_hitNormalWorld.getZ();
+		        hit_normal_->X = result_callback.m_hitNormalWorld.getX();
+		        hit_normal_->Y = result_callback.m_hitNormalWorld.getY();
+		        hit_normal_->Z = result_callback.m_hitNormalWorld.getZ();
             }
 		    return true;
 	    }

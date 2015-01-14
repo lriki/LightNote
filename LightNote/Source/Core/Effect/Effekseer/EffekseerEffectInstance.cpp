@@ -139,21 +139,21 @@ namespace Effect
 	//----------------------------------------------------------------------
 	void EffekseerEffectInstance::LNToEFKMatrix43( const LMatrix& mat, ::Effekseer::Matrix43* efkMat )
 	{
-		efkMat->Value[0][0]  = mat.m00;
-		efkMat->Value[0][1]  = mat.m01;
-		efkMat->Value[0][2]  = mat.m02;
+		efkMat->Value[0][0] = mat.M[0][0];
+		efkMat->Value[0][1] = mat.M[0][1];
+		efkMat->Value[0][2] = mat.M[0][2];
 		
-		efkMat->Value[1][0]  = mat.m10;
-		efkMat->Value[1][1]  = mat.m11;
-		efkMat->Value[1][2]  = mat.m12;
+		efkMat->Value[1][0] = mat.M[1][0];
+		efkMat->Value[1][1] = mat.M[1][1];
+		efkMat->Value[1][2] = mat.M[1][2];
 		
-		efkMat->Value[2][0]  = mat.m20;
-		efkMat->Value[2][1]  = mat.m21;
-		efkMat->Value[2][2]  = mat.m22;
+		efkMat->Value[2][0] = mat.M[2][0];
+		efkMat->Value[2][1] = mat.M[2][1];
+		efkMat->Value[2][2] = mat.M[2][2];
 		
-		efkMat->Value[3][0]  = mat.m30;
-		efkMat->Value[3][1]  = mat.m31;
-		efkMat->Value[3][2]  = mat.m32;
+		efkMat->Value[3][0] = mat.M[3][0];
+		efkMat->Value[3][1] = mat.M[3][1];
+		efkMat->Value[3][2] = mat.M[3][2];
 	}
 
 } // namespace Effect

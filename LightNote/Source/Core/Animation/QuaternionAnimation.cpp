@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include <algorithm>
 #include <Dependencies/cpp-TimSort/timsort.hpp>
-#include "../Math/Math.h"
+#include "../Math/LMath.h"
 #include "QuaternionAnimation.h"
 
 namespace LNote
@@ -43,7 +43,7 @@ namespace Animation
 
         key.FramePos = framePos;
         key.Rotation = rot;
-        key.Rotation.normalize();
+        key.Rotation.Normalize();
 		key.RotInterBezier.initialize( interpolation[0], interpolation[4], interpolation[8], interpolation[12] );
     }
 
@@ -127,7 +127,7 @@ namespace Animation
         float inter;
 
         inter = k1.RotInterBezier.getInterValue( rate );
-        LQuaternion::slerp( &mQuaternion, k0.Rotation, k1.Rotation, inter );
+		mQuaternion = LQuaternion::Slerp(k0.Rotation, k1.Rotation, inter);
     }
 
 	//----------------------------------------------------------------------

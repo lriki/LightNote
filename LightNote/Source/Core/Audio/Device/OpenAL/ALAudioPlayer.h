@@ -49,7 +49,7 @@ public:
 
     virtual bool            is3DSound() { return false; }
 	virtual void			setPosition( const LVector3& pos ) {}
-	virtual const LVector3& getPosition() { return LVector3::ZERO; }
+	virtual const LVector3& getPosition() { return LVector3::Zero; }
 	virtual void            setVelocity( const LVector3& v ) {}
     virtual void            setEmitterDistance( lnFloat distance ) {  }
     virtual lnFloat         getEmitterDistance() const { return 0; }

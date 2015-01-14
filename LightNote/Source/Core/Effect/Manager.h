@@ -12,6 +12,7 @@
 
 #if 1
 
+#include "../Math/LMath.h"
 #include "../Base/ReferenceObjectArray.h"
 #include "../Task/ParallelTask.h"
 #include "Common.h"

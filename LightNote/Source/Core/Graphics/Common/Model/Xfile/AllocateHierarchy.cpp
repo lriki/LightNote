@@ -6,7 +6,7 @@
 //
 //-------------------------------------------------------------------------
 #include "stdafx.h"
-#include "../../../../Math/Math.h"
+#include "../../../../Math/LMath.h"
 #include "../../../Device/DirectX9/DX9Module.h"
 #include "AllocateHierarchy.h"
 

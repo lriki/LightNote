@@ -5,9 +5,10 @@
 #include "stdafx.h"
 
 #include <map>
+#include <algorithm>
 #include "Hash.h"
 #include "LogFile.h"
-#include "../Math/Math.h"
+#include "../Math/LMath.h"
 #include "../Threading/Mutex.h"
 #include "MemoryManager.h"
 
@@ -216,7 +217,7 @@ private:
 		    for( ; node != mInstanceList; )
 		    {
                 lnByte* data = ((lnByte*)node) + HEADER_SIZE;
-                lnU32 n = LMath::min( node->Size, 16u );
+                lnU32 n = std::min( node->Size, 16u );
                 
                 LN_MMC_DUMP( "%s(%d) : \n[ %p ] %u bytes < ", node->Filename, node->Line, data, node->Size );
                 for ( lnU32 i = 0; i < n; ++i )

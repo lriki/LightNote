@@ -1153,7 +1153,7 @@ namespace Graphics
     {
         LVector3 tmp_vec;
 
-        LVector3::transform( &tmp_vec, ipos, skinning_mat );
+		tmp_vec = LVector3::TransformCoord(ipos, skinning_mat);
         v_->Position += tmp_vec * weight_;
 
         LVector3::rotate( &tmp_vec, inor, skinning_mat );
@@ -1179,8 +1179,8 @@ namespace Graphics
             v    = &vertices[ i ];
             ipos = &mOrgVertexPositions[ i ];
             inor = &mOrgVertexNormals[ i ];
-            v->Position = LVector3::ZERO;
-            v->Normal   = LVector3::ZERO;
+            v->Position = LVector3::Zero;
+            v->Normal   = LVector3::Zero;
 
 
             // 最後の一つ以外の影響ボーン適用
@@ -1234,7 +1234,7 @@ namespace Graphics
             */
 
 
-            v->Normal.normalize();
+            v->Normal.Normalize();
         }
 
         mVertexBuffer->unlock();

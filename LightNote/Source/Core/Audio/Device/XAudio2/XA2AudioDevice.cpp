@@ -7,7 +7,7 @@
 //-------------------------------------------------------------------------
 #include "stdafx.h"
 #include "../../../Resource/LNResource.h"
-#include "../../../Math/Math.h"
+#include "../../../Math/LMath.h"
 #include "XA2AudioPlayer.h"
 #include "XA2AudioDevice.h"
 
@@ -274,18 +274,18 @@ namespace XAudio2
 	//----------------------------------------------------------------------
     void AudioDevice::update()
     {
-        mListenerState.OrientFront.x = this->mSoundListener.Direction.x;
-        mListenerState.OrientFront.y = this->mSoundListener.Direction.y;
-        mListenerState.OrientFront.z = this->mSoundListener.Direction.z;
-        mListenerState.OrientTop.x = this->mSoundListener.UpDirection.x;
-        mListenerState.OrientTop.y = this->mSoundListener.UpDirection.y;
-        mListenerState.OrientTop.z = this->mSoundListener.UpDirection.z;
-        mListenerState.Position.x = this->mSoundListener.Position.x * mMetreUnitDistanceInv;
-        mListenerState.Position.y = this->mSoundListener.Position.y * mMetreUnitDistanceInv;
-        mListenerState.Position.z = this->mSoundListener.Position.z * mMetreUnitDistanceInv;
-        mListenerState.Velocity.x = this->mSoundListener.Velocity.x * mMetreUnitDistanceInv;
-        mListenerState.Velocity.y = this->mSoundListener.Velocity.y * mMetreUnitDistanceInv;
-        mListenerState.Velocity.z = this->mSoundListener.Velocity.z * mMetreUnitDistanceInv;
+        mListenerState.OrientFront.x = this->mSoundListener.Direction.X;
+        mListenerState.OrientFront.y = this->mSoundListener.Direction.Y;
+        mListenerState.OrientFront.z = this->mSoundListener.Direction.Z;
+        mListenerState.OrientTop.x = this->mSoundListener.UpDirection.X;
+        mListenerState.OrientTop.y = this->mSoundListener.UpDirection.Y;
+        mListenerState.OrientTop.z = this->mSoundListener.UpDirection.Z;
+        mListenerState.Position.x = this->mSoundListener.Position.X * mMetreUnitDistanceInv;
+        mListenerState.Position.y = this->mSoundListener.Position.Y * mMetreUnitDistanceInv;
+        mListenerState.Position.z = this->mSoundListener.Position.Z * mMetreUnitDistanceInv;
+        mListenerState.Velocity.x = this->mSoundListener.Velocity.X * mMetreUnitDistanceInv;
+        mListenerState.Velocity.y = this->mSoundListener.Velocity.Y * mMetreUnitDistanceInv;
+        mListenerState.Velocity.z = this->mSoundListener.Velocity.Z * mMetreUnitDistanceInv;
 
         if ( mDirectMusicAudioDevice ) mDirectMusicAudioDevice->update();
     }
@@ -296,11 +296,10 @@ namespace XAudio2
     LNRESULT AudioDevice::setListenerState( const LVector3& position, const LVector3& front )
     {
         // 念のために正規化してから設定する
-        LVector3 n;
-        LVector3::normalize(  &n, front );
+		LVector3 n = LVector3::Normalize(front);
 
-        mListenerState.OrientFront	= n.toD3DXVECTOR3();
-		mListenerState.Position		= position.toD3DXVECTOR3();
+        mListenerState.OrientFront= LMathUtils::toD3DXVECTOR3(n);
+		mListenerState.Position = LMathUtils::toD3DXVECTOR3(position);
 
 		return ResultCode_OK;
     }
@@ -380,12 +379,12 @@ namespace XAudio2
 	//----------------------------------------------------------------------
     void EmitterState::updateXAudioEmitter( lnFloat scale )
     {
-        Emitter.Position.x = Position.x * scale;
-        Emitter.Position.y = Position.y * scale;
-        Emitter.Position.z = Position.z * scale;
-        Emitter.Velocity.x = Velocity.x * scale;
-        Emitter.Velocity.y = Velocity.y * scale;
-        Emitter.Velocity.z = Velocity.z * scale;
+        Emitter.Position.x = Position.X * scale;
+        Emitter.Position.y = Position.Y * scale;
+        Emitter.Position.z = Position.Z * scale;
+        Emitter.Velocity.x = Velocity.X * scale;
+        Emitter.Velocity.y = Velocity.Y * scale;
+        Emitter.Velocity.z = Velocity.Z * scale;
         Emitter.CurveDistanceScaler = Distance * scale;
     }
 

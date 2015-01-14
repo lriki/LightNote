@@ -14,11 +14,7 @@
 //
 //-------------------------------------------------------------------------
 #include <vector>
-#include "../Math/Math.h"
-#include "../Math/Vector3.h"
-#include "../Math/Vector4.h"
-#include "../Math/Quaternion.h"
-#include "../Math/SQTTransform.h"
+#include "../Math/LMath.h"
 
 //-------------------------------------------------------------------------
 //
@@ -69,7 +65,7 @@ struct KeyVector3
 
     KeyVector3& operator = ( const LVector3& v_ )
     {
-        x = v_.x; y = v_.y; z = v_.z;
+        x = v_.X; y = v_.Y; z = v_.Z;
         return *this;
     }
 
@@ -98,7 +94,7 @@ struct KeyQuaternion
 
     KeyQuaternion& operator = ( const LQuaternion& v_ )
     {
-        x = v_.x; y = v_.y; z = v_.z; w = v_.w;
+        x = v_.X; y = v_.Y; z = v_.Z; w = v_.W;
         return *this;
     }
 

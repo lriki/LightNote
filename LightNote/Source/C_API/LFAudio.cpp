@@ -261,7 +261,7 @@
 	//----------------------------------------------------------------------
 	LNResult LNSoundListener_SetPosition(const LNVector3* position)
 	{
-		FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Position.set(position->X, position->Y, position->Z);
+		FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Position.Set(position->X, position->Y, position->Z);
 		return ::LN_OK;
 	}
 
@@ -270,7 +270,7 @@
 	//----------------------------------------------------------------------
     void LNSoundListener_SetPositionXYZ( float x, float y, float z )
     {
-        FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Position.set( x, y, z );
+        FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Position.Set( x, y, z );
 	}
 
 	//----------------------------------------------------------------------
@@ -278,7 +278,7 @@
 	//----------------------------------------------------------------------
 	LNResult LNSoundListener_SetDirection(const LNVector3* direction)
 	{
-		FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Direction.set(direction->X, direction->Y, direction->Z);
+		FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Direction.Set(direction->X, direction->Y, direction->Z);
 		return ::LN_OK;
 	}
 
@@ -287,7 +287,7 @@
 	//----------------------------------------------------------------------
     void LNSoundListener_SetDirectionXYZ( float x, float y, float z )
     {
-        FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Direction.set( x, y, z );
+        FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Direction.Set( x, y, z );
 	}
 
 	//----------------------------------------------------------------------
@@ -295,7 +295,7 @@
 	//----------------------------------------------------------------------
 	LNResult LNSoundListener_SetUpDirection(const LNVector3* direction)
 	{
-		FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->UpDirection.set(direction->X, direction->Y, direction->Z);
+		FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->UpDirection.Set(direction->X, direction->Y, direction->Z);
 		return ::LN_OK;
 	}
 
@@ -304,7 +304,7 @@
 	//----------------------------------------------------------------------
     void LNSoundListener_SetUpDirectionXYZ( float x, float y, float z )
     {
-        FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->UpDirection.set( x, y, z );
+        FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->UpDirection.Set( x, y, z );
 	}
 
 	//----------------------------------------------------------------------
@@ -312,7 +312,7 @@
 	//----------------------------------------------------------------------
 	LNResult LNSoundListener_Velocity(const LNVector3* direction)
 	{
-		FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Velocity.set(direction->X, direction->Y, direction->Z);
+		FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Velocity.Set(direction->X, direction->Y, direction->Z);
 		return ::LN_OK;
 	}
 
@@ -321,7 +321,7 @@
 	//----------------------------------------------------------------------
     void LNSoundListener_VelocityXYZ( float x, float y, float z )
     {
-        FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Velocity.set( x, y, z );
+        FuncLibManager::AudioManager->getAudioDevice()->getSoundListener()->Velocity.Set( x, y, z );
     }
 
 //==============================================================================

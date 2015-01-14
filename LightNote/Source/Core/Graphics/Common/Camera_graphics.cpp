@@ -169,7 +169,7 @@ namespace Graphics
 					case CameraType_PositionAndTarget:
 					case CameraType_PositionAndAngle:
 					{
-						mViewMatrix = LMatrix::RotationYawPitchRoll(mAngle.Y, mAngle.X, mAngle.z);
+						mViewMatrix = LMatrix::RotationYawPitchRoll(mAngle.Y, mAngle.X, mAngle.Z);
 						mViewMatrix.Translation(-mPosition);
 						break;
 					}
@@ -436,8 +436,8 @@ namespace Graphics
 
             // 上または下にドラッグし続けた場合、中天を通り過ぎたところで
             // XZ上の反対側の象限にカメラが移動して画面がちらちらするのを防ぐ処理
-            if ( ( ( old.x < 0 && pos.x > 0 ) || ( old.x > 0 && pos.x < 0 ) ) &&
-                 ( ( old.z < 0 && pos.z > 0 ) || ( old.z > 0 && pos.z < 0 ) ) )
+            if ( ( ( old.X < 0 && pos.X > 0 ) || ( old.X > 0 && pos.X < 0 ) ) &&
+                 ( ( old.Z < 0 && pos.Z > 0 ) || ( old.Z > 0 && pos.Z < 0 ) ) )
             {
                 pos = old;
             }
@@ -460,16 +460,15 @@ namespace Graphics
         LVector3 pos = getTargetCamera()->getPosition();
         LVector3 look_at = getTargetCamera()->getLookAt();
 
-        lnFloat s = 0.00175f * ( pos - look_at ).getLength( 0.0f );
+        lnFloat s = 0.00175f * ( pos - look_at ).GetLength();
 
 		LVector3 view;
-		LMatrix mat;
-        LMatrix::inverse( &mat, getTargetCamera()->getViewMatrix() );
-        mat.m30 = mat.m31 = mat.m32 = 0.0f;
-		view.x = -dx * s;
-		view.y = dy * s;
-		view.z = 0.f;
-		view.transform( mat );
+		LMatrix mat = LMatrix::Inverse(getTargetCamera()->getViewMatrix());
+		mat.M[3][0] = mat.M[3][1] = mat.M[3][2] = 0.0f;
+		view.X = -dx * s;
+		view.Y = dy * s;
+		view.Z = 0.f;
+		view.TransformCoord( mat );
 
         getTargetCamera()->setPosition( pos + view );
         getTargetCamera()->setLookAt( look_at + view );

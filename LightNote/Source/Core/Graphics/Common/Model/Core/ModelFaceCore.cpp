@@ -162,7 +162,7 @@ namespace Graphics
 	    for ( lnU32 i = 0 ; i < mVerticesCount ; ++i, ++v )
 	    {
 		    idx = v->ulIndex;
-            LVector3::lerp( &vertices[idx].Position, vertices[idx].Position, v->vec3Pos, rate );
+			vertices[idx].Position = LVector3::Lerp(vertices[idx].Position, v->vec3Pos, rate);
 	    }
     }
 

@@ -130,7 +130,7 @@ namespace Graphics
 		//SpriteRenderer* r = mManager->getSprite2DRenderer();
 		//r->setTransform(LMatrix::IDENTITY);
 
-		LVector3 location(viewSize.x - 8 - WindowWidth, 8, 0);
+		LVector3 location(viewSize.X - 8 - WindowWidth, 8, 0);
 
 		LMatrix mat;
 		//mat.translation(location.x/*viewSize.x - 8 - WindowWidth*/, location.y, 0);
@@ -139,8 +139,8 @@ namespace Graphics
 
 		// ƒEƒBƒ“ƒhƒE”wŒi
 		mSpriteRenderer->drawRequest2D(
-			LVector3(location.x, location.y, 0),
-			LVector3::ZERO,
+			LVector3(location.X, location.Y, 0),
+			LVector3::Zero,
 			mManager->getDummyTexture(),
 			LRectF(0, 0, WindowWidth, WindowHeight),
 			0x80333333);
@@ -199,12 +199,12 @@ namespace Graphics
 		}
 		
 #endif
-		mTextRenderer.drawRequest("Threads performance:", LRect(location.x + 8, location.y, 100, 100), -1, TextAlign_Left);
-		location.y += 16;
+		mTextRenderer.drawRequest("Threads performance:", LRect(location.X + 8, location.Y, 100, 100), -1, TextAlign_Left);
+		location.Y += 16;
 
 		// ƒXƒŒƒbƒhƒŠƒXƒg‚Ì•`‰æ
 		int threadCount = mProfiler->getRegisterdThreadCount();
-		LRectF listRect(location.x + 16, location.y, WindowWidth - 32, threadCount * rowHeight);
+		LRectF listRect(location.X + 16, location.Y, WindowWidth - 32, threadCount * rowHeight);
 		drawThreadList(listRect);
 		
 		//mSpriteRenderer->drawRequest2D(
@@ -303,7 +303,7 @@ namespace Graphics
 		// –¼‘OƒJƒ‰ƒ€”wŒiF
 		mSpriteRenderer->drawRequest2D(
 			LVector3(listRect.x, listRect.y, 0),
-			LVector3::ZERO,
+			LVector3::Zero,
 			mManager->getDummyTexture(),
 			LRectF(0, 0, ThreadNameColumnWidth, listRect.h),
 			0x33000000);
@@ -341,7 +341,7 @@ namespace Graphics
 			// row ã•”Œrü
 			mSpriteRenderer->drawRequest2D(
 				LVector3(listRect.x, listRect.y + (iThread * rowHeight), 0),
-				LVector3::ZERO,
+				LVector3::Zero,
 				mManager->getDummyTexture(),
 				LRectF(0, 0, listRect.w, 1),
 				RuleLineColor);
@@ -363,7 +363,7 @@ namespace Graphics
 		// list ‰º•”Œrü
 		mSpriteRenderer->drawRequest2D(
 			LVector3(listRect.x, listRect.y + (iThread * rowHeight), 0),
-			LVector3::ZERO,
+			LVector3::Zero,
 			mManager->getDummyTexture(),
 			LRectF(0, 0, listRect.w, 1),
 			0xFF000000);

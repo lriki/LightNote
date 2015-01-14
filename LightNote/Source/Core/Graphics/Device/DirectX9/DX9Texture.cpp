@@ -346,7 +346,7 @@ namespace Graphics
 	void DX9RenderTargetTexture::create( DX9GraphicsDevice* device, lnU32 width, lnU32 height, lnU32 mipLevel, SurfaceFormat format )
 	{
 		LN_REFOBJ_SET( this->mGraphicsDevice, device );
-        this->mSize.set( static_cast<lnFloat>( width ), static_cast<lnFloat>( height ) );
+        this->mSize.Set( static_cast<lnFloat>( width ), static_cast<lnFloat>( height ) );
 	    this->mMipLevel = mipLevel;
         this->mFormat = format;
 		this->_create();
@@ -415,8 +415,8 @@ namespace Graphics
         //_p( desc.Height );
         mRealSize.X = static_cast< lnFloat >( desc.Width );
         mRealSize.Y = static_cast< lnFloat >( desc.Height );
-        mRealSizeInv.X = 1.0f / mRealSize.x;
-        mRealSizeInv.Y = 1.0f / mRealSize.y;
+        mRealSizeInv.X = 1.0f / mRealSize.X;
+        mRealSizeInv.Y = 1.0f / mRealSize.Y;
 
 		// レンダリングターゲットのサーフェイスを取得する
 		LN_COMCALL( mDxTexture->GetSurfaceLevel( 0, &mDxSurface ) );

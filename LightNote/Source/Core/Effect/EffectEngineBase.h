@@ -11,10 +11,12 @@
 #pragma once
 
 #include "Common.h"
+#include "../Math/LMath.h"
 #include "../Base/Cache.h"
 
 namespace LNote
 {
+
 namespace Core
 {
 namespace Effect
