@@ -16,15 +16,7 @@
 #include "Core/Base/Time.h"
 #include "Core/Base/RefPtr.h"
 
-#include "Core/Math/Common.h"
-#include "Core/Math/Math.h"
-#include "Core/Math/Random.h"
-
-#include "Core/Math/Vector2.h"
-#include "Core/Math/Vector3.h"
-#include "Core/Math/Vector4.h"
-#include "Core/Math/Matrix.h"
-#include "Core/Math/Quaternion.h"
+#include "Core/Math/LMath.h"
 
 #include "Core/Animation/RoundTripValue.h"
 #include "Core/Animation/ScalarAnimation.h"

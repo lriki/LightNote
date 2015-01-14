@@ -13,10 +13,7 @@
 //-------------------------------------------------------------------------
 //
 //-------------------------------------------------------------------------
-#include "../Math/Math.h"
-#include "../Math/Vector2.h"
-#include "../Math/Vector3.h"
-#include "../Math/Matrix.h"
+#include "../Math/LMath.h"
 
 //-------------------------------------------------------------------------
 //
@@ -318,7 +315,7 @@ public:
 	//----------------------------------------------------------------------
     static lnFloat PointPolyDistance( const LVector3& pos1_, const LVector3& pos2_, const LVector3& normal_ )
     {
-        return LVector3::dot( pos1_ - pos2_, normal_ );
+        return LVector3::Dot( pos1_ - pos2_, normal_ );
     }
 };
 

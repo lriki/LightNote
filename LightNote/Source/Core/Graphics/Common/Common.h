@@ -11,7 +11,7 @@
 
 #include "../Common.h"
 #include "Types.h"
-#include "../../Math/Vector4.h"
+#include "../../Math/LMath.h"
 
 namespace LNote
 {
@@ -122,7 +122,7 @@ public:
 	bool operator == (const ColorF& color) { return (memcmp(this, &color, sizeof(ColorF)) == 0); }
 	bool operator != (const ColorF& color) { return (memcmp(this, &color, sizeof(ColorF)) != 0); }
 
-	ColorF& operator = (const LVector4& vec) { R = vec.x; G = vec.y; B = vec.z; A = vec.w; return *this; }
+	ColorF& operator = (const LVector4& vec) { R = vec.X; G = vec.Y; B = vec.Z; A = vec.W; return *this; }
 
 	operator const LVector4&() { return *reinterpret_cast<LVector4*>(this); }
 	operator const LVector4&() const { return *reinterpret_cast<const LVector4*>(this); }

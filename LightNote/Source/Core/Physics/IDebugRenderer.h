@@ -13,8 +13,7 @@
 //-------------------------------------------------------------------------
 //
 //-------------------------------------------------------------------------
-#include "../Math/Vector3.h"
-#include "../Math/Matrix.h"
+#include "../Math/LMath.h"
 #include "../Graphics/Common/Common.h"
 
 class btIDebugDraw;

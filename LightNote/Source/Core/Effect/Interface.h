@@ -11,7 +11,7 @@
 #pragma once
 
 #include "../System/Interface.h"
-#include "../Math/Matrix.h"
+#include "../Math/LMath.h"
 
 namespace LNote
 {

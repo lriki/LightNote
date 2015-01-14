@@ -111,8 +111,8 @@ public:
         }
 
         // 描画準備
-        lnFloat ou = 0.5f / mViewSize.x;
-        lnFloat ov = 0.5f / mViewSize.y;
+        lnFloat ou = 0.5f / mViewSize.X;
+        lnFloat ov = 0.5f / mViewSize.Y;
 
         // ブラ―描画
         if ( mBufferingBlarShader )
@@ -165,8 +165,8 @@ public:
 		mPostDrawShader->varTone->setVector( mTone );
 		mPostDrawShader->varPrimaryTexture->setTexture( mPrimaryRenderTarget );
 
-        lnFloat ou = 0.5f / mViewSize.x;
-        lnFloat ov = 0.5f / mViewSize.y;
+        lnFloat ou = 0.5f / mViewSize.X;
+        lnFloat ov = 0.5f / mViewSize.Y;
 
         renderer->setRenderState( LRenderState::BUFFER_COPY_STATE );
         //renderer_->clear(true,true,0xff0000ff,1.0f);
@@ -417,12 +417,12 @@ private:
 
         if ( scale != 1.0f )
         {
-            mBlurCenter.set( center.x, center.y, center.z, 1.0f );
+            mBlurCenter = LVector4( center, 1.0f );
 
             // mBlurCenter を中心に拡大する
-            mBlurMatrix.translation( -mBlurCenter.x, -mBlurCenter.y, 0 );
-            mBlurMatrix.scaling( scale );
-            mBlurMatrix.translation( mBlurCenter.x, mBlurCenter.y, 0 );
+            mBlurMatrix.Translation( -mBlurCenter.X, -mBlurCenter.Y, 0 );
+            mBlurMatrix.Scaling( scale );
+            mBlurMatrix.Translation( mBlurCenter.X, mBlurCenter.Y, 0 );
         }
 
         mBlurPower.clear();

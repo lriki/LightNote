@@ -475,12 +475,12 @@ struct MMESceneParam
 
     void calcMatrices()
     {
-        LMatrix::inverse( &Mat_LightView_Inverse, *Mat_LightView );
-        LMatrix::inverse( &Mat_LightProj_Inverse, *Mat_LightProj );
-        LMatrix::inverse( &Mat_LightViewProj_Inverse, *Mat_LightViewProj );
-        LMatrix::transpose( &Mat_LightView_Transpose, *Mat_LightView );
-        LMatrix::transpose( &Mat_LightProj_Transpose, *Mat_LightProj );
-        LMatrix::transpose( &Mat_LightViewProj_Transpose, *Mat_LightViewProj );
+        Mat_LightView_Inverse = LMatrix::Inverse(*Mat_LightView );
+		Mat_LightProj_Inverse = LMatrix::Inverse(*Mat_LightProj);
+		Mat_LightViewProj_Inverse = LMatrix::Inverse(*Mat_LightViewProj);
+		Mat_LightView_Transpose = LMatrix::Transpose(*Mat_LightView);
+		Mat_LightProj_Transpose = LMatrix::Transpose(*Mat_LightProj);
+		Mat_LightViewProj_Transpose = LMatrix::Transpose(*Mat_LightViewProj);
         Mat_LightView_InverseTranspose = Mat_LightView_Inverse * Mat_LightView_Transpose;
         Mat_LightProj_InverseTranspose = Mat_LightProj_Inverse * Mat_LightProj_Transpose;
         Mat_LightViewProj_InverseTranspose = Mat_LightViewProj_Inverse * Mat_LightViewProj_Transpose;

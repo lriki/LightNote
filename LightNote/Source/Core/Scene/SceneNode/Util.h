@@ -44,8 +44,8 @@ public:
         lnFloat y = static_cast< lnFloat >( rect_.y );
         lnFloat w = static_cast< lnFloat >( rect_.w );
         lnFloat h = static_cast< lnFloat >( rect_.h );
-        lnFloat tex_rw = 1.f / tex_size_.x;
-        lnFloat tex_rh = 1.f / tex_size_.y;
+        lnFloat tex_rw = 1.f / tex_size_.X;
+        lnFloat tex_rh = 1.f / tex_size_.Y;
 
         *l_ = x * tex_rw;
         *t_ = y * tex_rh;
@@ -68,8 +68,8 @@ public:
         lnFloat* l_, lnFloat* t_, lnFloat* r_, lnFloat* b_,
         const LRectF& rect_, const LVector2& tex_size_ )
     {
-        lnFloat tex_rw = 1.f / tex_size_.x;
-        lnFloat tex_rh = 1.f / tex_size_.y;
+        lnFloat tex_rw = 1.f / tex_size_.X;
+        lnFloat tex_rh = 1.f / tex_size_.Y;
 
         *l_ = rect_.x * tex_rw;
         *t_ = rect_.y * tex_rh;

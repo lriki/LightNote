@@ -51,7 +51,7 @@ namespace Graphics
 		if ( index == 0 )
 		{
 			LVector2 viewsize = mCurrentRenderTargets[0]->getRealSize();
-			setViewport( LRect( 0, 0, (int)viewsize.x, (int)viewsize.y ) );
+			setViewport( LRect( 0, 0, (int)viewsize.X, (int)viewsize.Y ) );
 		}
 	}
 

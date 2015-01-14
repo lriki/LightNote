@@ -145,7 +145,7 @@ private:
         c->initialize( this );
         VisualNode::initialize( 1, LN_DRAWCOORD_3D, c );
         mAADir = dir;
-        mSize.set( w_size, h_size );
+        mSize.Set( w_size, h_size );
         this->setShader( NULL );
     }
 
@@ -163,8 +163,8 @@ private:
             {
                 mSrcRect.set(
                     0, 0,
-                    mTexture->getSize().x,
-                    mTexture->getSize().y );
+                    mTexture->getSize().X,
+                    mTexture->getSize().Y );
                 mCalledSetSrcRect = true;
             }
         }
@@ -301,8 +301,8 @@ private:
             {
                 mSrcRect.set(
                     0, 0,
-                    mTexture->getSize().x,
-                    mTexture->getSize().y);
+                    mTexture->getSize().X,
+                    mTexture->getSize().Y);
                 mCalledSetSrcRect = true;
             }
         }

@@ -71,8 +71,8 @@ namespace Physics
 	//----------------------------------------------------------------------
     void Box::drawDebugShape( IDebugRenderer* renderer )
     {
-        LVector3 bbmin( -mHarfSize.x, -mHarfSize.y, -mHarfSize.z );
-        LVector3 bbmax(  mHarfSize.x,  mHarfSize.y,  mHarfSize.z );
+        LVector3 bbmin( -mHarfSize.X, -mHarfSize.Y, -mHarfSize.Z );
+        LVector3 bbmax(  mHarfSize.X,  mHarfSize.Y,  mHarfSize.Z );
 
         renderer->setMatrix( this->mWorldMatrix );
         renderer->drawBox( bbmin, bbmax, LColorF( 0, 0, 1, 0.5f ) );

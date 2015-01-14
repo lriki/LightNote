@@ -178,98 +178,98 @@ namespace Scene
             // ‹ts—ñ
             case MME_VARREQ_MATRIX_World_I:
             {
-                LMatrix::inverse( &mTempMatrix, *mAffectWorldMatrix );
+				mTempMatrix = LMatrix::Inverse(*mAffectWorldMatrix);
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldView_I:
             {
                 mTempMatrix = *mAffectWorldMatrix * mAffectCamera->getViewMatrix();
-                mTempMatrix.inverse();
+				mTempMatrix.Inverse();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldViewProj_I:
             {
                 mTempMatrix = *mAffectWorldMatrix * mAffectCamera->getViewProjectionMatrix();
-                mTempMatrix.inverse();
+				mTempMatrix.Inverse();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldView_I:
             {
                 mTempMatrix = *mAffectWorldMatrix * (*mAffectLightArray)[ light_idx_ ]->getViewMatrix();
-                mTempMatrix.inverse();
+				mTempMatrix.Inverse();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldViewProj_I:
             {
                 mTempMatrix = *mAffectWorldMatrix * (*mAffectLightArray)[ light_idx_ ]->getViewProjectionMatrix();
-                mTempMatrix.inverse();
+				mTempMatrix.Inverse();
                 return &mTempMatrix;
             }
 
             // “]’us—ñ
             case MME_VARREQ_MATRIX_World_T:
             {
-                LMatrix::transpose( &mTempMatrix, *mAffectWorldMatrix );
+				mTempMatrix = LMatrix::Transpose(*mAffectWorldMatrix);
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldView_T:
             {
                 mTempMatrix = *mAffectWorldMatrix * mAffectCamera->getViewMatrix();
-                mTempMatrix.transpose();
+				mTempMatrix.Transpose();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldViewProj_T:
             {
                 mTempMatrix = *mAffectWorldMatrix * mAffectCamera->getViewProjectionMatrix();
-                mTempMatrix.transpose();
+				mTempMatrix.Transpose();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldView_T:
             {
                 mTempMatrix = *mAffectWorldMatrix * (*mAffectLightArray)[ light_idx_ ]->getViewMatrix();
-                mTempMatrix.transpose();
+				mTempMatrix.Transpose();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldViewProj_T:
             {
                 mTempMatrix = *mAffectWorldMatrix * (*mAffectLightArray)[ light_idx_ ]->getViewProjectionMatrix();
-                mTempMatrix.transpose();
+				mTempMatrix.Transpose();
                 return &mTempMatrix;
             }
 
             // ‹ts—ñ~“]’us—ñ
             case MME_VARREQ_MATRIX_World_IT:
             {
-                LMatrix::inverse( &mTempMatrix, *mAffectWorldMatrix );
-                mTempMatrix.transpose();
+				mTempMatrix = LMatrix::Inverse(*mAffectWorldMatrix);
+				mTempMatrix.Transpose();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldView_IT:
             {
                 mTempMatrix = *mAffectWorldMatrix * mAffectCamera->getViewMatrix();
-                mTempMatrix.inverse();
-                mTempMatrix.transpose();
+				mTempMatrix.Inverse();
+				mTempMatrix.Transpose();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldViewProj_IT:
             {
                 mTempMatrix = *mAffectWorldMatrix * mAffectCamera->getViewProjectionMatrix();
-                mTempMatrix.inverse();
-                mTempMatrix.transpose();
+				mTempMatrix.Inverse();
+				mTempMatrix.Transpose();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldView_IT:
             {
                 mTempMatrix = *mAffectWorldMatrix * (*mAffectLightArray)[ light_idx_ ]->getViewMatrix();
-                mTempMatrix.inverse();
-                mTempMatrix.transpose();
+				mTempMatrix.Inverse();
+				mTempMatrix.Transpose();
                 return &mTempMatrix;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldViewProj_IT:
             {
                 mTempMatrix = *mAffectWorldMatrix * (*mAffectLightArray)[ light_idx_ ]->getViewProjectionMatrix();
-                mTempMatrix.inverse();
-                mTempMatrix.transpose();
+				mTempMatrix.Inverse();
+				mTempMatrix.Transpose();
                 return &mTempMatrix;
             }
         }

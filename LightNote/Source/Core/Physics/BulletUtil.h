@@ -13,8 +13,7 @@
 #include <LinearMath/btVector3.h>
 #include <LinearMath/btQuaternion.h>
 #include <LinearMath/btTransform.h>
-#include "../Math/Vector3.h"
-#include "../Math/Quaternion.h"
+#include "../Math/LMath.h"
 
 namespace LNote
 {
@@ -41,7 +40,7 @@ public:
 
 	static btVector3 LNVector3ToBtVector3( const LVector3& v )
 	{
-		return btVector3( v.x, v.y, v.z );
+		return btVector3( v.X, v.Y, v.Z );
 	}
 
 	static LQuaternion btQuaternionToLNQuaternion( const btQuaternion& q )
@@ -51,7 +50,7 @@ public:
 
 	static btQuaternion LNQuaternionToBtQuaternion( const LQuaternion& q )
 	{
-		return btQuaternion( q.x, q.y, q.z, q.w );
+		return btQuaternion( q.X, q.Y, q.Z, q.W );
 	}
 
 

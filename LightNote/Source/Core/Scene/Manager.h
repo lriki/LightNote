@@ -10,7 +10,7 @@
 #pragma once
 
 #include "../Base/STLUtils.h"
-#include "../Math/Vector2.h"
+#include "../Math/LMath.h"
 #include "../Threading/EventFlag.h"
 #include "../System/Interface.h"
 #include "../Game/GameTime.h"

@@ -196,10 +196,10 @@ public:
 //////
 
 	/// ‰ñ“]‡˜‚Ìİ’è
-    void setRotateOrder( Math::RotationOrder order )	{ mRotOrder = order; }
+    void setRotateOrder( Lumino::RotationOrder order )	{ mRotOrder = order; }
 
 	/// ‰ñ“]‡˜‚Ìæ“¾
-    Math::RotationOrder getRotateOrder() const			{ return mRotOrder; }
+	Lumino::RotationOrder getRotateOrder() const			{ return mRotOrder; }
 
 	/// —Dæ“x‚Ìİ’è (‚‚¢•û‚©‚çæ‚É•`‰æ‚³‚ê‚é)
     void setPriority( lnS32 priority )					{ mPriority = priority; }
@@ -320,7 +320,7 @@ protected:
     LVector3            mAngle;
     LVector3            mScale;
     LVector3            mCenter;
-    Math::RotationOrder	mRotOrder;          ///< ‰ñ“]‡˜
+    Lumino::RotationOrder	mRotOrder;          ///< ‰ñ“]‡˜
     lnS32               mPriority;          ///< —Dæ“x
     LNBillboardType     mBillboardType;
     SceneShader*        mShader;
@@ -407,7 +407,7 @@ protected:
 	virtual lnFloat					getOpacity() const { return 1.0f; }
     virtual const MMELightArray&	getAffectLightArray() const { return mAffectLightContextArray; }
     virtual bool					getObjectMatrix( LMatrix* out, MMEVariableRequest req, int light_idx ) const;
-	virtual const LMatrix&			findFrameMarix( const lnChar* name ) const { return LMatrix::IDENTITY; }
+	virtual const LMatrix&			findFrameMarix( const lnChar* name ) const { return LMatrix::Identity; }
 	virtual lnFloat					findMorphBlend( const lnChar* name ) const { return 0.0f; }
 
 protected:

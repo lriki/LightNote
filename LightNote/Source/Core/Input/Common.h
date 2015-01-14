@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../Math/Vector2.h"
+#include "../Math/LMath.h"
 #include "../System/Interface.h"
 
 namespace LNote

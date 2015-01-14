@@ -126,34 +126,34 @@ namespace Input
 			}
 		}
 
-	    mPosition.x = static_cast<lnFloat>( state.X );
-	    mPosition.y = static_cast<lnFloat>( state.Y );
-        mPosition.transform( mManager->getMouseTransform() );
+	    mPosition.X = static_cast<lnFloat>( state.X );
+	    mPosition.Y = static_cast<lnFloat>( state.Y );
+        mPosition.TransformCoord( mManager->getMouseTransform() );
 
         // 画面中央にカーソルを固定する場合
 		if ( mIsCenterFix )
 		{
             if ( mManager->canSetMousePoint() )
             {
-                mDistance.x = mPosition.x - mLastPosition.x;
-		        mDistance.y = mPosition.y - mLastPosition.y;
+                mDistance.X = mPosition.X - mLastPosition.X;
+		        mDistance.Y = mPosition.Y - mLastPosition.Y;
 
 			    mInputDevice->setMouseCursorCenter();
 
                 const Geometry::Size& size = mInputDevice->getWindow()->getSize();
-                mLastPosition.x = static_cast< lnFloat >( size.w / 2 );
-                mLastPosition.y = static_cast< lnFloat >( size.h / 2 );
+                mLastPosition.X = static_cast< lnFloat >( size.w / 2 );
+                mLastPosition.Y = static_cast< lnFloat >( size.h / 2 );
             }
             else
             {
-                mDistance.x = 0;
-                mDistance.y = 0;
+                mDistance.X = 0;
+                mDistance.Y = 0;
             }
 		}
         else
         {
-		    mDistance.x = mPosition.x - mLastPosition.x;
-		    mDistance.y = mPosition.y - mLastPosition.y;
+		    mDistance.X = mPosition.X - mLastPosition.X;
+		    mDistance.Y = mPosition.Y - mLastPosition.Y;
             mLastPosition = mPosition;
         }
 

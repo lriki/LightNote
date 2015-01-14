@@ -822,7 +822,7 @@ namespace Scene
 					 req == MME_VARREQ_RENDERDEPTHSTENCILTARGET ||
 					 req == MME_VARREQ_OFFSCREENRENDERTARGET )
 				{
-					viewport_ratio.set( 1.0f, 1.0f, 0, 0 );
+					viewport_ratio.Set( 1.0f, 1.0f, 0, 0 );
 					be_create = true;
 				}
 			}
@@ -856,20 +856,20 @@ namespace Scene
             // サイズが指定されていなければ dimensions の値を使う
             if ( width == 0 || height == 0 )
             {
-                width  = static_cast< int >( dimensions.x );
-                height = static_cast< int >( dimensions.y );
+                width  = static_cast< int >( dimensions.X );
+                height = static_cast< int >( dimensions.Y );
             }
             if ( depth == 0 )
             {
-                depth = static_cast< int >( dimensions.z );
+                depth = static_cast< int >( dimensions.Z );
             }
 
             //-------------------------------------------------
             // 
             
             data_->ResourceName = resource_name;
-            data_->Dimensions.set( (lnFloat)width, (lnFloat)height, (lnFloat)depth );
-            data_->ViewportRatio.set( viewport_ratio.x, viewport_ratio.y );
+            data_->Dimensions.Set( (lnFloat)width, (lnFloat)height, (lnFloat)depth );
+            data_->ViewportRatio.Set( viewport_ratio.X, viewport_ratio.Y );
             data_->Miplevels = miplevels;
             data_->Format = lnformat;
 
@@ -903,16 +903,16 @@ namespace Scene
         const LVector2& viewport_size_ )
     {
         // dimensions_ が有効ならその値
-        if ( dimensions_.x > 0 && dimensions_.y > 0 )
+        if ( dimensions_.X > 0 && dimensions_.Y > 0 )
         {
-            *width_  = static_cast< int >( dimensions_.x );
-            *height_ = static_cast< int >( dimensions_.y );
+            *width_  = static_cast< int >( dimensions_.X );
+            *height_ = static_cast< int >( dimensions_.Y );
         }
         // dimensions に値がない場合はビューポートサイズから
-        else if ( viewport_ratio_.x >= 0.0f && viewport_ratio_.y >= 0.0f )
+        else if ( viewport_ratio_.X >= 0.0f && viewport_ratio_.Y >= 0.0f )
         {
-            *width_  = static_cast< int >( viewport_size_.x * viewport_ratio_.x );
-            *height_ = static_cast< int >( viewport_size_.y * viewport_ratio_.y );
+            *width_  = static_cast< int >( viewport_size_.X * viewport_ratio_.X );
+            *height_ = static_cast< int >( viewport_size_.Y * viewport_ratio_.Y );
         }
         // それでも無効だったら 64 * 64
         else
@@ -1083,12 +1083,12 @@ namespace Scene
 				case MME_VARREQ_CONTROLOBJECT_Scale:
 				{
 					LVector4 scale;
-					LMatrix::decompose( (LVector3*)&scale, NULL, NULL, obj->getMatrix() );
+					obj->getMatrix().Decompose((LVector3*)&scale, NULL, NULL);
 					var->setVector( scale );
 					break;
 				}
 				case MME_VARREQ_CONTROLOBJECT_Position:
-					var->setVector( (const LVector4&)obj->getMatrix().getPosition() );
+					var->setVector( (const LVector4&)obj->getMatrix().GetPosition() );
 					break;
 				case MME_VARREQ_CONTROLOBJECT_World:
 					var->setMatrix( obj->getMatrix() );
@@ -1096,7 +1096,7 @@ namespace Scene
 
 				case MME_VARREQ_CONTROLOBJECT_BoneOffset:
 					var->setVector( 
-						(const LVector4&)obj->findFrameMarix( sv->ItemName.c_str() ).getPosition() );
+						(const LVector4&)obj->findFrameMarix( sv->ItemName.c_str() ).GetPosition() );
 					break;
 				case MME_VARREQ_CONTROLOBJECT_BoneMatrix:
 					var->setMatrix( 
@@ -1108,43 +1108,39 @@ namespace Scene
 					break;
 
 				case MME_VARREQ_CONTROLOBJECT_X:
-					var->setFloat( obj->getMatrix().getPosition().x );
+					var->setFloat( obj->getMatrix().GetPosition().X );
 					break;
 				case MME_VARREQ_CONTROLOBJECT_Y:
-					var->setFloat( obj->getMatrix().getPosition().y );
+					var->setFloat( obj->getMatrix().GetPosition().Y );
 					break;
 				case MME_VARREQ_CONTROLOBJECT_Z:
-					var->setFloat( obj->getMatrix().getPosition().z );
+					var->setFloat( obj->getMatrix().GetPosition().Z );
 					break;
 				case MME_VARREQ_CONTROLOBJECT_XYZ:
-					var->setVector( (const LVector4&)obj->getMatrix().getPosition() );
+					var->setVector( (const LVector4&)obj->getMatrix().GetPosition() );
 					break;
 
 				case MME_VARREQ_CONTROLOBJECT_Rx:
 				{
-					LVector3 rad;
-					LMatrix::toEuler( &rad, obj->getMatrix() );
-					var->setFloat( rad.x );
+					LVector3 rad = obj->getMatrix().ToEulerAngles();
+					var->setFloat( rad.X );
 					break;
 				}
 				case MME_VARREQ_CONTROLOBJECT_Ry:
 				{
-					LVector3 rad;
-					LMatrix::toEuler( &rad, obj->getMatrix() );
-					var->setFloat( rad.y );
+					LVector3 rad = obj->getMatrix().ToEulerAngles();
+					var->setFloat( rad.Y );
 					break;
 				}
 				case MME_VARREQ_CONTROLOBJECT_Rz:
 				{
-					LVector3 rad;
-					LMatrix::toEuler( &rad, obj->getMatrix() );
-					var->setFloat( rad.z );
+					LVector3 rad = obj->getMatrix().ToEulerAngles();
+					var->setFloat( rad.Z );
 					break;
 				}
 				case MME_VARREQ_CONTROLOBJECT_Rxyz:
 				{
-					LVector4 rad;
-					LMatrix::toEuler( (LVector3*)&rad, obj->getMatrix() );
+					LVector4 rad(obj->getMatrix().ToEulerAngles(), 0);
 					var->setVector( rad );
 					break;
 				}
@@ -1152,8 +1148,8 @@ namespace Scene
 				case MME_VARREQ_CONTROLOBJECT_Si:
 				{
 					LVector4 scale;
-					LMatrix::decompose( (LVector3*)&scale, NULL, NULL, obj->getMatrix() );
-					var->setFloat( scale.x );
+					obj->getMatrix().Decompose((LVector3*)&scale, NULL, NULL);
+					var->setFloat( scale.X );
 					break;
 				}
 				case MME_VARREQ_CONTROLOBJECT_Tr:

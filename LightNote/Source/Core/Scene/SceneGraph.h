@@ -13,7 +13,7 @@
 #include <algorithm>
 #include "../Base/ReferenceObjectArray.h"
 #include "../Base/STLUtils.h"
-#include "../Math/Vector2.h"
+#include "../Math/LMath.h"
 #include "../System/Interface.h"
 #include "../Game/GameTime.h"
 #include "../Graphics/Manager.h"

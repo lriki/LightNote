@@ -178,6 +178,9 @@
     <Filter Include="Lumino\Math">
       <UniqueIdentifier>{654e17c8-760b-4ac9-85c9-9d7787106a22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Math">
+      <UniqueIdentifier>{1f0cdfba-a145-4feb-9615-f5416fd94780}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\Source\Core\Graphics\Device\OpenGL\Note.txt">
@@ -1262,6 +1265,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\LuminoMath.h">
       <Filter>Lumino\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Math\LMath.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Math\RandomEx.h">
+      <Filter>Core\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

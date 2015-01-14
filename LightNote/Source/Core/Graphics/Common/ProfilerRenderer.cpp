@@ -147,38 +147,38 @@ namespace Graphics
 
 		// キャプションバー
 		mSpriteRenderer->drawRequest2D(
-			LVector3(location.x, location.y, 0),
-			LVector3::ZERO,
+			LVector3(location.X, location.Y, 0),
+			LVector3::Zero,
 			mManager->getDummyTexture(),
 			LRectF(0, 0, WindowWidth, 20),
 			0x33FFFFFF);
-		mTextRenderer.drawRequest("Statistics", LRect(location.x, location.y + 3, WindowWidth, 100), -1, TextAlign_Center);
+		mTextRenderer.drawRequest("Statistics", LRect(location.X, location.Y + 3, WindowWidth, 100), -1, TextAlign_Center);
 
 
-		location.y += 24;
+		location.Y += 24;
 
 		//-----------------------------------------------------
 		// Main info
-		mTextRenderer.drawRequest("Main information:", LRect(location.x + 8, location.y, 100, 100), -1, TextAlign_Left);
-		location.y += 16;
-		location.x += 16;
+		mTextRenderer.drawRequest("Main information:", LRect(location.X + 8, location.Y, 100, 100), -1, TextAlign_Left);
+		location.Y += 16;
+		location.X += 16;
 
 		lnChar text[256] = { 0 };
 		_stprintf_s(text, 256, _T("Average FPS     : %.1f"), mSavedProfiler.MainFPS);
-		mTextRenderer.drawRequest(text, LRect(location.x, location.y, 100, 100), -1, TextAlign_Left);
+		mTextRenderer.drawRequest(text, LRect(location.X, location.Y, 100, 100), -1, TextAlign_Left);
 
 		_stprintf_s(text, 256, _T(" / Capacity : %.1f"), mSavedProfiler.MainFPSCapacity);
-		mTextRenderer.drawRequest(text, LRect(location.x + 150, location.y, 100, 100), -1, TextAlign_Left);
-		location.y += 16;
+		mTextRenderer.drawRequest(text, LRect(location.X + 150, location.Y, 100, 100), -1, TextAlign_Left);
+		location.Y += 16;
 
 		_stprintf_s(text, 256, _T("Window Size     : %d x %d"), mSavedProfiler.WindowSize.w, mSavedProfiler.WindowSize.h);
-		mTextRenderer.drawRequest(text, LRect(location.x, location.y, 100, 100), -1, TextAlign_Left);
-		location.y += 16;
+		mTextRenderer.drawRequest(text, LRect(location.X, location.Y, 100, 100), -1, TextAlign_Left);
+		location.Y += 16;
 
 		_stprintf_s(text, 256, _T("Backbuffer Size : %d x %d"), mSavedProfiler.BackbufferSize.w, mSavedProfiler.BackbufferSize.h);
-		mTextRenderer.drawRequest(text, LRect(location.x, location.y, 100, 100), -1, TextAlign_Left);
-		location.y += 24;
-		location.x -= 16;
+		mTextRenderer.drawRequest(text, LRect(location.X, location.Y, 100, 100), -1, TextAlign_Left);
+		location.Y += 24;
+		location.X -= 16;
 
 		
 #if 0
@@ -317,7 +317,7 @@ namespace Graphics
 			threadCount * rowHeight);
 		mSpriteRenderer->drawRequest2D(
 			LVector3(ngArea.x, ngArea.y, 0),
-			LVector3::ZERO,
+			LVector3::Zero,
 			mManager->getDummyTexture(),
 			LRectF(0, 0, ngArea.w, ngArea.h),
 			0x33FF0000);
@@ -325,7 +325,7 @@ namespace Graphics
 		// リスト縦罫線
 		mSpriteRenderer->drawRequest2D(
 			LVector3(listRect.x + ThreadNameColumnWidth - 1, listRect.y, 0),
-			LVector3::ZERO,
+			LVector3::Zero,
 			mManager->getDummyTexture(),
 			LRectF(0, 0, 1, listRect.h),
 			RuleLineColor);
@@ -386,14 +386,14 @@ namespace Graphics
 
 				LVector3 pos(x + nextX, y + 5, 0);
 				LRectF srcRect(0, 0, ratio * SafeAreaWidth, rowHeight - 10);
-				if (listRect.x + listRect.w < pos.x + srcRect.w)
+				if (listRect.x + listRect.w < pos.X + srcRect.w)
 				{
-					srcRect.w = listRect.x + listRect.w - pos.x;
+					srcRect.w = listRect.x + listRect.w - pos.X;
 				}
 
 				mSpriteRenderer->drawRequest2D(
 					pos,
-					LVector3::ZERO,
+					LVector3::Zero,
 					mManager->getDummyTexture(),
 					srcRect,
 					getColorByIndex(section.ColorIndex).toU32ARGB());

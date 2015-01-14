@@ -270,7 +270,7 @@ namespace Scene
 			/*r->clear(true,true,0xff0000ff,1.0f);*/
 
 			// TODO: ‚Æ‚è‚ ‚¦‚¸
-			LVector2 size(renderTarget->getSize().x, renderTarget->getSize().y);
+			LVector2 size(renderTarget->getSize().X, renderTarget->getSize().Y);
 			mProfilerRenderer.render(size);
 
 

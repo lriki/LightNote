@@ -138,10 +138,10 @@ private:
 						dy = mTileHeight * y;
 
 						// 順に、左上　右上　左下　右下
-						vertices[i + 0].Position.set(dx, dy, dz);
-						vertices[i + 1].Position.set(dx + mTileWidth, dy, dz);
-						vertices[i + 2].Position.set(dx, dy + mTileHeight, dz);
-						vertices[i + 3].Position.set(dx + mTileWidth, dy + mTileHeight, dz);
+						vertices[i + 0].Position.Set(dx, dy, dz);
+						vertices[i + 1].Position.Set(dx + mTileWidth, dy, dz);
+						vertices[i + 2].Position.Set(dx, dy + mTileHeight, dz);
+						vertices[i + 3].Position.Set(dx + mTileWidth, dy + mTileHeight, dz);
 					}
 				}
 				break;
@@ -158,10 +158,10 @@ private:
 						dy = -mTileHeight * y + oy;
 
 						// 順に、左上　右上　左下　右下
-						vertices[i + 0].Position.set(dx, dy, dz);
-						vertices[i + 1].Position.set(dx + mTileWidth, dy, dz);
-						vertices[i + 2].Position.set(dx, dy - mTileHeight, dz);
-						vertices[i + 3].Position.set(dx + mTileWidth, dy - mTileHeight, dz);
+						vertices[i + 0].Position.Set(dx, dy, dz);
+						vertices[i + 1].Position.Set(dx + mTileWidth, dy, dz);
+						vertices[i + 2].Position.Set(dx, dy - mTileHeight, dz);
+						vertices[i + 3].Position.Set(dx + mTileWidth, dy - mTileHeight, dz);
 					}
 				}
 				break;
@@ -197,8 +197,8 @@ private:
 	void writeVertexUV()
 	{
 		// タイルひとつ分の UV サイズ
-		float uvWidth = static_cast< lnFloat >(mTileWidth) / mTilesetTexture->getRealSize().x;
-		float uvHeight = static_cast< lnFloat >(mTileHeight) / mTilesetTexture->getRealSize().y;
+		float uvWidth = static_cast< lnFloat >(mTileWidth) / mTilesetTexture->getRealSize().X;
+		float uvHeight = static_cast< lnFloat >(mTileHeight) / mTilesetTexture->getRealSize().Y;
 	
 		// 頂点バッファに書き込んでいく
 		Graphics::Vertex::PosUV* vertices = (Graphics::Vertex::PosUV*)mVertexBuffer->lock();
@@ -213,10 +213,10 @@ private:
 				int idx = ((mXTileCount * y) + x) * 4;
 				lnFloat u = uvWidth * (d % mTilesetHorizontalTileCount);
 				lnFloat v = uvHeight * (d / mTilesetHorizontalTileCount);
-				vertices[i + 0].TexUV.set(u, v);
-				vertices[i + 1].TexUV.set(u + uvWidth, v);
-				vertices[i + 2].TexUV.set(u, v + uvHeight);
-				vertices[i + 3].TexUV.set(u + uvWidth, v + uvHeight);
+				vertices[i + 0].TexUV.Set(u, v);
+				vertices[i + 1].TexUV.Set(u + uvWidth, v);
+				vertices[i + 2].TexUV.Set(u, v + uvHeight);
+				vertices[i + 3].TexUV.Set(u + uvWidth, v + uvHeight);
 			}
 		}
 		mVertexBuffer->unlock();

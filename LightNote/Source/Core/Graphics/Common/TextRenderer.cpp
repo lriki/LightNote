@@ -3,7 +3,7 @@
 //==============================================================================
 
 #include "stdafx.h"
-#include "../../Math/Math.h"
+#include "../../Math/LMath.h"
 #include "../Manager.h"
 #include "GraphicsUtil.h"
 #include "Bitmap.h"

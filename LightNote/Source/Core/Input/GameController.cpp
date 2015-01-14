@@ -153,7 +153,7 @@ namespace Input
 	//----------------------------------------------------------------------
     const LVector2& GameController::getAxisState( int axis )
     {
-        if ( axis < 0 || LN_MAX_JOYPAD_AXIS / 2 <= axis ) return LVector2::ZERO;
+        if ( axis < 0 || LN_MAX_JOYPAD_AXIS / 2 <= axis ) return LVector2::Zero;
 		return mAxisState[ axis ];
     }
 

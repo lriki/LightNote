@@ -114,7 +114,7 @@ namespace Scene
 			mSceneShaderManager->createSceneShader( Resource::ID_Shader_SSNoLighting, lnSharingKey( _T("ID_Shader_SSNoLighting") ) );
 		
         // デフォルトのノード
-        Geometry::Size view_size( (int)init_data_.VirtualViewSize.x, (int)init_data_.VirtualViewSize.y );
+        Geometry::Size view_size( (int)init_data_.VirtualViewSize.X, (int)init_data_.VirtualViewSize.Y );
         Viewport* node_root = LN_NEW Viewport( this );
         Viewport* node_3d   = LN_NEW Viewport( this );
         Viewport* node_2d   = LN_NEW Viewport( this );
@@ -453,7 +453,7 @@ namespace Scene
         ActiveLightDataArray::iterator end = mActiveLightDataArray.end();
         for ( ; itr != end; ++itr )
         {
-            itr->Distance = LVector3::squareLength( itr->ActiveLight->getPosition() - ref_pos_ );//itr->DistanceToCamera;
+            itr->Distance = ( itr->ActiveLight->getPosition() - ref_pos_ ).GetLengthSquared();//itr->DistanceToCamera;
         }
 
         // ソート (先頭から順に、優先度高、基準値の昇順)
@@ -574,7 +574,7 @@ namespace Scene
             // ソート基準値の設定
             ln_foreach( LightContext* lc, mActiveLightContextArray)
             {
-                lc->DistanceForSort = LVector3::squareLength( lc->getPosition() - ref_pos_ );
+                lc->DistanceForSort = ( lc->getPosition() - ref_pos_ ).GetLengthSquared();
             }
 
             // ソート (先頭から順に、優先度高、基準値の昇順)
@@ -605,7 +605,7 @@ namespace Scene
         {
             mActiveViewFrustum.create(
                 param.CameraContext->getFovY(),
-                view_size.x / view_size.y,
+                view_size.X / view_size.Y,
                 param.CameraContext->getNearClip(),
                 param.CameraContext->getFarClip() );
         }
@@ -613,8 +613,8 @@ namespace Scene
         else
         {
             mActiveViewFrustum.create2DProjection(
-                view_size.x,
-                view_size.y,
+                view_size.X,
+                view_size.Y,
                 param.CameraContext->getNearClip(),
                 param.CameraContext->getFarClip() );
         }

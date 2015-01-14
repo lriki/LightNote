@@ -215,17 +215,17 @@ namespace Graphics
 	//----------------------------------------------------------------------
     void SpriteRenderer::setViewProjMatrix( const LMatrix& view_, const LMatrix& proj_ )
     {
-        mViewDirection.set( view_.m02, view_.m12, view_.m22 );
+		mViewDirection.Set(view_.M[0][2], view_.M[1][2], view_.M[2][2]);
 
-        LMatrix::inverse( &mViewInverseMatrix, view_ );
+		mViewInverseMatrix = LMatrix::Inverse(view_);
 
-        mViewPosition = mViewInverseMatrix.getPosition();
+        mViewPosition = mViewInverseMatrix.GetPosition();
         //mViewInverseMatrix.transpose();
         //LMath::MatrixTranspose( &mViewProjMatrix, ( view_ * proj_ ) );
 
         mViewProjMatrix = ( view_ * proj_ );
 
-		mViewPixelSize = LVector2::ZERO;
+		mViewPixelSize = LVector2::Zero;
     }
 
 	//----------------------------------------------------------------------
@@ -244,10 +244,10 @@ namespace Graphics
 	{
 		LMatrix view;
 		LMatrix proj;
-		LMatrix::perspective2DLH(
+		LMatrixUtils::perspective2DLH(
 			&proj,
-			viewSize.x,
-			viewSize.y,
+			viewSize.X,
+			viewSize.Y,
 			0.0f,
 			10000.0f);
 		setViewProjMatrix(view, proj, viewSize);
@@ -352,31 +352,31 @@ namespace Graphics
                 position_.z - center_.z );
                 */
 
-            LVector3 origin( -center_.x, -center_.y, -center_.z );
+			LVector3 origin(-center_);
 
-            LVector2 harf_size( size_.x * 0.5f, size_.y * 0.5f );
+			LVector2 harf_size(size_ * 0.5f);
 
             lnFloat l, t, r, b;
-            r =  harf_size.x;
-            b = -harf_size.y;
+            r =  harf_size.X;
+            b = -harf_size.Y;
             l = -r;
             t = -b;
 
-#define LN_WRITE_V3( x_, y_, z_ ) origin.x + x_, origin.y + y_, origin.z + z_
+#define LN_WRITE_V3( x_, y_, z_ ) origin.X + x_, origin.Y + y_, origin.Z + z_
 
             switch ( front_ )
             {
                 case LN_AADIR_X:
-                    sprite.Vertices[ 0 ].Position.set( LN_WRITE_V3( 0, t, l ) );     // 左上
-                    sprite.Vertices[ 1 ].Position.set( LN_WRITE_V3( 0, t, r ) );     // 右上
-                    sprite.Vertices[ 2 ].Position.set( LN_WRITE_V3( 0, b, l ) );     // 左下
-                    sprite.Vertices[ 3 ].Position.set( LN_WRITE_V3( 0, b, r ) );     // 右下
+                    sprite.Vertices[ 0 ].Position.Set( LN_WRITE_V3( 0, t, l ) );     // 左上
+                    sprite.Vertices[ 1 ].Position.Set( LN_WRITE_V3( 0, t, r ) );     // 右上
+                    sprite.Vertices[ 2 ].Position.Set( LN_WRITE_V3( 0, b, l ) );     // 左下
+                    sprite.Vertices[ 3 ].Position.Set( LN_WRITE_V3( 0, b, r ) );     // 右下
                     break;
                 case LN_AADIR_Y:
-                    sprite.Vertices[ 0 ].Position.set( LN_WRITE_V3( l, 0, t ) );
-                    sprite.Vertices[ 1 ].Position.set( LN_WRITE_V3( r, 0, t ) );
-                    sprite.Vertices[ 2 ].Position.set( LN_WRITE_V3( l, 0, b ) );
-                    sprite.Vertices[ 3 ].Position.set( LN_WRITE_V3( r, 0, b ) );
+                    sprite.Vertices[ 0 ].Position.Set( LN_WRITE_V3( l, 0, t ) );
+                    sprite.Vertices[ 1 ].Position.Set( LN_WRITE_V3( r, 0, t ) );
+                    sprite.Vertices[ 2 ].Position.Set( LN_WRITE_V3( l, 0, b ) );
+                    sprite.Vertices[ 3 ].Position.Set( LN_WRITE_V3( r, 0, b ) );
                     break;
                 case LN_AADIR_Z:
                     /*
@@ -385,28 +385,28 @@ namespace Graphics
                     sprite.Vertices[ 2 ].Position.set( LN_WRITE_V3( r, b, 0 ) );
                     sprite.Vertices[ 3 ].Position.set( LN_WRITE_V3( l, b, 0 ) );
                     */
-                    sprite.Vertices[ 0 ].Position.set( LN_WRITE_V3( r, t, 0 ) );
-                    sprite.Vertices[ 1 ].Position.set( LN_WRITE_V3( l, t, 0 ) );
-                    sprite.Vertices[ 2 ].Position.set( LN_WRITE_V3( r, b, 0 ) );
-                    sprite.Vertices[ 3 ].Position.set( LN_WRITE_V3( l, b, 0 ) );
+                    sprite.Vertices[ 0 ].Position.Set( LN_WRITE_V3( r, t, 0 ) );
+                    sprite.Vertices[ 1 ].Position.Set( LN_WRITE_V3( l, t, 0 ) );
+                    sprite.Vertices[ 2 ].Position.Set( LN_WRITE_V3( r, b, 0 ) );
+                    sprite.Vertices[ 3 ].Position.Set( LN_WRITE_V3( l, b, 0 ) );
                     break;
                 case LN_AADIR_RX:
-                    sprite.Vertices[ 0 ].Position.set( LN_WRITE_V3( 0, t, r ) );
-                    sprite.Vertices[ 1 ].Position.set( LN_WRITE_V3( 0, t, l ) );
-                    sprite.Vertices[ 2 ].Position.set( LN_WRITE_V3( 0, b, r ) );
-                    sprite.Vertices[ 3 ].Position.set( LN_WRITE_V3( 0, b, l ) );
+                    sprite.Vertices[ 0 ].Position.Set( LN_WRITE_V3( 0, t, r ) );
+                    sprite.Vertices[ 1 ].Position.Set( LN_WRITE_V3( 0, t, l ) );
+                    sprite.Vertices[ 2 ].Position.Set( LN_WRITE_V3( 0, b, r ) );
+                    sprite.Vertices[ 3 ].Position.Set( LN_WRITE_V3( 0, b, l ) );
                     break;
 	            case LN_AADIR_RY:
-                    sprite.Vertices[ 0 ].Position.set( LN_WRITE_V3( r, 0, t ) );
-                    sprite.Vertices[ 1 ].Position.set( LN_WRITE_V3( l, 0, t ) );
-                    sprite.Vertices[ 2 ].Position.set( LN_WRITE_V3( r, 0, b ) );
-                    sprite.Vertices[ 3 ].Position.set( LN_WRITE_V3( l, 0, b ) );
+                    sprite.Vertices[ 0 ].Position.Set( LN_WRITE_V3( r, 0, t ) );
+                    sprite.Vertices[ 1 ].Position.Set( LN_WRITE_V3( l, 0, t ) );
+                    sprite.Vertices[ 2 ].Position.Set( LN_WRITE_V3( r, 0, b ) );
+                    sprite.Vertices[ 3 ].Position.Set( LN_WRITE_V3( l, 0, b ) );
                     break;
                 case LN_AADIR_RZ:
-                    sprite.Vertices[ 0 ].Position.set( LN_WRITE_V3( l, t, 0 ) );
-                    sprite.Vertices[ 1 ].Position.set( LN_WRITE_V3( r, t, 0 ) );
-                    sprite.Vertices[ 2 ].Position.set( LN_WRITE_V3( l, b, 0 ) );
-                    sprite.Vertices[ 3 ].Position.set( LN_WRITE_V3( r, b, 0 ) );
+                    sprite.Vertices[ 0 ].Position.Set( LN_WRITE_V3( l, t, 0 ) );
+                    sprite.Vertices[ 1 ].Position.Set( LN_WRITE_V3( r, t, 0 ) );
+                    sprite.Vertices[ 2 ].Position.Set( LN_WRITE_V3( l, b, 0 ) );
+                    sprite.Vertices[ 3 ].Position.Set( LN_WRITE_V3( r, b, 0 ) );
                     /* 右手用
                     sprite.Vertices[ 0 ].Position.set( LN_WRITE_V3( l, t, 0 ) );
                     sprite.Vertices[ 1 ].Position.set( LN_WRITE_V3( l, b, 0 ) );
@@ -426,39 +426,38 @@ namespace Graphics
                 position_.y - center_.y,
                 position_.z - center_.z );
                 */
-            LVector3 origin( -center_.x, -center_.y, -center_.z );
+			LVector3 origin(-center_);
 
-            sprite.Vertices[ 0 ].Position.set( origin.x,           origin.y,           origin.z );
-            sprite.Vertices[ 1 ].Position.set( origin.x + size_.x, origin.y,           origin.z );
-            sprite.Vertices[ 2 ].Position.set( origin.x,           origin.y + size_.y, origin.z );
-            sprite.Vertices[ 3 ].Position.set( origin.x + size_.x, origin.y + size_.y, origin.z );
+            sprite.Vertices[ 0 ].Position.Set( origin.X,           origin.Y,           origin.Z );
+            sprite.Vertices[ 1 ].Position.Set( origin.X + size_.X, origin.Y,           origin.Z );
+            sprite.Vertices[ 2 ].Position.Set( origin.X,           origin.Y + size_.Y, origin.Z );
+            sprite.Vertices[ 3 ].Position.Set( origin.X + size_.X, origin.Y + size_.Y, origin.Z );
         }
 
         //mTransformMatrix.rotationZ( 0.0001f );
 
-        LMatrix mat;
-        mat.setRotateMatrix( mTransformMatrix );
+		LMatrix mat = mTransformMatrix.GetRotationMatrix();
 
 
         // ビルボード (Scene から使う場合は SceneNode が面倒見てるので、Scene 以外で必要になるまで保留…)
         if ( 0 )
         {
-            mat.setMul3x3( mViewInverseMatrix );
+            //mat.setMul3x3( mViewInverseMatrix );
         }
         // ビルボード・Y 軸のみに適用
         else if ( 0 )
         {
-            if ( mViewDirection.x > 0.0f )
+            if ( mViewDirection.X > 0.0f )
 		    {
-                mat.rotationY( -atanf( mViewDirection.z / mViewDirection.x ) + LMath::PI / 2 );
+                mat.RotationY( -atanf( mViewDirection.Z / mViewDirection.X ) + LMath::PI / 2 );
 		    }   
-		    else if ( mViewDirection.x == 0.0f )
+		    else if ( mViewDirection.X == 0.0f )
 		    {
 			    //D3DXMatrixIdentity(&matWorld); // 0除算を防ぐため
 		    }
 		    else
 		    {
-                mat.rotationY( -atanf( mViewDirection.z / mViewDirection.x ) - LMath::PI / 2 );
+                mat.RotationY( -atanf( mViewDirection.Z / mViewDirection.X ) - LMath::PI / 2 );
 		    }
             
         }
@@ -467,14 +466,14 @@ namespace Graphics
         {
         }
 
-        mat.translation( position_ );
-        mat.translation( mTransformMatrix.getPosition() );
+        mat.Translation( position_ );
+        mat.Translation( mTransformMatrix.GetPosition() );
 
         // 座標変換
-        sprite.Vertices[ 0 ].Position.transform( mat );
-        sprite.Vertices[ 1 ].Position.transform( mat );
-        sprite.Vertices[ 2 ].Position.transform( mat );
-        sprite.Vertices[ 3 ].Position.transform( mat );
+		sprite.Vertices[0].Position.TransformCoord(mat);
+		sprite.Vertices[1].Position.TransformCoord(mat);
+		sprite.Vertices[2].Position.TransformCoord(mat);
+		sprite.Vertices[3].Position.TransformCoord(mat);
 
         //sprite.Vertices[ 0 ].Position.transform( mViewProjMatrix );
         //sprite.Vertices[ 0 ].Position.cdump();
@@ -516,43 +515,43 @@ namespace Graphics
             //sr.y = src_rect_.y;
             //sr.w = src_rect_.w;
             //sr.h = src_rect_.h;
-            lnFloat l = sr.x * texsize_inv.x;
-            lnFloat t = sr.y * texsize_inv.y;
-            lnFloat r = (sr.x + sr.w) * texsize_inv.x;
-            lnFloat b = (sr.y + sr.h) * texsize_inv.y;
-            sprite.Vertices[ 0 ].TexUV.x = l;
-            sprite.Vertices[ 0 ].TexUV.y = t;
-            sprite.Vertices[ 1 ].TexUV.x = r;
-            sprite.Vertices[ 1 ].TexUV.y = t;
-            sprite.Vertices[ 2 ].TexUV.x = l;
-            sprite.Vertices[ 2 ].TexUV.y = b;
-            sprite.Vertices[ 3 ].TexUV.x = r;
-            sprite.Vertices[ 3 ].TexUV.y = b;
+            lnFloat l = sr.x * texsize_inv.X;
+            lnFloat t = sr.y * texsize_inv.Y;
+            lnFloat r = (sr.x + sr.w) * texsize_inv.X;
+            lnFloat b = (sr.y + sr.h) * texsize_inv.Y;
+            sprite.Vertices[ 0 ].TexUV.X = l;
+            sprite.Vertices[ 0 ].TexUV.Y = t;
+            sprite.Vertices[ 1 ].TexUV.X = r;
+            sprite.Vertices[ 1 ].TexUV.Y = t;
+            sprite.Vertices[ 2 ].TexUV.X = l;
+            sprite.Vertices[ 2 ].TexUV.Y = b;
+            sprite.Vertices[ 3 ].TexUV.X = r;
+            sprite.Vertices[ 3 ].TexUV.Y = b;
           
             // テクスチャ
             sprite.Texture = texture_;
         }
         else
         {
-            sprite.Vertices[ 0 ].TexUV.x = 0;
-            sprite.Vertices[ 0 ].TexUV.y = 0;
-            sprite.Vertices[ 1 ].TexUV.x = 1;
-            sprite.Vertices[ 1 ].TexUV.y = 0;
-            sprite.Vertices[ 2 ].TexUV.x = 0;
-            sprite.Vertices[ 2 ].TexUV.y = 1;
-            sprite.Vertices[ 3 ].TexUV.x = 1;
-            sprite.Vertices[ 3 ].TexUV.y = 1;
+            sprite.Vertices[ 0 ].TexUV.X = 0;
+            sprite.Vertices[ 0 ].TexUV.Y = 0;
+            sprite.Vertices[ 1 ].TexUV.X = 1;
+            sprite.Vertices[ 1 ].TexUV.Y = 0;
+            sprite.Vertices[ 2 ].TexUV.X = 0;
+            sprite.Vertices[ 2 ].TexUV.Y = 1;
+            sprite.Vertices[ 3 ].TexUV.X = 1;
+            sprite.Vertices[ 3 ].TexUV.Y = 1;
             sprite.Texture = mManager->getDummyTexture();
         }
 
         // カメラからの距離をソート用Z値にする場合
         if ( mEnableViewPosDepth )
         {
-            sprite.Depth = ( mViewPosition - position_ ).getSquareLength();
+            sprite.Depth = ( mViewPosition - position_ ).GetLengthSquared();
         }
         else
         {
-            sprite.Depth = position_.z;
+            sprite.Depth = position_.Z;
         }
 
         sprite.Visible = true;

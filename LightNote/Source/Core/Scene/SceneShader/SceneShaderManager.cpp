@@ -351,8 +351,8 @@ namespace Scene
         mMMESceneParam.Mat_LightProj     = &light->getProjectionMatrix();
         mMMESceneParam.Mat_LightViewProj = &light->getViewProjectionMatrix();
 
-        mMMESceneParam.LightPosition     = LVector4( light->getPosition() );
-        mMMESceneParam.LightDirection    = LVector4( light->getDirection() );
+        mMMESceneParam.LightPosition     = LVector4( light->getPosition(), 0 );
+        mMMESceneParam.LightDirection    = LVector4( light->getDirection(), 0 );
 
         mMMESceneParam.LightDiffuse      = (LVector4*)&light->getDiffuseColor();
         mMMESceneParam.LightAmbient      = (LVector4*)&light->getAmbientColor();
@@ -510,13 +510,13 @@ namespace Scene
                 switch ( ev_mouse.Button )
                 {
                     case LN_MOUSE_LEFT:
-                        mMMESceneParam.LeftMouseDown.z = 0.0f;
+                        mMMESceneParam.LeftMouseDown.Z = 0.0f;
                         break;
                     case LN_MOUSE_RIGHT:
-                        mMMESceneParam.RightMouseDown.z = 0.0f;
+                        mMMESceneParam.RightMouseDown.Z = 0.0f;
                         break;
                     case LN_MOUSE_MIDDLE:
-                        mMMESceneParam.MiddleMouseDown.z = 0.0f;
+                        mMMESceneParam.MiddleMouseDown.Z = 0.0f;
                         break;
                 }
                 break;
@@ -526,21 +526,21 @@ namespace Scene
                 switch ( ev_mouse.Button )
                 {
                     case LN_MOUSE_LEFT:
-                        mMMESceneParam.LeftMouseDown.set(
+                        mMMESceneParam.LeftMouseDown.Set(
                             static_cast< lnFloat >( ev_mouse.X ),
                             static_cast< lnFloat >( ev_mouse.Y ),
                             1.0f,
                             mMMESceneParam.Time );
                         break;
                     case LN_MOUSE_RIGHT:
-                        mMMESceneParam.RightMouseDown.set(
+                        mMMESceneParam.RightMouseDown.Set(
                             static_cast< lnFloat >( ev_mouse.X ),
                             static_cast< lnFloat >( ev_mouse.Y ),
                             1.0f,
                             mMMESceneParam.Time );
                         break;
                     case LN_MOUSE_MIDDLE:
-                        mMMESceneParam.MiddleMouseDown.set(
+                        mMMESceneParam.MiddleMouseDown.Set(
                             static_cast< lnFloat >( ev_mouse.X ),
                             static_cast< lnFloat >( ev_mouse.Y ),
                             1.0f,
@@ -551,7 +551,7 @@ namespace Scene
             }
             case LNEV_MOUSE_MOVE:
             {
-                mMMESceneParam.MousePosition.set(
+                mMMESceneParam.MousePosition.Set(
                     static_cast< lnFloat >( ev_mouse.X ),
                     static_cast< lnFloat >( ev_mouse.Y ),
                     0, 0 );

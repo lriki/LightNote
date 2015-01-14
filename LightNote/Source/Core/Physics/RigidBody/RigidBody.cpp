@@ -187,7 +187,7 @@ struct RigidBody::KinematicMotionState
 			else
 			{
 				transform.setIdentity();
-				mWorldMatrix.identity();
+				mWorldMatrix = LMatrix::Identity;
 			}
 
 			// Šµ«ƒeƒ“ƒ\ƒ‹‚ğŒvZ‚µ‚Ä localInertia ‚ÉŠi”[

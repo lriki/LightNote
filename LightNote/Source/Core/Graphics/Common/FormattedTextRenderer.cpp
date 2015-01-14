@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include <algorithm>
 #include "../../Base/Encoding.h"
-#include "../../Math/Math.h"
+#include "../../Math/LMath.h"
 #include "GraphicsUtil.h"
 #include "Bitmap.h"
 #include "FormattedTextRenderer.h"

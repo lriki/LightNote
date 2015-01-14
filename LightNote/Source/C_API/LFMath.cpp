@@ -5,7 +5,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "../Core/Math/Asm.h"
+#include "../Core/Math/LMath.h"
 #include "LFInternal.h"
 #include "LFFramework.h"
 #include "LFMath.h"

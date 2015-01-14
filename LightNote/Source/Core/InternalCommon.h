@@ -192,14 +192,6 @@ namespace LNote
 	}
 
 
-	namespace LMath = Core::Math;
-	typedef Core::Math::Vector2			LVector2;
-	typedef Core::Math::Vector3			LVector3;
-	typedef Core::Math::Vector4			LVector4;
-	typedef Core::Math::Matrix			LMatrix;
-	typedef Core::Math::Quaternion		LQuaternion;
-	typedef Core::Math::SQTTransform	LSQTTransform;
-	typedef Core::Math::Random			LRandom;
 
 }
 

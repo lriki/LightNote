@@ -70,7 +70,7 @@ namespace Scene
     void MMETextureObject::refresh( const LVector2& viewSize )
 	{
 		if ( mTexture == NULL ||								// 初回生成
-			(mViewportRatio.x != 0 || mViewportRatio.y != 0) )	// ビューサイズによってテクスチャサイズも変える必要がある
+			(mViewportRatio.X != 0 || mViewportRatio.Y != 0) )	// ビューサイズによってテクスチャサイズも変える必要がある
 		{
 			_dispose();
 
@@ -93,7 +93,7 @@ namespace Scene
 				path,
 				width,
 				height,
-				static_cast< lnU32 >( mDimensions.z ),
+				static_cast< lnU32 >( mDimensions.Z ),
 				mMiplevels,
 				mFormat );
 		}

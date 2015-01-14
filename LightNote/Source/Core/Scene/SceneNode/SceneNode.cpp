@@ -47,7 +47,7 @@ namespace Scene
         , mScale				( 1, 1, 1 )
         , mBillboardType		( LN_BILLBOARD_NOT )
         , mShader				( NULL )
-		, mRotOrder				( Math::RotationOrder_XYZ )
+		, mRotOrder				( Lumino::RotationOrder_XYZ )
         , mPriority				( 0 )
         , mZDistance			( 0.0f )
         , mPriorityParameter    ( NULL )
@@ -241,11 +241,11 @@ namespace Scene
         // ƒ[ƒ‹ƒhs—ñ‚ÌXV‚ª•K—v‚Èê‡‚ÍÄŒvZ
         if ( mNeedUpdateMatrix )
         {
-            mMatrix.identity();
-            mMatrix.translation( -mCenter.x, -mCenter.y, -mCenter.z );
-            mMatrix.scaling( mScale );
-            mMatrix.rotation( mAngle, mRotOrder );
-            mMatrix.translation( mPosition );
+            mMatrix = LMatrix::Identity;
+            mMatrix.Translation( -mCenter.X, -mCenter.Y, -mCenter.Z );
+            mMatrix.Scaling( mScale );
+            mMatrix.RotateAxis( mAngle, mRotOrder );
+            mMatrix.Translation( mPosition );
             mNeedUpdateMatrix = false;   
         }
 
@@ -446,15 +446,15 @@ namespace Scene
         {
             default:
             case LN_ZSORTF_IMM_Z:
-                mZDistance = mCombinedWorldMatrix.getPosition().z;
+                mZDistance = mCombinedWorldMatrix.GetPosition().Z;
                 break;
-            case LN_ZSORTF_CAMERA_DIST:
-                mZDistance = LVector3::squareLength( mCombinedWorldMatrix.getPosition() - param.CameraContext->getPosition() );
+			case LN_ZSORTF_CAMERA_DIST:
+				mZDistance = (mCombinedWorldMatrix.GetPosition() - param.CameraContext->getPosition().GetXYZ()).GetLengthSquared();
                 break;
             case LN_ZSORTF_CAMERA_SCREEN:
                 mZDistance = LGeometry::PointPolyDistance(
-                    mCombinedWorldMatrix.getPosition(), 
-                    param.CameraContext->getPosition(),
+                    mCombinedWorldMatrix.GetPosition(), 
+                    param.CameraContext->getPosition().GetXYZ(),
                     param.CameraContext->getDirection() );
                 break;
         }
@@ -472,18 +472,17 @@ namespace Scene
 			// ‚Ü‚¸‚ÍŒ‹‡Ï‚İs—ñ‚ğ Z+ •ûŒü‚ÉŒü‚¯‚éB
 			// ‚±‚ê‚ÅX, Y ²‚Ì‰ñ“]‚ğÁ‚·B
 			LVector3 front( 0, 0, 1 );
-			LVector3 right, up;
-			LVector3::cross( &right, mCombinedWorldMatrix.getUp(), front );
-			LVector3::cross( &up, front, right );
-			mat[0].set( right.x, right.y, right.z, 0 );
-			mat[1].set( up.x, up.y, up.z, 0 );
-			mat[2].set( front.x, front.y, front.z, 0 );
+			LVector3 right = LVector3::Cross(mCombinedWorldMatrix.GetUp(), front);
+			LVector3 up = LVector3::Cross(front, right);
+			mat.SetRow(0, LVector4(right, 0));
+			mat.SetRow(1, LVector4(up, 0));
+			mat.SetRow(2, LVector4(front, 0));
 
             // ƒrƒ…[s—ñ‚Ì‹ts—ñ‚Ì‚¤‚¿A‰ñ“]•”•ª‚¾‚¯‚ğæZ
-            mat.setMul3x3( param.CameraContext->getViewMatrixInverse() );
+			mat = LMatrix::Multiply(mat, param.CameraContext->getViewMatrixInverse());
 
             // ˆÚ“®¬•ª‚ğæZ‚µ‚È‚¨‚·
-            mat.translation( mCombinedWorldMatrix.m30, mCombinedWorldMatrix.m31, mCombinedWorldMatrix.m32 );
+			mat.Translation(mCombinedWorldMatrix.GetPosition());
 
             mCombinedWorldMatrix = mat;
         }
@@ -492,23 +491,22 @@ namespace Scene
         {
             const LMatrix& view = param.CameraContext->getViewMatrix();
 
-            LMatrix mat;
-            mat.setRotateMatrix( mCombinedWorldMatrix );
+			LMatrix mat = mCombinedWorldMatrix.GetRotationMatrix();
 
-            if ( view.m02 > 0.0f )
+            if ( view.M[0][2] > 0.0f )
 		    {
-                mat.rotationY( -atanf( view.m22 / view.m02 ) + LMath::PI / 2 );
+				mat.RotationY(-atanf(view.M[2][2] / view.M[0][2]) + Lumino::Math::PI / 2);
 		    }   
-		    else if ( view.m02 == 0.0f )
+			else if (view.M[0][2] == 0.0f)
 		    {
-                mat.identity();
+				mat = LMatrix::Identity;
 		    }
 		    else
 		    {
-                mat.rotationY( -atanf( view.m22 / view.m02 ) - LMath::PI / 2 );
+				mat.RotationY(-atanf(view.M[2][2] / view.M[0][2]) - Lumino::Math::PI / 2);
 		    }
 
-            mat.translation( mCombinedWorldMatrix.getPosition() );
+            mat.Translation( mCombinedWorldMatrix.GetPosition() );
 
             mCombinedWorldMatrix = mat;
         }
@@ -520,7 +518,7 @@ namespace Scene
         if ( mAffectLightContextArray.size() > 0 )
         {
 			// ©•ª‚ÌˆÊ’uî•ñ‚ğ“n‚µ‚ÄAÅŠñ‚è‚Ìƒ‰ƒCƒg‚ğ‚à‚ç‚¤
-            param.SceneGraphContext->selectLights( &mAffectLightContextArray, mCombinedWorldMatrix.getPosition() );
+            param.SceneGraphContext->selectLights( &mAffectLightContextArray, mCombinedWorldMatrix.GetPosition() );
         }
 
 		// TODO: ‹‘äƒJƒŠƒ“ƒO‚Æ‚©‚Å‚«‚ê‚Î
@@ -585,98 +583,98 @@ namespace Scene
             // ‹ts—ñ
             case MME_VARREQ_MATRIX_World_I:
             {
-                LMatrix::inverse( out_, mCombinedWorldMatrix );
+				*out_ = LMatrix::Inverse(mCombinedWorldMatrix);
                 return true;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldView_I:
             {
                 *out_ = mCombinedWorldMatrix * mAffectCameraContext->getViewMatrix();
-                out_->inverse();
+                out_->Inverse();
                 return true;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldViewProj_I:
             {
                 *out_ = mCombinedWorldMatrix * mAffectCameraContext->getViewProjectionMatrix();
-                out_->inverse();
+				out_->Inverse();
                 return true;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldView_I:
             {
                 *out_ = mCombinedWorldMatrix * mAffectLightContextArray[ light_idx_ ]->getViewMatrix();
-                out_->inverse();
+				out_->Inverse();
                 return true;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldViewProj_I:
             {
                 *out_ = mCombinedWorldMatrix * mAffectLightContextArray[ light_idx_ ]->getViewProjectionMatrix();
-                out_->inverse();
+				out_->Inverse();
                 return true;
             }
 
             // “]’us—ñ
             case MME_VARREQ_MATRIX_World_T:
             {
-                LMatrix::transpose( out_, mCombinedWorldMatrix );
+				*out_ = LMatrix::Transpose(mCombinedWorldMatrix);
                 return true;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldView_T:
             {
                 *out_ = mCombinedWorldMatrix * mAffectCameraContext->getViewMatrix();
-                out_->transpose();
+				out_->Transpose();
                 return true;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldViewProj_T:
             {
                 *out_ = mCombinedWorldMatrix * mAffectCameraContext->getViewProjectionMatrix();
-                out_->transpose();
+				out_->Transpose();
                 return true;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldView_T:
             {
                 *out_ = mCombinedWorldMatrix * mAffectLightContextArray[ light_idx_ ]->getViewMatrix();
-                out_->transpose();
+				out_->Transpose();
                 return true;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldViewProj_T:
             {
                 *out_ = mCombinedWorldMatrix * mAffectLightContextArray[ light_idx_ ]->getViewProjectionMatrix();
-                out_->transpose();
+				out_->Transpose();
                 return true;
             }
 
             // ‹ts—ñ~“]’us—ñ
             case MME_VARREQ_MATRIX_World_IT:
             {
-                LMatrix::inverse( out_, mCombinedWorldMatrix );
-                out_->transpose();
+				*out_ = LMatrix::Inverse(mCombinedWorldMatrix);
+				out_->Transpose();
                 return true;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldView_IT:
             {
                 *out_ = mCombinedWorldMatrix * mAffectCameraContext->getViewMatrix();
-                out_->inverse();
-                out_->transpose();
+				out_->Inverse();
+				out_->Transpose();
                 return true;
             }
             case MME_VARREQ_MATRIX_CAMERA_WorldViewProj_IT:
             {
                 *out_ = mCombinedWorldMatrix * mAffectCameraContext->getViewProjectionMatrix();
-                out_->inverse();
-                out_->transpose();
+				out_->Inverse();
+				out_->Transpose();
                 return true;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldView_IT:
             {
                 *out_ = mCombinedWorldMatrix * mAffectLightContextArray[ light_idx_ ]->getViewMatrix();
-                out_->inverse();
-                out_->transpose();
+				out_->Inverse();
+				out_->Transpose();
                 return true;
             }
             case MME_VARREQ_MATRIX_LIGHT_WorldViewProj_IT:
             {
                 *out_ = mCombinedWorldMatrix * mAffectLightContextArray[ light_idx_ ]->getViewProjectionMatrix();
-                out_->inverse();
-                out_->transpose();
+				out_->Inverse();
+				out_->Transpose();
                 return true;
             }
         }

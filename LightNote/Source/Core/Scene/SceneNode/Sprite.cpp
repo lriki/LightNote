@@ -48,10 +48,10 @@ protected:
     virtual void drawSubset( ContextDrawParam& param, int index )
     {
 		param.GeometryRenderer->drawSquare(
-            mUpperLeft.x,   mUpperLeft.y,  0xffffffff, mUVUpperLeft.x,  mUVUpperLeft.y,
-            mLowerRight.x,  mUpperLeft.y,  0xffffffff, mUVLowerRight.x, mUVUpperLeft.y,
-            mUpperLeft.x,   mLowerRight.y, 0xffffffff, mUVUpperLeft.x,  mUVLowerRight.y,
-            mLowerRight.x,  mLowerRight.y, 0xffffffff, mUVLowerRight.x, mUVLowerRight.y );
+            mUpperLeft.X,   mUpperLeft.Y,  0xffffffff, mUVUpperLeft.X,  mUVUpperLeft.Y,
+            mLowerRight.X,  mUpperLeft.Y,  0xffffffff, mUVLowerRight.X, mUVUpperLeft.Y,
+            mUpperLeft.X,   mLowerRight.Y, 0xffffffff, mUVUpperLeft.X,  mUVLowerRight.Y,
+            mLowerRight.X,  mLowerRight.Y, 0xffffffff, mUVLowerRight.X, mUVLowerRight.Y );
     }
 
 private:
@@ -155,12 +155,12 @@ private:
 			// 転送元矩形が負値ならテクスチャ全体を転送する
 			if ( mSrcRect.w < 0 && mSrcRect.h < 0 )
 			{
-				LRect srcRect( 0, 0, (int)tex->getSize().x, (int)tex->getSize().y );
+				LRect srcRect( 0, 0, (int)tex->getSize().X, (int)tex->getSize().Y );
 				Util::normalizeSrcRect( 
-					&mUVUpperLeft.x, 
-					&mUVUpperLeft.y, 
-					&mUVLowerRight.x, 
-					&mUVLowerRight.y, 
+					&mUVUpperLeft.X, 
+					&mUVUpperLeft.Y, 
+					&mUVLowerRight.X, 
+					&mUVLowerRight.Y, 
 					srcRect, 
 					tex->getRealSize() );
 			}
@@ -172,33 +172,33 @@ private:
 				// 垂直反転
 				if ( mFlipFlags & LN_FLIP_V )
 				{
-					mUVUpperLeft.y = b;
-					mUVLowerRight.y = t;
+					mUVUpperLeft.Y = b;
+					mUVLowerRight.Y = t;
 				}
 				else
 				{
-					mUVUpperLeft.y = t;
-					mUVLowerRight.y = b;
+					mUVUpperLeft.Y = t;
+					mUVLowerRight.Y = b;
 				}
 				// 水平反転
 				if ( mFlipFlags & LN_FLIP_H )
 				{
-					mUVUpperLeft.x = r;
-					mUVLowerRight.x = l;
+					mUVUpperLeft.X = r;
+					mUVLowerRight.X = l;
 				}
 				else
 				{
-					mUVUpperLeft.x = l;
-					mUVLowerRight.x = r;
+					mUVUpperLeft.X = l;
+					mUVLowerRight.X = r;
 				}
 			}
 		}
         else
         {
-			mUVUpperLeft.x  = 0.0f;
-			mUVUpperLeft.y  = 0.0f;
-			mUVLowerRight.x = 1.0f;
-			mUVLowerRight.y = 1.0f;
+			mUVUpperLeft.X  = 0.0f;
+			mUVUpperLeft.Y  = 0.0f;
+			mUVLowerRight.X = 1.0f;
+			mUVLowerRight.Y = 1.0f;
         }
     }
 
@@ -211,56 +211,56 @@ private:
 		// 転送矩形が負値   → テクスチャサイズを使う
 		// テクスチャが無い → サイズ 0,0
 		LVector2 realSize = mSize;
-		if ( mSize.x < 0.0 && mSize.y < 0.0 ) 
+		if ( mSize.X < 0.0 && mSize.Y < 0.0 ) 
 		{
 			if ( mSrcRect.w < 0.0 && mSrcRect.h < 0.0 )
 			{
 				Graphics::Texture* tex = getTexture();
 				if ( tex ) 
-					realSize.set( tex->getSize().x, tex->getSize().y );
+					realSize.Set( tex->getSize().X, tex->getSize().Y );
 				else 
-					realSize = LVector2::ZERO;
+					realSize = LVector2::Zero;
 			}
 			else
 			{
-				realSize.x = mSrcRect.w;
-				realSize.y = mSrcRect.h;
+				realSize.X = mSrcRect.w;
+				realSize.Y = mSrcRect.h;
 			}
 		}
 
 
 		if ( is3DSprite() )
 		{
-			lnFloat r =  realSize.x * 0.5f;  // +
-			lnFloat b = -realSize.y * 0.5f;  // -
+			lnFloat r =  realSize.X * 0.5f;  // +
+			lnFloat b = -realSize.Y * 0.5f;  // -
 			lnFloat l = -r;                  // -
 			lnFloat t = -b;                  // +
 
 			switch ( m3DAADir )
 			{
 				case LN_AADIR_X:
-					mUpperLeft.set(  0, t, r );
-					mLowerRight.set( 0, b, l );
+					mUpperLeft.Set(  0, t, r );
+					mLowerRight.Set( 0, b, l );
 					break;
 				case LN_AADIR_Y:
-					mUpperLeft.set(  l, 0, b );
-					mLowerRight.set( r, 0, t );
+					mUpperLeft.Set(  l, 0, b );
+					mLowerRight.Set( r, 0, t );
 					break;
 				case LN_AADIR_RZ:
-					mUpperLeft.set(  l, t, 0 );
-					mLowerRight.set( r, b, 0 );
+					mUpperLeft.Set(  l, t, 0 );
+					mLowerRight.Set( r, b, 0 );
 					break;
 				case LN_AADIR_RX:
-					mUpperLeft.set(  0, t, l );
-					mLowerRight.set( 0, b, r );
+					mUpperLeft.Set(  0, t, l );
+					mLowerRight.Set( 0, b, r );
 					break;
 				case LN_AADIR_RY:
-					mUpperLeft.set(  r, 0, b );
-					mLowerRight.set( l, 0, t );
+					mUpperLeft.Set(  r, 0, b );
+					mLowerRight.Set( l, 0, t );
 					break;
 				case LN_AADIR_Z:
-					mUpperLeft.set(  r, t, 0 );
-					mLowerRight.set( l, b, 0 );
+					mUpperLeft.Set(  r, t, 0 );
+					mLowerRight.Set( l, b, 0 );
 					break;
 			}
 		}
@@ -283,13 +283,13 @@ private:
 			//}
 			//else
 			{
-				lnFloat r = (lnFloat)realSize.x;
-				lnFloat b = (lnFloat)realSize.y;
+				lnFloat r = (lnFloat)realSize.X;
+				lnFloat b = (lnFloat)realSize.Y;
 				lnFloat l = 0;
 				lnFloat t = 0;
 
-				mUpperLeft.set(  l, t, 0 );
-				mLowerRight.set( r, b, 0 );
+				mUpperLeft.Set(  l, t, 0 );
+				mLowerRight.Set( r, b, 0 );
 			}
 		}
 	}

@@ -482,14 +482,14 @@ namespace Scene
                                 for ( lnU32 i = 0; i < sv->LightNum; ++i )
                                 {
                                     const LVector3& v = lights[ i ]->getPosition();
-                                    vectors[ i ].set( v.x, v.y, v.z, 0.0f );
+                                    vectors[ i ].Set( v.X, v.Y, v.Z, 0.0f );
                                 }
                                 break;
                             case MME_VARREQ_LIGHT_DIRECTION:
                                 for ( lnU32 i = 0; i < sv->LightNum; ++i )
                                 {
                                     const LVector3& v = lights[ i ]->getDirection();
-                                    vectors[ i ].set( v.x, v.y, v.z, 0.0f );
+                                    vectors[ i ].Set( v.X, v.Y, v.Z, 0.0f );
                                 }
                                 break;
                         }
@@ -515,14 +515,14 @@ namespace Scene
                             case MME_VARREQ_LIGHT_POSITION:
 							{
 								const LVector3& v = lights[0]->getPosition();
-								LVector4 vec( v.x, v.y, v.z, 0.0f );
+								LVector4 vec( v, 0.0f );
 								sv->Variable->setVector( vec );
                                 break;
 							}
                             case MME_VARREQ_LIGHT_DIRECTION:
 							{
 								const LVector3& v = lights[0]->getDirection();
-								LVector4 vec( v.x, v.y, v.z, 0.0f );
+								LVector4 vec( v, 0.0f );
 								sv->Variable->setVector( vec );
                                 break;
 							}

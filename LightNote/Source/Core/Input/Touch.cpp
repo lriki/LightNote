@@ -126,19 +126,19 @@ namespace Input
 		    
             if ( mTouchState[ i ].Touch )
             {
-                mPosition[i].x = static_cast< lnFloat >( mTouchState[i].X );
-	            mPosition[i].y = static_cast< lnFloat >( mTouchState[i].Y ); 
+                mPosition[i].X = static_cast< lnFloat >( mTouchState[i].X );
+	            mPosition[i].Y = static_cast< lnFloat >( mTouchState[i].Y ); 
             }
             else if ( i == 0 && mouse.Buttons[0] )
             {
-                mPosition[i].x = static_cast< lnFloat >( mouse.X );
-	            mPosition[i].y = static_cast< lnFloat >( mouse.Y ); 
+                mPosition[i].X = static_cast< lnFloat >( mouse.X );
+	            mPosition[i].Y = static_cast< lnFloat >( mouse.Y ); 
             }
 
-            mPosition[i].transform( mManager->getMouseTransform() );
+			mPosition[i].TransformCoord(mManager->getMouseTransform());
     		    
-	        mDistance[i].x = mPosition[i].x - mLastPosition[i].x;
-	        mDistance[i].y = mPosition[i].y - mLastPosition[i].y;
+	        mDistance[i].X = mPosition[i].X - mLastPosition[i].X;
+	        mDistance[i].Y = mPosition[i].Y - mLastPosition[i].Y;
             mLastPosition[i] = mPosition[i];
 		}
 	}

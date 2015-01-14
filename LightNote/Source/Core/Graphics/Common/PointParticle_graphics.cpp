@@ -169,7 +169,7 @@ namespace Graphics
 					if ( i < mParticleNum )
 					{
                         vb[ i ].Position = mOriginalPositions[ i ];
-                        vb[ i ].Position.transform( world_matrix_ );
+                        vb[ i ].Position.TransformCoord( world_matrix_ );
                         mCreatedPositions[ i ] = vb[ i ].Position;
                     }
                     // 残像の場合
@@ -208,7 +208,9 @@ namespace Graphics
     void PointParticle::_createVertexData( const PointParticleParameter& data_ )
     {
         LRandom random;
-        random.setSeed( ( data_.RandSeed ) ? data_.RandSeed : LRandom::getDefaultSeed() );
+		if (data_.RandSeed) {
+			random.SetSeed(data_.RandSeed);
+		}
 
         // 動的生成の場合はオリジナルの座標を覚えておく配列を作る
         if ( mIsDynamic )
@@ -225,60 +227,60 @@ namespace Graphics
         
 		for ( lnU32 i = 0; i < mParticleNum; ++i )
 		{
-            lnFloat rand_link_rate = random.getFloat( 0.0f, 1.0f );
+            lnFloat rand_link_rate = random.GetFloatRange( 0.0f, 1.0f );
 
-            vertices[ i ].Position.set(
-                random.getFloatEx( data_.Position.x, data_.PositionRand.x, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.PosRandTypeX ),
-                random.getFloatEx( data_.Position.y, data_.PositionRand.y, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.PosRandTypeY ),
-                random.getFloatEx( data_.Position.z, data_.PositionRand.z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.PosRandTypeZ ) );
+            vertices[ i ].Position.Set(
+                random.getFloatEx( data_.Position.X, data_.PositionRand.X, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.PosRandTypeX ),
+                random.getFloatEx( data_.Position.Y, data_.PositionRand.Y, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.PosRandTypeY ),
+                random.getFloatEx( data_.Position.Z, data_.PositionRand.Z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.PosRandTypeZ ) );
 
-            vertices[ i ].Velocity.set(
-                random.getFloatEx( data_.Velocity.x, data_.VelocityRand.x, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.VelRandTypeX ),
-                random.getFloatEx( data_.Velocity.y, data_.VelocityRand.y, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.VelRandTypeY ),
-                random.getFloatEx( data_.Velocity.z, data_.VelocityRand.z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.VelRandTypeZ ) );
+            vertices[ i ].Velocity.Set(
+                random.getFloatEx( data_.Velocity.X, data_.VelocityRand.X, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.VelRandTypeX ),
+                random.getFloatEx( data_.Velocity.Y, data_.VelocityRand.Y, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.VelRandTypeY ),
+                random.getFloatEx( data_.Velocity.Z, data_.VelocityRand.Z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.VelRandTypeZ ) );
 
-            vertices[ i ].Accel.set(
-                random.getFloatEx( data_.Accel.x, data_.AccelRand.x, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeX ),
-                random.getFloatEx( data_.Accel.y, data_.AccelRand.y, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeY ),
-                random.getFloatEx( data_.Accel.z, data_.AccelRand.z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeZ ) );
+            vertices[ i ].Accel.Set(
+                random.getFloatEx( data_.Accel.X, data_.AccelRand.X, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeX ),
+                random.getFloatEx( data_.Accel.Y, data_.AccelRand.Y, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeY ),
+                random.getFloatEx( data_.Accel.z, data_.AccelRand.Z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AccelRandTypeZ ) );
 
-            vertices[ i ].Axis.set(
-                random.getFloatEx( data_.Axis.x, data_.AxisRand.x, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AxisRandTypeX ),
-                random.getFloatEx( data_.Axis.y, data_.AxisRand.y, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AxisRandTypeY ),
-                random.getFloatEx( data_.Axis.z, data_.AxisRand.z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AxisRandTypeZ ) );
+            vertices[ i ].Axis.Set(
+                random.getFloatEx( data_.Axis.X, data_.AxisRand.X, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AxisRandTypeX ),
+                random.getFloatEx( data_.Axis.Y, data_.AxisRand.Y, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AxisRandTypeY ),
+                random.getFloatEx( data_.Axis.Z, data_.AxisRand.Z, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AxisRandTypeZ ) );
 
-            vertices[ i ].AngleData.set(
+            vertices[ i ].AngleData.Set(
                 random.getFloatEx( data_.Angle,         data_.AngleRand,         Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AngleRandType ),
                 random.getFloatEx( data_.AngleVelocity, data_.AngleVelocityRand, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AngVelRandType ),
                 random.getFloatEx( data_.AngleAccel,    data_.AngleAccelRand,    Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.AngAccelRandType ) );
 
-            vertices[ i ].SizeData.set(
+            vertices[ i ].SizeData.Set(
                 random.getFloatEx( data_.Size,         data_.SizeRand,         Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.SizeRandType ),
                 random.getFloatEx( data_.SizeVelocity, data_.SizeVelocityRand, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.SizeVelRandType ),
                 random.getFloatEx( data_.SizeAccel,    data_.SizeAccelRand,    Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.SizeAccelRandType ) );
             
-            vertices[ i ].TimeData.set(
+            vertices[ i ].TimeData.Set(
                 begin_frame,
                 random.getFloatEx( data_.Life,    data_.LifeRand,    Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.LifeRandType ),
                 random.getFloatEx( data_.FadeIn,  data_.FadeInRand,  Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.FadeInRandType ),
                 random.getFloatEx( data_.FadeOut, data_.FadeOutRand, Math::ExRandType_Range, rand_link_rate, (Math::ExRandRateType)data_.FadeOutRandType ) );
             
-            vertices[ i ].FadeData.set( 1.0f, 0, 0, 0 );
+            vertices[ i ].FadeData.Set( 1.0f, 0, 0, 0 );
 
             // 軸は正規化が必要
-            if ( vertices[ i ].Axis.isZero() )
+            if ( vertices[ i ].Axis == LVector3::Zero )
             {
-                vertices[ i ].Axis.set( 0, 1, 0 );
+                vertices[ i ].Axis.Set( 0, 1, 0 );
             }
             else
             {
-                vertices[ i ].Axis.normalize();
+                vertices[ i ].Axis.Normalize();
             }
 
             // フェードイン・アウトの時間が、生存時間内に収めると重なってしまう場合は生存時間を延ばす
-			if ( vertices[ i ].TimeData.z + vertices[ i ].TimeData.w > vertices[ i ].TimeData.y )
+			if ( vertices[ i ].TimeData.Z + vertices[ i ].TimeData.W > vertices[ i ].TimeData.Y )
 			{
-				vertices[ i ].TimeData.y = vertices[ i ].TimeData.z + vertices[ i ].TimeData.w;
+				vertices[ i ].TimeData.Y = vertices[ i ].TimeData.Z + vertices[ i ].TimeData.W;
 			}
            
 
@@ -301,9 +303,9 @@ namespace Graphics
                 idx = ( i + 1 ) * mParticleNum + j;
                 vertices[ idx ] = vertices[ j ];
 
-                vertices[ idx ].TimeData.x += 1.0f * ( i + 1 );
+                vertices[ idx ].TimeData.X += 1.0f * ( i + 1 );
 
-                vertices[ idx ].FadeData.x = ai_level_inv * ( mAfterImageLevel - i );
+                vertices[ idx ].FadeData.X = ai_level_inv * ( mAfterImageLevel - i );
             }
         };
         

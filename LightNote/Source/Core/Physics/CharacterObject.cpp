@@ -73,10 +73,10 @@ namespace Physics
 		//if ( abs( mMoveVelocity.x ) > FLT_MIN || abs( mMoveVelocity.y ) > FLT_MIN || abs( mMoveVelocity.z ) > FLT_MIN )
 		{
 			mBtRigidBody->activate( true );
-			mBtRigidBody->setLinearVelocity( btVector3( mMoveVelocity.x, mMoveVelocity.y, mMoveVelocity.z ) );
+			mBtRigidBody->setLinearVelocity( btVector3( mMoveVelocity.X, mMoveVelocity.Y, mMoveVelocity.Z ) );
 		}
 
-		mMoveVelocity = LVector3::ZERO;
+		mMoveVelocity = LVector3::Zero;
 	}
 
 } // namespace Physics

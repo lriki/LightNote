@@ -12,7 +12,7 @@
 
 #include "../Base/Container/NodeList.h"
 #include "../Threading/Mutex.h"
-#include "../Math/Vector3.h"
+#include "../Math/LMath.h"
 #include "../Animation/FadeValue.h"
 #include "Interface.h"
 

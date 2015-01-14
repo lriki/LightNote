@@ -11,7 +11,7 @@
 #pragma once
 
 #include <list>
-#include "../Math/Vector3.h"
+#include "../Math/LMath.h"
 #include "../Threading/Mutex.h"
 #include "Interface.h"
 #include "Sound.h"

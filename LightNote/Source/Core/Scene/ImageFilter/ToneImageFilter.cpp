@@ -74,7 +74,7 @@ namespace Scene
 				LN_SAFE_RELEASE(mRenderTarget);
 				ImageFilter* owner = static_cast<ImageFilter*>(mOwner);
 				mRenderTarget = owner->getManager()->getGraphicsManager()->getGraphicsDevice()->createRenderTarget(
-					param->ViewSize.x, param->ViewSize.y, 1, Graphics::SurfaceFormat_X8R8G8B8 );
+					param->ViewSize.X, param->ViewSize.Y, 1, Graphics::SurfaceFormat_X8R8G8B8 );
 			}
 
 			// レンダーターゲット交換

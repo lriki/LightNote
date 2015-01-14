@@ -288,12 +288,12 @@ struct LNCameraSceneParam
 
     void calcMatrices()
     {
-        LMatrix::inverse( &Mat_CameraView_Inverse, *Mat_CameraView );
-        LMatrix::inverse( &Mat_CameraProj_Inverse, *Mat_CameraProj );
-        LMatrix::inverse( &Mat_CameraViewProj_Inverse, *Mat_CameraViewProj );
-        LMatrix::transpose( &Mat_CameraView_Transpose, *Mat_CameraView );
-        LMatrix::transpose( &Mat_CameraProj_Transpose, *Mat_CameraProj );
-        LMatrix::transpose( &Mat_CameraViewProj_Transpose, *Mat_CameraViewProj );
+		Mat_CameraView_Inverse = LMatrix::Inverse(*Mat_CameraView);
+		Mat_CameraProj_Inverse= LMatrix::Inverse(*Mat_CameraProj);
+		Mat_CameraViewProj_Inverse= LMatrix::Inverse(*Mat_CameraViewProj);
+		Mat_CameraView_Transpose= LMatrix::Transpose(*Mat_CameraView);
+		Mat_CameraProj_Transpose= LMatrix::Transpose(*Mat_CameraProj);
+		Mat_CameraViewProj_Transpose= LMatrix::Transpose(*Mat_CameraViewProj);
         Mat_CameraView_InverseTranspose = Mat_CameraView_Inverse * Mat_CameraView_Transpose;
         Mat_CameraProj_InverseTranspose = Mat_CameraProj_Inverse * Mat_CameraProj_Transpose;
         Mat_CameraViewProj_InverseTranspose = Mat_CameraViewProj_Inverse * Mat_CameraViewProj_Transpose;

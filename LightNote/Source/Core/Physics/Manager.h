@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------
 #include <vector>
 #include "../Base/ReferenceObjectArray.h"
-#include "../Math/Vector3.h"
+#include "../Math/LMath.h"
 #include "Types.h"
 
 class btDynamicsWorld;

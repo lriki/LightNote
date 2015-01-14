@@ -209,7 +209,7 @@ namespace Scene
 					if ( mAffectLightContextArray.size() < shader->getRequiredLightNum() )
 					{
 						mAffectLightContextArray.resize( shader->getRequiredLightNum() );
-						param.SceneGraphContext->selectLights( &mAffectLightContextArray, mCombinedWorldMatrix.getPosition() );
+						param.SceneGraphContext->selectLights( &mAffectLightContextArray, mCombinedWorldMatrix.GetPosition() );
 					}
 
 					

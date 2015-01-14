@@ -13,7 +13,7 @@
 //-------------------------------------------------------------------------
 //
 //-------------------------------------------------------------------------
-#include "../../Math/Matrix.h"
+#include "../../Math/LMath.h"
 #include "../Manager.h"
 
 //-------------------------------------------------------------------------
@@ -80,10 +80,10 @@ public:
 	void setEquilibriumPoint( int index );
 
 	void setLimit( int index, float low, float hi );
-	void setLinearLowerLimit( const Math::Vector3& linearLower );
-	void setLinearUpperLimit( const Math::Vector3& linearUpper );
-	void setAngularLowerLimit( const Math::Vector3& angularLower );
-	void setAngularUpperLimit( const Math::Vector3& angularUpper );
+	void setLinearLowerLimit( const LVector3& linearLower );
+	void setLinearUpperLimit( const LVector3& linearUpper );
+	void setAngularLowerLimit( const LVector3& angularLower );
+	void setAngularUpperLimit( const LVector3& angularUpper );
 
 public:
 	btGeneric6DofSpringConstraint*	mBtDofSpringConstraint;

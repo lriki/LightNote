@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "../../Math/Vector2.h"
+#include "../../Math/LMath.h"
 #include "../Common/Types.h"
 #include "../Common/Common.h"
 #include "../Common/Font/Font.h"

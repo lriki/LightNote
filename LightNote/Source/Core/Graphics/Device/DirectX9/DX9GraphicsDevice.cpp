@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 
+#include <algorithm>
 #include "../../../System/Environment.h"
 #include "../../../System/Manager.h"
 #include "../../../FileIO/Manager.h"
@@ -579,8 +580,8 @@ namespace Graphics
 		else
 		{
 			mPresentParameters.Windowed = TRUE;
-			mPresentParameters.BackBufferWidth  = LMath::max( 1, backbufferSize.w ); 
-            mPresentParameters.BackBufferHeight = LMath::max( 1, backbufferSize.h );
+			mPresentParameters.BackBufferWidth  = std::max( 1, backbufferSize.w ); 
+			mPresentParameters.BackBufferHeight = std::max(1, backbufferSize.h);
 			mPresentParameters.BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_UNKNOWN;//D3DFMT_X8R8G8B8;//
 			if ( false )//( mMSAAQualityWindowed > 0 )
 			{

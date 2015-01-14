@@ -44,22 +44,22 @@ namespace Graphics
         if ( mProjection2D )
         {
 			mCameraType = CameraType_PositionAndAngle;
-            mPosition.set( 0.0f, 0.0f, 0.0f );
+            mPosition.Set( 0.0f, 0.0f, 0.0f );
             mNearClip = -1000.0f;
             mFarClip = 1000.0f;
         }
         else
         {
 			mCameraType = CameraType_PositionAndTarget;
-            mPosition.set( 0.0f, 0.0f, -10.0f );
+            mPosition.Set( 0.0f, 0.0f, -10.0f );
             mNearClip = 1.0f;
             mFarClip = 1000.0f;
         }
 
-        mLookAt.set( 0, 0, 0 );
-		mUpDirection.set( 0, 1, 0 );
+        mLookAt.Set( 0, 0, 0 );
+		mUpDirection.Set( 0, 1, 0 );
         mDirection = mLookAt - mPosition;
-        mDirection.normalize();
+        mDirection.Normalize();
 
         mFovY = LMath::PI * 0.125f;
 
@@ -73,7 +73,7 @@ namespace Graphics
 	{
 		mPosition = pos;
         mDirection = mLookAt - mPosition;
-        mDirection.normalize();
+        mDirection.Normalize();
 		mModified = true;
 	}
 
@@ -84,7 +84,7 @@ namespace Graphics
 	{
 		mLookAt = at;
         mDirection = mLookAt - mPosition;
-        mDirection.normalize();
+        mDirection.Normalize();
 		mModified = true;
 	}
 
@@ -141,15 +141,15 @@ namespace Graphics
     {
 		_updateMatrix();
 
-        LVector3::transformCoord( out, world_pos, mViewProjMatrix );
+		*out = LVector3::TransformCoord(world_pos, mViewProjMatrix);
         
-        out->y *= -1.0f;  // y は下が + なので上下反転
+        out->Y *= -1.0f;  // y は下が + なので上下反転
 
-        out->x = ( out->x + 1.0f ) * 0.5f;    // 0.0～2.0  にしたあと、0.0～1.0 にする
-        out->y = ( out->y + 1.0f ) * 0.5f;    // (左上を原点にしたあと、)
+        out->X = ( out->X + 1.0f ) * 0.5f;    // 0.0～2.0  にしたあと、0.0～1.0 にする
+        out->Y = ( out->Y + 1.0f ) * 0.5f;    // (左上を原点にしたあと、)
 
-        out->x *= view_size.x;
-        out->y *= view_size.y;
+        out->X *= view_size.X;
+        out->Y *= view_size.Y;
     }
 
 	//----------------------------------------------------------------------
@@ -169,8 +169,8 @@ namespace Graphics
 					case CameraType_PositionAndTarget:
 					case CameraType_PositionAndAngle:
 					{
-						LMatrix::rotationYawPitchRoll( &mViewMatrix, mAngle.y, mAngle.x, mAngle.z );
-						mViewMatrix.translation( -mPosition.x, -mPosition.y, -mPosition.z );
+						mViewMatrix = LMatrix::RotationYawPitchRoll(mAngle.Y, mAngle.X, mAngle.z);
+						mViewMatrix.Translation(-mPosition);
 						break;
 					}
 					case CameraType_TransformMatrix:
@@ -180,15 +180,15 @@ namespace Graphics
 					}
 				}
 
-                LMatrix::perspective2DLH( 
+                LMatrixUtils::perspective2DLH( 
                     &mProjectionMatrix,
-                    mViewSize.x, mViewSize.y, mNearClip, mFarClip );
+                    mViewSize.X, mViewSize.Y, mNearClip, mFarClip );
 
                 mViewProjMatrix = mViewMatrix * mProjectionMatrix;
 
-                LMatrix::inverse( &mViewProjMatrixInv, mViewMatrix );
+				mViewProjMatrixInv = LMatrix::Inverse(mViewMatrix);
 
-                mViewFrustum.create2DProjection( mViewSize.x, mViewSize.y, mNearClip, mFarClip );
+                mViewFrustum.create2DProjection( mViewSize.X, mViewSize.Y, mNearClip, mFarClip );
                 
             }
             // 3D カメラ用
@@ -200,43 +200,39 @@ namespace Graphics
 					default:
 					case CameraType_PositionAndTarget:
 					{
-						LMatrix::viewTransformLH( &mViewMatrix, mPosition, mLookAt, mUpDirection );
+						mViewMatrix = LMatrix::LookAtLH(mPosition, mLookAt, mUpDirection);
 						break;
 					}
 					case CameraType_PositionAndAngle:
 					{
-						LMatrix rotMat;
-						LMatrix::rotationYawPitchRoll( &rotMat, mAngle.y, mAngle.x, mAngle.z );
-
+						LMatrix rotMat = LMatrix::RotationYawPitchRoll(mAngle.Y, mAngle.X, mAngle.Z);
+						
 						// (0,0,1) を正面、(0,1,0) を上とし、View 行列を作る
-						LVector3 front, up;
-						LVector3::transformCoord( &front, LVector3::UNIT_Z, rotMat );
-						LVector3::transformCoord( &up, LVector3::UNIT_Y, rotMat );
+						LVector3 front = LVector3::TransformCoord(LVector3::UnitZ, rotMat);
+						LVector3 up = LVector3::TransformCoord(LVector3::UnitY, rotMat);
 
-						LMatrix::viewTransformLH( &mViewMatrix, mPosition, mPosition + front, up );
+						mViewMatrix = LMatrix::LookAtLH(mPosition, mPosition + front, up);
 						break;
 					}
 					case CameraType_TransformMatrix:
 					{
-						LVector3 front, up;
-						LVector3::transformCoord( &front, LVector3::UNIT_Z, mMatrix );
-						LVector3::transformCoord( &up, LVector3::UNIT_Y, mMatrix );
-
-						LMatrix::viewTransformLH( &mViewMatrix, mPosition, front, up );
+						LVector3 front = LVector3::TransformCoord(LVector3::UnitZ, mMatrix);
+						LVector3 up = LVector3::TransformCoord(LVector3::UnitY, mMatrix);
+						mViewMatrix = LMatrix::LookAtLH(mPosition, front, up);
 						break;
 					}
 				}
 
                 //LMatrix::viewTransformLH( &mViewMatrix, mPosition, mLookAt, mUpDirection );
-                LMatrix::perspectiveFovLH( &mProjectionMatrix, mFovY, mViewSize.x, mViewSize.y, mNearClip, mFarClip );
+				mProjectionMatrix = LMatrix::PerspectiveFovLH(mFovY, mViewSize.X / mViewSize.Y, mNearClip, mFarClip);
                
                 mViewProjMatrix = mViewMatrix * mProjectionMatrix;
 
-                LMatrix::inverse( &mViewProjMatrixInv, mViewMatrix );
+				mViewProjMatrixInv = LMatrix::Inverse(mViewMatrix);
 
                 //LMath::MatrixOrthoLH( &mOrthoMatrix, mViewSize.x, mViewSize.y, 1000.0f, 0.0f );
 
-                mViewFrustum.create( mFovY, mViewSize.x / mViewSize.y, mNearClip, mFarClip );
+                mViewFrustum.create( mFovY, mViewSize.X / mViewSize.Y, mNearClip, mFarClip );
 
             }
 
@@ -330,7 +326,7 @@ namespace Graphics
 		            _doMouseMoveR(
 			            static_cast< lnFloat >( ev_mouse.X - mMouseData.PrevPos.x ),
 			            static_cast< lnFloat >( ev_mouse.Y - mMouseData.PrevPos.y ),
-                        view_size.x, view_size.y );
+                        view_size.X, view_size.Y );
 		            mMouseData.PrevPos.x = ev_mouse.X;
                     mMouseData.PrevPos.y = ev_mouse.Y;
 		            return true;
@@ -369,7 +365,7 @@ namespace Graphics
 		LVector3 vup = getTargetCamera()->getUpDirection();
         LVector3 pos = getTargetCamera()->getPosition();
         LVector3 look_at = getTargetCamera()->getLookAt();
-		vup.normalize();
+		vup.Normalize();
 
 		// 注視点中心回転
 		if ( 1 )
@@ -400,21 +396,20 @@ namespace Graphics
 			//else
 			//	D3DXMatrixRotationY( &m, D3DXToRadian(d) );
 
-			m.rotationY( d );
-			view.transform( m );
+			m.RotationY( d );
+			view.TransformCoord( m );
 		}
 		if ( dy != 0 )
 		{
 			// 球タイプ
 			if ( 1 )
 			{
-				LVector3 vaxis;
-                LVector3::cross( &vaxis, vup, view );
-				vaxis.normalize();
+				LVector3 vaxis = LVector3::Cross(vup, view);
+				vaxis.Normalize();
 				d = -( LMath::PI * dy / height );
                 
-                LMatrix::rotationAxis( &m, vaxis, d );
-				view.transform( m );
+                m = LMatrix::RotationAxis(vaxis, d );
+				view.TransformCoord( m );
 
 
 				//D3DXVec3Cross( &vaxis, &vup, &view );

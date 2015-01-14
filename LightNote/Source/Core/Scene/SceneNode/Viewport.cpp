@@ -68,7 +68,7 @@ namespace Scene
 		context->initialize( this, spriteRenderer );
         SceneNode::initialize( 1, LN_DRAWCOORD_UNKNOWN, context );
 
-        mViewSize.set( (lnFloat)size_.w, (lnFloat)size_.h );
+        mViewSize.Set( (lnFloat)size_.w, (lnFloat)size_.h );
     }
 
     

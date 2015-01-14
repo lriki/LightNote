@@ -112,7 +112,7 @@ namespace Graphics
 			const LVector2& backbufferSize = this->mBackbuffer->getSize();
 
 			// 0.5 オフセット
-			LVector2 viewOffset( 0.5 / size.x, 0.5 / size.y );
+			LVector2 viewOffset( 0.5 / size.X, 0.5 / size.Y );
 
 			// 単純コピー用のステートにする
 			r->setRenderState(LRenderState::BUFFER_COPY_STATE, true);
@@ -124,10 +124,10 @@ namespace Graphics
 			gr->setTexture( this->mBackbuffer );
 			gr->begin( GeometryRenderer::PASS_BASIC );
 			gr->drawSquare(
-				0.0f,				0.0f,				0xffffffff, 0.0f + viewOffset.x, 0.0f + viewOffset.y, 
-				backbufferSize.x,	0.0f,				0xffffffff, 1.0f + viewOffset.x, 0.0f + viewOffset.y, 
-				0.0f,				backbufferSize.y,	0xffffffff, 0.0f + viewOffset.x, 1.0f + viewOffset.y, 
-				backbufferSize.x,	backbufferSize.y,	0xffffffff, 1.0f + viewOffset.x, 1.0f + viewOffset.y );
+				0.0f,				0.0f,				0xffffffff, 0.0f + viewOffset.X, 0.0f + viewOffset.Y, 
+				backbufferSize.X,	0.0f,				0xffffffff, 1.0f + viewOffset.X, 0.0f + viewOffset.Y, 
+				0.0f,				backbufferSize.Y,	0xffffffff, 0.0f + viewOffset.X, 1.0f + viewOffset.Y, 
+				backbufferSize.X,	backbufferSize.Y,	0xffffffff, 1.0f + viewOffset.X, 1.0f + viewOffset.Y );
 			gr->end();
 			r->endScene();
 		}
@@ -201,7 +201,7 @@ namespace Graphics
 		mBackendBuffer->create( NULL, surface );
 		SAFE_RELEASE( surface );
 		
-		LSize size( (int)mBackendBuffer->getSize().x, (int)mBackendBuffer->getSize().y );
+		LSize size( (int)mBackendBuffer->getSize().X, (int)mBackendBuffer->getSize().Y );
 
 
 		//if ( isFixedAspect() ) 
@@ -226,7 +226,7 @@ namespace Graphics
 
 		// バックバッファサイズを覚えておく
 		const LVector2& backbufferSize = mBackbuffer->getSize();
-		mCurrentBackbufferSize.set(backbufferSize.x, backbufferSize.y);
+		mCurrentBackbufferSize.set(backbufferSize.X, backbufferSize.Y);
 
 		// ViewBox 更新
 		mWindowSize = mTargetWindow->getSize();

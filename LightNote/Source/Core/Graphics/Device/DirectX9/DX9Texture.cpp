@@ -75,8 +75,8 @@ namespace Graphics
         UINT w = width;
         UINT h = height;
         UINT miplevels = levels;
-        this->mSize.x = static_cast<lnFloat>( width );
-        this->mSize.y = static_cast<lnFloat>( height );
+        this->mSize.X = static_cast<lnFloat>( width );
+        this->mSize.Y = static_cast<lnFloat>( height );
 
         // 実際に作成されるべきテクスチャの情報を取得する
 		HRESULT hr;
@@ -88,10 +88,10 @@ namespace Graphics
             &dx_fmt,    
             D3DPOOL_MANAGED ) );
 
-        this->mRealSize.x = static_cast< lnFloat >( w );
-        this->mRealSize.y = static_cast< lnFloat >( h );
-        this->mRealSizeInv.x = 1.0f / this->mRealSize.x;
-        this->mRealSizeInv.y = 1.0f / this->mRealSize.y;
+        this->mRealSize.X = static_cast< lnFloat >( w );
+        this->mRealSize.Y = static_cast< lnFloat >( h );
+        this->mRealSizeInv.X = 1.0f / this->mRealSize.X;
+        this->mRealSizeInv.Y = 1.0f / this->mRealSize.Y;
 
 		// テクスチャ作成
 		// 3つめの引数 ( ミップマップ ) は、使わない場合は 1 にしておく( 0 にすると可能な限り全部作られる )
@@ -149,8 +149,8 @@ namespace Graphics
 		// ここの時点で mDxTexture の参照カウントは「 1 」
 
 		// ファイルのイメージの幅と高さを記憶
-		this->mSize.x = static_cast<lnFloat>( image_info.Width );
-        this->mSize.y = static_cast<lnFloat>( image_info.Height );
+		this->mSize.X = static_cast<lnFloat>( image_info.Width );
+        this->mSize.Y = static_cast<lnFloat>( image_info.Height );
 
         UINT miplevels = levels;
         
@@ -160,10 +160,10 @@ namespace Graphics
             &image_info.Width, &image_info.Height,
 			&miplevels, 0, NULL, D3DPOOL_MANAGED ) );
 
-        this->mRealSize.x = static_cast< lnFloat >( image_info.Width );
-        this->mRealSize.y = static_cast< lnFloat >( image_info.Height );
-        this->mRealSizeInv.x = 1.0f / this->mRealSize.x;
-        this->mRealSizeInv.y = 1.0f / this->mRealSize.y;
+        this->mRealSize.X = static_cast< lnFloat >( image_info.Width );
+        this->mRealSize.Y = static_cast< lnFloat >( image_info.Height );
+        this->mRealSizeInv.X = 1.0f / this->mRealSize.X;
+        this->mRealSizeInv.Y = 1.0f / this->mRealSize.Y;
 
 		// テクスチャのサーフェイスを取得する
 		// ( ここでテクスチャのインターフェイスの参照カウントもひとつ増えてるみたい )
@@ -191,7 +191,7 @@ namespace Graphics
 
 		lnU32 c = color.toU32ARGB();
 
-        int m = static_cast< int >( this->mRealSize.x * this->mRealSize.y );
+        int m = static_cast< int >( this->mRealSize.X * this->mRealSize.Y );
         for ( int i = 0; i < m; ++i ) {
             buf[ i ] = c;
         }
@@ -223,8 +223,8 @@ namespace Graphics
     void DX9Texture::drawText( const lnChar* text, const Geometry::Rect& rect, TextAlign align, int len )
     {
 #if 1
-		int w = static_cast<int>( mRealSize.x );
-		int h = static_cast<int>( mRealSize.y );
+		int w = static_cast<int>( mRealSize.X );
+		int h = static_cast<int>( mRealSize.Y );
 		lnByte* data = (lnByte*)lock();
 
 		try
@@ -369,8 +369,8 @@ namespace Graphics
         }
 
         // サイズ格納
-        UINT w = static_cast< UINT >( mSize.x );
-        UINT h = static_cast< UINT >( mSize.y );
+        UINT w = static_cast< UINT >( mSize.X );
+        UINT h = static_cast< UINT >( mSize.Y );
         UINT levels = mMipLevel;
        /*
         // 実際に作成されるべきテクスチャの情報を取得する
@@ -413,10 +413,10 @@ namespace Graphics
         mDxTexture->GetLevelDesc( 0, &desc );
         //_p( desc.Width );
         //_p( desc.Height );
-        mRealSize.x = static_cast< lnFloat >( desc.Width );
-        mRealSize.y = static_cast< lnFloat >( desc.Height );
-        mRealSizeInv.x = 1.0f / mRealSize.x;
-        mRealSizeInv.y = 1.0f / mRealSize.y;
+        mRealSize.X = static_cast< lnFloat >( desc.Width );
+        mRealSize.Y = static_cast< lnFloat >( desc.Height );
+        mRealSizeInv.X = 1.0f / mRealSize.x;
+        mRealSizeInv.Y = 1.0f / mRealSize.y;
 
 		// レンダリングターゲットのサーフェイスを取得する
 		LN_COMCALL( mDxTexture->GetSurfaceLevel( 0, &mDxSurface ) );
@@ -465,7 +465,7 @@ namespace Graphics
 	void DX9DepthBuffer::create( DX9GraphicsDevice* device, lnU32 width, lnU32 height, SurfaceFormat format )
     {
 		LN_REFOBJ_SET( this->mGraphicsDevice, device );
-        this->mSize.set( static_cast<lnFloat>( width ), static_cast<lnFloat>( height ) );
+        this->mSize.Set( static_cast<lnFloat>( width ), static_cast<lnFloat>( height ) );
         this->mFormat = format;
 		this->_create();
 		GraphicsResource::registerResource( this->mGraphicsDevice );
@@ -481,8 +481,8 @@ namespace Graphics
 
 		LN_COMCALL(
 		    dx_device->CreateDepthStencilSurface(
-                static_cast< UINT >( mSize.x ),
-				static_cast< UINT >( mSize.y ),
+                static_cast< UINT >( mSize.X ),
+				static_cast< UINT >( mSize.Y ),
 				DX9Module::convertLNFormatToDxFormat( this->mFormat ),
 				D3DMULTISAMPLE_NONE,	// 高度な補間方法の設定
 				0,						// 画像の品質レベルの設定
@@ -544,10 +544,10 @@ namespace Graphics
             D3DSURFACE_DESC desc;
             mDxSurface->GetDesc( &desc );
 
-            mRealSize.x = mSize.x = static_cast< lnFloat >( desc.Width );
-            mRealSize.y = mSize.y = static_cast< lnFloat >( desc.Height );
-            mRealSizeInv.x = 1.0f / mRealSize.x;
-            mRealSizeInv.y = 1.0f / mRealSize.y;
+            mRealSize.X = mSize.X = static_cast< lnFloat >( desc.Width );
+            mRealSize.Y = mSize.Y = static_cast< lnFloat >( desc.Height );
+            mRealSizeInv.X = 1.0f / mRealSize.X;
+            mRealSizeInv.Y = 1.0f / mRealSize.Y;
 
 			// サーフェイスフォーマットの取得
 			mSurfaceFormat = DX9Module::convertFormatDxToLN(desc.Format);

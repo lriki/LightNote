@@ -307,10 +307,10 @@ namespace Scene
 	{
 		Command c;
 		c.Type = COMMAND_ClearSetColor;
-		c.ClearSetColor.Color[0] = color.x;
-		c.ClearSetColor.Color[1] = color.y;
-		c.ClearSetColor.Color[2] = color.z;
-		c.ClearSetColor.Color[3] = color.w;
+		c.ClearSetColor.Color[0] = color.X;
+		c.ClearSetColor.Color[1] = color.Y;
+		c.ClearSetColor.Color[2] = color.Z;
+		c.ClearSetColor.Color[3] = color.W;
 		mCommandArray.push_back( c );
 	}
 

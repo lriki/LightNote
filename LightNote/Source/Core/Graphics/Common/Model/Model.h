@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../../../Math/Vector4.h"
+#include "../../../Math/LMath.h"
 #include "ModelFrame.h"
 #include "ModelFace.h"
 #include "ModelRigidBody.h"

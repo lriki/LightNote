@@ -144,13 +144,13 @@ namespace Graphics
 
 		this->mViewDestRect.set( (int)new_x, (int)new_y, (int)new_w, (int)new_h ); 
 
-        this->mScreenTransform.identity();
-        this->mScreenTransform.translation( -new_x, -new_y, 0 );
-        this->mScreenTransform.scaling( 1.0f / ( new_w / sw ), 1.0f / ( new_h / sh ), 1 );
+		this->mScreenTransform = LMatrix::Identity;
+        this->mScreenTransform.Translation( -new_x, -new_y, 0 );
+        this->mScreenTransform.Scaling( 1.0f / ( new_w / sw ), 1.0f / ( new_h / sh ), 1 );
 
-		this->mBackbufferOffset.identity();
-        this->mBackbufferOffset.scaling( new_w / sw, new_h / sh, 1 );
-        this->mBackbufferOffset.translation( new_x, new_y, 0 );
+		this->mBackbufferOffset = LMatrix::Identity;
+        this->mBackbufferOffset.Scaling( new_w / sw, new_h / sh, 1 );
+        this->mBackbufferOffset.Translation( new_x, new_y, 0 );
 
 	}
 

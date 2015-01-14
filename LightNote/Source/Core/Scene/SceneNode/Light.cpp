@@ -92,8 +92,8 @@ namespace Scene
         setPosition( LVector3( 50.0f, 50.0f, -120.0f ) );
 
 
-		this->mDirection = LVector3::ZERO - getPosition();
-		this->mDirection.normalize();
+		this->mDirection = LVector3::Zero - getPosition();
+		this->mDirection.Normalize();
 
         mLightContext = LN_NEW LightContext();
         mLightContext->initialize( this );
@@ -223,19 +223,19 @@ namespace Scene
 
             //LMatrix::viewTransformRH( &mViewMatrix, mPosition, look_at, up );
             //LMatrix::perspectiveFovRH( &mProjectionMatrix, mViewFrustum.Fov, size.x, size.y, mViewFrustum.Near, mViewFrustum.Far );
-            LMatrix::viewTransformLH( &mViewMatrix, mPosition, look_at, up );
+			mViewMatrix = LMatrix::LookAtLH(mPosition, look_at, up);
 
             // 視錐台の更新
             mViewFrustum.Fov    = LMath::PI / 4.0f;
-            mViewFrustum.Aspect = size.x / size.y;
+            mViewFrustum.Aspect = size.X / size.Y;
             mViewFrustum.Near   = 0.01f;
             mViewFrustum.Far    = mRange;
-            LMatrix vmat;
-            LMatrix::inverse( &vmat, mViewMatrix );
+			LMatrix vmat = LMatrix::Inverse(mViewMatrix);
+            
             mViewFrustum.update( &vmat );
 
             // プロジェクション行列の更新
-            LMatrix::perspectiveFovLH( &mProjectionMatrix, mViewFrustum.Fov, size.x, size.y, mViewFrustum.Near, mViewFrustum.Far );
+			mProjectionMatrix = LMatrix::PerspectiveFovLH(mViewFrustum.Fov, size.X / size.Y, mViewFrustum.Near, mViewFrustum.Far);
 
             mViewProjMatrix = mViewMatrix * mProjectionMatrix;
 

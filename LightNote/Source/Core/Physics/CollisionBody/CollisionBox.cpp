@@ -6,7 +6,7 @@
 
 #include "stdafx.h"
 #include <btBulletDynamicsCommon.h>
-#include "../../Math/Vector3.h"
+#include "../../Math/LMath.h"
 #include "CollisionBox.h"
 
 namespace LNote
@@ -39,7 +39,7 @@ namespace Physics
 	//----------------------------------------------------------------------
     void CollisionBox::create( Manager* manager, const LVector3& size, lnU16 group, lnU16 mask )
 	{
-		btBoxShape* shape = new btBoxShape( btVector3(size.x * 0.5f, size.y * 0.5f, size.z * 0.5f) );
+		btBoxShape* shape = new btBoxShape( btVector3(size.X * 0.5f, size.Y * 0.5f, size.Z * 0.5f) );
 
 		btCollisionObject* obj = new btCollisionObject();
 		obj->setCollisionShape( shape );

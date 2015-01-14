@@ -37,9 +37,9 @@ public:
 	//*/
 	//----------------------------------------------------------------------
 	FadeValue()
-		: mStartValue( 0 )
-		, mTargetValue( 0 )
-		, mValue( 0 )
+		: mStartValue()
+		, mTargetValue()
+		, mValue()
 		, mTime( 0.0 )
 		, mFadeTime( 0.0 )
 	{}

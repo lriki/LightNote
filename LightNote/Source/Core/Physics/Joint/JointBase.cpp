@@ -180,7 +180,7 @@ namespace Physics
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-    void DofSpringJoint::setLinearLowerLimit( const Math::Vector3& linearLower )
+    void DofSpringJoint::setLinearLowerLimit( const LVector3& linearLower )
 	{
 		this->mBtDofSpringConstraint->setLinearLowerLimit(
 			BulletUtil::LNVector3ToBtVector3( linearLower ) );
@@ -189,7 +189,7 @@ namespace Physics
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-    void DofSpringJoint::setLinearUpperLimit( const Math::Vector3& linearUpper )
+    void DofSpringJoint::setLinearUpperLimit( const LVector3& linearUpper )
 	{
 		this->mBtDofSpringConstraint->setLinearUpperLimit(
 			BulletUtil::LNVector3ToBtVector3( linearUpper ) );
@@ -198,7 +198,7 @@ namespace Physics
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-    void DofSpringJoint::setAngularLowerLimit( const Math::Vector3& angularLower )
+    void DofSpringJoint::setAngularLowerLimit( const LVector3& angularLower )
 	{
 		this->mBtDofSpringConstraint->setAngularLowerLimit(
 			BulletUtil::LNVector3ToBtVector3( angularLower ) );
@@ -207,7 +207,7 @@ namespace Physics
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-    void DofSpringJoint::setAngularUpperLimit( const Math::Vector3& angularUpper )
+    void DofSpringJoint::setAngularUpperLimit( const LVector3& angularUpper )
 	{
 		this->mBtDofSpringConstraint->setAngularUpperLimit(
 			BulletUtil::LNVector3ToBtVector3( angularUpper ) );

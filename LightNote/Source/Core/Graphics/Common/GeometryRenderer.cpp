@@ -132,8 +132,8 @@ namespace Graphics
 		//-----------------------------------------------------
         // 単位行列をセットしておく
 
-        setMatrix( LMatrix::IDENTITY );
-        setViewProjMatrix( LMatrix::IDENTITY );
+		setMatrix(LMatrix::Identity);
+        setViewProjMatrix( LMatrix::Identity );
     }
 
 	//----------------------------------------------------------------------
@@ -194,10 +194,10 @@ namespace Graphics
     void GeometryRenderer::setViewSize( const LVector2& view_size )
     {
         LMatrix mat;
-        LMatrix::perspective2DLH(
+        LMatrixUtils::perspective2DLH(
             &mat, 
-            view_size.x,
-            view_size.y,
+            view_size.X,
+            view_size.Y,
             0.0f,
             10000.0f );
         setViewProjMatrix( mat );
@@ -228,18 +228,18 @@ namespace Graphics
 		lnFloat z )
     {
         Vertex::PosColorUV* v = (Vertex::PosColorUV*)mVBPosColorUV->lock();
-        v[ 0 ].Position.set( x0, y0, z );
+        v[ 0 ].Position.Set( x0, y0, z );
         v[ 0 ].Color = c0;
-        v[ 0 ].TexUV.set( u0, v0 );
-        v[ 1 ].Position.set( x1, y1, z );
+        v[ 0 ].TexUV.Set( u0, v0 );
+        v[ 1 ].Position.Set( x1, y1, z );
         v[ 1 ].Color = c1;
-        v[ 1 ].TexUV.set( u1, v1 );
-        v[ 2 ].Position.set( x2, y2, z );
+        v[ 1 ].TexUV.Set( u1, v1 );
+        v[ 2 ].Position.Set( x2, y2, z );
         v[ 2 ].Color = c2;
-        v[ 2 ].TexUV.set( u2, v2 );
-        v[ 3 ].Position.set( x3, y3, z );
+        v[ 2 ].TexUV.Set( u2, v2 );
+        v[ 3 ].Position.Set( x3, y3, z );
         v[ 3 ].Color = c3;
-        v[ 3 ].TexUV.set( u3, v3 );
+        v[ 3 ].TexUV.Set( u3, v3 );
         mVBPosColorUV->unlock();
 
         mRenderer->setVertexBuffer( mVBPosColorUV, true );
@@ -437,9 +437,9 @@ namespace Graphics
 	//----------------------------------------------------------------------
     void GeometryRenderer::drawTransformAxis( lnFloat ortho_len )
     {
-		drawLine( LVector3::ZERO, LVector3( ortho_len, 0, 0 ), LColorF::Red );
-		drawLine( LVector3::ZERO, LVector3( 0, ortho_len, 0 ), LColorF::Green );
-		drawLine( LVector3::ZERO, LVector3( 0, 0, ortho_len ), LColorF::Blue );
+		drawLine(LVector3::Zero, LVector3(ortho_len, 0, 0), LColorF::Red);
+		drawLine(LVector3::Zero, LVector3(0, ortho_len, 0), LColorF::Green);
+		drawLine(LVector3::Zero, LVector3(0, 0, ortho_len), LColorF::Blue);
     }
 
 	//----------------------------------------------------------------------
@@ -452,26 +452,26 @@ namespace Graphics
         // ※ 右手用
         Vertex::PosColor vertices[] = 
         {
-            { LVector3( bb_max.x, bb_max.y, bb_max.z ), c }, // [0] 
-            { LVector3( bb_max.x, bb_min.y, bb_max.z ), c },
-            { LVector3( bb_min.x, bb_min.y, bb_max.z ), c },
-            { LVector3( bb_min.x, bb_max.y, bb_max.z ), c },
-            { LVector3( bb_max.x, bb_max.y, bb_min.z ), c },
-            { LVector3( bb_max.x, bb_min.y, bb_min.z ), c },
-            { LVector3( bb_max.x, bb_min.y, bb_max.z ), c },
-            { LVector3( bb_max.x, bb_max.y, bb_max.z ), c },
-            { LVector3( bb_min.x, bb_max.y, bb_min.z ), c },
-            { LVector3( bb_min.x, bb_min.y, bb_min.z ), c },
-            { LVector3( bb_max.x, bb_min.y, bb_min.z ), c },
-            { LVector3( bb_max.x, bb_max.y, bb_min.z ), c },
-            { LVector3( bb_min.x, bb_max.y, bb_max.z ), c },
-            { LVector3( bb_min.x, bb_min.y, bb_max.z ), c },
-            { LVector3( bb_min.x, bb_min.y, bb_min.z ), c },
-            { LVector3( bb_min.x, bb_max.y, bb_min.z ), c },
-            { LVector3( bb_max.x, bb_max.y, bb_max.z ), c },
-            { LVector3( bb_min.x, bb_max.y, bb_max.z ), c },
-            { LVector3( bb_max.x, bb_min.y, bb_max.z ), c },
-            { LVector3( bb_min.x, bb_min.y, bb_max.z ), c }, // [19]
+            { LVector3( bb_max.X, bb_max.Y, bb_max.Z ), c }, // [0] 
+            { LVector3( bb_max.X, bb_min.Y, bb_max.Z ), c },
+            { LVector3( bb_min.X, bb_min.Y, bb_max.Z ), c },
+            { LVector3( bb_min.X, bb_max.Y, bb_max.Z ), c },
+            { LVector3( bb_max.X, bb_max.Y, bb_min.Z ), c },
+            { LVector3( bb_max.X, bb_min.Y, bb_min.Z ), c },
+            { LVector3( bb_max.X, bb_min.Y, bb_max.Z ), c },
+            { LVector3( bb_max.X, bb_max.Y, bb_max.Z ), c },
+            { LVector3( bb_min.X, bb_max.Y, bb_min.Z ), c },
+            { LVector3( bb_min.X, bb_min.Y, bb_min.Z ), c },
+            { LVector3( bb_max.X, bb_min.Y, bb_min.Z ), c },
+            { LVector3( bb_max.X, bb_max.Y, bb_min.Z ), c },
+            { LVector3( bb_min.X, bb_max.Y, bb_max.Z ), c },
+            { LVector3( bb_min.X, bb_min.Y, bb_max.Z ), c },
+            { LVector3( bb_min.X, bb_min.Y, bb_min.Z ), c },
+            { LVector3( bb_min.X, bb_max.Y, bb_min.Z ), c },
+            { LVector3( bb_max.X, bb_max.Y, bb_max.Z ), c },
+            { LVector3( bb_min.X, bb_max.Y, bb_max.Z ), c },
+            { LVector3( bb_max.X, bb_min.Y, bb_max.Z ), c },
+            { LVector3( bb_min.X, bb_min.Y, bb_max.Z ), c }, // [19]
         };  
 
         // ※ 右手用
@@ -713,27 +713,27 @@ namespace Graphics
         Vertex::PosColor vertices[] =
         {
             // 近い方の面
-            { LVector3( np[ 0 ].x, np[ 0 ].y, np[ 0 ].z ), c },	// 0
-            { LVector3( np[ 1 ].x, np[ 1 ].y, np[ 1 ].z ), c },
-            { LVector3( np[ 2 ].x, np[ 2 ].y, np[ 2 ].z ), c },
-            { LVector3( np[ 3 ].x, np[ 3 ].y, np[ 3 ].z ), c },
-            { LVector3( np[ 0 ].x, np[ 0 ].y, np[ 0 ].z ), c },
+            { LVector3( np[ 0 ].X, np[ 0 ].Y, np[ 0 ].Z ), c },	// 0
+            { LVector3( np[ 1 ].X, np[ 1 ].Y, np[ 1 ].Z ), c },
+            { LVector3( np[ 2 ].X, np[ 2 ].Y, np[ 2 ].Z ), c },
+            { LVector3( np[ 3 ].X, np[ 3 ].Y, np[ 3 ].Z ), c },
+            { LVector3( np[ 0 ].X, np[ 0 ].Y, np[ 0 ].Z ), c },
 
             // 遠い方の面
-            { LVector3( fp[ 0 ].x, fp[ 0 ].y, fp[ 0 ].z ), c },	// 5
-            { LVector3( fp[ 1 ].x, fp[ 1 ].y, fp[ 1 ].z ), c },
-            { LVector3( fp[ 2 ].x, fp[ 2 ].y, fp[ 2 ].z ), c },
-            { LVector3( fp[ 3 ].x, fp[ 3 ].y, fp[ 3 ].z ), c },
-            { LVector3( fp[ 0 ].x, fp[ 0 ].y, fp[ 0 ].z ), c },
+            { LVector3( fp[ 0 ].X, fp[ 0 ].Y, fp[ 0 ].Z ), c },	// 5
+            { LVector3( fp[ 1 ].X, fp[ 1 ].Y, fp[ 1 ].Z ), c },
+            { LVector3( fp[ 2 ].X, fp[ 2 ].Y, fp[ 2 ].Z ), c },
+            { LVector3( fp[ 3 ].X, fp[ 3 ].Y, fp[ 3 ].Z ), c },
+            { LVector3( fp[ 0 ].X, fp[ 0 ].Y, fp[ 0 ].Z ), c },
 
             // 視点から遠い方の面までの線
-            { LVector3( fp[ 0 ].x, fp[ 0 ].y, fp[ 0 ].z ), c },	// 10
-            { LVector3(      vp.x,      vp.y,      vp.z ), c },
-            { LVector3( fp[ 1 ].x, fp[ 1 ].y, fp[ 1 ].z ), c },
+            { LVector3( fp[ 0 ].X, fp[ 0 ].Y, fp[ 0 ].Z ), c },	// 10
+            { LVector3(      vp.X,      vp.Y,      vp.Z ), c },
+            { LVector3( fp[ 1 ].X, fp[ 1 ].Y, fp[ 1 ].Z ), c },
 
-            { LVector3( fp[ 2 ].x, fp[ 2 ].y, fp[ 2 ].z ), c },  // 13
-            { LVector3(      vp.x,      vp.y,      vp.z ), c },
-            { LVector3( fp[ 3 ].x, fp[ 3 ].y, fp[ 3 ].z ), c },
+            { LVector3( fp[ 2 ].X, fp[ 2 ].Y, fp[ 2 ].Z ), c },  // 13
+            { LVector3(      vp.X,      vp.Y,      vp.Z ), c },
+            { LVector3( fp[ 3 ].X, fp[ 3 ].Y, fp[ 3 ].Z ), c },
         };
 
         Vertex::PosColor* v = (Vertex::PosColor*)mVBPosColor->lock();
@@ -761,7 +761,7 @@ namespace Graphics
         {
             mPointParticleShader.varWorldMatrix->setMatrix( world );
             mPointParticleShader.varViewProjMatrix->setMatrix( view_porj );
-            mPointParticleShader.varProj_11_Div_00->setFloat( porj.m11 / porj.m00 );
+            mPointParticleShader.varProj_11_Div_00->setFloat( porj.M[1][1] / porj.M[0][0] );
             mPointParticleShader.Shader->getVariableByName("gCameraPosition")->setVector( camera_pos );
 
             mPointParticleShader.varTime->setFloat( particle->mTime * particle->mTimeTick );

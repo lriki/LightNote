@@ -13,9 +13,7 @@
 //-------------------------------------------------------------------------
 //
 //-------------------------------------------------------------------------
-#include "../../Math/Vector3.h"
-#include "../../Math/Random.h"
-#include "../../Math/Math.h"
+#include "../../Math/LMath.h"
 
 //-------------------------------------------------------------------------
 //
@@ -222,12 +220,12 @@ public:
 	//----------------------------------------------------------------------
 	void convDegToRad()
 	{
-        Angle = LMath::DegToRad( Angle );
-		AngleRand = LMath::DegToRad( AngleRand );
-		AngleVelocity = LMath::DegToRad( AngleVelocity );
-		AngleVelocityRand = LMath::DegToRad( AngleVelocityRand );
-		AngleAccel = LMath::DegToRad( AngleAccel );
-		AngleAccelRand = LMath::DegToRad( AngleAccelRand );
+        Angle = LMath::ToRadians( Angle );
+		AngleRand = LMath::ToRadians(AngleRand);
+		AngleVelocity = LMath::ToRadians(AngleVelocity);
+		AngleVelocityRand = LMath::ToRadians(AngleVelocityRand);
+		AngleAccel = LMath::ToRadians(AngleAccel);
+		AngleAccelRand = LMath::ToRadians(AngleAccelRand);
 	}
 
 

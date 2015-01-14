@@ -100,7 +100,7 @@ namespace Scene
 
 		// TODO:オフスクリーンで使用する深度バッファは公開する必要ないので、同サイズは共有できるようにしたい
 		mDepthTexture = mManager->getGraphicsDevice()->createDepthBuffer( 
-			(lnU32)mRTTexture->getSize().x, (lnU32)mRTTexture->getSize().y, Graphics::SurfaceFormat_D24S8);
+			(lnU32)mRTTexture->getSize().X, (lnU32)mRTTexture->getSize().Y, Graphics::SurfaceFormat_D24S8);
 
         _refreshEffects();
 

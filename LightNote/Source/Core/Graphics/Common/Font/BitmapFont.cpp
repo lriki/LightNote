@@ -47,16 +47,16 @@ namespace Graphics
 		LN_REFOBJ_SET(mManager, manager);
 		LN_REFOBJ_SET(mFontTexture, fontTexture);
 
-		mCharWidth = (int)mFontTexture->getSize().x / 16;
-		mCharHeight = (int)mFontTexture->getSize().y / 16;
+		mCharWidth = (int)mFontTexture->getSize().X / 16;
+		mCharHeight = (int)mFontTexture->getSize().Y / 16;
 
 		// テクスチャの内容をフォントビットマップとしてコピーして持っておく
 		TextureScopedLock lock(mFontTexture);
 		mFontBitmap.create(
 			lock.getData(), 
 			lock.getDataSize(),
-			mFontTexture->getRealSize().x,
-			mFontTexture->getRealSize().y,
+			mFontTexture->getRealSize().X,
+			mFontTexture->getRealSize().Y,
 			Util::convertSurfaceFormatToBitmapFormat(mFontTexture->getSurfaceFormat()),
 			true);
 

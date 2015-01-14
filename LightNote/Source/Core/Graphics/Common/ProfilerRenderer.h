@@ -12,7 +12,7 @@
 #include "Common.h"
 #include "../Interface.h"
 #include "../../Base/Profiler.h"
-#include "../../Math/Vector2.h"
+#include "../../Math/LMath.h"
 #include "TextRenderer.h"
 
 namespace LNote

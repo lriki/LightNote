@@ -11,12 +11,7 @@
 #pragma once
 
 #include <vector>
-#include "../../../Math/Vector2.h"
-#include "../../../Math/Vector3.h"
-#include "../../../Math/Vector4.h"
-#include "../../../Math/Matrix.h"
-#include "../../../Math/Quaternion.h"
-#include "../../../Math/SQTTransform.h"
+#include "../../../Math/LMath.h"
 
 namespace LNote
 {

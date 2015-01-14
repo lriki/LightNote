@@ -210,8 +210,8 @@ namespace Scene
         mCameraSceneParam.Mat_CameraView     = &mCoreCamera.getViewMatrix();
         mCameraSceneParam.Mat_CameraProj     = &mCoreCamera.getProjectionMatrix();
         mCameraSceneParam.Mat_CameraViewProj = &mCoreCamera.getViewProjectionMatrix();
-        mCameraSceneParam.CameraPosition     = LVector4( mCoreCamera.getPosition() );
-        mCameraSceneParam.CameraDirection    = LVector4( mCoreCamera.getDirection() );
+        mCameraSceneParam.CameraPosition     = LVector4( mCoreCamera.getPosition(), 0.0f );
+        mCameraSceneParam.CameraDirection    = LVector4( mCoreCamera.getDirection(), 0.0f );
         mCameraSceneParam.calcMatrices();
         return &mCameraSceneParam;
     }
@@ -312,8 +312,8 @@ namespace Scene
         mCameraSceneParam.Mat_CameraProj = &mProjectionMatrix;
         mCameraSceneParam.Mat_CameraViewProj = &mViewProjMatrix;
         mCameraSceneParam.CameraPosition = mPosition;
-        mCameraSceneParam.CameraDirection = LVector4( mDirection );
-		mCameraSceneParam.ViewPixelSize.set( mViewSize.x, mViewSize.y, 0, 0 );
+        mCameraSceneParam.CameraDirection = LVector4( mDirection, 0.0f );
+		mCameraSceneParam.ViewPixelSize.Set( mViewSize.X, mViewSize.Y, 0, 0 );
 		mCameraSceneParam.calcMatrices();
 
         mProjection2D = mCamera->isProjection2D();

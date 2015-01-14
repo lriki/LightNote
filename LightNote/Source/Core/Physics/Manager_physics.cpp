@@ -544,12 +544,12 @@ btThreadSupportInterface* createSolverThreadSupport(int maxNumThreads)
 
 						min = Distance;
 
-						info.Position.x = PointB.getX();
-						info.Position.y = PointB.getY();
-						info.Position.z = PointB.getZ();
-						info.Normal.x = NormalB.getX();
-						info.Normal.y = NormalB.getY();
-						info.Normal.z = NormalB.getZ();
+						info.Position.X = PointB.getX();
+						info.Position.Y = PointB.getY();
+						info.Position.Z = PointB.getZ();
+						info.Normal.X = NormalB.getX();
+						info.Normal.Y = NormalB.getY();
+						info.Normal.Z = NormalB.getZ();
 					}
 				}
 			}
@@ -583,7 +583,7 @@ btThreadSupportInterface* createSolverThreadSupport(int maxNumThreads)
 	//----------------------------------------------------------------------
     void Manager::setGravity( const LVector3& gravity_ )
     {
-        mBtWorld->setGravity( btVector3( gravity_.x, gravity_.y, gravity_.z ) );
+        mBtWorld->setGravity( btVector3( gravity_.X, gravity_.Y, gravity_.Z ) );
     }
 
 	//-------------------------------------------------------------------------------------
@@ -659,8 +659,8 @@ btThreadSupportInterface* createSolverThreadSupport(int maxNumThreads)
 	//----------------------------------------------------------------------
     bool Manager::rayCast( const LVector3& from_, const LVector3& to_, LVector3* hit_pos_, LVector3* hit_normal_, BodyBase** hit_body_, lnU16 group_, lnU16 mask_ )
     {
-        btVector3 from( from_.x, from_.y, from_.z );
-	    btVector3 to( to_.x, to_.y, to_.z );
+        btVector3 from( from_.X, from_.Y, from_.Z );
+	    btVector3 to( to_.X, to_.Y, to_.Z );
 
 	    btCollisionWorld::ClosestRayResultCallback result_callback( from, to );
 	    result_callback.m_collisionFilterGroup = group_;

@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../../Math/Quaternion.h"
+#include "../../Math/LMath.h"
 #include "../BodyBase.h"
 
 namespace LNote

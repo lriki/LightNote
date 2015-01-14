@@ -83,7 +83,7 @@ public:
 			LN_SAFE_RELEASE(mPrimaryRenderTarget);
 			ImageFilter* owner = static_cast<ImageFilter*>(mOwner);
 			mPrimaryRenderTarget = owner->getManager()->getGraphicsManager()->getGraphicsDevice()->createRenderTarget(
-				param->ViewSize.x, param->ViewSize.y, 1, Graphics::SurfaceFormat_X8R8G8B8 );
+				param->ViewSize.X, param->ViewSize.Y, 1, Graphics::SurfaceFormat_X8R8G8B8 );
 		}
 
 		// レンダーターゲット交換
@@ -117,8 +117,8 @@ public:
 		param->Renderer->setRenderTarget( 0, mOldRenderTarget );
 
 		// プライマリを元のターゲットに書き込む
-		param->GeometryRenderer->setMatrix( LMatrix::IDENTITY );
-		param->GeometryRenderer->setViewProjMatrix( LMatrix::IDENTITY );
+		param->GeometryRenderer->setMatrix( LMatrix::Identity );
+		param->GeometryRenderer->setViewProjMatrix(LMatrix::Identity);
 		param->GeometryRenderer->setTexture( mPrimaryRenderTarget );
 		param->GeometryRenderer->begin();
 		param->GeometryRenderer->drawScreen( param->ViewSize );
@@ -179,7 +179,7 @@ LN_TYPE_INFO_ACCESS_IMPL(BlurImageFilter);
 		context->create( manager );
 		ImageFilter::create( manager, context );
 
-		mBlurColor.set( 1, 1, 1, 1 );
+		mBlurColor.Set( 1, 1, 1, 1 );
 		mBlurPower.setTimeTickPerSec( 1.0f );
 	    mBlurPower.setCapacity( 5 );
 	}
@@ -189,7 +189,7 @@ LN_TYPE_INFO_ACCESS_IMPL(BlurImageFilter);
 	//----------------------------------------------------------------------
 	void BlurImageFilter::blur(double duration, lnFloat power, lnFloat scale, const LVector3& center, Camera* baseCamera)
 	{
-		mBlurMatrix.identity();
+		mBlurMatrix = LMatrix::Identity;
 
         // ブラーの適用を無しにする場合
         if ( power == 0.0 )
@@ -204,18 +204,18 @@ LN_TYPE_INFO_ACCESS_IMPL(BlurImageFilter);
         {
 			if (baseCamera != NULL)
 			{
-				LVector3 t;
-				LVector3::transformCoord(&t, center, baseCamera->getViewProjectionMatrix());
-				mBlurCenter.set(t.x, t.y, t.z, 1.0f);
+				mBlurCenter = LVector4(
+					LVector3::TransformCoord(center, baseCamera->getViewProjectionMatrix()),
+					1.0f);
 			}
 			else {
-				mBlurCenter.set(center.x, center.y, center.z, 1.0f);
+				mBlurCenter = LVector4(center, 1.0f);
 			}
 
             // mBlurCenter を中心に拡大する
-            mBlurMatrix.translation( -mBlurCenter.x, -mBlurCenter.y, 0 );
-            mBlurMatrix.scaling( scale );
-            mBlurMatrix.translation( mBlurCenter.x, mBlurCenter.y, 0 );
+            mBlurMatrix.Translation( -mBlurCenter.X, -mBlurCenter.Y, 0 );
+            mBlurMatrix.Scaling( scale );
+            mBlurMatrix.Translation( mBlurCenter.X, mBlurCenter.Y, 0 );
         }
 
         mBlurPower.clear();

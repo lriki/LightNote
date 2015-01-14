@@ -306,7 +306,7 @@ public:
 	size_t getDataSize() const
 	{
 		const LVector2& size = mTexture->getSize();
-		return Util::getSurfaceFormatPixelByteCount(mTexture->getSurfaceFormat()) * (int)size.x * (int)size.y;
+		return Util::getSurfaceFormatPixelByteCount(mTexture->getSurfaceFormat()) * (int)size.X * (int)size.Y;
 	}
 
 	void createRefBitmap(Bitmap* bitmap)
@@ -314,7 +314,7 @@ public:
 		const LVector2& size = mTexture->getSize();
 		bitmap->create(
 			getData(), getDataSize(), 
-			(int)size.x, (int)size.y, 
+			(int)size.X, (int)size.Y, 
 			Util::convertSurfaceFormatToBitmapFormat(mTexture->getSurfaceFormat()),
 			false);
 	}

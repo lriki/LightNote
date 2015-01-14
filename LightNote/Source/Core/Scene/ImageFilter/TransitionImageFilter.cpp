@@ -131,7 +131,7 @@ public:
 				LN_SAFE_RELEASE(*texs[i]);
 				ImageFilter* owner = static_cast<ImageFilter*>(mOwner);
 				*texs[i] = owner->getManager()->getGraphicsManager()->getGraphicsDevice()->createRenderTarget(
-					(lnU32)param->ViewSize.x, (lnU32)param->ViewSize.y, 1, Graphics::SurfaceFormat_X8R8G8B8);
+					(lnU32)param->ViewSize.X, (lnU32)param->ViewSize.Y, 1, Graphics::SurfaceFormat_X8R8G8B8);
 			}
 		}
 
@@ -186,8 +186,8 @@ public:
 		param->Renderer->setRenderTarget( 0, mOldRenderTarget );
 
 		// Backend を元のターゲットに書き込む
-		param->GeometryRenderer->setMatrix( LMatrix::IDENTITY );
-		param->GeometryRenderer->setViewProjMatrix( LMatrix::IDENTITY );
+		param->GeometryRenderer->setMatrix(LMatrix::Identity);
+		param->GeometryRenderer->setViewProjMatrix(LMatrix::Identity);
 		param->GeometryRenderer->setTexture( mBackendTextures[mBackendTextureIndex] );
 		param->GeometryRenderer->begin();
 		param->GeometryRenderer->drawScreen( param->ViewSize );
@@ -287,7 +287,7 @@ private:
 			LN_REFOBJ_SET( mTransitionMaskTexture, mask );
                 
             // あいまいさの範囲を 0.0～1.0 に変換する
-            int v = LMath::limit( vague, 1, 255 );
+            int v = LMath::Clamp( vague, 1, 255 );
 			mTransitionVague = static_cast< lnFloat >( v ) / 255.f;
 
             mTransitionFactor.start( -mTransitionVague, 1.0f, duration );
