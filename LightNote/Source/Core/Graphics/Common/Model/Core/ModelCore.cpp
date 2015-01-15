@@ -1156,7 +1156,7 @@ namespace Graphics
 		tmp_vec = LVector3::TransformCoord(ipos, skinning_mat);
         v_->Position += tmp_vec * weight_;
 
-        LVector3::rotate( &tmp_vec, inor, skinning_mat );
+		tmp_vec = LVector3::TransformCoord(inor, skinning_mat.GetRotationMatrix());
         v_->Normal   += tmp_vec * weight_;
     }
 

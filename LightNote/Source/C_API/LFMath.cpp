@@ -64,7 +64,7 @@
 	LNResult LNVector2_Normalize(const LNVector2* vec, LNVector2* outVec)
 	{
 		LN_CHECK_ARG(vec != NULL);
-		Core::Math::Vector2::normalize(TO_CORE_VEC2_PTR(outVec), TO_CORE_VEC2_REF(vec));
+		*TO_CORE_VEC2_PTR(outVec) = LVector2::Normalize(TO_CORE_VEC2_REF(vec));
 		return ::LN_OK;
 	}
 
@@ -100,7 +100,7 @@
 	{
 		LN_CHECK_ARG(vec != NULL);
 		LN_CHECK_ARG(length != NULL);
-		*length = Core::Asm::sqrt(vec->X * vec->X + vec->Y * vec->Y + vec->Z * vec->Z);
+		*length = ((const LVector3*)vec)->GetLength();
 		return ::LN_OK;
 	}
 	LNResult LNVector3_GetLengthD(const LNVector3* vec, double* length)
@@ -136,7 +136,7 @@
 	{
 		LN_CHECK_ARG(outVec != NULL);
 		LN_CHECK_ARG(vec != NULL);
-		LVector3::Normalize( TO_CORE_VEC3_PTR( outVec ), TO_CORE_VEC3_REF( vec ) );
+		*TO_CORE_VEC3_PTR(outVec) = LVector3::Normalize(TO_CORE_VEC3_REF(vec));
 		return ::LN_OK;
 	}
 
@@ -237,12 +237,12 @@
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-	LNResult LNVector3_Transform(const LNVector3* vec, const LNMatrix* mat, LNVector3* outVec)
+	LNResult LNVector3_Transform(const LNVector3* vec, const LNMatrix* mat, LNVector4* outVec)
 	{
 		LN_CHECK_ARG(outVec != NULL);
 		LN_CHECK_ARG(vec != NULL);
 		LN_CHECK_ARG(mat != NULL);
-		*TO_CORE_VEC3_PTR(outVec) = LVector3::Transform(TO_CORE_VEC3_REF(vec), TO_CORE_MAT_REF(mat));
+		*TO_CORE_VEC4_PTR(outVec) = LVector3::Transform(TO_CORE_VEC3_REF(vec), TO_CORE_MAT_REF(mat));
 		return ::LN_OK;
 	}
 
@@ -258,6 +258,19 @@
 		return ::LN_OK;
 	}
 
+#if 0
+	//----------------------------------------------------------------------
+	///**
+	//  @brief      任意軸周りの回転を行う
+	//  @param[in]  vec		: 処理の基になる Vector3
+	//  @param[in]  axis	: 回転軸を表す Vector3
+	//  @param[in]  r		: 回転角度 (ラジアン)
+	//  @param[out] outVec	: 演算結果を格納する Vector3
+	//  @return		処理結果 (LN_OK=成功 / それ以外=エラーコード)
+	//*/
+	//----------------------------------------------------------------------
+	LNOTEAPI LNResult LNVector3_RotateAxis(const LNVector3* vec, const LNVector3* axis, float r, LNVector3* outVec);
+
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
@@ -269,10 +282,25 @@
 		*TO_CORE_VEC3_PTR(outVec) = LVector3::RotateAxis(TO_CORE_VEC3_REF(vec), TO_CORE_VEC3_REF(axis), r);
 		return ::LN_OK;
 	}
+	LNOTEINTERNALAPI LNResult LNVector3_RotateAxisD(const LNVector3* vec, const LNVector3* axis, double r, LNVector3* outVec);
+
+
 	LNResult LNVector3_RotateAxisD(const LNVector3* vec, const LNVector3* axis, double r, LNVector3* outVec)
 	{
 		return LNVector3_RotateAxis(vec, axis, r, outVec);
 	}
+#endif
+#if 0
+	//----------------------------------------------------------------------
+	///**
+	//  @brief      行列の回転成分だけを使って座標変換する
+	//  @param[in]  vec		: 処理の基になる Vector3
+	//  @param[in]  mat		: 処理の基になる Matrix
+	//  @param[out] outVec	: 演算結果を格納する Vector3
+	//  @return		処理結果 (LN_OK=成功 / それ以外=エラーコード)
+	//*/
+	//----------------------------------------------------------------------
+	LNOTEAPI LNResult LNVector3_RotateMatrix(const LNVector3* vec, const LNMatrix* mat, LNVector3* outVec);
 
 	//----------------------------------------------------------------------
 	//
@@ -285,6 +313,7 @@
 		*TO_CORE_VEC3_PTR(outVec) = LVector3::rotate(TO_CORE_VEC3_REF(vec), TO_CORE_MAT_REF(mat));
 		return ::LN_OK;
 	}
+#endif
 
 
 //==============================================================================
@@ -297,7 +326,7 @@
 	LNResult LNMatrix_Identity(LNMatrix* mat)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		TO_CORE_MAT_PTR( mat )->identity();
+		*TO_CORE_MAT_PTR(mat) = LMatrix::Identity;
 		return ::LN_OK;
 	}
 
@@ -307,7 +336,7 @@
 	LNResult LNMatrix_Translate(LNMatrix* mat, float x, float y, float z)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		LMatrix::translation( TO_CORE_MAT_PTR( mat ), x, y, z );
+		TO_CORE_MAT_PTR(mat)->Translate(x, y, z);
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_TranslateD(LNMatrix* mat, double x, double y, double z)
@@ -321,7 +350,7 @@
 	LNResult LNMatrix_TranslateVec3(LNMatrix* mat, const LNVector3* vec)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		LMatrix::translation( TO_CORE_MAT_PTR( mat ), TO_CORE_VEC3_REF( vec ) );
+		TO_CORE_MAT_PTR(mat)->Translation(TO_CORE_VEC3_REF(vec));
 		return ::LN_OK;
 	}
 
@@ -331,7 +360,7 @@
 	LNResult LNMatrix_RotateX(LNMatrix* mat, float radian)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		LMatrix::rotationX( TO_CORE_MAT_PTR( mat ), radian );
+		TO_CORE_MAT_PTR(mat)->RotateX(radian);
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_RotateXD(LNMatrix* mat, double radian)
@@ -345,7 +374,7 @@
 	LNResult LNMatrix_RotateY(LNMatrix* mat, float radian)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		LMatrix::rotationY( TO_CORE_MAT_PTR( mat ), radian );
+		TO_CORE_MAT_PTR(mat)->RotateY(radian);
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_RotateYD(LNMatrix* mat, double radian)
@@ -359,7 +388,7 @@
 	LNResult LNMatrix_RotateZ(LNMatrix* mat, float radian)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		LMatrix::rotationZ( TO_CORE_MAT_PTR( mat ), radian );
+		TO_CORE_MAT_PTR(mat)->RotateZ(radian);
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_RotateZD(LNMatrix* mat, double radian)
@@ -373,7 +402,9 @@
 	LNResult LNMatrix_Rotate(LNMatrix* mat, float xRad, float yRad, float zRad, LNRotationOrder rotOrder)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		LMatrix::rotation( TO_CORE_MAT_PTR( mat ), xRad, yRad, zRad, (Core::Math::RotationOrder)rotOrder );
+		LMatrix m = LMatrix::RotationEulerAngles(LVector3(xRad, yRad, zRad), (Lumino::RotationOrder)rotOrder);
+		*(TO_CORE_MAT_PTR(mat)) *= m;
+		//LMatrix::rotation( TO_CORE_MAT_PTR( mat ), xRad, yRad, zRad, (Core::Math::RotationOrder)rotOrder );
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_RotateD(LNMatrix* mat, double xRad, double yRad, double zRad, LNRotationOrder rotOrder)
@@ -386,9 +417,7 @@
 	//----------------------------------------------------------------------
 	LNResult LNMatrix_RotateVec3(LNMatrix* mat, const LNVector3* vec, LNRotationOrder rotOrder)
 	{
-		LN_CHECK_ARG(mat != NULL);
-		TO_CORE_MAT_PTR( mat )->rotation( TO_CORE_VEC3_REF( vec ), (Core::Math::RotationOrder)rotOrder );
-		return ::LN_OK;
+		return LNMatrix_Rotate(mat, vec->X, vec->Y, vec->Z, rotOrder);
 	}
 
 	//----------------------------------------------------------------------
@@ -397,7 +426,7 @@
 	LNResult LNMatrix_RotateAxis(LNMatrix* mat, const LNVector3* axis, float radian)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		TO_CORE_MAT_PTR( mat )->rotationAxis( TO_CORE_VEC3_REF( axis ), radian );
+		TO_CORE_MAT_PTR( mat )->RotateAxis( TO_CORE_VEC3_REF( axis ), radian );
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_RotateAxisD(LNMatrix* mat, const LNVector3* axis, double radian)
@@ -411,7 +440,7 @@
 	LNResult LNMatrix_RotateQuaternion(LNMatrix* mat, const LNQuaternion* qua)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		LMatrix::rotationQuaternion( TO_CORE_MAT_PTR( mat ), TO_CORE_QUA_REF( qua ) );
+		TO_CORE_MAT_PTR(mat)->RotateQuaternion(TO_CORE_QUA_REF(qua));
 		return ::LN_OK;
 	}
 	
@@ -421,7 +450,7 @@
 	LNResult LNMatrix_Scale(LNMatrix* mat, float xyz)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		TO_CORE_MAT_PTR( mat )->scaling( xyz );
+		TO_CORE_MAT_PTR( mat )->Scaling( xyz );
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_ScaleD(LNMatrix* mat, double xyz)
@@ -435,7 +464,7 @@
 	LNResult LNMatrix_ScaleXYZ(LNMatrix* mat, float x, float y, float z)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		TO_CORE_MAT_PTR( mat )->scaling( x, y, z );
+		TO_CORE_MAT_PTR(mat)->Scaling(x, y, z);
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_ScaleXYZD(LNMatrix* mat, double x, double y, double z)
@@ -449,7 +478,7 @@
 	LNResult LNMatrix_ScaleVec3(LNMatrix* mat, const LNVector3* scale)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		TO_CORE_MAT_PTR( mat )->scaling( TO_CORE_VEC3_REF( scale ) );
+		TO_CORE_MAT_PTR(mat)->Scaling(TO_CORE_VEC3_REF(scale));
 		return ::LN_OK;
 	}
 
@@ -459,7 +488,7 @@
 	LNResult LNMatrix_Multiply(const LNMatrix* mat1, const LNMatrix* mat2, LNMatrix* matOut)
 	{
 		LN_CHECK_ARG(matOut != NULL);
-		LMatrix::multiply(TO_CORE_MAT_PTR(matOut), TO_CORE_MAT_REF(mat1), TO_CORE_MAT_REF(mat2));
+		*TO_CORE_MAT_PTR(matOut) = LMatrix::Multiply(TO_CORE_MAT_REF(mat1), TO_CORE_MAT_REF(mat2));
 		return ::LN_OK;
 	}
 
@@ -469,7 +498,7 @@
 	LNResult LNMatrix_Inverse(const LNMatrix* mat, LNMatrix* matOut)
 	{
 		LN_CHECK_ARG(matOut != NULL);
-		LMatrix::inverse( TO_CORE_MAT_PTR( matOut ), TO_CORE_MAT_REF( mat ) );
+		*TO_CORE_MAT_PTR(matOut) = LMatrix::Inverse(TO_CORE_MAT_REF(mat));
 		return ::LN_OK;
 	}
 
@@ -479,7 +508,7 @@
 	LNResult LNMatrix_Transpose(const LNMatrix* mat, LNMatrix* matOut)
 	{
 		LN_CHECK_ARG(matOut != NULL);
-		LMatrix::transpose( TO_CORE_MAT_PTR( matOut ), TO_CORE_MAT_REF( mat ) );
+		*TO_CORE_MAT_PTR(matOut) = LMatrix::Transpose(TO_CORE_MAT_REF(mat));
 		return ::LN_OK;
 	}
  
@@ -489,7 +518,7 @@
 	LNResult LNMatrix_ViewTransformLH(const LNVector3* pos, const LNVector3* lookAt, const LNVector3* upDir, LNMatrix* matOut)
 	{
 		LN_CHECK_ARG(matOut != NULL);
-		LMatrix::viewTransformLH( TO_CORE_MAT_PTR( matOut ), TO_CORE_VEC3_REF( pos ), TO_CORE_VEC3_REF( lookAt ), TO_CORE_VEC3_REF( upDir ) );
+		*TO_CORE_MAT_PTR(matOut) = LMatrix::LookAtLH(TO_CORE_VEC3_REF(pos), TO_CORE_VEC3_REF(lookAt), TO_CORE_VEC3_REF(upDir));
 		return ::LN_OK;
 	}
 
@@ -499,7 +528,7 @@
 	LNResult LNMatrix_ViewTransformRH(const LNVector3* pos, const LNVector3* lookAt, const LNVector3* upDir, LNMatrix* matOut)
 	{
 		LN_CHECK_ARG(matOut != NULL);
-		LMatrix::viewTransformRH( TO_CORE_MAT_PTR( matOut ), TO_CORE_VEC3_REF( pos ), TO_CORE_VEC3_REF( lookAt ), TO_CORE_VEC3_REF( upDir ) );
+		*TO_CORE_MAT_PTR(matOut) = LMatrix::LookAtRH(TO_CORE_VEC3_REF(pos), TO_CORE_VEC3_REF(lookAt), TO_CORE_VEC3_REF(upDir));
 		return ::LN_OK;
 	}
 
@@ -509,7 +538,7 @@
 	LNResult LNMatrix_PerspectiveFovLH(float fovY, float aspect, float nearZ, float farZ, LNMatrix* matOut)
 	{
 		LN_CHECK_ARG(matOut != NULL);
-		LMatrix::perspectiveFovLH( TO_CORE_MAT_PTR( matOut ), fovY, aspect, nearZ, farZ );
+		*TO_CORE_MAT_PTR(matOut) = LMatrix::PerspectiveFovLH(fovY, aspect, nearZ, farZ);
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_PerspectiveFovLHD(double fovY, double aspect, double nearZ, double farZ, LNMatrix* matOut)
@@ -523,7 +552,7 @@
 	LNResult LNMatrix_PerspectiveFovRH(float fovY, float aspect, float nearZ, float farZ, LNMatrix* matOut)
 	{
 		LN_CHECK_ARG(matOut != NULL);
-		LMatrix::perspectiveFovRH( TO_CORE_MAT_PTR( matOut ), fovY, aspect, nearZ, farZ );
+		*TO_CORE_MAT_PTR(matOut) = LMatrix::PerspectiveFovRH(fovY, aspect, nearZ, farZ);
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_PerspectiveFovRHD(double fovY, double aspect, double nearZ, double farZ, LNMatrix* matOut)
@@ -537,7 +566,7 @@
 	LNResult LNMatrix_OrthoLH(float width, float height, float nearZ, float farZ, LNMatrix* matOut)
 	{
 		LN_CHECK_ARG(matOut != NULL);
-		LMatrix::orthoLH( TO_CORE_MAT_PTR( matOut ), width, height, nearZ, farZ );
+		*TO_CORE_MAT_PTR(matOut) = LMatrix::OrthoLH(width, height, nearZ, farZ);
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_OrthoLHD(double width, double height, double nearZ, double farZ, LNMatrix* matOut)
@@ -551,7 +580,7 @@
 	LNResult LNMatrix_OrthoRH(float width, float height, float nearZ, float farZ, LNMatrix* matOut)
 	{
 		LN_CHECK_ARG(matOut != NULL);
-		LMatrix::orthoRH( TO_CORE_MAT_PTR( matOut ), width, height, nearZ, farZ );
+		*TO_CORE_MAT_PTR(matOut) = LMatrix::OrthoRH(width, height, nearZ, farZ);
 		return ::LN_OK;
 	}
 	LNResult LNMatrix_OrthoRHD(double width, double height, double nearZ, double farZ, LNMatrix* matOut)
@@ -565,7 +594,7 @@
 	LNResult LNMatrix_GetRight(const LNMatrix* mat, LNVector3* outVec)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		*TO_CORE_VEC3_PTR( outVec ) = TO_CORE_MAT_REF( mat ).getRight();
+		*TO_CORE_VEC3_PTR( outVec ) = TO_CORE_MAT_REF( mat ).GetRight();
 		return ::LN_OK;
 	}
 
@@ -575,7 +604,7 @@
 	LNResult LNMatrix_GetUp(const LNMatrix* mat, LNVector3* outVec)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		*TO_CORE_VEC3_PTR( outVec ) = TO_CORE_MAT_REF( mat ).getUp();
+		*TO_CORE_VEC3_PTR( outVec ) = TO_CORE_MAT_REF( mat ).GetUp();
 		return ::LN_OK;
 	}
 
@@ -585,7 +614,7 @@
 	LNResult LNMatrix_GetFront(const LNMatrix* mat, LNVector3* outVec)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		*TO_CORE_VEC3_PTR( outVec ) = TO_CORE_MAT_REF( mat ).getFront();
+		*TO_CORE_VEC3_PTR( outVec ) = TO_CORE_MAT_REF( mat ).GetFront();
 		return ::LN_OK;
 	}
 
@@ -595,7 +624,7 @@
 	LNResult LNMatrix_GetPosition(const LNMatrix* mat, LNVector3* outVec)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		*TO_CORE_VEC3_PTR( outVec ) = TO_CORE_MAT_REF( mat ).getPosition();
+		*TO_CORE_VEC3_PTR( outVec ) = TO_CORE_MAT_REF( mat ).GetPosition();
 		return ::LN_OK;
 	}
 
@@ -605,20 +634,30 @@
 	LNResult LNMatrix_ToEuler(const LNMatrix* mat, LNVector3* outVec)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		LMatrix::toEuler( TO_CORE_VEC3_PTR( outVec ), TO_CORE_MAT_REF( mat ) );
+		*TO_CORE_VEC3_PTR(outVec) = TO_CORE_MAT_REF(mat).ToEulerAngles();
 		return ::LN_OK;
 	}
 
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-	LNResult LNMatrix_Decompose(const LNMatrix* mat, LNVector3* scale, LNMatrix* rot, LNVector3* trans)
+	LNResult LNMatrix_Decompose(const LNMatrix* mat, LNVector3* scale, LNQuaternion* rot, LNVector3* trans)
 	{
 		LN_CHECK_ARG(mat != NULL);
-		LMatrix::decompose( TO_CORE_VEC3_PTR( scale ), TO_CORE_MAT_PTR( rot ), TO_CORE_VEC3_PTR( trans ), TO_CORE_MAT_REF( mat ) );
+		TO_CORE_MAT_REF(mat).Decompose(TO_CORE_VEC3_PTR(scale), TO_CORE_QUA_PTR(rot), TO_CORE_VEC3_PTR(trans));
 		return ::LN_OK;
 	}
 
+#if 0
+	//----------------------------------------------------------------------
+	///**
+	//  @brief			右手系⇔左手系の変換
+	//  @param[in]		mat		: 処理の元になる行列
+	//  @param[out]		matOut	: 演算結果を格納する行列
+	//  @return			処理結果 (LN_OK=成功 / それ以外=エラーコード)
+	//*/
+	//----------------------------------------------------------------------
+	LNOTEAPI LNResult LNMatrix_TransformBasis(const LNMatrix* mat, LNMatrix* matOut);
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
@@ -629,6 +668,7 @@
 		LMatrix::transformBasis(TO_CORE_MAT_PTR(matOut));
 		return ::LN_OK;
 	}
+#endif
 
 //==============================================================================
 // LNQuaternion
@@ -650,7 +690,7 @@
 	LNResult LNQuaternion_Identity(LNQuaternion* qua)
 	{
 		LN_CHECK_ARG(qua != NULL);
-		LQuaternion::identity(TO_CORE_QUA_PTR(qua));
+		*TO_CORE_QUA_PTR(qua) = LQuaternion::Identity;
 		return ::LN_OK;
 	}
 
@@ -660,7 +700,7 @@
 	LNResult LNQuaternion_RotationAxis(const LNVector3* axis, float r, LNQuaternion* outQua)
 	{
 		LN_CHECK_ARG(outQua != NULL);
-		Core::LQuaternion::rotationAxis( TO_CORE_QUA_PTR( outQua ), TO_CORE_VEC3_REF( axis ), r );
+		*TO_CORE_QUA_PTR(outQua) = LQuaternion::RotationAxis(TO_CORE_VEC3_REF(axis), r);
 		return ::LN_OK;
 	}
 	LNResult LNQuaternion_RotationAxisD(const LNVector3* axis, float r, LNQuaternion* outQua)
@@ -674,7 +714,7 @@
 	LNResult LNQuaternion_RotationMatrix(const LNMatrix* mat, LNQuaternion* outQua)
 	{
 		LN_CHECK_ARG(outQua != NULL);
-		Core::LQuaternion::rotationMatrix( TO_CORE_QUA_PTR( outQua ), TO_CORE_MAT_REF( mat ) );
+		*TO_CORE_QUA_PTR(outQua) = LQuaternion::RotationMatrix(TO_CORE_MAT_REF(mat));
 		return ::LN_OK;
 	}
 
@@ -684,7 +724,7 @@
 	LNResult LNQuaternion_RotationYawPitchRoll(float yaw, float pitch, float roll, LNQuaternion* outQua)
 	{
 		LN_CHECK_ARG(outQua != NULL);
-		Core::LQuaternion::rotationYawPitchRoll( TO_CORE_QUA_PTR( outQua ), yaw, pitch, roll );
+		*TO_CORE_QUA_PTR(outQua) = LQuaternion::RotationYawPitchRoll(yaw, pitch, roll);
 		return ::LN_OK;
 	}
 	LNResult LNQuaternion_RotationYawPitchRollD(float yaw, float pitch, float roll, LNQuaternion* outQua)
@@ -698,7 +738,7 @@
 	LNResult LNQuaternion_Normalize(const LNQuaternion* qua, LNQuaternion* outQua)
 	{
 		LN_CHECK_ARG(outQua != NULL);
-		Core::LQuaternion::normalize( TO_CORE_QUA_PTR( outQua ), TO_CORE_QUA_REF( qua ) );
+		*TO_CORE_QUA_PTR(outQua) = LQuaternion::Normalize(TO_CORE_QUA_REF( qua ) );
 		return ::LN_OK;
 	}
 
@@ -708,7 +748,7 @@
 	LNResult LNQuaternion_Conjugate(const LNQuaternion* qua, LNQuaternion* outQua)
 	{
 		LN_CHECK_ARG(outQua != NULL);
-		Core::LQuaternion::conjugate( TO_CORE_QUA_PTR( outQua ), TO_CORE_QUA_REF( qua ) );
+		*TO_CORE_QUA_PTR(outQua) = LQuaternion::Conjugate(TO_CORE_QUA_REF(qua));
 		return ::LN_OK;
 	}
 
@@ -718,7 +758,7 @@
 	LNResult LNQuaternion_Multiply(const LNQuaternion* qua1, const LNQuaternion* qua2, LNQuaternion* outQua)
 	{
 		LN_CHECK_ARG(outQua != NULL);
-		Core::LQuaternion::multiplyRO( TO_CORE_QUA_PTR( outQua ), TO_CORE_QUA_REF( qua1 ), TO_CORE_QUA_REF( qua2 ) );
+		*TO_CORE_QUA_PTR(outQua) = LQuaternion::Multiply(TO_CORE_QUA_REF(qua1), TO_CORE_QUA_REF(qua2));
 		return ::LN_OK;
 	}
 
@@ -728,7 +768,7 @@
 	LNResult LNQuaternion_Slerp(const LNQuaternion* qua1, const LNQuaternion* qua2, float t, LNQuaternion* outQua)
 	{
 		LN_CHECK_ARG(outQua != NULL);
-		Core::LQuaternion::slerp( TO_CORE_QUA_PTR( outQua ), TO_CORE_QUA_REF( qua1 ), TO_CORE_QUA_REF( qua2 ), t );
+		*TO_CORE_QUA_PTR(outQua) = LQuaternion::Slerp(TO_CORE_QUA_REF(qua1), TO_CORE_QUA_REF(qua2), t);
 		return ::LN_OK;
 	}
 	LNResult LNQuaternion_SlerpD(const LNQuaternion* qua1, const LNQuaternion* qua2, float t, LNQuaternion* outQua)
@@ -740,9 +780,9 @@
 // LNRandom
 //==============================================================================
 
-	LNOTE_TYPE_INFO_IMPL(Math::Random, LNRandom);
+	LNOTE_TYPE_INFO_IMPL(LRandom, LNRandom);
 
-	LNote::LMath::Random gRandom;
+	LRandom gRandom;
 
 	//----------------------------------------------------------------------
 	//
@@ -774,9 +814,9 @@
 	LNResult LNRandom_SetSeed(LNHandle random, int seed)
 	{
 		if (random)
-			TO_REFOBJ(Math::Random, random)->setSeed(seed);
+			TO_REFOBJ(Math::Random, random)->SetSeed(seed);
 		else
-			gRandom.setSeed(seed);
+			gRandom.SetSeed(seed);
 		return ::LN_OK;
 	}
 
@@ -786,9 +826,9 @@
 	LNResult LNRandom_GetInt(LNHandle random, int* outValue)
 	{
 		if (random)
-			*outValue = TO_REFOBJ(Math::Random, random)->getInt();
+			*outValue = TO_REFOBJ(Math::Random, random)->GetInt();
 		else
-			*outValue = gRandom.getInt();
+			*outValue = gRandom.GetInt();
 		return ::LN_OK;
 	}
 
@@ -798,9 +838,9 @@
 	LNResult LNRandom_GetIntRange(LNHandle random, int minValue, int maxValue, int* outValue)
 	{
 		if (random)
-			*outValue = TO_REFOBJ(Math::Random, random)->getInt(minValue, maxValue);
+			*outValue = TO_REFOBJ(Math::Random, random)->GetIntRange(minValue, maxValue);
 		else
-			*outValue = gRandom.getInt(minValue, maxValue);
+			*outValue = gRandom.GetIntRange(minValue, maxValue);
 		return ::LN_OK;
 	}
 
@@ -810,9 +850,9 @@
 	LNResult LNRandom_GetIntDeflect(LNHandle random, int center, int width, int* outValue)
 	{
 		if (random)
-			*outValue = TO_REFOBJ(Math::Random, random)->getIntRange(center, width);
+			*outValue = TO_REFOBJ(Math::Random, random)->GetIntWidth(center, width);
 		else
-			*outValue = gRandom.getIntRange(center, width);
+			*outValue = gRandom.GetIntWidth(center, width);
 		return ::LN_OK;
 	}
 
@@ -826,9 +866,9 @@
 	LNResult LNRandom_GetFloat(LNHandle random, float* outValue)
 	{
 		if (random)
-			*outValue = TO_REFOBJ(Math::Random, random)->getFloat();
+			*outValue = TO_REFOBJ(Math::Random, random)->GetFloat();
 		else
-			*outValue = gRandom.getFloat();
+			*outValue = gRandom.GetFloat();
 		return ::LN_OK;
 	}
 
@@ -838,9 +878,9 @@
 	LNResult LNRandom_GetFloatRange(LNHandle random, float minValue, float maxValue, float* outValue)
 	{
 		if (random)
-			*outValue = TO_REFOBJ(Math::Random, random)->getFloat(minValue, maxValue);
+			*outValue = TO_REFOBJ(Math::Random, random)->GetFloatRange(minValue, maxValue);
 		else
-			*outValue = gRandom.getFloat(minValue, maxValue);
+			*outValue = gRandom.GetFloatRange(minValue, maxValue);
 		return ::LN_OK;
 	}
 
@@ -850,9 +890,9 @@
 	LNResult LNRandom_GetFloatDeflect(LNHandle random, float center, float width, float* outValue)
 	{
 		if (random)
-			*outValue = TO_REFOBJ(Math::Random, random)->getFloatRange(center, width);
+			*outValue = TO_REFOBJ(Math::Random, random)->GetFloatWidth(center, width);
 		else
-			*outValue = gRandom.getFloatRange(center, width);
+			*outValue = gRandom.GetFloatWidth(center, width);
 		return ::LN_OK;
 	}
 

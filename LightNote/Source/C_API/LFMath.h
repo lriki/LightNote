@@ -224,7 +224,7 @@ extern "C" {
 	//              Vector3TransformCoord() を使用してください。
 	//*/
 	//----------------------------------------------------------------------
-	LNOTEAPI LNResult LNVector3_Transform(const LNVector3* vec, const LNMatrix* mat, LNVector3* outVec);
+	LNOTEAPI LNResult LNVector3_Transform(const LNVector3* vec, const LNMatrix* mat, LNVector4* outVec);
 
 	//----------------------------------------------------------------------
 	///**
@@ -238,29 +238,6 @@ extern "C" {
 	//*/
 	//----------------------------------------------------------------------
 	LNOTEAPI LNResult LNVector3_TransformCoord(const LNVector3* vec, const LNMatrix* mat, LNVector3* outVec);
-
-	//----------------------------------------------------------------------
-	///**
-	//  @brief      任意軸周りの回転を行う
-	//  @param[in]  vec		: 処理の基になる Vector3
-	//  @param[in]  axis	: 回転軸を表す Vector3
-	//  @param[in]  r		: 回転角度 (ラジアン)
-	//  @param[out] outVec	: 演算結果を格納する Vector3
-	//  @return		処理結果 (LN_OK=成功 / それ以外=エラーコード)
-	//*/
-	//----------------------------------------------------------------------
-	LNOTEAPI LNResult LNVector3_RotateAxis(const LNVector3* vec, const LNVector3* axis, float r, LNVector3* outVec);
-
-	//----------------------------------------------------------------------
-	///**
-	//  @brief      行列の回転成分だけを使って座標変換する
-	//  @param[in]  vec		: 処理の基になる Vector3
-	//  @param[in]  mat		: 処理の基になる Matrix
-	//  @param[out] outVec	: 演算結果を格納する Vector3
-	//  @return		処理結果 (LN_OK=成功 / それ以外=エラーコード)
-	//*/
-	//----------------------------------------------------------------------
-	LNOTEAPI LNResult LNVector3_RotateMatrix(const LNVector3* vec, const LNMatrix* mat, LNVector3* outVec);
 
 /** @} */	// defgroup
 
@@ -601,23 +578,13 @@ extern "C" {
 	///**
 	//  @brief			行列をスケーリング、回転、移動成分に分解する
 	//  @param[in]		mat		: 処理の基になる行列
+	//  @param[out]		rot		: 各軸の回転情報を格納する Quaternion 変数
 	//  @param[out]		scale	: 各軸のスケーリング量を格納する Vector3 変数
-	//  @param[out]		rot		: 各軸の回転角度(ラジアン)を格納する Vector3 変数
 	//  @param[out]		trans	: 各軸の平行移動量を格納する Vector3 変数
 	//  @return			処理結果 (LN_OK=成功 / それ以外=エラーコード)
 	//*/
 	//----------------------------------------------------------------------
-	LNOTEAPI LNResult LNMatrix_Decompose(const LNMatrix* mat, LNVector3* scale, LNMatrix* rot, LNVector3* trans);
-
-	//----------------------------------------------------------------------
-	///**
-	//  @brief			右手系⇔左手系の変換
-	//  @param[in]		mat		: 処理の元になる行列
-	//  @param[out]		matOut	: 演算結果を格納する行列
-	//  @return			処理結果 (LN_OK=成功 / それ以外=エラーコード)
-	//*/
-	//----------------------------------------------------------------------
-	LNOTEAPI LNResult LNMatrix_TransformBasis(const LNMatrix* mat, LNMatrix* matOut);
+	LNOTEAPI LNResult LNMatrix_Decompose(const LNMatrix* mat, LNVector3* scale, LNQuaternion* rot, LNVector3* trans);
 
 /** @} */	// defgroup
 
@@ -873,7 +840,6 @@ extern "C" {
 	LNOTEINTERNALAPI LNResult LNVector3_DotD(const LNVector3* vec1, const LNVector3* vec2, double* dot);
 	LNOTEINTERNALAPI LNResult LNVector3_LerpD(const LNVector3* vec1, const LNVector3* vec2, double t, LNVector3* outVec);
 	LNOTEINTERNALAPI LNResult LNVector3_CatmullRomD(const LNVector3* vec1, const LNVector3* vec2, const LNVector3* vec3, const LNVector3* vec4, double t, LNVector3* outVec);
-	LNOTEINTERNALAPI LNResult LNVector3_RotateAxisD(const LNVector3* vec, const LNVector3* axis, double r, LNVector3* outVec);
 	LNOTEINTERNALAPI LNResult LNMatrix_TranslateD(LNMatrix* mat, double x, double y, double z);
 	LNOTEINTERNALAPI LNResult LNMatrix_RotateXD(LNMatrix* mat, double radian);
 	LNOTEINTERNALAPI LNResult LNMatrix_RotateYD(LNMatrix* mat, double radian);

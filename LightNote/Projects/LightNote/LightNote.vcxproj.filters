@@ -2109,6 +2109,9 @@
     <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\ViewFrustum.cpp">
       <Filter>Lumino\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Math\RandomEx.cpp">
+      <Filter>Core\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Core\Base\Delegate.inc">

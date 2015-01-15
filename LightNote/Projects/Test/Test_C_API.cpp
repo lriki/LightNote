@@ -51,9 +51,9 @@ int main()
 	param.Life = 10 * 1000;
 	param.FadeIn = 20;
 	param.FadeOut = 20;
-	param.PositionRand.set(0.2, 0.2, 0.2);
+	param.PositionRand.Set(0.2, 0.2, 0.2);
 	param.AngleVelocity = 0.00001;
-	param.Velocity.set(0, 0.0001, 0);
+	param.Velocity.Set(0, 0.0001, 0);
 	particle1->create(param);
 	particle1->setTexture((Graphics::Texture*)LNObject_GetInternalObject(tex2));
 	particle1->setEnableDepthTest(false);
