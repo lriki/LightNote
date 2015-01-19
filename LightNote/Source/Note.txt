@@ -1,0 +1,18 @@
+■git ブランチ設計
+・sub module ベースで行う。sub tree は使わない。
+	sub tree を使うと、依存している階層構造が丸ごとコピーされる。
+	直近では Math、Animation、Graphics を外部ライブラリ化する予定だが、
+	sub tree 使うと Math のパッケージが丸ごと 3 つできることになる。
+	clone の速度も遅くなるし、同一ソースが複数の箇所にコピーされるので混乱の原因になる。
+	
+・sub module の init/update は "再帰無し" で行うこと。
+	再帰無しで更新すると、孫モジュールは clone されなくなる。
+	例えば Graphics は単体でビルドする時と Lumino の子としてビルドする時で
+	include パスと lib パスを変えておけば無駄を省ける。
+
+■sub module? sub tree?
+・sub module は参照。sub tree は実体。
+
+■サブモジュールを削除する
+git submodule deinit LightNote/Source/Dependencies/Lumino
+git submodule deinit LightNote/Source/Dependencies/Lumino.Math
