@@ -1,0 +1,173 @@
+・型
+int
+float
+double
+const void*
+const LNChar*
+LNBool
+const 構造体*
+列挙型
+
+■構造体定義
+
+■列挙型定義
+
+■関数ポインタ定義
+
+■グループ
+
+・グループ分け (リファレンスドキュメント用)
+LN_DOCUMENT_GROUP(name)
+LN_DOCUMENT_GROUP_END
+	-> LN_DOCUMENT_GROUP(Audio)
+
+■クラス定義
+
+・クラス定義
+LN_CLASS(name)
+LN_CLASS_END
+	-> LN_CLASS(Audio)
+
+・static クラス定義
+LN_STATIC_CLASS(name)
+LN_STATIC_CLASS_END
+※C# の static クラス
+
+・ジェネリッククラス定義
+LN_GENERIC_CLASS(name)
+LN_GENERIC_CLASS_END
+※自動生成しない。それぞれの言語ごとに自分で書く。
+
+
+■ドキュメントコメント
+クラス定義または関数定義の前に付く。
+
+・解析対象コメント
+/**
+*/
+
+・コメント - 概要
+@brief		テキスト
+
+・コメント - 引数
+@param[in,out]	name : テキスト
+
+・コメント - 戻り値
+@return
+※通常は使わないはず。LNResult の場合は省略可能。Maker 側で自動設定する。
+
+・コメント - 詳細
+@details	テキスト
+
+・コメント - 上書き
+@overwrite[lang](brief) テキスト
+@overwrite[lang](param name) テキスト
+@overwrite[lang](return) テキスト
+@overwrite[lang](details) テキスト
+	例)
+	@overwrite[cs,ruby](param obj) オブジェクトへの参照
+
+・コメント - 置換
+@replace[lang](""from"", ""to"")
+	例)
+	@replace[cs,ruby](""のポインタ"", ""の参照"")
+※正規表現指定可能。
+※全てのコメントに適用するグローバルな設定はとりあえず Maker のコードに直接書く。
+
+・コメント - サンプルコード
+@example[lang]
+@example_end
+
+
+■関数宣言
+
+#・属性 - 各言語ソースで独自オーバーライド
+#LN_ATTRIBUTE(Override, ...)
+
+・属性 - internal 関数
+LUMINO_INTERNAL_API
+※自動生成の対象にしない。定義ソースを include して使いたいときに使用する。
+
+・属性 - public 関数
+LUMINO_INSTANCE_API
+
+・属性 - static 関数
+LUMINO_STATIC_API
+	例)
+	LUMINO_STATIC_API LNResult LNSoundListener_SetPosition(const LNVector3* position);
+
+・属性 - プロパティ
+LUMINO_PROPERTY
+	例)
+	LUMINO_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_SetPosition(const LNVector3* position);
+	LUMINO_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_GetPosition(LNVector3* position);
+※"Get", "Set", "Is" で対応を自動生成する
+
+・戻り値
+LNResult または void
+
+・関数名
+LN+クラス名+_+メソッド名+オーバーロードプレフィックス
+	例)
+	LNSoundListener_SetPositionXYZ
+
+・関数名 - オーバーロードプレフィックス
+	XYZ 
+	
+・関数名 - オーバーロードプレフィックス
+	"D" は double 型の実装。"D" 以外の名前が一致する関数と、メタ情報を共有する。
+
+・仮引数 - 参照オブジェクト型 (LNHandle)
+LN_HANDLE(coreClassName)
+	例)LUMINO_API LNResult LNSound_Create(LN_HANDLE(coreClassName) sound, ...)
+
+・仮引数 - ジェネリック型
+LN_HANDLE_GENERIC(coreClassName, typeArg)
+	例)	LUMINO_STATIC_API
+		LUMINO_PROPERTY
+		LNResult LNViewPane_GetLayers(
+			LN_HANDLE(ViewPane) viewPane, 
+			LN_HANDLE_GENERIC(ObjectList, Layer)* layers);
+
+・仮引数 - コールバック
+
+・仮引数 - デフォルト引数
+LN_DEFAULT_ARG(value)
+	例)	int volume LNOTE_DEFAULT_ARG(100)
+※使用できる値は
+	- 数値
+	- NULL
+	- LN_TRUE, LN_FALSE
+	- enum 定数
+	
+
+■オプション
+
+・オプション
+/*Option
+Option*/
+
+・オプション - 無効化
+@disabled[lang]
+
+・オプション - オーバーライドコード
+@override[言語名]
+@overrideEnd
+	例)
+	@Override[言語名]
+	#deffunc LNAudio_PlayBGMMem fileName, ...
+		sdim buf, 1024
+		bload fileName, buf
+		LNAudio_PlayBGMMem@(buf, filesize, volume, pitch, fadeTime);
+		return
+	@OverrideEnd
+
+
+■環境依存関数
+HWND を取得する関数などは LUMINO_INTERNAL_API を使用し、独自定義する。
+
+■コールバックの実装
+・戻り値
+・例外
+
+
