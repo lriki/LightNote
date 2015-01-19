@@ -15,4 +15,6 @@
 
 ■サブモジュールを削除する
 git submodule deinit LightNote/Source/Dependencies/Lumino
+git rm -rf LightNote/Source/Dependencies/Lumino
 git submodule deinit LightNote/Source/Dependencies/Lumino.Math
+git rm -rf LightNote/Source/Dependencies/Lumino.Math
