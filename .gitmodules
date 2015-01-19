@@ -1,3 +1,6 @@
 [submodule "LightNote/Source/Dependencies/Lumino.Math"]
 	path = LightNote/Source/Dependencies/Lumino.Math
 	url = git@github.com:lriki/Lumino.Math.git
+[submodule "LightNote/Source/Dependencies/Lumino"]
+	path = LightNote/Source/Dependencies/Lumino
+	url = git@github.com:lriki/Lumino.git
