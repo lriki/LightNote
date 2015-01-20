@@ -50,13 +50,12 @@ namespace BinderMaker.Parser
             from text       in Parse.AnyChar.Except(DocumentCommentSectionEnd).Many().Text()    // DocumentCommentSectionEnd までの任意の文字。最後の DocumentCommentSectionEnd は消費しない。
             select text;
 
-        // ドキュメントコメント - 言語別上書
-        public static readonly Parser<CLOverwriteDocument> DocumentCommentOverwrite =
-            from start      in Parse.String("@overwrite").GenericToken()
-            from langs      in Parse.Regex(@"\[.+\]").Text()
-            from target     in Parse.Regex(@"\(.+\)").Text()
+        // ドキュメントコメント - 継承
+        public static readonly Parser<CLExtendsDocument> DocumentCommentExtends =
+            from start      in Parse.String("@extends").GenericToken()
+            from langs      in Parse.Regex(@"\[.+\]").Or(Parse.Return(""))
             from text       in Parse.AnyChar.Except(DocumentCommentSectionEnd).Many().Text()    // DocumentCommentSectionEnd までの任意の文字。最後の DocumentCommentSectionEnd は消費しない。
-            select new CLOverwriteDocument(langs, target, text);
+            select new CLExtendsDocument(langs, text);
 
         // ドキュメントコメント - 言語別置換
         public static readonly Parser<CLReplaceDocument> DocumentCommentReplace =
@@ -67,6 +66,22 @@ namespace BinderMaker.Parser
             from comma      in Parse.String(",\"\"")
             from toText     in Parse.AnyChar.Until(Parse.String("\"\")")).Text()                // "") までの任意の文字。"") は消費される。
             select new CLReplaceDocument(langs, fromText, toText);
+
+        // ドキュメントコメント - 言語追記
+        public static readonly Parser<CLPostscriptDocument> DocumentCommentPostscript =
+            from start      in Parse.String("@postscript").GenericToken()
+            from langs      in Parse.Regex(@"\[.+\]").Text()
+            from target     in Parse.Regex(@"\(.+\)").Text()
+            from text       in Parse.AnyChar.Except(DocumentCommentSectionEnd).Many().Text()    // DocumentCommentSectionEnd までの任意の文字。最後の DocumentCommentSectionEnd は消費しない。
+            select new CLPostscriptDocument(langs, target, text);
+
+        // ドキュメントコメント - 言語別上書
+        public static readonly Parser<CLOverwriteDocument> DocumentCommentOverwrite =
+            from start      in Parse.String("@overwrite").GenericToken()
+            from langs      in Parse.Regex(@"\[.+\]").Text()
+            from target     in Parse.Regex(@"\(.+\)").Text()
+            from text       in Parse.AnyChar.Except(DocumentCommentSectionEnd).Many().Text()    // DocumentCommentSectionEnd までの任意の文字。最後の DocumentCommentSectionEnd は消費しない。
+            select new CLOverwriteDocument(langs, target, text);
 
         // ドキュメントコメント - 言語別サンプルコード
         public static readonly Parser<CLExampleDocument> DocumentCommentExample =
@@ -82,11 +97,12 @@ namespace BinderMaker.Parser
             from params1    in DocumentCommentParam.Many()      // 引数 (0個以上)
             from return1    in DocumentCommentReturn.Or(Parse.Return(""))
             from details    in DocumentCommentDetails.Or(Parse.Return(""))
-            from overwrite  in DocumentCommentOverwrite.Many()
             from replace    in DocumentCommentReplace.Many()
+            from postscript in DocumentCommentPostscript.Many()
+            from overwrite  in DocumentCommentOverwrite.Many()
             from example    in DocumentCommentExample.Many()
             from text       in Parse.AnyChar.Until(Parse.String("*/")).Text()       // "*/" が見つかるまで任意の文字を繰り返す。見つかった "*/" は破棄される。
-            select new CLDocument(brief, params1, return1, details, overwrite, replace, example);
+            select new CLDocument(brief, params1, return1, details, replace, postscript, overwrite, example);
 
         #endregion
 
@@ -187,24 +203,18 @@ namespace BinderMaker.Parser
             from option     in (OptionComment.GenericToken()).Or(Parse.Return<CLOption>(null))
             select new CLMethod(doc, func, option);
 
-        // LN_CLASS マクロ引数並び
-        public static readonly Parser<IEnumerable<string>> ClassNamesDecl =
-            from first1     in ParserUtils.Identifier                                       // 先頭の1つ
-            from rest1      in Parse.Char(',').Then(_ => ParserUtils.Identifier  ).Many()  // 以降の , 区切りの定義が 0 個以上
-            select ParserUtils.Cons(first1, rest1);
-
         // クラス定義
         private static readonly Parser<CLClass> ClassDecl =
             from doc        in DocumentComment.GenericToken()
             from start      in Parse.String("LN_CLASS").Or(Parse.String("LN_STATIC_CLASS")).Or(Parse.String("LN_GENERIC_CLASS"))
             from lparen     in Parse.Char('(').GenericToken()
-            from names      in ClassNamesDecl
+            from name       in ParserUtils.Identifier
             from rparen     in Parse.Char(')').GenericToken()
             from lead       in Parse.AnyChar.Except(Parse.String("/**")).Many().Text()  // 最初のドキュメントコメントまでを読み飛ばす (/** は消費しない)
             from methods    in MethodDecl.Many()
             from classOpt   in (OptionComment.GenericToken()).Or(Parse.Return<CLOption>(null))
             from end        in Parse.String("LN_CLASS_END")
-            select new CLClass(doc, names, methods, classOpt);
+            select new CLClass(doc, name, methods, classOpt);
 
         // モジュール
         private static readonly Parser<CLModule> ModuleDecl =

@@ -66,6 +66,23 @@ LN_CLASS_END
 ・コメント - 詳細
 @details	テキスト
 
+・コメント - 継承
+@extends クラス名
+@extends[lang] クラス名
+
+・コメント - 置換
+@replace[lang](""from"", ""to"")
+	例)
+	@replace[cs,ruby](""のポインタ"", ""の参照"")
+※正規表現指定可能。
+※全てのコメントに適用するグローバルな設定はとりあえず Maker のコードに直接書く。
+
+・コメント - 追記
+@postscript[lang](brief) テキスト
+@postscript[lang](param name) テキスト
+@postscript[lang](return) テキスト
+@postscript[lang](details) テキスト
+
 ・コメント - 上書き
 @overwrite[lang](brief) テキスト
 @overwrite[lang](param name) テキスト
@@ -74,12 +91,6 @@ LN_CLASS_END
 	例)
 	@overwrite[cs,ruby](param obj) オブジェクトへの参照
 
-・コメント - 置換
-@replace[lang](""from"", ""to"")
-	例)
-	@replace[cs,ruby](""のポインタ"", ""の参照"")
-※正規表現指定可能。
-※全てのコメントに適用するグローバルな設定はとりあえず Maker のコードに直接書く。
 
 ・コメント - サンプルコード
 @example[lang]

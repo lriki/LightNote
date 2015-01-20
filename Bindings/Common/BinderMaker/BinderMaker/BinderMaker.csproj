@@ -47,6 +47,7 @@
     <Compile Include="CLClass.cs" />
     <Compile Include="CLDocument.cs" />
     <Compile Include="CLEntity.cs" />
+    <Compile Include="CLManager.cs" />
     <Compile Include="CLMethod.cs" />
     <Compile Include="CLModule.cs" />
     <Compile Include="CLOption.cs" />

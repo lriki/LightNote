@@ -8,6 +8,22 @@ namespace BinderMaker
 {
     class CLModule
     {
+        #region Properties
+
+        /// <summary>
+        /// ドキュメント
+        /// </summary>
+        public CLDocument Document { get; private set; }
+
+        /// <summary>
+        /// クラスリスト
+        /// </summary>
+        public List<CLClass> Classes { get; private set; }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -15,7 +31,10 @@ namespace BinderMaker
         /// <param name="classes"></param>
         public CLModule(CLDocument doc, IEnumerable<CLClass> classes)
         {
-
+            Document = doc;
+            Classes = new List<CLClass>(classes);
         }
+
+        #endregion
     }
 }

@@ -6,8 +6,32 @@ using System.Threading.Tasks;
 
 namespace BinderMaker
 {
+    /// <summary>
+    /// メソッド
+    /// </summary>
     class CLMethod
     {
+        #region Properties
+
+        /// <summary>
+        /// ドキュメント
+        /// </summary>
+        public CLDocument Document { get; private set; }
+
+        /// <summary>
+        /// 関数宣言
+        /// </summary>
+        public CLFuncDecl FuncDecl { get; private set; }
+
+        /// <summary>
+        /// オプション
+        /// </summary>
+        public CLOption Option { get; private set; }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -16,11 +40,37 @@ namespace BinderMaker
             CLFuncDecl funcDecl,
             CLOption option)
         {
+            Document = document;
+            FuncDecl = funcDecl;
+            Option = option;
         }
+
+        #endregion
     }
 
+    /// <summary>
+    /// 仮引数
+    /// </summary>
     class CLParam
     {
+        #region Fields
+
+        private string _originalTypeName;
+        private string _originalDefaultValue;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// 仮引数名
+        /// </summary>
+        public string Name { get; private set; }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -29,12 +79,41 @@ namespace BinderMaker
         /// <param name="defaultValue"></param>
         public CLParam(string typeName, string varName, string defaultValue)
         {
-
+            _originalTypeName = typeName;
+            Name = varName;
+            _originalDefaultValue = defaultValue;
         }
+
+        #endregion
     }
 
+    /// <summary>
+    /// 関数定義
+    /// </summary>
     class CLFuncDecl
     {
+        #region Fields
+        private string _originalReturnTypeName;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// オリジナルの完全関数名 (LNAudio_PlayBGM 等)
+        /// </summary>
+        public string OriginalFullName { get; private set; }
+
+        /// <summary>
+        /// オリジナルの関数名 ("_" の後ろ。SetPositionXYZ 等)
+        /// </summary>
+        public string OriginalName { get; private set; }
+
+        /// <summary>
+        /// オリジナルの関数名 ("_" の後ろ。SetPositionXYZ 等)
+        /// </summary>
+        public List<CLParam> Params { get; private set; }
+        #endregion
+
+        #region Methods
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -43,9 +122,14 @@ namespace BinderMaker
             string name,
             IEnumerable<CLParam> params1)
         {
+            _originalReturnTypeName = returnType;
 
-            Console.WriteLine(name);
+            OriginalFullName = name;
+            var tokens = name.Trim().Split('_');
+            OriginalName = tokens[1];
 
+            Params = new List<CLParam>(params1);
         }
+        #endregion
     }
 }
