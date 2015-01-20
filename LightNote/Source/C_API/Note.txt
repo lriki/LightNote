@@ -1,3 +1,9 @@
+■定義ファイルについて
+・コメントは doxygen をイメージしているがそれではない点に注意。
+  定義ファイルをそのまま doxygen に入れても解析できない。
+
+
+
 ・型
 int
 float
@@ -17,25 +23,26 @@ const 構造体*
 ■グループ
 
 ・グループ分け (リファレンスドキュメント用)
-LN_DOCUMENT_GROUP(name)
-LN_DOCUMENT_GROUP_END
-	-> LN_DOCUMENT_GROUP(Audio)
+LN_MODULE(name)
+LN_MODULE_END
+	-> LN_MODULE(Audio)
 
 ■クラス定義
 
 ・クラス定義
-LN_CLASS(name)
+LN_CLASS(name, ...)
 LN_CLASS_END
-	-> LN_CLASS(Audio)
+	-> LN_CLASS(Audio, RefObject)
+※第2引数はBaseClass
 
 ・static クラス定義
-LN_STATIC_CLASS(name)
-LN_STATIC_CLASS_END
+LN_STATIC_CLASS(name, ...)
+LN_CLASS_END
 ※C# の static クラス
 
 ・ジェネリッククラス定義
-LN_GENERIC_CLASS(name)
-LN_GENERIC_CLASS_END
+LN_GENERIC_CLASS(name, ...)
+LN_CLASS_END
 ※自動生成しない。それぞれの言語ごとに自分で書く。
 
 
@@ -84,10 +91,6 @@ LN_GENERIC_CLASS_END
 #・属性 - 各言語ソースで独自オーバーライド
 #LN_ATTRIBUTE(Override, ...)
 
-・属性 - internal 関数
-LUMINO_INTERNAL_API
-※自動生成の対象にしない。定義ソースを include して使いたいときに使用する。
-
 ・属性 - public 関数
 LUMINO_INSTANCE_API
 
@@ -95,6 +98,10 @@ LUMINO_INSTANCE_API
 LUMINO_STATIC_API
 	例)
 	LUMINO_STATIC_API LNResult LNSoundListener_SetPosition(const LNVector3* position);
+
+・属性 - internal 関数
+LUMINO_INTERNAL_API
+※自動生成の対象にしない。定義ソースを include して使いたいときに使用する。
 
 ・属性 - プロパティ
 LUMINO_PROPERTY
@@ -148,25 +155,162 @@ LN_DEFAULT_ARG(value)
 Option*/
 
 ・オプション - 無効化
-@disabled[lang]
+@disable[lang]
 
-・オプション - オーバーライドコード
+・オプション - 関数のオーバーライドコード
 @override[言語名]
-@overrideEnd
+@override_end
 	例)
-	@Override[言語名]
+	@override[言語名]
 	#deffunc LNAudio_PlayBGMMem fileName, ...
 		sdim buf, 1024
 		bload fileName, buf
 		LNAudio_PlayBGMMem@(buf, filesize, volume, pitch, fadeTime);
 		return
-	@OverrideEnd
+	@override_end
 
+・オプション - クラスへの追加コード
+@class_add_code[言語名]
+@class_add_code_end
+※クラスのオプションは LN_CLASS_END の直前に書く。
 
 ■環境依存関数
 HWND を取得する関数などは LUMINO_INTERNAL_API を使用し、独自定義する。
 
 ■コールバックの実装
+・前提
+	バインダで virtual 関数を定義しても無駄。
+	まずはコールバック関数経由しないとダメ。
+	
+	・event ではなく delegate を使いたいタイミングって？
+		→ アルゴリズムのカスタマイズ (ソート、検索)
+		→ 当然、インスタンスメンバ関数も渡したい
+
+●C_API
+	・delegate (セットできるのは1つだけ)
+		typedef LNResult(*LNErrorHandler)(LNErrorCode errorCode, void* userData);
+		LNResult LNException_SetErrorHandler(LNEventHandler handler, void* userData);
+		
+	・event (複数のハンドラをセット可能)
+		typedef LNResult(*LNEventHandler)(LNHandle eventArgs, void* userData);
+		LNResult LNWindow_AttachEventHandler(int eventID, LNEventHandler handler, void* userData);
+		LNResult LNWindow_DetachEventHandler(int eventID, LNEventHandler handler, void* userData);	// handler と userData が一致するものを削除
+	
+	・event (こっちのほうがいいかも)
+		typedef LNResult(*LNMouseEventHandler)(LNHandle mouseEventArgs, void* userData);
+		LNResult LNWindow_AttachPreviewMouseDownHandler(LNMouseEventHandler handler, void* userData);
+		LNResult LNWindow_DetachPreviewMouseDownHandler(LNMouseEventHandler handler, void* userData);
+	
+	・関数ポインタの引数型はプリミティブ型、列挙型と LNHandle だけにする。
+	  構造体をやりだすと複雑になる。Ruby では型変換が必要とか。
+		
+●C# Binder
+	delegate Result LNMouseEventHandler(IntPtr mouseEventArgs, IntPtr userData);
+	extern static Result LNWindow_AttachPreviewMouseDownHandler(LNMouseEventHandler handler, IntPtr userData);
+	extern static Result LNWindow_DetachPreviewMouseDownHandler(LNMouseEventHandler handler, IntPtr userData);
+
+	class MouseEventArgs : RefObject
+	{
+		getter setter ...
+	}
+
+	delegate void MouseEventHandler(MouseEventArgs e);
+	class Window : RefObject
+	{
+		Window()
+		{
+			LNWindow_AttachPreviewMouseDownHandler(OnLNPreviewMouseDown);
+		}
+		
+		protected Result OnLNPreviewMouseDown(IntPtr mouseEventArgs, IntPtr userData)
+		{
+			var e = EventArgs.CreateFromHandle(mouseEventArgs);//new MouseEventArgs(mouseEventArgs);
+			PreviewMouseDown(e);
+		}
+		
+		event MouseEventHandler PreviewMouseDown;
+	}
+
+●Ruby Binder
+	mark
+
+●C++ Binder
+	template<TCore, TBinder>
+	class EventeWrapper
+	{
+		Array< Delegate01<TCore> > m_delegates;
+		static LNResult StaticCallback(TCore v1, void* userData)
+		{
+			userData->Callback();
+		}
+		LNResult Callback(TCore v1)
+		{
+			m_delegates.foreach
+			{
+				Call((TBinder)v1);	// 強制変換
+			};
+			return ...;
+		}
+	}
+
+	DelegateWrapper<ErrorCode> m_ErrorHandler;
+	void Exception::SetErrorHandler(Delegate01<ErrorCode> handler)
+	{
+		if (!m_ErrorHandler.Inited) {
+			LNException_SetErrorHandler(DelegateWrapper<ErrorCode>::StaticCallback, &m_DelegateWrapper);
+			m_ErrorHandler.Inited = true;
+		}
+		m_ErrorHandler.Set(handler);
+	}
+	
+	EventeWrapper<LNEventArgs*, EventArgs*> m_EventHandler;
+	void Window::AttachEventHandler(Delegate01<EventArgs*> handler)
+	{
+		if (!m_EventHandler.Inited) {
+			LNWindow_AttachEventHandler(EventeWrapper<LNEventArgs*, EventArgs*>::StaticCallback, &m_EventHandler);
+			m_EventHandler.Inited = true;
+		}
+		m_EventHandler.Attach(handler);
+	}
+	void Window::DetachEventHandler(Delegate01<EventArgs*> handler)
+	{
+		m_EventHandler.Detach(handler);
+	}
+
+	#if 0
+		DelegateWrapper m_DelegateWrapper;
+		void Exception::SetErrorHandler(Delegate01<ErrorCode> handler)
+		{
+			// 解除
+			// 設定
+			m_DelegateWrapper.Delegate = handler;
+			LNException_SetErrorHandler(CallbackManager::staticErrorHandler, &m_DelegateWrapper);
+		}
+		
+		DelegateWrapper m_EventWrapper;
+		void Window::AttachEventHandler(Delegate01<EventArgs*> handler)
+		{
+			LNWindow_AttachEventHandler
+			
+		}
+		
+		void Window::DetachEventHandler(Delegate01<EventArgs*> handler)
+		{
+			m_DelegateWrapper.FindUserData()
+			LNWindow_DetachEventHandler
+		}
+		
+		class CallbackManager 
+		{
+			// 関数ポインタを解析して自動生成 (ローカル関数でもいいかも？)
+			void staticErrorHandler(ErrorCode errorCode, void* userData)
+			{
+				DelegateWrapper* d = (DelegateWrapper*)userData;
+				d->Delegate.Call(errorCode);
+			}
+		}
+	#endif
+	
 ・戻り値
 ・例外
 
