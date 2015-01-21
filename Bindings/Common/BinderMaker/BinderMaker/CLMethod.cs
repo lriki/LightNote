@@ -9,10 +9,9 @@ namespace BinderMaker
     /// <summary>
     /// メソッド
     /// </summary>
-    class CLMethod
+    class CLMethod : CLEntity
     {
         #region Properties
-
         /// <summary>
         /// ドキュメント
         /// </summary>
@@ -27,11 +26,9 @@ namespace BinderMaker
         /// オプション
         /// </summary>
         public CLOption Option { get; private set; }
-
         #endregion
 
         #region Methods
-
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -44,14 +41,13 @@ namespace BinderMaker
             FuncDecl = funcDecl;
             Option = option;
         }
-
         #endregion
     }
 
     /// <summary>
     /// 仮引数
     /// </summary>
-    class CLParam
+    class CLParam : CLEntity
     {
         #region Fields
 
@@ -90,7 +86,7 @@ namespace BinderMaker
     /// <summary>
     /// 関数定義
     /// </summary>
-    class CLFuncDecl
+    class CLFuncDecl : CLEntity
     {
         #region Fields
         private string _originalReturnTypeName;
@@ -108,7 +104,7 @@ namespace BinderMaker
         public string OriginalName { get; private set; }
 
         /// <summary>
-        /// オリジナルの関数名 ("_" の後ろ。SetPositionXYZ 等)
+        /// 仮引数リスト
         /// </summary>
         public List<CLParam> Params { get; private set; }
         #endregion

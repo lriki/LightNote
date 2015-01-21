@@ -23,7 +23,7 @@ LN_MODULE(Audio)
 /**
 	@brief	音声再生のユーティリティクラスです。
 */
-LN_STATIC_CLASS(Audio)
+LN_STATIC_CLASS(LNAudio)
 	
 	/**
 		@brief		BGM を演奏する
@@ -226,7 +226,7 @@ LN_CLASS_END
 /**
 	@brief		3D音声のリスナーに関する情報を表します。
 */
-LN_STATIC_CLASS(SoundListener)
+LN_STATIC_CLASS(LNSoundListener)
 
 	/**
 		@brief		リスナーの位置の設定
@@ -307,7 +307,7 @@ LN_CLASS_END
 /**
 	@brief		音声データひとつ分を表し、再生などの操作を行うクラスです。
 */
-LN_CLASS(Sound)
+LN_CLASS(LNSound)
 	
 	LNOTE_TYPE_INFO_DECL(LNSound);
 
@@ -339,7 +339,7 @@ LN_CLASS(Sound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_SetVolume(LNHandle sound, int volume);
+	LNResult LNSound_SetVolume(LN_HANDLE(Sound) sound, int volume);
 
 	/**
 		@brief		ボリュームの取得

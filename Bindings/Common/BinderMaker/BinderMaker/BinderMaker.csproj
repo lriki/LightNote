@@ -53,6 +53,7 @@
     <Compile Include="CLOption.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Parser\CLAPIHeaderParser.cs" />
+    <Compile Include="Parser\CLTypedefHeaderParser.cs" />
     <Compile Include="Parser\ParserUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

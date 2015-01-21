@@ -91,7 +91,7 @@ namespace BinderMaker.Parser
             select new CLExampleDocument(langs, text);
         
         // ドキュメントコメント
-        private static readonly Parser<CLDocument> DocumentComment =
+        public static readonly Parser<CLDocument> DocumentComment =
             from start      in Parse.String("/**")
             from brief      in DocumentCommentBrief
             from params1    in DocumentCommentParam.Many()      // 引数 (0個以上)
@@ -108,7 +108,6 @@ namespace BinderMaker.Parser
 
         #region 関数宣言
 
-        
         // 関数宣言 - API 修飾子
         private static readonly Parser<IEnumerable<char>> APIModifier =
             Parse.String("LUMINO_INSTANCE_API").Or(Parse.String("LUMINO_STATIC_API"));
@@ -117,11 +116,23 @@ namespace BinderMaker.Parser
         private static readonly Parser<IEnumerable<char>> FuncAttribute =
             Parse.String("LUMINO_PROPERTY");
 
+        // Handle 型
+        public static readonly Parser<string> HandleType =
+            from start      in Parse.String("LN_HANDLE").Text()
+            from lparen     in Parse.Char('(').GenericToken()
+            from name       in ParserUtils.Identifier.GenericToken()
+            from rparen     in Parse.Char(')')
+            select start + lparen + name + rparen;  // とりあえずこの形式を許可したいだけなので文字列として返す
+
+        // 仮引数用の型名 (LN_HANDLE() または型名。LN_HANDLE は Identifer なので TypeName とのorの左側で先にパースする)
+        private static readonly Parser<string> ParamType =
+            HandleType.Or(ParserUtils.TypeName);
+
         // 仮引数定義
         public static readonly Parser<CLParam> FuncParamDecl =
-            from type       in ParserUtils.TypeName.GenericToken()
+            from type       in ParamType.GenericToken()
             from name       in ParserUtils.Identifier.GenericToken()
-            from defaultVal in FuncParamDefault.XOr(Parse.Return(""))   // opt
+            from defaultVal in FuncParamDefault.Or(Parse.Return(""))   // opt
             select new CLParam(type, name, defaultVal);
 
         // 仮引数定義並び

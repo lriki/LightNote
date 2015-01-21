@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BinderMaker
 {
-    class CLModule
+    class CLModule : CLEntity
     {
         #region Properties
 

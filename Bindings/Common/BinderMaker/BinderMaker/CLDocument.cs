@@ -30,7 +30,7 @@ namespace BinderMaker
     /// <summary>
     /// モジュール、クラス、メソッドのドキュメント
     /// </summary>
-    class CLDocument
+    class CLDocument : CLEntity
     {
         #region Fields
 
@@ -134,7 +134,7 @@ namespace BinderMaker
     /// <summary>
     /// 仮引数のドキュメント
     /// </summary>
-    class CLParamDocument
+    class CLParamDocument : CLEntity
     {
         #region Properties
 
@@ -182,7 +182,7 @@ namespace BinderMaker
     /// <summary>
     /// @extends ドキュメント
     /// </summary>
-    class CLExtendsDocument
+    class CLExtendsDocument : CLEntity
     {
         #region Properties
 
@@ -217,7 +217,7 @@ namespace BinderMaker
     /// <summary>
     /// @replace ドキュメント
     /// </summary>
-    class CLReplaceDocument
+    class CLReplaceDocument : CLEntity
     {
         #region Properties
 
@@ -259,7 +259,7 @@ namespace BinderMaker
     /// <summary>
     /// @postscript ドキュメント
     /// </summary>
-    class CLPostscriptDocument
+    class CLPostscriptDocument : CLEntity
     {
         #region Properties
 
@@ -301,7 +301,7 @@ namespace BinderMaker
     /// <summary>
     /// @overwrite ドキュメント
     /// </summary>
-    class CLOverwriteDocument
+    class CLOverwriteDocument : CLEntity
     {
         #region Properties
 
@@ -343,7 +343,7 @@ namespace BinderMaker
     /// <summary>
     /// @example ドキュメント
     /// </summary>
-    class CLExampleDocument
+    class CLExampleDocument : CLEntity
     {
         #region Properties
 

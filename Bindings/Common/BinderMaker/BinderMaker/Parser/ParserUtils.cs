@@ -71,6 +71,31 @@ namespace BinderMaker.Parser
         }
 
         /// <summary>
+        /// Doxygen の行コメント
+        /// </summary>
+        public static readonly Parser<string> DoxyLineComment1 =
+            from start in Parse.String("/**")
+            //from comment in Parse.AnyChar.Until(Parse.String("*/")).Many()
+            //from comment in Parse.AnyChar.Except(Parse.Char('\n')).Many().Text() // \n 以外の文字。\n は消費しない
+            //from eol in Parse.String("*/")
+            //select EmToString(comment);
+            from comment in Parse.AnyChar.Except(Parse.String("*/")).Many().Text() // \n 以外の文字。\n は消費しない
+            from eol in Parse.String("*/")
+            select comment;
+
+        /// <summary>
+        /// Doxygen の行コメント
+        /// </summary>
+        public static readonly Parser<string> DoxyLineComment2 =
+            from start in Parse.String("/**")
+            //from comment in Parse.AnyChar.Until(Parse.String("*/")).Many()
+            //select EmToString(comment);
+            from comment in Parse.AnyChar.Except(Parse.String("*/")).Many().Text() // \n 以外の文字。\n は消費しない
+            from eol in Parse.String("*/")
+            select comment;
+
+
+        /// <summary>
         /// 先頭に要素を挿入した IEnumerable を作る
         /// </summary>
         /// <typeparam name="T"></typeparam>
