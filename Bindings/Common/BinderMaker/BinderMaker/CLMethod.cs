@@ -45,45 +45,6 @@ namespace BinderMaker
     }
 
     /// <summary>
-    /// 仮引数
-    /// </summary>
-    class CLParam : CLEntity
-    {
-        #region Fields
-
-        private string _originalTypeName;
-        private string _originalDefaultValue;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// 仮引数名
-        /// </summary>
-        public string Name { get; private set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        /// <param name="typeName"></param>
-        /// <param name="varName"></param>
-        /// <param name="defaultValue"></param>
-        public CLParam(string typeName, string varName, string defaultValue)
-        {
-            _originalTypeName = typeName;
-            Name = varName;
-            _originalDefaultValue = defaultValue;
-        }
-
-        #endregion
-    }
-
-    /// <summary>
     /// 関数定義
     /// </summary>
     class CLFuncDecl : CLEntity
@@ -125,6 +86,65 @@ namespace BinderMaker
             OriginalName = tokens[1];
 
             Params = new List<CLParam>(params1);
+            Params.ForEach((param) => param.OwnerFunc = this);  // 所持クラス割り当て
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// 仮引数
+    /// </summary>
+    class CLParam : CLEntity
+    {
+        #region Fields
+
+        private string _originalTypeName;
+        private string _originalDefaultValue;
+
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// 型
+        /// </summary>
+        public CLType Type { get; private set; }
+
+        /// <summary>
+        /// 仮引数名
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// 仮引数名
+        /// </summary>
+        public CLFuncDecl OwnerFunc { get; set; }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <param name="varName"></param>
+        /// <param name="defaultValue"></param>
+        public CLParam(string typeName, string varName, string defaultValue)
+        {
+            _originalTypeName = typeName;
+            Name = varName;
+            _originalDefaultValue = defaultValue;
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                Console.WriteLine();
+            }
+        }
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、オリジナルの型名から CLType を検索して参照する
+        /// </summary>
+        public override void LinkTypes()
+        {
+            Type = Manager.FindType(_originalTypeName);
         }
         #endregion
     }

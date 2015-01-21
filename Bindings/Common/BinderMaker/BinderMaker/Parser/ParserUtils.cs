@@ -13,15 +13,17 @@ namespace BinderMaker.Parser
         /// 識別子
         /// </summary>
         public static readonly Parser<string> Identifier =
-            from ident in Parse.LetterOrDigit.XOr(Parse.Char('_')).Many()
-            select new string(ident.ToArray());
+            from ident1 in Parse.LetterOrDigit.XOr(Parse.Char('_'))         // 1個必ず
+            from ident2 in Parse.LetterOrDigit.XOr(Parse.Char('_')).Many()  // 0 個以上の繰り返し
+            select ident1 + new string(ident2.ToArray());
 
         /// <summary>
         /// 識別子or数値 (_ や - を含む)
         /// </summary>
         public static readonly Parser<string> IdentifierOrNumeric =
-            from ident in Parse.LetterOrDigit.XOr(Parse.Char('-')).XOr(Parse.Char('_')).Many()
-            select new string(ident.ToArray());
+            from ident1 in Parse.LetterOrDigit.XOr(Parse.Char('-')).XOr(Parse.Char('_'))
+            from ident2 in Parse.LetterOrDigit.XOr(Parse.Char('-')).XOr(Parse.Char('_')).Many()
+            select ident1 + new string(ident2.ToArray());
 
         /// <summary>
         /// 空白トークン

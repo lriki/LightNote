@@ -131,7 +131,7 @@ namespace BinderMaker.Parser
         // 仮引数定義
         public static readonly Parser<CLParam> FuncParamDecl =
             from type       in ParamType.GenericToken()
-            from name       in ParserUtils.Identifier.GenericToken()
+            from name       in ParserUtils.Identifier//.GenericToken()
             from defaultVal in FuncParamDefault.Or(Parse.Return(""))   // opt
             select new CLParam(type, name, defaultVal);
 

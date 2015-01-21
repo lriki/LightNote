@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 using System.IO;
 using Sprache;
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace BinderMaker
 {
+    class AA<T>
+    {
+        public T a;
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
             CLManager.Instance = new CLManager();
+            CLManager.Instance.Initialize();
 
             var typedefParser = new Parser.CLTypedefHeaderParser();
             typedefParser.Analyze("../../../../../../LightNote/Source/C_API/LFTypedef2.h");
@@ -26,7 +33,9 @@ namespace BinderMaker
             var parser = new Parser.CLAPIHeaderParser();
             var modules = parser.Analyze(apiHeaders);
 
-            Console.WriteLine(modules);
+            CLManager.Instance.LinkEntities();
+
+            //Console.WriteLine(modules);
 
             //var a = File.ReadAllText();
 

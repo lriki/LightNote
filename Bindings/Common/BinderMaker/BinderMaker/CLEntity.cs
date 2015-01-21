@@ -23,6 +23,13 @@ namespace BinderMaker
         {
             Manager.AllEntities.Add(this);
         }
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、オリジナルの型名から CLType を検索して参照する
+        /// </summary>
+        public virtual void LinkTypes()
+        {
+        }
         #endregion
     }
 
@@ -48,8 +55,7 @@ namespace BinderMaker
     class CLPrimitiveType : CLType
     {
         #region Constants
-        public static CLPrimitiveType Void = new CLPrimitiveType("Void");
-        public static CLPrimitiveType ByteArray = new CLPrimitiveType("ByteArray");
+        public static readonly CLPrimitiveType Void = new CLPrimitiveType("Void");
         public static CLPrimitiveType String = new CLPrimitiveType("String");
 
         public static CLPrimitiveType Bool = new CLPrimitiveType("Bool");
@@ -176,6 +182,8 @@ namespace BinderMaker
             Comment = comment;
             Name = name.Substring(2);   // プレフィックスを取り除く
             Members = new List<CLStructMember>(members);
+
+            Manager.AllStructs.Add(this);
         }
         #endregion
     }
@@ -251,6 +259,8 @@ namespace BinderMaker
             Comment = comment;
             Name = name.Substring(2);   // プレフィックスを取り除く
             Members = new List<CLEnumMember>(members);
+
+            Manager.AllEnums.Add(this);
         }
         #endregion
     }

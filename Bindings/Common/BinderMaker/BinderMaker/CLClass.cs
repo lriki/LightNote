@@ -8,6 +8,17 @@ namespace BinderMaker
 {
     class CLClass : CLType
     {
+        #region Constants
+
+        /// <summary>
+        /// Array 型クラスの定義
+        /// </summary>
+        public static CLClass Array = new CLClass("Array", null);
+        public static CLClass ByteArray = new CLClass("Array", CLPrimitiveType.Byte);
+        public static CLClass IntArray = new CLClass("Array", CLPrimitiveType.Int);
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -16,9 +27,9 @@ namespace BinderMaker
         public CLDocument Document { get; private set; }
 
         /// <summary>
-        /// クラス名
+        /// オリジナルのクラス名
         /// </summary>
-        public string Name { get; private set; }
+        public string OriginalName { get; private set; }
 
         /// <summary>
         /// メンバメソッドリスト
@@ -29,6 +40,16 @@ namespace BinderMaker
         /// オプション
         /// </summary>
         public CLOption Option { get; private set; }
+
+        /// <summary>
+        /// ジェネリッククラスの型引数
+        /// </summary>
+        public bool IsGeneric { get; private set; }
+
+        /// <summary>
+        /// ジェネリッククラスの型引数
+        /// </summary>
+        public CLType BindingType { get; private set; }
 
         #endregion
 
@@ -43,9 +64,23 @@ namespace BinderMaker
         public CLClass(CLDocument doc, string name, IEnumerable<CLMethod> methods, CLOption option)
         {
             Document = doc;
-            Name = name.Trim();
+            OriginalName = name.Trim();
             Methods = new List<CLMethod>(methods);
             Option = option;
+        }
+
+        /// <summary>
+        /// コンストラクタ (型をバインドしたジェネリッククラス(インスタンス化))
+        /// ※C# ではインスタンス化しているかにかかわらず Type クラスであらわされる。
+        ///   インスタンス化していないものは GenericTypeArgments 配列の要素数が 0 である。
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="?"></param>
+        public CLClass(string name, CLType bindingType)
+        {
+            OriginalName = name;
+            BindingType = bindingType;
+            IsGeneric = true;
         }
 
         #endregion
