@@ -181,9 +181,9 @@ typedef intptr_t				lnIntPtr;
 #define LN_CLASS(x)
 #define LN_STATIC_CLASS(x)
 #define LN_CLASS_END
-#define LUMINO_INSTANCE_API
-#define LUMINO_STATIC_API
-#define LUMINO_PROPERTY
+#define LN_INSTANCE_API
+#define LN_STATIC_API
+#define LN_PROPERTY
 
 #define LN_HANDLE(x) LNHandle
 

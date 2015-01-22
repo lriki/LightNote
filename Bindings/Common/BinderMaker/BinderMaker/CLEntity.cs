@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BinderMaker
@@ -204,8 +206,8 @@ namespace BinderMaker
         /// <param name="members"></param>
         public CLStruct(string comment, string name, IEnumerable<CLStructMember> members)
         {
-            Comment = comment;
-            Name = name.Substring(2);   // プレフィックスを取り除く
+            Comment = comment.Trim();
+            Name = name.Trim().Substring(2);   // プレフィックスを取り除く
             Members = new List<CLStructMember>(members);
         }
 
@@ -251,9 +253,9 @@ namespace BinderMaker
         /// <param name="comment"></param>
         public CLStructMember(string typeName, string name, string comment)
         {
-            _originalTypeName = typeName;
-            Name = name;
-            Comment = comment;
+            _originalTypeName = typeName.Trim();
+            Name = name.Trim();
+            Comment = comment.Trim();
         }
         #endregion
     }
@@ -278,6 +280,11 @@ namespace BinderMaker
         /// メンバリスト
         /// </summary>
         public List<CLEnumMember> Members { get; private set; }
+
+        /// <summary>
+        /// C# の [Flags] 用
+        /// </summary>
+        public bool IsFlags { get; private set; }
         #endregion
 
         #region Methods
@@ -289,9 +296,44 @@ namespace BinderMaker
         /// <param name="members"></param>
         public CLEnum(string comment, string name, IEnumerable<CLEnumMember> members)
         {
-            Comment = comment;
-            Name = name.Substring(2);   // プレフィックスを取り除く
+            Comment = comment.Trim();
+            Name = name.Trim().Substring(2);   // プレフィックスを取り除く
             Members = new List<CLEnumMember>(members);
+
+            // [Flags] チェック
+            IsFlags = false;
+            foreach (var memnber in Members)
+            {
+                if (memnber.OriginalValue.Length >= 2 &&
+                    memnber.OriginalValue[0] == '0' &&
+                    memnber.OriginalValue[1] == 'x')
+                {
+                    IsFlags = true;
+                    break;
+                }
+            }
+
+            // 定数定義を持たない EnumMemberDecl に値を割り振っていく
+            int lastValue = 0;
+            foreach (var decl in Members)
+            {
+                decl.Value = decl.OriginalValue;
+                // 定数定義が無い場合は直前の値
+                if (string.IsNullOrEmpty(decl.Value))
+                {
+                    decl.Value = lastValue.ToString();
+                }
+                // 定数定義がある場合は lastValue にする
+                else
+                {
+                    if (!int.TryParse(decl.Value, out lastValue))
+                    {
+                        // 16進数かもしれない
+                        lastValue = (int)Convert.ToInt32(decl.Value, 16);   // Convert.ToInt32 は頭に 0x が付いていても変換できる
+                    }
+                }
+                lastValue++;
+            }
         }
 
         /// <summary>
@@ -312,7 +354,16 @@ namespace BinderMaker
     class CLEnumMember : CLEntity
     {
         #region Fields
-        private string _originalValue;   // オリジナルの値
+        //private string _originalValue;   // オリジナルの値
+
+        // CapitalizedName で小文字化しない enum 定数名
+        private static readonly List<string> NonCapitalizeWords = new List<string>()
+        {
+            "XYZ", "XZY", "YXZ", "YZX", "ZXY", "ZYX",
+            "BGM", "BGS", "ME",
+            "A8R8G8B8", "X8R8G8B8", "A16B16G16R16F", "A32B32G32R32F", "D24S8",
+        };
+
         #endregion
 
         #region Properties
@@ -322,9 +373,54 @@ namespace BinderMaker
         public string OriginalName { get; private set; }
 
         /// <summary>
+        /// オリジナルの値
+        /// </summary>
+        public string OriginalValue { get; private set; }
+
+        /// <summary>
+        /// 値 (整数か16進整数 の文字列が必ず入っている)
+        /// </summary>
+        public string Value { get; set; }
+
+        /// <summary>
         /// コメント
         /// </summary>
         public string Comment { get; private set; }
+
+        /// <summary>
+        /// enum ターミネータであるか
+        /// </summary>
+        public bool IsTerminator
+        {
+            get { return OriginalName.LastIndexOf("MAX") == OriginalName.Length - 3; }
+        }
+
+        /// <summary>
+        /// プレフィックスを除き、各単語の先頭を大文字にして _ を結合した名前
+        /// 例: LN_BACKBUFFERRESIZEMODE_SCALING_WITH_LETTER_BOX → ScalingWithLetterBox
+        /// </summary>
+        public string CapitalizedName
+        {
+            get
+            {
+                if (OriginalName == "LN_OK") return "OK";   // これだけ特殊扱い
+
+                // 先頭大文字化の準備
+                CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+                TextInfo textInfo = cultureInfo.TextInfo;
+
+                string[] idents = OriginalName.Split('_');
+                string name = "";
+                for (int i = 2; i < idents.Count(); i++)
+                {
+                    if (NonCapitalizeWords.Contains(idents[i]))
+                        name += idents[i];
+                    else
+                        name += textInfo.ToTitleCase(textInfo.ToLower(idents[i]));//char.ToUpper(idents[i][0]) + idents[i].Substring(1);    // 文字列の先頭を大文字に
+                }
+                return name;
+            }
+        }
         #endregion
 
         #region Methods
@@ -336,9 +432,9 @@ namespace BinderMaker
         /// <param name="comment"></param>
         public CLEnumMember(string name, string value, string comment)
         {
-            OriginalName = name;
-            _originalValue = value;
-            Comment = comment;
+            OriginalName = name.Trim();
+            OriginalValue = value.Trim();
+            Comment = comment.Trim();
         }
         #endregion
     }

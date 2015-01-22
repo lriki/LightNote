@@ -10,11 +10,6 @@ using System.Reflection;
 
 namespace BinderMaker
 {
-    class AA<T>
-    {
-        public T a;
-    }
-
     class Program
     {
         static void Main(string[] args)
@@ -42,6 +37,9 @@ namespace BinderMaker
 
             //IEnumerable<char> b = new char[] { 'a', 'b' };
             //Console.WriteLine(new string(b));//b.ToString());
+
+            var csPInvoleBuilder = new Builder.CSPInvokeBuilder();
+            csPInvoleBuilder.Build(CLManager.Instance, "../../../../../DotNet/LNote.DotNet/API2.cs");
         }
     }
 }

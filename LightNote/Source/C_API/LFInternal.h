@@ -142,7 +142,7 @@ namespace Function
 #define LN_FUNC_TRY_END		} \
     catch (LNote::Core::Base::Exception& e) { \
 		if ( LNote::Core::Function::Manager::ExceptionCallback ) { \
-			LNote::Core::Function::Manager::ExceptionCallback( (LNErrorCode)e.getErrorCode() ); \
+			LNote::Core::Function::Manager::ExceptionCallback( (LNResult)e.getErrorCode() ); \
 				}  \
 				else { \
 			LNote::Core::Function::Manager::procException( &e ); \
@@ -153,12 +153,12 @@ namespace Function
 #define LN_FUNC_TRY_END_RETURN		} \
     catch (LNote::Core::Base::Exception& e) { \
 		if ( LNote::Core::Function::Manager::ExceptionCallback ) { \
-			LNote::Core::Function::Manager::ExceptionCallback( (LNErrorCode)e.getErrorCode() ); \
+			LNote::Core::Function::Manager::ExceptionCallback( (LNResult)e.getErrorCode() ); \
 						}  \
 								else { \
 			LNote::Core::Function::Manager::procException( &e ); \
 		} \
-		return (LNErrorCode)e.getErrorCode(); \
+		return (LNResult)e.getErrorCode(); \
 	} \
 	return ::LN_OK;
 
@@ -173,7 +173,7 @@ extern "C"
 {
 
 // HSP by DLL 内部用。WIN32_MESSAGE_FOR_HSP_EXCEPTION を send する
-LNOTEAPI void _LException_SendToWin32Message(LNErrorCode errCode);
+LNOTEAPI void _LException_SendToWin32Message(LNResult errCode);
 
 LNOTEAPI void LException_SetEnableWrappedException(LNBool f);
 

@@ -24,7 +24,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]	pitch		: ピッチ (50 ～ 200)
 		@param[in]	fadeTime	: フェードインにかける時間 (ミリ秒)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlayBGM( const LNChar* filePath, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100), int fadeTime LN_DEFAULT_ARG(0) );
 	
 	/**
@@ -35,14 +35,14 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 		@param[in]  fadeTime	: フェードインにかける時間 (ミリ秒)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlayBGMMem( const void* data, int dataSize, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100), int fadeTime LN_DEFAULT_ARG(0) );
 
 	/**
 		@brief	  BGM の演奏を停止する
 		@param[in]  fadeTime	: フェードアウトにかける時間 (ミリ秒)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_StopBGM(int fadeTime LN_DEFAULT_ARG(0));
 
 	/**
@@ -52,7 +52,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 		@param[in]  fadeTime	: フェードインにかける時間 (ミリ秒)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlayBGS( const LNChar* filePath, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100), int fadeTime LN_DEFAULT_ARG(0) );
 
 	/**
@@ -63,14 +63,14 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 		@param[in]  fadeTime	: フェードインにかける時間 (ミリ秒)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlayBGSMem(const void* data, int dataSize, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100), int fadeTime LN_DEFAULT_ARG(0));
 
 	/**
 		@brief	  BGS の演奏を停止する
 		@param[in]  fadeTime	: フェードアウトにかける時間 (ミリ秒)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_StopBGS(int fadeTime LN_DEFAULT_ARG(0));
 
 	/**
@@ -79,7 +79,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlayME( const LNChar* filePath, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100) );
 
 	/**
@@ -89,13 +89,13 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlayMEMem(const void* data, int dataSize, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100));
 
 	/**
 		@brief	  ME の演奏を停止する
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	void LNAudio_StopME();
 
 	/**
@@ -104,7 +104,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlaySE( const LNChar* filePath, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100) );
 	/*Option
 	@override[hsp]
@@ -120,7 +120,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlaySE3D(const LNChar* filePath, const LNVector3* position, float distance, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100));
 	/*Option
 	@override[hsp]
@@ -138,7 +138,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlaySE3DXYZ( const LNChar* filePath, float x, float y, float z, float distance, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100) );
 	/*Option
 	@override[hsp]
@@ -153,7 +153,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlaySEMem(const void* data, int dataSize, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100));
 
 	/**
@@ -165,7 +165,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlaySE3DMem(const void* data, int dataSize, const LNVector3* position, float distance, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100));
 
 	/**
@@ -179,20 +179,20 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  pitch		: ピッチ (50 ～ 200)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_PlaySE3DMemXYZ(const void* data, int dataSize, float x, float y, float z, float distance, int volume LN_DEFAULT_ARG(100), int pitch LN_DEFAULT_ARG(100));
 
 	/**
 		@brief	  すべての SE の演奏を停止する
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	void LNAudio_StopSE();
 
 	/**
 		@brief	  3D 空間の1メートル相当の距離の設定
 		@param[in]  distance	: 距離
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_SetMetreUnitDistance(float distance);
 
 	/**
@@ -200,7 +200,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  fadeTime	: フェードアウトにかける時間 (ミリ秒)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_SetBGMVolume(int volume, int fadeTime LN_DEFAULT_ARG(0));
 
 	/**
@@ -208,7 +208,7 @@ LN_STATIC_CLASS(LNAudio)
 		@param[in]  volume		: ボリューム (0 ～ 100)
 		@param[in]  fadeTime	: フェードアウトにかける時間 (ミリ秒)
 	*/
-	LUMINO_STATIC_API
+	LN_STATIC_API
 	LNResult LNAudio_SetBGSVolume(int volume, int fadeTime LN_DEFAULT_ARG(0));
 
 
@@ -224,8 +224,8 @@ LN_STATIC_CLASS(LNSoundListener)
 		@brief		リスナーの位置の設定
 		@param[in]	position	: 3D 空間上の座標
 	*/
-	LUMINO_STATIC_API
-	LUMINO_PROPERTY
+	LN_STATIC_API
+	LN_PROPERTY
 	LNResult LNSoundListener_SetPosition(const LNVector3* position);
 
 	/**
@@ -234,16 +234,16 @@ LN_STATIC_CLASS(LNSoundListener)
 		@param[in]	y			: 3D 空間上の Y 座標
 		@param[in]	z			: 3D 空間上の Z 座標
 	*/
-	LUMINO_STATIC_API
-	LUMINO_PROPERTY
+	LN_STATIC_API
+	LN_PROPERTY
 	void LNSoundListener_SetPositionXYZ( float x, float y, float z );
 
 	/**
 		@brief		リスナーの正面方向の設定
 		@param[in]	direction		: 向き
 	*/
-	LUMINO_STATIC_API
-	LUMINO_PROPERTY
+	LN_STATIC_API
+	LN_PROPERTY
 	LNResult LNSoundListener_SetDirection(const LNVector3* direction);
 
 	/**
@@ -252,16 +252,16 @@ LN_STATIC_CLASS(LNSoundListener)
 		@param[in]	y			: 向きの Y 成分
 		@param[in]	z			: 向きの Z 成分
 	*/
-	LUMINO_STATIC_API
-	LUMINO_PROPERTY
+	LN_STATIC_API
+	LN_PROPERTY
 	void LNSoundListener_SetDirectionXYZ(float x, float y, float z);
 
 	/**
 		@brief		リスナーの上方向の設定 (正面方向とは直交であること)
 		@param[in]	direction	: 上方向
 	*/
-	LUMINO_STATIC_API
-	LUMINO_PROPERTY
+	LN_STATIC_API
+	LN_PROPERTY
 	LNResult LNSoundListener_SetUpDirection(const LNVector3* direction);
 
 	/**
@@ -270,16 +270,16 @@ LN_STATIC_CLASS(LNSoundListener)
 		@param[in]	y			: 向きの Y 成分
 		@param[in]	z			: 向きの Z 成分
 	*/
-	LUMINO_STATIC_API
-	LUMINO_PROPERTY
+	LN_STATIC_API
+	LN_PROPERTY
 	void LNSoundListener_SetUpDirectionXYZ( float x, float y, float z );
 
 	/**
 		@brief		リスナーの速度の設定
 		@param[in]	velocity	: 速度
 	*/
-	LUMINO_STATIC_API
-	LUMINO_PROPERTY
+	LN_STATIC_API
+	LN_PROPERTY
 	LNResult LNSoundListener_Velocity(const LNVector3* velocity);
 
 	/**
@@ -288,8 +288,8 @@ LN_STATIC_CLASS(LNSoundListener)
 		@param[in]	y			: 速度の Y 成分
 		@param[in]	z			: 速度の Z 成分
 	*/
-	LUMINO_STATIC_API
-	LUMINO_PROPERTY
+	LN_STATIC_API
+	LN_PROPERTY
 	void LNSoundListener_VelocityXYZ( float x, float y, float z );
 
 
@@ -310,7 +310,7 @@ LN_CLASS(LNSound)
 		@param[in]	enable3d	: true の場合、3D 音源として作成する
 		@param[in]	playType	: 音声の再生方法
 	*/
-	LUMINO_INSTANCE_API
+	LN_INSTANCE_API
 	LNResult LNSound_Create(LN_HANDLE(LNSound)* sound, const LNChar* filePath, LNBool enable3d LN_DEFAULT_ARG(LN_FALSE), LNSoundPlayingType playType LN_DEFAULT_ARG(LN_SOUNDPLAYINGTYPE_AUTO) );
 	
 	
@@ -321,7 +321,7 @@ LN_CLASS(LNSound)
 		@param[in]	dataSize	: データサイズ (バイト単位)
 		@param[in]	enable3d	: true の場合、3D 音源として作成する
 	*/
-	LUMINO_INSTANCE_API
+	LN_INSTANCE_API
 	LNResult LNSound_CreateMem(LN_HANDLE(LNSound)* sound, const void* data, int dataSize, LNBool enable3d LN_DEFAULT_ARG(LN_FALSE));
 
 	/**
@@ -329,8 +329,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[in]	volume		: ボリューム (0～100)
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_SetVolume(LN_HANDLE(LNSound) sound, int volume);
 
 	/**
@@ -338,8 +338,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[out]	volume		: ボリュームを格納する変数
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_GetVolume(LN_HANDLE(LNSound) sound, int* volume);
 
 	/**
@@ -347,8 +347,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[in]	pitch		: ピッチ (50～200)
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_SetPitch(LN_HANDLE(LNSound) sound, int pitch);
 
 	/**
@@ -356,8 +356,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[out]	pitch		: ピッチを格納する変数
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_GetPitch(LN_HANDLE(LNSound) sound, int* pitch);
 
 	/**
@@ -368,8 +368,8 @@ LN_CLASS(LNSound)
 		@param[in]	length		: ループ領域長さ (サンプル数単位)
 		@details	begin と length に 0 を指定すると、全体をループ領域として設定します。
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_SetLoopState(LN_HANDLE(LNSound) sound, LNBool loopEnable, int begin LN_DEFAULT_ARG(0), int length LN_DEFAULT_ARG(0));
 
 	/**
@@ -377,8 +377,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[out]	enabled		: ループ再生の有無状態を格納する変数
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_IsLoop(LN_HANDLE(LNSound) sound, LNBool* enabled);
 
 	/**
@@ -386,22 +386,22 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[out]	state		: 状態を格納する変数
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_GetPlayState(LN_HANDLE(LNSound) sound, LNSoundPlayingState* state);
 
 	/**
 		@brief		音声を再生する
 		@param[in]	sound		: サウンドハンドル
 	*/
-	LUMINO_INSTANCE_API
+	LN_INSTANCE_API
 	LNResult LNSound_Play(LN_HANDLE(LNSound) sound);
 
 	/**
 		@brief		再生を停止する
 		@param[in]	sound		: サウンドハンドル
 	*/
-	LUMINO_INSTANCE_API
+	LN_INSTANCE_API
 	LNResult LNSound_Stop(LN_HANDLE(LNSound) sound);
 
 	/**
@@ -409,7 +409,7 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[in]	pause		: LN_TRUE = 一時停止 / LN_FALSE = 一時停止解除
 	*/
-	LUMINO_INSTANCE_API
+	LN_INSTANCE_API
 	LNResult LNSound_Pause(LN_HANDLE(LNSound) sound, LNBool pause);
 
 	/**
@@ -419,7 +419,7 @@ LN_CLASS(LNSound)
 		@param[in]	time			: フェードにかける時間 (ミリ秒)
 		@param[in]	fadeState		: フェード完了後の動作の指定
 	*/
-	LUMINO_INSTANCE_API
+	LN_INSTANCE_API
 	LNResult LNSound_FadeVolume(LN_HANDLE(LNSound) sound, int targetVolume, int time, LNSoundFadeState fadeState);
 
 	/**
@@ -427,8 +427,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[out]	samples		: 再生したサンプル数を格納する変数
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_GetUnitsPlayed(LN_HANDLE(LNSound) sound, int* samples);
 
 	/**
@@ -436,8 +436,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[out]	samples		: 音声データ全体のサンプル数を格納する変数
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_GetTotalUnits(LN_HANDLE(LNSound) sound, int* samples);
 
 	/**
@@ -445,8 +445,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[out]	frequency	: サンプリング周波数を格納する変数
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_GetUnitsParSecond(LN_HANDLE(LNSound) sound, int* frequency);
 
 	/**
@@ -454,8 +454,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[out]	enabled		: 3D 音源かを示す値を格納する変数
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_Is3DSound(LN_HANDLE(LNSound) sound, LNBool* enabled);
 
 	/**
@@ -463,8 +463,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[in]	position	: 3D 空間上の座標
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_SetEmitterPosition(LN_HANDLE(LNSound) sound, const LNVector3* position);
 
 	/**
@@ -474,8 +474,8 @@ LN_CLASS(LNSound)
 		@param[in]	y			: 3D 空間上の Y 座標
 		@param[in]	z			: 3D 空間上の Z 座標
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_SetEmitterPositionXYZ(LN_HANDLE(LNSound) sound, float x, float y, float z);
 
 	/**
@@ -483,8 +483,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[in]	velocity	: 速度
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_SetEmitterVelocity(LN_HANDLE(LNSound) sound, const LNVector3* velocity);
 
 	/**
@@ -494,8 +494,8 @@ LN_CLASS(LNSound)
 		@param[in]	y			: 速度の Y 成分
 		@param[in]	z			: 速度の Z 成分
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_SetEmitterVelocityXYZ(LN_HANDLE(LNSound) sound, float x, float y, float z);
 
 	/**
@@ -503,8 +503,8 @@ LN_CLASS(LNSound)
 		@param[in]	sound		: サウンドハンドル
 		@param[in]	distance	: 距離
 	*/
-	LUMINO_INSTANCE_API
-	LUMINO_PROPERTY
+	LN_INSTANCE_API
+	LN_PROPERTY
 	LNResult LNSound_SetEmitterDistance(LN_HANDLE(LNSound) sound, float distance);
 
 LN_CLASS_END

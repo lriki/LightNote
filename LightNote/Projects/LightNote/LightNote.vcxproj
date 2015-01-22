@@ -641,6 +641,7 @@
     <ClInclude Include="..\..\Source\Core\Utility\ProgressIndicator.h" />
     <ClInclude Include="..\..\Source\C_API\FuncLibManager.h" />
     <ClInclude Include="..\..\Source\C_API\LFAudio.h" />
+    <ClInclude Include="..\..\Source\C_API\LFAudio2.h" />
     <ClInclude Include="..\..\Source\C_API\LFBase.h" />
     <ClInclude Include="..\..\Source\C_API\LFCommon.h" />
     <ClInclude Include="..\..\Source\C_API\LFFile.h" />
@@ -652,6 +653,7 @@
     <ClInclude Include="..\..\Source\C_API\LFScene.h" />
     <ClInclude Include="..\..\Source\C_API\LFSystem.h" />
     <ClInclude Include="..\..\Source\C_API\LFTypedef.h" />
+    <ClInclude Include="..\..\Source\C_API\LFTypedef2.h" />
     <ClInclude Include="..\..\Source\C_API\lnote.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

@@ -83,7 +83,7 @@
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-	void LNException_Raise( LNErrorCode errCode, const LNChar* message, const LNChar* file, int line, const LNChar* func )
+	void LNException_Raise(LNResult errCode, const LNChar* message, const LNChar* file, int line, const LNChar* func)
 	{
 		LN_FUNC_TRY_BEGIN;
 		Core::Base::ExceptionManager::raise( (LNote::ResultCode)errCode, message, file, line, func );
@@ -93,11 +93,11 @@
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-	LNErrorCode LNException_GetLastErrorCode()
+	LNResult LNException_GetLastErrorCode()
 	{
 		Base::Exception* e = Core::Base::ExceptionManager::getLastException();
 		if (e != NULL) {
-			return (LNErrorCode)e->getErrorCode();
+			return (LNResult)e->getErrorCode();
 		}
 		return ::LN_OK;
 	}
@@ -116,7 +116,7 @@
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-	void _LNException_SendToWin32Message( LNErrorCode errCode )
+	void _LNException_SendToWin32Message(LNResult errCode)
 	{
 #ifdef LNOTE_WIN32
 		// HSP 用。ランタイムではなく DLL としてリンクする場合は

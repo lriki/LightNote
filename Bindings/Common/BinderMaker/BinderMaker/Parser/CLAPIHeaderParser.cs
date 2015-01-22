@@ -110,11 +110,13 @@ namespace BinderMaker.Parser
 
         // 関数宣言 - API 修飾子
         private static readonly Parser<IEnumerable<char>> APIModifier =
-            Parse.String("LUMINO_INSTANCE_API").Or(Parse.String("LUMINO_STATIC_API"));
+                Parse.String(CLManager.APIModifier_Instance)    // LN_INSTANCE_API
+            .Or(Parse.String(CLManager.APIModifier_Static)      // LN_STATIC_API
+            .Or(Parse.String(CLManager.APIModifier_Internal))); // LN_INTERNAL_API
         
         // 関数宣言 - 属性
         private static readonly Parser<IEnumerable<char>> FuncAttribute =
-            Parse.String("LUMINO_PROPERTY");
+            Parse.String(CLManager.APIAttribute_Property);      // LN_PROPERTY
 
         // Handle 型
         public static readonly Parser<string> HandleType =
@@ -160,7 +162,7 @@ namespace BinderMaker.Parser
             from params1    in FuncParamDecls.Or(Parse.Return(new CLParam[0]))              // opt
             from rparen     in Parse.Char(')').GenericToken()
             from end1       in Parse.Char(';').GenericToken()
-            select new CLFuncDecl(type1, name1, params1);
+            select new CLFuncDecl(apiMod, attr, type1, name1, params1);
 
         #endregion
 

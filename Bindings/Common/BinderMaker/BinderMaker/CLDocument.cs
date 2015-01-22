@@ -7,19 +7,6 @@ using System.Threading.Tasks;
 namespace BinderMaker
 {
     [Flags]
-    enum LangFlags
-    {
-        C = 0x00,
-        Cpp = 0x01,
-        CS = 0x02,
-        Java = 0x04,
-        Ruby = 0x08,
-        Python = 0x10,
-        Lua = 0x20,
-        HSP = 0x40,
-    }
-
-    [Flags]
     enum ParamAttribute
     {
         None = 0x00,
@@ -33,12 +20,6 @@ namespace BinderMaker
     class CLDocument : CLEntity
     {
         #region Fields
-
-        private List<CLReplaceDocument> _replaceDocs;
-        private List<CLPostscriptDocument> _postscriptDocs;
-        private List<CLOverwriteDocument> _overwriteDocs;
-        private List<CLExampleDocument> _exampleDocs;
-
         #endregion
 
         #region Properties
@@ -63,6 +44,26 @@ namespace BinderMaker
         /// </summary>
         public string OriginalDetailsText { get; private set; }
 
+        /// <summary>
+        /// 置換要素リスト
+        /// </summary>
+        public List<CLReplaceDocument> ReplaceDocs { get; private set; }
+
+        /// <summary>
+        /// 追記要素リスト
+        /// </summary>
+        public List<CLPostscriptDocument> PostscriptDocs { get; private set; }
+
+        /// <summary>
+        /// 上書き要素リスト
+        /// </summary>
+        public List<CLOverwriteDocument> OverwriteDocs { get; private set; }
+
+        /// <summary>
+        /// サンプルコードリスト
+        /// </summary>
+        public List<CLExampleDocument> ExampleDocs { get; private set; }
+
         #endregion
 
         #region Methods
@@ -85,10 +86,10 @@ namespace BinderMaker
             OriginalReturnText = returnText.Trim();
             OriginalDetailsText = detailsText.Trim();
 
-            _replaceDocs = new List<CLReplaceDocument>(replaceDocs);
-            _postscriptDocs = new List<CLPostscriptDocument>(postscriptDocs);
-            _overwriteDocs = new List<CLOverwriteDocument>(overwriteDocs);
-            _exampleDocs = new List<CLExampleDocument>(exampleDocs);
+            ReplaceDocs = new List<CLReplaceDocument>(replaceDocs);
+            PostscriptDocs = new List<CLPostscriptDocument>(postscriptDocs);
+            OverwriteDocs = new List<CLOverwriteDocument>(overwriteDocs);
+            ExampleDocs = new List<CLExampleDocument>(exampleDocs);
         }
 
         /// <summary>

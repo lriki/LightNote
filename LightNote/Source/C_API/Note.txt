@@ -19,6 +19,7 @@ const 構造体*
 
 ■列挙型定義
 ・メンバ定義の末尾は必ず , であること。
+・定数値に "0x" が含まれていると Flags 属性の enum となり、C# に出力するとき [Flags] 属性を付ける。
 
 ■関数ポインタ定義
 
@@ -105,19 +106,19 @@ LN_CLASS_END
 #LN_ATTRIBUTE(Override, ...)
 
 ・属性 - public 関数
-LUMINO_INSTANCE_API
+LN_INSTANCE_API
 
 ・属性 - static 関数
-LUMINO_STATIC_API
+LN_STATIC_API
 	例)
 	LUMINO_STATIC_API LNResult LNSoundListener_SetPosition(const LNVector3* position);
 
 ・属性 - internal 関数
-LUMINO_INTERNAL_API
+LN_INTERNAL_API
 ※自動生成の対象にしない。定義ソースを include して使いたいときに使用する。
 
 ・属性 - プロパティ
-LUMINO_PROPERTY
+LN_PROPERTY
 	例)
 	LUMINO_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_SetPosition(const LNVector3* position);
 	LUMINO_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_GetPosition(LNVector3* position);

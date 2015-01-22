@@ -82,14 +82,14 @@ extern "C" {
 	//  @param[in]	func		: 
 	//*/
 	//----------------------------------------------------------------------
-    LNOTEAPI void LNException_Raise( LNErrorCode errCode, const LNChar* message, const LNChar* file, int line, const LNChar* func );
+	LNOTEAPI void LNException_Raise(LNResult errCode, const LNChar* message, const LNChar* file, int line, const LNChar* func);
 
 	//----------------------------------------------------------------------
 	///**
 	//  @brief      最後に発生した例外のエラーコードを取得する
 	//*/
 	//----------------------------------------------------------------------
-    LNOTEAPI LNErrorCode LNException_GetLastErrorCode();
+	LNOTEAPI LNResult LNException_GetLastErrorCode();
 
 	//----------------------------------------------------------------------
 	///**

@@ -18,8 +18,22 @@ namespace BinderMaker
         //⑤出力言語の指定
 
         #region Constants
-        private const string HandleTypeParamMacro = "LN_HANDLE";
-        private const string GenericHandleTypeParamMacro = "LN_HANDLE_GENERIC";
+        public const string APIModifier_Instance = "LN_INSTANCE_API";
+        public const string APIModifier_Static = "LN_STATIC_API";
+        public const string APIModifier_Internal = "LN_INTERNAL_API";
+        public const string APIAttribute_Property = "LN_PROPERTY";
+        public const string HandleTypeParamMacro = "LN_HANDLE";
+        public const string GenericHandleTypeParamMacro = "LN_HANDLE_GENERIC";
+
+        /// <summary>
+        /// オーバーロード関数のサフィックス
+        /// </summary>
+        public static string[] OverloadSuffix = new string[] 
+        {
+            "XYWH","XYZW", "WH", "XYZ", "XY",   // 名前の長い方から見る
+            "Vec2", "Vec3", "Vec4",
+        };
+
         #endregion
 
         #region Fields
@@ -85,6 +99,11 @@ namespace BinderMaker
         /// 全 enum 型リスト
         /// </summary>
         public List<CLEnum> AllEnums { get; private set; }
+
+        /// <summary>
+        /// 全 メソッドリスト
+        /// </summary>
+        public List<CLMethod> AllMethods { get; private set; }
         #endregion
 
         #region Methods
@@ -98,6 +117,7 @@ namespace BinderMaker
             AllClasses = new List<CLClass>();
             AllStructs = new List<CLStruct>();
             AllEnums = new List<CLEnum>();
+            AllMethods = new List<CLMethod>();
         }
 
         public void Initialize()
@@ -125,12 +145,18 @@ namespace BinderMaker
         /// </summary>
         public void LinkEntities()
         {
-            int i = 0;
+            // CLType をリンクする
             foreach (var e in AllEntities)
             {
                 e.LinkTypes();
-                ++i;
             }
+
+            // オーバーロードメソッドの関係をリンクする
+            foreach (var e in AllMethods)
+            {
+                e.LinkOverloads();
+            }
+
         }
 
         /// <summary>
@@ -207,6 +233,26 @@ namespace BinderMaker
 
             throw new InvalidOperationException("invalid type.");
         }
+
+        /// <summary>
+        /// 指定した名前の末尾が OverloadSuffix に含まれているかをチェックし、
+        /// それを取り除いた名前を返す
+        /// </summary>
+        /// <returns>OverloadSuffix をが含まれていた場合は true</returns>
+        public bool RemoveOverloadSuffix(string name, out string newName)
+        {
+            foreach (var s in OverloadSuffix)
+            {
+                if (name.EndsWith(s, false, System.Globalization.CultureInfo.DefaultThreadCurrentCulture))
+                {
+                    newName = name.Substring(0, name.Length - s.Length);
+                    return true;
+                }
+            }
+            newName = name;
+            return false;
+        }
+
         #endregion
 
 
