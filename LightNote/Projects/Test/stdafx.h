@@ -25,6 +25,7 @@ using namespace LNote::Core;
 //#pragma comment (lib, "../Debug/Deps.CEGUI.lib")
 #pragma comment (lib, "../Debug/Deps.Modules.lib")
 #pragma comment (lib, "../Debug/LNote.Static.lib")
+#pragma comment (lib, "../../Source/Lumino/Lumino.Math/lib/LuminoMath-msvc120-static_d.lib")
 #else
 #pragma comment (lib, "../Release/Deps.Effekseer.lib")
 #pragma comment (lib, "../Release/Deps.freetype.lib")

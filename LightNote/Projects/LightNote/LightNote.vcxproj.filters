@@ -172,12 +172,6 @@
     <Filter Include="Core\Utility">
       <UniqueIdentifier>{8136d2d6-4a05-49b5-aad7-c54427d785a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Lumino">
-      <UniqueIdentifier>{14c3b6ba-22e1-42b0-baef-07c0b3422818}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lumino\Math">
-      <UniqueIdentifier>{654e17c8-760b-4ac9-85c9-9d7787106a22}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Math">
       <UniqueIdentifier>{1f0cdfba-a145-4feb-9615-f5416fd94780}</UniqueIdentifier>
     </Filter>
@@ -1224,48 +1218,6 @@
     <ClInclude Include="..\..\Source\Core\Graphics\CompilationException.h">
       <Filter>Core\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Asm.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Common.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\MathUtils.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Matrix.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Plane.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Quaternion.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Random.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\SQTTransform.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector2.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector3.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector4.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Version.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\ViewFrustum.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\LuminoMath.h">
-      <Filter>Lumino\Math</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Core\Math\LMath.h">
       <Filter>Core\Math</Filter>
     </ClInclude>
@@ -2076,39 +2028,6 @@
     <ClCompile Include="..\..\Source\Core\Graphics\CompilationException.cpp">
       <Filter>Core\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\MathUtils.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Matrix.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Plane.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Quaternion.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Random.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\SQTTransform.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Vector2.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Vector3.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Vector4.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Version.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\ViewFrustum.cpp">
-      <Filter>Lumino\Math</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Core\Math\RandomEx.cpp">
       <Filter>Core\Math</Filter>
     </ClCompile>
@@ -2116,24 +2035,6 @@
   <ItemGroup>
     <None Include="..\..\Source\Core\Base\Delegate.inc">
       <Filter>Core\Base</Filter>
-    </None>
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Matrix.inl">
-      <Filter>Lumino\Math</Filter>
-    </None>
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Plane.inl">
-      <Filter>Lumino\Math</Filter>
-    </None>
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Quaternion.inl">
-      <Filter>Lumino\Math</Filter>
-    </None>
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector2.inl">
-      <Filter>Lumino\Math</Filter>
-    </None>
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector3.inl">
-      <Filter>Lumino\Math</Filter>
-    </None>
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector4.inl">
-      <Filter>Lumino\Math</Filter>
     </None>
   </ItemGroup>
 </Project>

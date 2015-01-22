@@ -653,20 +653,6 @@
     <ClInclude Include="..\..\Source\C_API\LFSystem.h" />
     <ClInclude Include="..\..\Source\C_API\LFTypedef.h" />
     <ClInclude Include="..\..\Source\C_API\lnote.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\LuminoMath.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Common.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\MathUtils.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Matrix.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Plane.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Quaternion.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Random.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\SQTTransform.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector2.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector3.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector4.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Version.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\ViewFrustum.h" />
-    <ClInclude Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Asm.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -1081,72 +1067,6 @@
     <ClCompile Include="..\..\Source\C_API\LFScene.cpp" />
     <ClCompile Include="..\..\Source\C_API\LFSystem.cpp" />
     <ClCompile Include="..\..\Source\C_API\LFTypedef.cpp" />
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\MathUtils.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Matrix.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Plane.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Quaternion.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Random.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\SQTTransform.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Vector2.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Vector3.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Vector4.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\Version.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Dependencies\Lumino.Math\src\Math\ViewFrustum.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release.Lib|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.Lib|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug.DLL|Win32'">Create</PrecompiledHeader>
@@ -1158,12 +1078,6 @@
     <None Include="..\..\Source\Core\Base\Delegate.inc">
       <FileType>Document</FileType>
     </None>
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Matrix.inl" />
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Plane.inl" />
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Quaternion.inl" />
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector2.inl" />
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector3.inl" />
-    <None Include="..\..\Source\Dependencies\Lumino.Math\include\Lumino\Math\Vector4.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

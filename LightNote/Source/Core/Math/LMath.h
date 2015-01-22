@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "../../Dependencies/Lumino.Math/include/LuminoMath.h"
+#include "../../Lumino/Lumino.Math/include/LuminoMath.h"
 
 namespace LNote
 {

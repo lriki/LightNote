@@ -244,7 +244,7 @@ namespace Scene
             mMatrix = LMatrix::Identity;
             mMatrix.Translation( -mCenter.X, -mCenter.Y, -mCenter.Z );
             mMatrix.Scaling( mScale );
-            mMatrix.RotateAxis( mAngle, mRotOrder );
+            mMatrix.RotateEulerAngles( mAngle, mRotOrder );
             mMatrix.Translation( mPosition );
             mNeedUpdateMatrix = false;   
         }
