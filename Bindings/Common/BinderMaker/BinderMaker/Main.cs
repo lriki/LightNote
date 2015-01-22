@@ -22,6 +22,7 @@ namespace BinderMaker
 
             var apiHeaders = new string[]
             {
+                "../../../../../../LightNote/Source/C_API/LFBase.h",
                 "../../../../../../LightNote/Source/C_API/LFAudio2.h",
             };
 
@@ -39,7 +40,10 @@ namespace BinderMaker
             //Console.WriteLine(new string(b));//b.ToString());
 
             var csPInvoleBuilder = new Builder.CSPInvokeBuilder();
-            csPInvoleBuilder.Build(CLManager.Instance, "../../../../../DotNet/LNote.DotNet/API2.cs");
+            csPInvoleBuilder.Build(CLManager.Instance, "../../../../../DotNet/LNote.DotNet/API.cs");
+
+            var csClassLibBuilder = new Builder.CSClassLibBuilder();
+            csClassLibBuilder.Build(CLManager.Instance, "../../../../../DotNet/LNote.DotNet/Classlib.cs");
         }
     }
 }

@@ -212,7 +212,7 @@ namespace BinderMaker.Parser
 
         // メソッド定義
         private static readonly Parser<CLMethod> MethodDecl =
-            from doc        in DocumentComment.GenericToken()
+            from doc        in (DocumentComment.GenericToken()).Or(Parse.Return(new CLDocument()))
             from func       in FuncDecl.GenericToken()
             from option     in (OptionComment.GenericToken()).Or(Parse.Return(new CLOption()))
             select new CLMethod(doc, func, option);
@@ -220,7 +220,7 @@ namespace BinderMaker.Parser
         // クラス定義
         private static readonly Parser<CLClass> ClassDecl =
             from doc        in DocumentComment.GenericToken()
-            from start      in Parse.String("LN_CLASS").Or(Parse.String("LN_STATIC_CLASS")).Or(Parse.String("LN_GENERIC_CLASS"))
+            from start      in Parse.String("LN_CLASS").Or(Parse.String("LN_STATIC_CLASS")).Or(Parse.String("LN_GENERIC_CLASS")).Or(Parse.String("LN_STRUCT_CLASS")).Or(Parse.String("LN_EXTENSION_CLASS"))
             from lparen     in Parse.Char('(').GenericToken()
             from name       in ParserUtils.Identifier
             from rparen     in Parse.Char(')').GenericToken()

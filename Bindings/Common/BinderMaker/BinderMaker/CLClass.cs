@@ -32,6 +32,11 @@ namespace BinderMaker
         public string OriginalName { get; private set; }
 
         /// <summary>
+        /// クラス名
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
         /// メンバメソッドリスト
         /// </summary>
         public List<CLMethod> Methods { get; private set; }
@@ -42,7 +47,7 @@ namespace BinderMaker
         public CLOption Option { get; private set; }
 
         /// <summary>
-        /// ジェネリッククラスの型引数
+        /// ジェネリッククラス であるか
         /// </summary>
         public bool IsGeneric { get; private set; }
 
@@ -51,6 +56,15 @@ namespace BinderMaker
         /// </summary>
         public CLType BindingType { get; private set; }
 
+        /// <summary>
+        /// struct であるか
+        /// </summary>
+        public bool IsStruct { get { return StructData != null; } } 
+
+        /// <summary>
+        /// 構造体情報
+        /// </summary>
+        public CLStructDef StructData { get; private set; }
         #endregion
 
         #region Methods
@@ -65,6 +79,7 @@ namespace BinderMaker
         {
             Document = doc;
             OriginalName = name.Trim();
+            Name = OriginalName.Substring(2);
             Methods = new List<CLMethod>(methods);
             Option = option;
         }
@@ -93,6 +108,15 @@ namespace BinderMaker
             Document.Register();
             Methods.ForEach((c) => c.Register());
             Option.Register();
+        }
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、オリジナルの型名から CLType を検索して参照する
+        /// </summary>
+        public override void LinkTypes()
+        {
+            base.LinkTypes();
+            StructData = Manager.AllStructs.Find((t) => t.OriginalName == OriginalName);
         }
 
         #endregion

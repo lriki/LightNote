@@ -46,7 +46,9 @@
   <ItemGroup>
     <Compile Include="Builder\Builder.cs" />
     <Compile Include="Builder\CSBuilderCommon.cs" />
+    <Compile Include="Builder\CSClassLibBuilder.cs" />
     <Compile Include="Builder\CSPInvokeBuilder.cs" />
+    <Content Include="Builder\Templates\CSClassLib.txt" />
     <Content Include="Builder\Templates\CSPInvoke.txt" />
     <Compile Include="LangContext.cs" />
     <Compile Include="Builder\OutputBuffer.cs" />

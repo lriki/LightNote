@@ -48,6 +48,13 @@ LN_GENERIC_CLASS(name, ...)
 LN_CLASS_END
 ※自動生成しない。それぞれの言語ごとに自分で書く。
 
+・struct クラス定義
+LN_STRUCT_CLASS(LNVector3)
+
+・拡張クラス定義
+LN_EXTENSION_CLASS(LNException)
+※自動生成しない。それぞれの言語ごとに自分で書く。
+
 
 ■ドキュメントコメント
 クラス定義または関数定義の前に付く。

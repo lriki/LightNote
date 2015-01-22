@@ -30,7 +30,7 @@ namespace BinderMaker.Builder
                 OnEnumLooked(e);
             }
 
-            // クラス・構造体
+            // クラス
             foreach (var classType in Manager.AllClasses)
             {
                 // メソッド

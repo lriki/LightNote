@@ -25,8 +25,9 @@ namespace BinderMaker
     class LangContext
     {
         #region Constants
-        public const string BriefTag = "@brief";
-        public const string ParamTag = "@param";
+        public const string BriefTag = "brief";
+        public const string ParamTag = "param";
+        public const string DetailsTag = "details";
         #endregion
 
         private LangFlags _langFlags;
@@ -77,6 +78,16 @@ namespace BinderMaker
         public string GetParamText(CLParam param)
         {
             return MakeText(param.Document.OriginalText, param.OwnerFunc.OwnerMethod.Document, ParamTag);
+        }
+
+        /// <summary>
+        /// details の説明文
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public string GetDetailsText(CLMethod method)
+        {
+            return MakeText(method.Document.OriginalDetailsText, method.Document, DetailsTag);
         }
     }
 }

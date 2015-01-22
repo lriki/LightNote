@@ -11,12 +11,19 @@ namespace BinderMaker.Builder
     /// </summary>
     class CSPInvokeBuilder : Builder
     {
+
+        #region Templates
+        const string FuncDeclTempalte = @"
+[DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+public extern static RETURN_TYPE FUNC_NAME(ARGS);
+";
+        #endregion
+
         #region Fields
         private LangContext _context = new LangContext(LangFlags.CS);
         private OutputBuffer _enumText = new OutputBuffer(1);
         private OutputBuffer _funcsText = new OutputBuffer(2);
         #endregion
-
 
         /// <summary>
         /// enum 通知
@@ -61,7 +68,7 @@ namespace BinderMaker.Builder
         /// メソッド 通知
         /// </summary>
         /// <param name="enumType"></param>
-        protected virtual void OnMethodLooked(CLMethod method)
+        protected override void OnMethodLooked(CLMethod method)
         {
             //// この関数は定義しない
             //if (method.IsCopy)
@@ -71,29 +78,29 @@ namespace BinderMaker.Builder
             CSBuilderCommon.MakeSummaryXMLComment(_funcsText, _context.GetBriefText(method));
             foreach (var param in method.FuncDecl.Params)
             {
-                CSBuilderCommon.MakeParamXMLComment(_funcsText, param.Name, param.Summary);
+                CSBuilderCommon.MakeParamXMLComment(_funcsText, param.Name, _context.GetParamText(param));
             }
             // TODO:returnコメント
             //CSBuilderCommon.MakeReturnXMLComment(method);
-            CSBuilderCommon.MakeRemarksXMLComment(method.Detail);
+            CSBuilderCommon.MakeRemarksXMLComment(_context.GetDetailsText(method));
 
             // DLLImport・型名・関数名
             string declText = FuncDeclTempalte.Trim();
-            declText = declText.Replace("RETURN_TYPE", CSBuilderCommon.ConvertTypeToName(method.ReturnType.Type, null));
-            declText = declText.Replace("FUNC_NAME", method.CName);
+            declText = declText.Replace("RETURN_TYPE", GetReturnTypeName(method.FuncDecl.ReturnType));
+            declText = declText.Replace("FUNC_NAME", method.FuncDecl.OriginalFullName);
 
             // 仮引数リスト
             string argsText = "";
-            foreach (var param in method.Params)
+            foreach (var param in method.FuncDecl.Params)
             {
                 if (argsText != "") argsText += ", ";
 
                 // 型名と引数名
-                argsText += string.Format("{0} {1}", ConvertParamTypeName(param), param.Name);
+                argsText += string.Format("{0} {1}", GetParamTypeName(param), param.Name);
 
                 // デフォルト引数
-                if (!string.IsNullOrEmpty(param.DefaultValueSource))
-                    argsText += " = " + CSBuilderCommon.ConvertLiteral(param.DefaultValueSource, true);
+                if (!string.IsNullOrEmpty(param.OriginalDefaultValue))
+                    argsText += " = " + CSBuilderCommon.ConvertLiteral(param.OriginalDefaultValue, true);
             }
             declText = declText.Replace("ARGS", argsText);
 
@@ -109,6 +116,42 @@ namespace BinderMaker.Builder
             output = output.Replace("ENUM_LIST", _enumText.ToString());
             output = output.Replace("API_LIST", _funcsText.ToString());
             return output;
+        }
+
+        /// <summary>
+        /// C# の型名を求める (戻り値用)
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private string GetReturnTypeName(CLType type)
+        {
+            // テーブルにあればそれを使う
+            string name;
+            if (CSBuilderCommon.PrimitiveTypeNameTable.TryGetValue(type, out name))
+                return name;
+
+            // enum 型
+            if (type is CLEnum) return ((CLEnum)type).Name;
+            // struct 型
+            //if (type is CLStruct) return ((CLStruct)type).Name;
+            // delegate 型
+            if (type is CLDelegate) return ((CLDelegate)type).Name;
+
+            // return はクラス使わないはず
+            throw new InvalidOperationException();
+        }
+
+        /// <summary>
+        /// C# の型名を求める (仮引数用)
+        /// </summary>
+        /// <returns></returns>
+        private string GetParamTypeName(CLParam param)
+        {
+            if ((param.Type is CLClass) ||
+                (param.Type == CLPrimitiveType.String && param.IOModifier == IOModifier.Out))
+                return string.Format("{0} IntPtr", CSBuilderCommon.GetAPIParamIOModifier(param));
+            else
+                return string.Format("{0} {1}", CSBuilderCommon.GetAPIParamIOModifier(param), GetReturnTypeName(param.Type));
         }
     }
 }

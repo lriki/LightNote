@@ -69,13 +69,25 @@ namespace BinderMaker
 
             FuncDecl.OwnerMethod = this;
 
-            // 仮引数とコメントを関連付ける
-            foreach (var param in FuncDecl.Params)
+            // internal の場合はドキュメント無し。ダミーを作る
+            if (FuncDecl.Modifier == MethodModifier.Internal)
             {
-                var doc = Document.OriginalParams.Find((d) => d.Name == param.Name);
-                if (doc == null) throw new InvalidOperationException("invalid param name.");
-
-                param.Document = doc;
+                foreach (var param in FuncDecl.Params)
+                {
+                    var doc = new CLParamDocument("in", param.Name, "");
+                    Document.OriginalParams.Add(doc);
+                    param.Document = doc;
+                }
+            }
+            // 仮引数とコメントを関連付ける
+            else
+            {
+                foreach (var param in FuncDecl.Params)
+                {
+                    var doc = Document.OriginalParams.Find((d) => d.Name == param.Name);
+                    if (doc == null) throw new InvalidOperationException("invalid param name.");
+                    param.Document = doc;
+                }
             }
         }
 
@@ -168,6 +180,11 @@ namespace BinderMaker
         public List<CLParam> Params { get; private set; }
 
         /// <summary>
+        /// 戻り値型
+        /// </summary>
+        public CLType ReturnType { get; private set; }
+
+        /// <summary>
         /// 修飾子
         /// </summary>
         public MethodModifier Modifier { get; private set; }
@@ -242,6 +259,14 @@ namespace BinderMaker
             base.Register();
             Params.ForEach((p) => p.Register());
         }
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、オリジナルの型名から CLType を検索して参照する
+        /// </summary>
+        public override void LinkTypes()
+        {
+            ReturnType = Manager.FindType(_originalReturnTypeName);
+        }
         #endregion
     }
 
@@ -253,7 +278,6 @@ namespace BinderMaker
         #region Fields
 
         private string _originalTypeName;
-        private string _originalDefaultValue;
 
         #endregion
 
@@ -269,6 +293,11 @@ namespace BinderMaker
         public string Name { get; private set; }
 
         /// <summary>
+        /// デフォルト値
+        /// </summary>
+        public string OriginalDefaultValue { get; private set; }
+
+        /// <summary>
         /// 親関数
         /// </summary>
         public CLFuncDecl OwnerFunc { get; set; }
@@ -277,6 +306,12 @@ namespace BinderMaker
         /// ドキュメントコメント
         /// </summary>
         public CLParamDocument Document { get; set; }
+
+        /// <summary>
+        /// 入出力
+        /// </summary>
+        public IOModifier IOModifier { get { return Document.IOModifier; } }
+
         #endregion
 
         #region Methods
@@ -288,9 +323,9 @@ namespace BinderMaker
         /// <param name="defaultValue"></param>
         public CLParam(string typeName, string varName, string defaultValue)
         {
-            _originalTypeName = typeName;
-            Name = varName;
-            _originalDefaultValue = defaultValue;
+            _originalTypeName = typeName.Trim();
+            Name = varName.Trim();
+            OriginalDefaultValue = defaultValue.Trim();
 
             if (string.IsNullOrEmpty(Name))
             {

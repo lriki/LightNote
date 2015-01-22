@@ -93,7 +93,7 @@ namespace BinderMaker
         /// <summary>
         /// 全 struct 型リスト
         /// </summary>
-        public List<CLStruct> AllStructs { get; private set; }
+        public List<CLStructDef> AllStructs { get; private set; }
 
         /// <summary>
         /// 全 enum 型リスト
@@ -104,6 +104,11 @@ namespace BinderMaker
         /// 全 メソッドリスト
         /// </summary>
         public List<CLMethod> AllMethods { get; private set; }
+
+        /// <summary>
+        /// 全 delegate リスト
+        /// </summary>
+        public List<CLDelegate> AllDelegates { get; private set; }
         #endregion
 
         #region Methods
@@ -115,9 +120,10 @@ namespace BinderMaker
             AllEntities = new List<CLEntity>();
             AllTypes = new List<CLType>();
             AllClasses = new List<CLClass>();
-            AllStructs = new List<CLStruct>();
+            AllStructs = new List<CLStructDef>();
             AllEnums = new List<CLEnum>();
             AllMethods = new List<CLMethod>();
+            AllDelegates = new List<CLDelegate>();
         }
 
         public void Initialize()
@@ -217,17 +223,17 @@ namespace BinderMaker
                 return type;
             }
 
-            // 構造体
-            foreach (var t in AllStructs)
+            // 列挙型
+            foreach (var t in AllEnums)
             {
                 if (name.IndexOf(t.Name) >= 0)
                     return t;
             }
 
-            // 列挙型
-            foreach (var t in AllEnums)
+            // delegate
+            foreach (var t in AllDelegates)
             {
-                if (name.IndexOf(t.Name) >= 0)
+                if (name.IndexOf(t.OriginalName) >= 0)
                     return t;
             }
 

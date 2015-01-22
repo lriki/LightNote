@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BinderMaker
 {
     [Flags]
-    enum ParamAttribute
+    enum IOModifier
     {
         None = 0x00,
         In = 0x01,
@@ -67,6 +67,21 @@ namespace BinderMaker
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// コンストラクタ (空)
+        /// </summary>
+        public CLDocument()
+        {
+            OriginalBriefText = "";
+            OriginalParams = new List<CLParamDocument>();
+            OriginalReturnText = "";
+            OriginalDetailsText = "";
+            ReplaceDocs = new List<CLReplaceDocument>();
+            PostscriptDocs = new List<CLPostscriptDocument>();
+            OverwriteDocs = new List<CLOverwriteDocument>();
+            ExampleDocs = new List<CLExampleDocument>();
+        }
 
         /// <summary>
         /// コンストラクタ
@@ -142,7 +157,7 @@ namespace BinderMaker
         /// <summary>
         /// 入出力
         /// </summary>
-        public ParamAttribute Attribute { get; private set; }
+        public IOModifier IOModifier { get; private set; }
 
         /// <summary>
         /// 名前
@@ -167,10 +182,10 @@ namespace BinderMaker
         public CLParamDocument(string io, string name, string text)
         {
             // io は "[]" が含まれている。IndexOf で探す
-            Attribute = 0;
-            Attribute |= (io.IndexOf("in") >= 0) ? ParamAttribute.In : 0;
-            Attribute |= (io.IndexOf("out") >= 0) ? ParamAttribute.Out : 0;
-            if (Attribute == 0)
+            IOModifier = 0;
+            IOModifier |= (io.IndexOf("in") >= 0) ? IOModifier.In : 0;
+            IOModifier |= (io.IndexOf("out") >= 0) ? IOModifier.Out : 0;
+            if (IOModifier == 0)
                 throw new InvalidOperationException("io empty");  // IO が空等
 
             Name = name.Trim();

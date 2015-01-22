@@ -23,7 +23,7 @@ namespace BinderMaker.Parser
             select new CLStructMember(type, name, comment);
         
         // struct 定義
-        private static readonly Parser<CLStruct> StructDecl =
+        private static readonly Parser<CLStructDef> StructDecl =
             from comment    in ParserUtils.DoxyLineComment1              // コメント
             from start      in Parse.String("struct").GenericToken()
             from name       in ParserUtils.Identifier.GenericToken()    // 名前
@@ -31,7 +31,7 @@ namespace BinderMaker.Parser
             from members    in StructMember.Many()                        // メンバ
             from rbrace     in Parse.Char('}').GenericToken()
             from end        in Parse.Char(';').GenericToken()
-            select new CLStruct(comment, name, members);
+            select new CLStructDef(comment, name, members);
 
         #endregion
 

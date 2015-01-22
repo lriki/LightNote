@@ -178,9 +178,14 @@ namespace BinderMaker
     /// <summary>
     /// struct 定義
     /// </summary>
-    class CLStruct : CLType
+    class CLStructDef : CLEntity
     {
         #region Properties
+        /// <summary>
+        /// オリジナルの名前
+        /// </summary>
+        public string OriginalName { get; private set; }
+
         /// <summary>
         /// コメント
         /// </summary>
@@ -204,8 +209,9 @@ namespace BinderMaker
         /// <param name="comment"></param>
         /// <param name="name"></param>
         /// <param name="members"></param>
-        public CLStruct(string comment, string name, IEnumerable<CLStructMember> members)
+        public CLStructDef(string comment, string name, IEnumerable<CLStructMember> members)
         {
+            OriginalName = name;
             Comment = comment.Trim();
             Name = name.Trim().Substring(2);   // プレフィックスを取り除く
             Members = new List<CLStructMember>(members);
@@ -418,6 +424,17 @@ namespace BinderMaker
                     else
                         name += textInfo.ToTitleCase(textInfo.ToLower(idents[i]));//char.ToUpper(idents[i][0]) + idents[i].Substring(1);    // 文字列の先頭を大文字に
                 }
+
+
+                //---------------------------------------------
+                // LN_BUTTON 特殊化 (数値だけになってしまうものは頭に "Button" を付ける)
+                if (idents[1] == "BUTTON")
+                {
+                    int tmp;
+                    if (int.TryParse(name, out tmp))
+                        name = "Button" + name;
+                }
+
                 return name;
             }
         }
@@ -446,10 +463,15 @@ namespace BinderMaker
     {
         #region Fields
         private string _originalReturnTypeName;
-        private string _originalName;           // オリジナルの名前
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// オリジナルの名前
+        /// </summary>
+        public string OriginalName { get; private set; }
+
         /// <summary>
         /// ドキュメント
         /// </summary>
@@ -466,15 +488,25 @@ namespace BinderMaker
         public List<CLParam> Params { get; private set; }
         #endregion
 
+        #region Methods
         public CLDelegate(CLDocument doc, string returnType, string name, IEnumerable<CLParam> params1)
         {
             _originalReturnTypeName = returnType;
-            _originalName = name;
+            OriginalName = name;
 
             Document = doc;
             Name = name.Substring(2);   // プレフィックスを取り除く
             Params = new List<CLParam>(params1);
         }
-        
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、階層的に Manager の管理リストに登録する
+        /// </summary>
+        public override void Register()
+        {
+            base.Register();
+            Manager.AllDelegates.Add(this);
+        }
+        #endregion
     }
 }

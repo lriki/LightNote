@@ -180,8 +180,11 @@ typedef intptr_t				lnIntPtr;
 #define LN_MODULE_END
 #define LN_CLASS(x)
 #define LN_STATIC_CLASS(x)
+#define LN_STRUCT_CLASS(x)
+#define LN_EXTENSION_CLASS(x)
 #define LN_CLASS_END
 #define LN_INSTANCE_API
+#define LN_INTERNAL_API
 #define LN_STATIC_API
 #define LN_PROPERTY
 
