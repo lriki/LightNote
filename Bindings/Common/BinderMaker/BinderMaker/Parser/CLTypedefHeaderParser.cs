@@ -102,12 +102,12 @@ namespace BinderMaker.Parser
 
         #region Methods
 
-        public void Analyze(string filePath)
+        public List<CLEntity> Analyze(string filePath)
         {
             string text = System.IO.File.ReadAllText(filePath);
             text = text.Replace("\r\n", "\n");  // 改行コードは LF に統一
             var decls = CompileUnit.Parse(text);
-            Console.WriteLine(decls);
+            return new List<CLEntity>(decls);
         }
 
         #endregion

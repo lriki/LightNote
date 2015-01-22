@@ -122,7 +122,8 @@ namespace BinderMaker.Parser
             from lparen     in Parse.Char('(').GenericToken()
             from name       in ParserUtils.Identifier.GenericToken()
             from rparen     in Parse.Char(')')
-            select start + lparen + name + rparen;  // とりあえずこの形式を許可したいだけなので文字列として返す
+            from ptr        in Parse.String("*").Or(Parse.Return(""))       // opt
+            select start + lparen + name + rparen + new string(ptr.ToArray());  // とりあえずこの形式を許可したいだけなので文字列として返す
 
         // 仮引数用の型名 (LN_HANDLE() または型名。LN_HANDLE は Identifer なので TypeName とのorの左側で先にパースする)
         private static readonly Parser<string> ParamType =
@@ -211,7 +212,7 @@ namespace BinderMaker.Parser
         private static readonly Parser<CLMethod> MethodDecl =
             from doc        in DocumentComment.GenericToken()
             from func       in FuncDecl.GenericToken()
-            from option     in (OptionComment.GenericToken()).Or(Parse.Return<CLOption>(null))
+            from option     in (OptionComment.GenericToken()).Or(Parse.Return(new CLOption()))
             select new CLMethod(doc, func, option);
 
         // クラス定義
@@ -223,7 +224,7 @@ namespace BinderMaker.Parser
             from rparen     in Parse.Char(')').GenericToken()
             from lead       in Parse.AnyChar.Except(Parse.String("/**")).Many().Text()  // 最初のドキュメントコメントまでを読み飛ばす (/** は消費しない)
             from methods    in MethodDecl.Many()
-            from classOpt   in (OptionComment.GenericToken()).Or(Parse.Return<CLOption>(null))
+            from classOpt   in (OptionComment.GenericToken()).Or(Parse.Return(new CLOption()))
             from end        in Parse.String("LN_CLASS_END")
             select new CLClass(doc, name, methods, classOpt);
 

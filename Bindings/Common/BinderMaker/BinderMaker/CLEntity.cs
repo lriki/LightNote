@@ -21,6 +21,13 @@ namespace BinderMaker
         /// </summary>
         public CLEntity()
         {
+        }
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、階層的に Manager の管理リストに登録する
+        /// </summary>
+        public virtual void Register()
+        {
             Manager.AllEntities.Add(this);
         }
 
@@ -30,6 +37,8 @@ namespace BinderMaker
         public virtual void LinkTypes()
         {
         }
+
+        
         #endregion
     }
 
@@ -44,6 +53,14 @@ namespace BinderMaker
         /// </summary>
         public CLType()
         {
+        }
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、階層的に Manager の管理リストに登録する
+        /// </summary>
+        public override void Register()
+        {
+            base.Register();
             Manager.AllTypes.Add(this);
         }
         #endregion
@@ -70,12 +87,20 @@ namespace BinderMaker
         public static CLPrimitiveType HWND = new CLPrimitiveType("HWND");
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// 名前
+        /// </summary>
+        public string Name { get; private set; }
+        #endregion
+
         #region Methods
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public CLPrimitiveType(string name)
         {
+            Name = name;
         }
         #endregion
     }
@@ -182,8 +207,16 @@ namespace BinderMaker
             Comment = comment;
             Name = name.Substring(2);   // プレフィックスを取り除く
             Members = new List<CLStructMember>(members);
+        }
 
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、階層的に Manager の管理リストに登録する
+        /// </summary>
+        public override void Register()
+        {
+            base.Register();
             Manager.AllStructs.Add(this);
+            Members.ForEach((c) => c.Register());
         }
         #endregion
     }
@@ -259,8 +292,16 @@ namespace BinderMaker
             Comment = comment;
             Name = name.Substring(2);   // プレフィックスを取り除く
             Members = new List<CLEnumMember>(members);
+        }
 
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、階層的に Manager の管理リストに登録する
+        /// </summary>
+        public override void Register()
+        {
+            base.Register();
             Manager.AllEnums.Add(this);
+            Members.ForEach((c) => c.Register());
         }
         #endregion
     }

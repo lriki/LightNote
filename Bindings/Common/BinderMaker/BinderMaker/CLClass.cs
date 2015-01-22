@@ -83,6 +83,18 @@ namespace BinderMaker
             IsGeneric = true;
         }
 
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、階層的に Manager の管理リストに登録する
+        /// </summary>
+        public override void Register()
+        {
+            base.Register();
+            Manager.AllClasses.Add(this);
+            Document.Register();
+            Methods.ForEach((c) => c.Register());
+            Option.Register();
+        }
+
         #endregion
     }
 }

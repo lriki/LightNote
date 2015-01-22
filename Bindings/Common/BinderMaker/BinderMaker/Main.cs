@@ -23,7 +23,7 @@ namespace BinderMaker
             CLManager.Instance.Initialize();
 
             var typedefParser = new Parser.CLTypedefHeaderParser();
-            typedefParser.Analyze("../../../../../../LightNote/Source/C_API/LFTypedef2.h");
+            var typedefs = typedefParser.Analyze("../../../../../../LightNote/Source/C_API/LFTypedef2.h");
 
             var apiHeaders = new string[]
             {
@@ -33,6 +33,7 @@ namespace BinderMaker
             var parser = new Parser.CLAPIHeaderParser();
             var modules = parser.Analyze(apiHeaders);
 
+            CLManager.Instance.RegisterEntities(typedefs, modules);
             CLManager.Instance.LinkEntities();
 
             //Console.WriteLine(modules);

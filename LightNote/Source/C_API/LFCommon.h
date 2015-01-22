@@ -173,3 +173,24 @@ typedef intptr_t				lnIntPtr;
 //------------------------------------------------------------------------------
 //
 #include <stdio.h>
+
+
+//------------------------------------------------------------------------------
+#define LN_MODULE(x)
+#define LN_MODULE_END
+#define LN_CLASS(x)
+#define LN_STATIC_CLASS(x)
+#define LN_CLASS_END
+#define LUMINO_INSTANCE_API
+#define LUMINO_STATIC_API
+#define LUMINO_PROPERTY
+
+#define LN_HANDLE(x) LNHandle
+
+#ifdef __cplusplus
+	// C++ ビルド時はデフォルト引数を有効にする
+	#define LN_DEFAULT_ARG(x) =x
+#else
+	// C ビルド時は無効にする
+	#define LN_DEFAULT_ARG(x)
+#endif

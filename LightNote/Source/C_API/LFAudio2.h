@@ -4,14 +4,6 @@
 #include "LFCommon.h"
 #include "LFTypedef.h"
 
-#define LN_DOCUMENT_GROUP(x)
-#define LN_DOCUMENT_GROUP_END
-#define LN_STATIC_CLASS(x)
-#define LN_STATIC_CLASS_END
-#define LUMINO_INSTANCE_API
-#define LUMINO_PROPERTY
-
-
 extern "C" {
 
 /**
@@ -319,7 +311,7 @@ LN_CLASS(LNSound)
 		@param[in]	playType	: 音声の再生方法
 	*/
 	LUMINO_INSTANCE_API
-	LNResult LNSound_Create(LNHandle* sound, const LNChar* filePath, LNBool enable3d LN_DEFAULT_ARG(LN_FALSE), LNSoundPlayingType playType LN_DEFAULT_ARG(LN_SOUNDPLAYINGTYPE_AUTO) );
+	LNResult LNSound_Create(LN_HANDLE(LNSound)* sound, const LNChar* filePath, LNBool enable3d LN_DEFAULT_ARG(LN_FALSE), LNSoundPlayingType playType LN_DEFAULT_ARG(LN_SOUNDPLAYINGTYPE_AUTO) );
 	
 	
 	/**
@@ -330,7 +322,7 @@ LN_CLASS(LNSound)
 		@param[in]	enable3d	: true の場合、3D 音源として作成する
 	*/
 	LUMINO_INSTANCE_API
-	LNResult LNSound_CreateMem(LNHandle* sound, const void* data, int dataSize, LNBool enable3d LN_DEFAULT_ARG(LN_FALSE));
+	LNResult LNSound_CreateMem(LN_HANDLE(LNSound)* sound, const void* data, int dataSize, LNBool enable3d LN_DEFAULT_ARG(LN_FALSE));
 
 	/**
 		@brief		ボリュームの設定
@@ -339,7 +331,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_SetVolume(LN_HANDLE(Sound) sound, int volume);
+	LNResult LNSound_SetVolume(LN_HANDLE(LNSound) sound, int volume);
 
 	/**
 		@brief		ボリュームの取得
@@ -348,7 +340,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_GetVolume(LNHandle sound, int* volume);
+	LNResult LNSound_GetVolume(LN_HANDLE(LNSound) sound, int* volume);
 
 	/**
 		@brief		ピッチの設定
@@ -357,7 +349,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_SetPitch(LNHandle sound, int pitch);
+	LNResult LNSound_SetPitch(LN_HANDLE(LNSound) sound, int pitch);
 
 	/**
 		@brief		ピッチの取得
@@ -366,7 +358,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_GetPitch(LNHandle sound, int* pitch);
+	LNResult LNSound_GetPitch(LN_HANDLE(LNSound) sound, int* pitch);
 
 	/**
 		@brief		ループ再生の有効設定
@@ -378,7 +370,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_SetLoopState(LNHandle sound, LNBool loopEnable, int begin LN_DEFAULT_ARG(0), int length LN_DEFAULT_ARG(0));
+	LNResult LNSound_SetLoopState(LN_HANDLE(LNSound) sound, LNBool loopEnable, int begin LN_DEFAULT_ARG(0), int length LN_DEFAULT_ARG(0));
 
 	/**
 		@brief		ループ再生が有効かを調べる
@@ -387,7 +379,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_IsLoop(LNHandle sound, LNBool* enabled);
+	LNResult LNSound_IsLoop(LN_HANDLE(LNSound) sound, LNBool* enabled);
 
 	/**
 		@brief		サウンドの再生状態を取得する
@@ -396,21 +388,21 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_GetPlayState(LNHandle sound, LNSoundPlayingState* state);
+	LNResult LNSound_GetPlayState(LN_HANDLE(LNSound) sound, LNSoundPlayingState* state);
 
 	/**
 		@brief		音声を再生する
 		@param[in]	sound		: サウンドハンドル
 	*/
 	LUMINO_INSTANCE_API
-	LNResult LNSound_Play(LNHandle sound);
+	LNResult LNSound_Play(LN_HANDLE(LNSound) sound);
 
 	/**
 		@brief		再生を停止する
 		@param[in]	sound		: サウンドハンドル
 	*/
 	LUMINO_INSTANCE_API
-	LNResult LNSound_Stop(LNHandle sound);
+	LNResult LNSound_Stop(LN_HANDLE(LNSound) sound);
 
 	/**
 		@brief		一時停止
@@ -418,7 +410,7 @@ LN_CLASS(LNSound)
 		@param[in]	pause		: LN_TRUE = 一時停止 / LN_FALSE = 一時停止解除
 	*/
 	LUMINO_INSTANCE_API
-	LNResult LNSound_Pause(LNHandle sound, LNBool pause);
+	LNResult LNSound_Pause(LN_HANDLE(LNSound) sound, LNBool pause);
 
 	/**
 		@brief		音量のフェード
@@ -428,7 +420,7 @@ LN_CLASS(LNSound)
 		@param[in]	fadeState		: フェード完了後の動作の指定
 	*/
 	LUMINO_INSTANCE_API
-	LNResult LNSound_FadeVolume(LNHandle sound, int targetVolume, int time, LNSoundFadeState fadeState);
+	LNResult LNSound_FadeVolume(LN_HANDLE(LNSound) sound, int targetVolume, int time, LNSoundFadeState fadeState);
 
 	/**
 		@brief		再生したサンプル数の取得
@@ -437,7 +429,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_GetUnitsPlayed(LNHandle sound, int* samples);
+	LNResult LNSound_GetUnitsPlayed(LN_HANDLE(LNSound) sound, int* samples);
 
 	/**
 		@brief		音声データ全体のサンプル数の取得
@@ -446,7 +438,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_GetTotalUnits(LNHandle sound, int* samples);
+	LNResult LNSound_GetTotalUnits(LN_HANDLE(LNSound) sound, int* samples);
 
 	/**
 		@brief		サンプリング周波数の取得
@@ -455,7 +447,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_GetUnitsParSecond(LNHandle sound, int* frequency);
+	LNResult LNSound_GetUnitsParSecond(LN_HANDLE(LNSound) sound, int* frequency);
 
 	/**
 		@brief		3D 音源かを調べる
@@ -464,7 +456,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_Is3DSound(LNHandle sound, LNBool* enabled);
+	LNResult LNSound_Is3DSound(LN_HANDLE(LNSound) sound, LNBool* enabled);
 
 	/**
 		@brief		3D 音源としての位置を設定する
@@ -473,7 +465,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_SetEmitterPosition(LNHandle sound, const LNVector3* position);
+	LNResult LNSound_SetEmitterPosition(LN_HANDLE(LNSound) sound, const LNVector3* position);
 
 	/**
 		@brief		3D 音源としての位置を設定する
@@ -484,7 +476,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_SetEmitterPositionXYZ(LNHandle sound, float x, float y, float z);
+	LNResult LNSound_SetEmitterPositionXYZ(LN_HANDLE(LNSound) sound, float x, float y, float z);
 
 	/**
 		@brief		3D 音源としての速度を設定する
@@ -493,7 +485,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_SetEmitterVelocity(LNHandle sound, const LNVector3* velocity);
+	LNResult LNSound_SetEmitterVelocity(LN_HANDLE(LNSound) sound, const LNVector3* velocity);
 
 	/**
 		@brief		3D 音源としての速度を設定する
@@ -504,7 +496,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_SetEmitterVelocityXYZ(LNHandle sound, float x, float y, float z);
+	LNResult LNSound_SetEmitterVelocityXYZ(LN_HANDLE(LNSound) sound, float x, float y, float z);
 
 	/**
 		@brief		3D 音源の減衰距離 (聴こえなくなる距離) を設定する
@@ -513,7 +505,7 @@ LN_CLASS(LNSound)
 	*/
 	LUMINO_INSTANCE_API
 	LUMINO_PROPERTY
-	LNResult LNSound_SetEmitterDistance(LNHandle sound, float distance);
+	LNResult LNSound_SetEmitterDistance(LN_HANDLE(LNSound) sound, float distance);
 
 LN_CLASS_END
 	

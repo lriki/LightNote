@@ -30,15 +30,23 @@ namespace BinderMaker
 
         #region Methods
         /// <summary>
-        /// コンストラクタ
+        /// コンストラクタ (空のオプション)
         /// </summary>
         /// <param name="options"></param>
-        public CLOption(IEnumerable<CLEntity> options)
+        public CLOption()
         {
             DisableOptions = new List<CLDisableOption>();
             OverrideOptions = new List<CLOverrideOption>();
             ClassAddCodeOptions = new List<CLClassAddCodeOption>();
+        }
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="options"></param>
+        public CLOption(IEnumerable<CLEntity> options)
+            : this()    // コンストラクタ (空のオプション) 呼び出し
+        {
             // 振り分け
             foreach (var opt in options)
             {

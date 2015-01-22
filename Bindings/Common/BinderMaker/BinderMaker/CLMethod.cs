@@ -41,6 +41,18 @@ namespace BinderMaker
             FuncDecl = funcDecl;
             Option = option;
         }
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、階層的に Manager の管理リストに登録する
+        /// </summary>
+        public override void Register()
+        {
+            base.Register();
+            Document.Register();
+            FuncDecl.Register();
+            Option.Register();
+        }
+
         #endregion
     }
 
@@ -88,6 +100,15 @@ namespace BinderMaker
             Params = new List<CLParam>(params1);
             Params.ForEach((param) => param.OwnerFunc = this);  // 所持クラス割り当て
         }
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、階層的に Manager の管理リストに登録する
+        /// </summary>
+        public override void Register()
+        {
+            base.Register();
+            Params.ForEach((p) => p.Register());
+        }
         #endregion
     }
 
@@ -115,7 +136,7 @@ namespace BinderMaker
         public string Name { get; private set; }
 
         /// <summary>
-        /// 仮引数名
+        /// 親関数
         /// </summary>
         public CLFuncDecl OwnerFunc { get; set; }
         #endregion

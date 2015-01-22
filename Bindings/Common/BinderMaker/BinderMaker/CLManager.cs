@@ -15,6 +15,7 @@ namespace BinderMaker
         //②型の割り当て
         //③オーバーロードメソッドの集計
         //④プロパティの集計
+        //⑤出力言語の指定
 
         #region Constants
         private const string HandleTypeParamMacro = "LN_HANDLE";
@@ -26,10 +27,33 @@ namespace BinderMaker
         /// <summary>
         /// 基本的なC言語の型と CLType との変換テーブル
         /// </summary>
-        private static Dictionary<string, CLType> _typeInfoTable;
+        private static Dictionary<string, CLType> _typeInfoTable = new Dictionary<string, CLType>()
+        {
+            { "void",               CLPrimitiveType.Void },
+            { "void*",              CLClass.ByteArray },
+            { "const void*",        CLClass.ByteArray },
+            { "void**",             CLClass.ByteArray },  //TODO: この2つは
+            { "const void**",       CLClass.ByteArray },   //TODO: バッファクラスを用意する必要がありそう
+
+            { "const LNChar*",      CLPrimitiveType.String },
+            { "const LNChar**",     CLPrimitiveType.String },
+
+            { "int",                CLPrimitiveType.Int },
+            { "int*",               CLPrimitiveType.Int },
+            { "float",              CLPrimitiveType.Float },
+            { "float*",             CLPrimitiveType.Float },
+            { "double",             CLPrimitiveType.Double },
+            { "LNBool",             CLPrimitiveType.Bool },
+            { "LNBool*",　          CLPrimitiveType.Bool },
+            { "LNU8",               CLPrimitiveType.Byte },
+            { "LNU32",              CLPrimitiveType.UInt32 },
+
+            //{ "lnIntPtr",           CLPrimitiveType.IntPtr },
+            
+            { "const int*",         CLClass.IntArray },
+        }; 
 
         #endregion
-
 
         #region Properties
         /// <summary>
@@ -48,12 +72,17 @@ namespace BinderMaker
         public List<CLType> AllTypes { get; private set; }
 
         /// <summary>
+        /// 全クラスリスト
+        /// </summary>
+        public List<CLClass> AllClasses { get; private set; }
+
+        /// <summary>
         /// 全 struct 型リスト
         /// </summary>
         public List<CLStruct> AllStructs { get; private set; }
 
         /// <summary>
-        /// 全 struct 型リスト
+        /// 全 enum 型リスト
         /// </summary>
         public List<CLEnum> AllEnums { get; private set; }
         #endregion
@@ -66,38 +95,29 @@ namespace BinderMaker
         {
             AllEntities = new List<CLEntity>();
             AllTypes = new List<CLType>();
+            AllClasses = new List<CLClass>();
             AllStructs = new List<CLStruct>();
             AllEnums = new List<CLEnum>();
-
         }
 
         public void Initialize()
         {
-            _typeInfoTable = new Dictionary<string, CLType>()
-            {
-                { "void",               CLPrimitiveType.Void },
-                { "void*",              CLClass.ByteArray },
-                { "const void*",        CLClass.ByteArray },
-                { "void**",             CLClass.ByteArray },  //TODO: この2つは
-                { "const void**",       CLClass.ByteArray },   //TODO: バッファクラスを用意する必要がありそう
-
-                { "const LNChar*",      CLPrimitiveType.String },
-                { "const LNChar**",     CLPrimitiveType.String },
-
-                { "int",                CLPrimitiveType.Int },
-                { "int*",               CLPrimitiveType.Int },
-                { "float",              CLPrimitiveType.Float },
-                { "float*",             CLPrimitiveType.Float },
-                { "double",             CLPrimitiveType.Double },
-                { "LNBool",             CLPrimitiveType.Bool },
-                { "LNBool*",　          CLPrimitiveType.Bool },
-                { "LNU8",               CLPrimitiveType.Byte },
-                { "LNU32",              CLPrimitiveType.UInt32 },
-
-                //{ "lnIntPtr",           CLPrimitiveType.IntPtr },
             
-                { "const int*",         CLClass.IntArray },
-            }; 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void RegisterEntities(List<CLEntity> typedefs, List<CLModule> modules)
+        {
+            foreach (var m in typedefs)
+            {
+                m.Register();
+            }
+            foreach (var m in modules)
+            {
+                m.Register();
+            }
         }
 
         /// <summary>
@@ -129,6 +149,7 @@ namespace BinderMaker
                     .Substring(idx + HandleTypeParamMacro.Length)
                     .Replace("(", "")
                     .Replace(")", "")
+                    .Replace("*", "")
                     .Trim();
                 foreach (var t in AllTypes)
                 {
@@ -150,6 +171,7 @@ namespace BinderMaker
                     .Substring(idx + GenericHandleTypeParamMacro.Length)
                     .Replace("(", "")
                     .Replace(")", "")
+                    .Replace("*", "")
                     .Trim();
                 foreach (var t in AllTypes)
                 {
