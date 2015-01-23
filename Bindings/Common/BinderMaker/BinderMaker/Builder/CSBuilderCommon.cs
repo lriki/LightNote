@@ -67,6 +67,30 @@ namespace BinderMaker.Builder
         }
 
         /// <summary>
+        /// return コメント作成
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="param"></param>
+        public static void MakeReturnXMLComment(OutputBuffer buffer, string text)
+        {
+            if (!string.IsNullOrEmpty(text))
+                CSBuilderCommon.XMLCommentTemplate_Return.Replace("DETAIL", text);
+        }
+
+        /// <summary>
+        /// remarks コメント作成 (\n 付き。)
+        /// </summary>
+        /// <param name="cppSummary"></param>
+        /// <returns></returns>
+        public static void MakeRemarksXMLComment(OutputBuffer buffer, string cppRemakes)
+        {
+            // <br> いらない
+            cppRemakes = cppRemakes.Replace("<br>", "");
+            if (!string.IsNullOrEmpty(cppRemakes))
+                buffer.AppendWithIndent(MakeRemarksXMLComment(cppRemakes));
+        }
+
+        /// <summary>
         /// remakes コメント作成
         /// </summary>
         /// <returns></returns>
@@ -118,6 +142,28 @@ namespace BinderMaker.Builder
 
             // それ以外は GetParamModifier と同じ
             return GetParamIOModifier(param);
+        }
+
+        /// <summary>
+        /// C# の型名を求める
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string MakeTypeName(CLType type)
+        {
+            // テーブルにあればそれを使う
+            string name;
+            if (PrimitiveTypeNameTable.TryGetValue(type, out name))
+                return name;
+
+            // enum 型
+            if (type is CLEnum) return ((CLEnum)type).Name;
+            // class 型
+            if (type is CLClass) return ((CLClass)type).Name;
+            // delegate 型
+            if (type is CLDelegate) return ((CLDelegate)type).Name;
+
+            throw new InvalidOperationException();
         }
 
         //public static string ConvertTypeToName(CLType type, CLType genericTypeArg)

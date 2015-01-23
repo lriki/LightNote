@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BinderMaker
@@ -38,7 +39,17 @@ namespace BinderMaker
         }
 
         /// <summary>
-        /// メソッドの @brief 説明文
+        /// クラスの brief 説明文
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public string GetBriefText(CLClass classType)
+        {
+            return MakeText(classType.Document.OriginalBriefText, classType.Document, BriefTag);
+        }
+
+        /// <summary>
+        /// メソッドの brief 説明文
         /// </summary>
         /// <param name="method"></param>
         /// <returns></returns>
@@ -46,6 +57,70 @@ namespace BinderMaker
         {
             return MakeText(method.Document.OriginalBriefText, method.Document, BriefTag);
         }
+
+        /// <summary>
+        /// 仮引数の説明文
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public string GetParamText(CLParam param)
+        {
+            return MakeText(param.Document.OriginalText, param.OwnerFunc.OwnerMethod.Document, ParamTag);
+        }
+
+        /// <summary>
+        /// クラスの details 説明文
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public string GetDetailsText(CLClass classType)
+        {
+            return MakeText(classType.Document.OriginalDetailsText, classType.Document, DetailsTag);
+        }
+
+        /// <summary>
+        /// メソッドの details 説明文
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public string GetDetailsText(CLMethod method)
+        {
+            return MakeText(method.Document.OriginalDetailsText, method.Document, DetailsTag);
+        }
+
+        /// <summary>
+        /// return Param コメント作成
+        /// (return として選択された Param のコメント作成で使用する)
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="cppReturn"></param>
+        public string GetReturnParamText(CLParam param)
+        {
+            if (param == null) return "";
+
+            string text = GetParamText(param);
+            // "演算結果を格納する Vector3 変数" 等の後半を切り取る
+            var r = new Regex("を格納する.*");
+            return r.Replace(text, "");
+        }
+
+        /// <summary>
+        /// メソッドのオーバーライドコード
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public bool TryGetOverrideCode(CLMethod method, out string code)
+        {
+            var d = method.Option.OverrideOptions.Find((opt) => opt.LangFlags == _langFlags);
+            if (d != null)
+            {
+                code = d.Code;
+                return true;
+            }
+            code = "";
+            return false;
+        }
+
 
         private string MakeText(string srcText, CLDocument doc, string targetSection)
         {
@@ -70,24 +145,5 @@ namespace BinderMaker
             return srcText;
         }
 
-        /// <summary>
-        /// 仮引数の説明文
-        /// </summary>
-        /// <param name="method"></param>
-        /// <returns></returns>
-        public string GetParamText(CLParam param)
-        {
-            return MakeText(param.Document.OriginalText, param.OwnerFunc.OwnerMethod.Document, ParamTag);
-        }
-
-        /// <summary>
-        /// details の説明文
-        /// </summary>
-        /// <param name="method"></param>
-        /// <returns></returns>
-        public string GetDetailsText(CLMethod method)
-        {
-            return MakeText(method.Document.OriginalDetailsText, method.Document, DetailsTag);
-        }
     }
 }

@@ -1278,654 +1278,719 @@ namespace LN
         internal const CallingConvention DefaultCallingConvention = CallingConvention.Cdecl;
         
         /// <summary>
-        /// 指定した x y 座標の点が矩形に含まれているかを判別する
+        /// 2D ベクトルに値を設定する
         /// </summary>
-        /// <param name="rect">処理の基になる Rect</param>
-        /// <param name="x">X 座標</param>
-        /// <param name="y">Y 座標</param>
-        /// <param name="result">結果を格納する変数</param>
+        /// <param name="vec">値を格納する 2D ベクトル</param>
+        /// <param name="x">X 値</param>
+        /// <param name="y">Y 値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNRect_Contains(ref Rect rect,  int x,  int y, out bool result);
+        public extern static Result LNVector2_Set(ref Vector2 vec,  float x,  float y);
 
         /// <summary>
-        /// 例外発生時にコールバックされる関数を登録する
+        /// 2D ベクトルの長さを計算する
         /// </summary>
-        /// <param name="handler"></param>
+        /// <param name="vec">処理の基になる 2D ベクトル</param>
+        /// <param name="outLength">ベクトルの長さを格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNException_SetHandler( ExceptionCallback handler);
+        public extern static Result LNVector2_GetLength(ref Vector2 vec, out float outLength);
 
         /// <summary>
-        /// 例外を発生させる
+        /// 2D ベクトルの長さの2乗を計算する
         /// </summary>
-        /// <param name="errCode"></param>
-        /// <param name="message"></param>
-        /// <param name="file"></param>
-        /// <param name="line"></param>
-        /// <param name="func"></param>
+        /// <param name="vec">処理の基になる 2D ベクトル</param>
+        /// <param name="outLength">ベクトルの長さの2乗を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNException_Raise( Result errCode,  string message,  string file,  int line,  string func);
+        public extern static Result LNVector2_GetSquareLength(ref Vector2 vec, out float outLength);
 
         /// <summary>
-        /// 最後に発生した例外のエラーコードを取得する
+        /// 2D ベクトルを正規化する
         /// </summary>
+        /// <param name="vec">処理の基になる 2D ベクトル</param>
+        /// <param name="outVec">演算結果を格納する 2D ベクトル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNException_GetLastErrorCode();
+        public extern static Result LNVector2_Normalize(ref Vector2 vec, out Vector2 outVec);
 
-        /// <summary>
-        /// 最後に発生した例外に対して、デフォルトの処理を行う (メッセージボックスを表示し、LNException_SetHandled(true))
-        /// </summary>
+        /// <param name="vec"></param>
+        /// <param name="length"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNException_ProcDefault();
+        public extern static Result LNVector2_GetLengthD(ref Vector2 vec,  double length);
 
-        /// <summary>
-        /// オブジェクトの解放
-        /// </summary>
-        /// <param name="hadnleObject">オブジェクトハンドル</param>
+        /// <param name="vec"></param>
+        /// <param name="length"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObject_Release( IntPtr hadnleObject);
+        public extern static Result LNVector2_GetSquareLengthD(ref Vector2 vec,  double length);
 
         /// <summary>
-        /// オブジェクトの参照カウントをインクリメントする
+        /// 3Dベクトルに値を設定する
         /// </summary>
-        /// <param name="hadnleObject">オブジェクトハンドル</param>
+        /// <param name="vec">値を格納するベクトル</param>
+        /// <param name="x">X 値</param>
+        /// <param name="y">Y 値</param>
+        /// <param name="z">Z 値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObject_AddRef( IntPtr hadnleObject);
+        public extern static Result LNVector3_Set(out Vector3 vec,  float x,  float y,  float z);
 
         /// <summary>
-        /// オブジェクトの参照カウント取得する
+        /// 3Dベクトルに値を設定する
         /// </summary>
-        /// <param name="hadnleObject">オブジェクトハンドル</param>
-        /// <param name="count">参照カウントを格納する変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObject_GetRefCount( IntPtr hadnleObject, out int count);
-
-        /// <param name="hadnleObject"></param>
+        /// <param name="vec">値を格納するベクトル</param>
+        /// <param name="vec2">2D ベクトル</param>
+        /// <param name="z">Z 値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static byte[] LNObject_GetTypeUserData( IntPtr hadnleObject);
+        public extern static Result LNVector3_SetVec2(out Vector3 vec, ref Vector2 vec2,  float z);
 
-        /// <param name="hadnleObject"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static byte[] LNObject_GetInternalObject( IntPtr hadnleObject);
-
         /// <summary>
-        /// オブジェクトリストに格納されているオブジェクトの数を取得する
+        /// 3Dベクトルの長さを計算する
         /// </summary>
-        /// <param name="objectList">オブジェクトリストハンドル</param>
-        /// <param name="count">要素の数を格納する変数</param>
+        /// <param name="vec">処理の基になるベクトル</param>
+        /// <param name="outLength">ベクトルの長さを格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObjectList_GetCount( IntPtr objectList, out int count);
+        public extern static Result LNVector3_GetLength(ref Vector3 vec, out float outLength);
 
         /// <summary>
-        /// オブジェクトリストの指定したインデックスにオブジェクトを設定する
+        /// 3D ベクトルの長さの2乗を計算する
         /// </summary>
-        /// <param name="objectList">オブジェクトリストハンドル</param>
-        /// <param name="index">インデックス(要素番号)</param>
-        /// <param name="item">設定するオブジェクト</param>
+        /// <param name="vec">処理の基になる Vector3</param>
+        /// <param name="outLength">ベクトルの長さの2乗を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObjectList_SetAt( IntPtr objectList,  int index,  IntPtr item);
+        public extern static Result LNVector3_GetSquareLength(ref Vector3 vec, out float outLength);
 
         /// <summary>
-        /// オブジェクトリストの指定したインデックスのオブジェクトを取得する
+        /// 3D ベクトルを正規化する
         /// </summary>
-        /// <param name="objectList">オブジェクトリストハンドル</param>
-        /// <param name="index">インデックス(要素番号)</param>
-        /// <param name="outItem">オブジェクトを格納する変数</param>
+        /// <param name="vec">処理の基になる 3D ベクトル</param>
+        /// <param name="outVec">演算結果を格納する 3D ベクトル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObjectList_GetAt( IntPtr objectList,  int index, out IntPtr outItem);
+        public extern static Result LNVector3_Normalize(ref Vector3 vec, out Vector3 outVec);
 
         /// <summary>
-        /// オブジェクトリストの末尾にオブジェクトを追加する
+        /// 2 つの 3D ベクトルの内積を計算する
         /// </summary>
-        /// <param name="objectList">オブジェクトリストハンドル</param>
-        /// <param name="item">追加するオブジェクト</param>
+        /// <param name="vec1">処理の基になる 3D ベクトル</param>
+        /// <param name="vec2">処理の基になる 3D ベクトル</param>
+        /// <param name="dot">ベクトルの内積を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObjectList_Add( IntPtr objectList,  IntPtr item);
+        public extern static Result LNVector3_Dot(ref Vector3 vec1, ref Vector3 vec2, out float dot);
 
         /// <summary>
-        /// オブジェクトリストから全てのオブジェクトを削除する
+        /// 2 つの 3D ベクトルの外積を計算する
         /// </summary>
-        /// <param name="objectList">オブジェクトリストハンドル</param>
+        /// <param name="vec1">処理の基になる 3D ベクトル</param>
+        /// <param name="vec2">処理の基になる 3D ベクトル</param>
+        /// <param name="outVec">演算結果を格納する 3D ベクトル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObjectList_Clear( IntPtr objectList);
+        public extern static Result LNVector3_Cross(ref Vector3 vec1, ref Vector3 vec2, out Vector3 outVec);
 
         /// <summary>
-        /// オブジェクトリストの指定したインデックスの位置にオブジェクトを挿入する
+        /// 指定された法線で反射させたベクトルを計算する
         /// </summary>
-        /// <param name="objectList">オブジェクトリストハンドル</param>
-        /// <param name="index">item を挿入するインデックス</param>
-        /// <param name="item">挿入するオブジェクト</param>
+        /// <param name="vec">処理の基になる 3D ベクトル</param>
+        /// <param name="normal">面方向を表す法線 3D ベクトル</param>
+        /// <param name="outVec">演算結果を格納する 3D ベクトル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObjectList_Insert( IntPtr objectList,  int index,  IntPtr item);
+        public extern static Result LNVector3_Reflect(ref Vector3 vec, ref Vector3 normal, out Vector3 outVec);
 
         /// <summary>
-        /// オブジェクトリスト内で指定したハンドルと一致する最初のオブジェクトを削除する
+        /// 指定された法線と方向から滑りベクトルを計算する
         /// </summary>
-        /// <param name="objectList">オブジェクトリストハンドル</param>
-        /// <param name="item">リストから削除するオブジェクト</param>
+        /// <param name="vec">処理の基になる 3D ベクトル</param>
+        /// <param name="normal">面方向を表す法線 3D ベクトル</param>
+        /// <param name="outVec">演算結果を格納する 3D ベクトル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObjectList_Remove( IntPtr objectList,  IntPtr item);
+        public extern static Result LNVector3_Slide(ref Vector3 vec, ref Vector3 normal, out Vector3 outVec);
 
         /// <summary>
-        /// オブジェクトリスト内で指定したハンドルと一致する全てのオブジェクトを削除する
+        /// 2 つの 3D ベクトル間を線形補間する
         /// </summary>
-        /// <param name="objectList">オブジェクトリストハンドル</param>
-        /// <param name="item">リストから削除するオブジェクト</param>
+        /// <param name="vec1">処理の基になる 3D ベクトル ( t = 0.0 のときの値 )</param>
+        /// <param name="vec2">処理の基になる 3D ベクトル ( t = 1.0 のときの値 )</param>
+        /// <param name="t">補間値 ( 0.0 ～ 1.0 )</param>
+        /// <param name="outVec">演算結果を格納する 3D ベクトル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObjectList_RemoveAll( IntPtr objectList,  IntPtr item);
+        public extern static Result LNVector3_Lerp(ref Vector3 vec1, ref Vector3 vec2,  float t, out Vector3 outVec);
 
         /// <summary>
-        /// オブジェクトリストの指定したインデックスにあるオブジェクトを削除する
+        /// 指定された 3D ベクトルを Catmull-Rom 補間する
         /// </summary>
-        /// <param name="objectList">オブジェクトリストハンドル</param>
-        /// <param name="index">削除するオブジェクトのインデックス番号</param>
+        /// <param name="vec1">処理の基になる 3D ベクトル</param>
+        /// <param name="vec2">処理の基になる 3D ベクトル ( t = 0.0 のときの値 )</param>
+        /// <param name="vec3">処理の基になる 3D ベクトル ( t = 1.0 のときの値 )</param>
+        /// <param name="vec4">処理の基になる 3D ベクトル</param>
+        /// <param name="t">補間値 ( 0.0 ～ 1.0 )</param>
+        /// <param name="outVec">演算結果を格納する 3D ベクトル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNObjectList_RemoveAt( IntPtr objectList,  int index);
+        public extern static Result LNVector3_CatmullRom(ref Vector3 vec1, ref Vector3 vec2, ref Vector3 vec3, ref Vector3 vec4,  float t, out Vector3 outVec);
 
         /// <summary>
-        /// 整数型の多次元配列を作成する
+        /// 指定された行列を使用して座標変換する
         /// </summary>
-        /// <param name="intTable">作成されたテーブルハンドルを格納する変数</param>
-        /// <param name="xSize">X 要素数</param>
-        /// <param name="ySize">Y 要素数</param>
-        /// <param name="zSize">Z 要素数</param>
+        /// <param name="vec">処理の基になる 3D ベクトル</param>
+        /// <param name="mat">処理の基になる 行列</param>
+        /// <param name="outVec">演算結果を格納する 3D ベクトル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_Create(out IntPtr intTable,  int xSize,  int ySize = 1,  int zSize = 1);
+        public extern static Result LNVector3_Transform(ref Vector3 vec, ref Matrix mat, out Vector4 outVec);
 
         /// <summary>
-        /// 整数型の多次元配列を作成する
+        /// 指定された行列を使用して座標変換し、結果を w = 1 に射影する
         /// </summary>
-        /// <param name="intTable">作成されたテーブルハンドルを格納する変数</param>
-        /// <param name="xSize">X 要素数</param>
-        /// <param name="ySize">Y 要素数</param>
-        /// <param name="zSize">Z 要素数</param>
-        /// <param name="srcData">XXXX</param>
+        /// <param name="vec">処理の基になる 3D ベクトル</param>
+        /// <param name="mat">処理の基になる 行列</param>
+        /// <param name="outVec">演算結果を格納する 3D ベクトル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_CreateFromSrcData(out IntPtr intTable,  int xSize,  int ySize,  int zSize,  IntPtr srcData);
+        public extern static Result LNVector3_TransformCoord(ref Vector3 vec, ref Matrix mat, out Vector3 outVec);
 
-        /// <summary>
-        /// 整数型テーブルの指定したインデックスに値を設定する
-        /// </summary>
-        /// <param name="intTable">整数型テーブルハンドル</param>
-        /// <param name="xSize">X 要素インデックス</param>
-        /// <param name="ySize">Y 要素インデックス</param>
-        /// <param name="zSize">Z 要素インデックス</param>
-        /// <param name="value">設定する整数値</param>
+        /// <param name="vec"></param>
+        /// <param name="length"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_SetValue( IntPtr intTable,  int xSize,  int ySize,  int zSize,  int value);
+        public extern static Result LNVector3_GetLengthD(ref Vector3 vec,  double length);
 
-        /// <summary>
-        /// 整数型テーブルの指定したインデックスに値を設定する
-        /// </summary>
-        /// <param name="intTable">整数型テーブルハンドル</param>
-        /// <param name="xSize">X 要素インデックス</param>
-        /// <param name="ySize">Y 要素インデックス</param>
-        /// <param name="zSize">Z 要素インデックス</param>
-        /// <param name="value">値を格納する整数型変数</param>
+        /// <param name="vec"></param>
+        /// <param name="length"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_GetValue( IntPtr intTable,  int xSize,  int ySize,  int zSize, out int value);
+        public extern static Result LNVector3_GetSquareLengthD(ref Vector3 vec,  double length);
 
-        /// <summary>
-        /// 整数型テーブルの要素数を変更する
-        /// </summary>
-        /// <param name="intTable">整数型テーブルハンドル</param>
-        /// <param name="xSize">X 要素数</param>
-        /// <param name="ySize">Y 要素数</param>
-        /// <param name="zSize">Z 要素数</param>
+        /// <param name="vec1"></param>
+        /// <param name="vec2"></param>
+        /// <param name="dot"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_Resize( IntPtr intTable,  int xSize,  int ySize,  int zSize);
+        public extern static Result LNVector3_DotD(ref Vector3 vec1, ref Vector3 vec2,  double dot);
 
-        /// <summary>
-        /// 整数型テーブルの X 要素数を取得する
-        /// </summary>
-        /// <param name="intTable">整数型テーブルハンドル</param>
-        /// <param name="xSize">X 要素数を格納する変数</param>
+        /// <param name="vec1"></param>
+        /// <param name="vec2"></param>
+        /// <param name="t"></param>
+        /// <param name="outVec"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_GetXSize( IntPtr intTable, out int xSize);
+        public extern static Result LNVector3_LerpD(ref Vector3 vec1, ref Vector3 vec2,  double t, ref Vector3 outVec);
 
-        /// <summary>
-        /// 整数型テーブルの Y 要素数を取得する
-        /// </summary>
-        /// <param name="intTable">整数型テーブルハンドル</param>
-        /// <param name="ySize">Y 要素数を格納する変数</param>
+        /// <param name="vec1"></param>
+        /// <param name="vec2"></param>
+        /// <param name="vec3"></param>
+        /// <param name="vec4"></param>
+        /// <param name="t"></param>
+        /// <param name="outVec"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_GetYSize( IntPtr intTable, out int ySize);
+        public extern static Result LNVector3_CatmullRomD(ref Vector3 vec1, ref Vector3 vec2, ref Vector3 vec3, ref Vector3 vec4,  double t, ref Vector3 outVec);
 
         /// <summary>
-        /// 整数型テーブルの Z 要素数を取得する
+        /// 3Dベクトルに値を設定する
         /// </summary>
-        /// <param name="intTable">整数型テーブルハンドル</param>
-        /// <param name="zSize">Z 要素数を格納する変数</param>
+        /// <param name="vec">値を格納するベクトル</param>
+        /// <param name="x">X 値</param>
+        /// <param name="y">Y 値</param>
+        /// <param name="z">Z 値</param>
+        /// <param name="w">W 値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_GetZSize( IntPtr intTable, out int zSize);
+        public extern static Result LNVector4_Set(out Vector4 vec,  float x,  float y,  float z,  float w);
 
         /// <summary>
-        /// BGM を演奏する
+        /// 単位行列を作成する
         /// </summary>
-        /// <param name="filePath">ファイル名</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
-        /// <param name="fadeTime">フェードインにかける時間 (ミリ秒)</param>
+        /// <param name="mat">結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlayBGM( string filePath,  int volume = 100,  int pitch = 100,  int fadeTime = 0);
+        public extern static Result LNMatrix_Identity(out Matrix mat);
 
         /// <summary>
-        /// メモリ上の音声データから BGM を演奏する
+        /// 行列を平行移動する
         /// </summary>
-        /// <param name="data">メモリ上の音声ファイルデータ</param>
-        /// <param name="dataSize">データサイズ (バイト単位)</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
-        /// <param name="fadeTime">フェードインにかける時間 (ミリ秒)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="x">X 方向の移動量</param>
+        /// <param name="y">Y 方向の移動量</param>
+        /// <param name="z">Z 方向の移動量</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlayBGMMem( IntPtr data,  int dataSize,  int volume = 100,  int pitch = 100,  int fadeTime = 0);
+        public extern static Result LNMatrix_Translate(ref Matrix mat,  float x,  float y,  float z);
 
         /// <summary>
-        /// BGM の演奏を停止する
+        /// 行列を平行移動する
         /// </summary>
-        /// <param name="fadeTime">フェードアウトにかける時間 (ミリ秒)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="vec">移動量</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_StopBGM( int fadeTime = 0);
+        public extern static Result LNMatrix_TranslateVec3(ref Matrix mat, ref Vector3 vec);
 
         /// <summary>
-        /// BGS を演奏する
+        /// X 軸を回転軸にして行列を回転する ( ラジアン単位 )
         /// </summary>
-        /// <param name="filePath">ファイル名</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
-        /// <param name="fadeTime">フェードインにかける時間 (ミリ秒)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="radian">回転角度 ( 軸方向に対して反時計回り )</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlayBGS( string filePath,  int volume = 100,  int pitch = 100,  int fadeTime = 0);
+        public extern static Result LNMatrix_RotateX(ref Matrix mat,  float radian);
 
         /// <summary>
-        /// メモリ上の音声データから BGS を演奏する
+        /// Y 軸を回転軸にして行列を回転する ( ラジアン単位 )
         /// </summary>
-        /// <param name="data">メモリ上の音声ファイルデータ</param>
-        /// <param name="dataSize">データサイズ (バイト単位)</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
-        /// <param name="fadeTime">フェードインにかける時間 (ミリ秒)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="radian">回転角度</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlayBGSMem( IntPtr data,  int dataSize,  int volume = 100,  int pitch = 100,  int fadeTime = 0);
+        public extern static Result LNMatrix_RotateY(ref Matrix mat,  float radian);
 
         /// <summary>
-        /// BGS の演奏を停止する
+        /// Z 軸を回転軸にして行列を回転する ( ラジアン単位 )
         /// </summary>
-        /// <param name="fadeTime">フェードアウトにかける時間 (ミリ秒)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="radian">回転角度</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_StopBGS( int fadeTime = 0);
+        public extern static Result LNMatrix_RotateZ(ref Matrix mat,  float radian);
 
         /// <summary>
-        /// ME を演奏する
+        /// 行列を回転する ( ラジアン単位 )
         /// </summary>
-        /// <param name="filePath">ファイル名</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="xRad">X 軸を回転軸とした角度</param>
+        /// <param name="yRad">Y 軸を回転軸とした角度</param>
+        /// <param name="zRad">Z 軸を回転軸とした角度</param>
+        /// <param name="rotOrder">回転順序の指定</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlayME( string filePath,  int volume = 100,  int pitch = 100);
+        public extern static Result LNMatrix_Rotate(ref Matrix mat,  float xRad,  float yRad,  float zRad,  RotationOrder rotOrder = RotationOrder.XYZ);
 
         /// <summary>
-        /// メモリ上の音声データから ME を演奏する
+        /// 行列を回転する ( ラジアン単位 )
         /// </summary>
-        /// <param name="data">メモリ上の音声ファイルデータ</param>
-        /// <param name="dataSize">データサイズ (バイト単位)</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="vec">各軸の回転角度</param>
+        /// <param name="rotOrder">回転順序の指定</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlayMEMem( IntPtr data,  int dataSize,  int volume = 100,  int pitch = 100);
+        public extern static Result LNMatrix_RotateVec3(ref Matrix mat, ref Vector3 vec,  RotationOrder rotOrder = RotationOrder.XYZ);
 
         /// <summary>
-        /// ME の演奏を停止する
+        /// 任意の軸を回転軸にして行列を回転する ( ラジアン単位 )
         /// </summary>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="axis">回転軸を示す Vector3</param>
+        /// <param name="radian">回転角度</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNAudio_StopME();
+        public extern static Result LNMatrix_RotateAxis(ref Matrix mat, ref Vector3 axis,  float radian);
 
         /// <summary>
-        /// SE を演奏する
+        /// クォータニオンを使って行列を回転する
         /// </summary>
-        /// <param name="filePath">ファイル名</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="qua">処理の基になる Quaternion</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlaySE( string filePath,  int volume = 100,  int pitch = 100);
+        public extern static Result LNMatrix_RotateQuaternion(ref Matrix mat, ref Quaternion qua);
 
         /// <summary>
-        /// SE を演奏する (3D サウンド)
+        /// 行列をスケーリングする
         /// </summary>
-        /// <param name="filePath">ファイル名</param>
-        /// <param name="position">3D 空間上の座標</param>
-        /// <param name="distance">減衰距離</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="xyz">X Y Z 全ての方向に適用する拡大率 (X Y Z を同じ値で拡大)</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlaySE3D( string filePath, ref Vector3 position,  float distance,  int volume = 100,  int pitch = 100);
+        public extern static Result LNMatrix_Scale(ref Matrix mat,  float xyz);
 
         /// <summary>
-        /// SE を演奏する (3D サウンド)
+        /// 行列をスケーリングする
         /// </summary>
-        /// <param name="filePath">ファイル名</param>
-        /// <param name="x">3D 空間上の X 座標</param>
-        /// <param name="y">3D 空間上の Y 座標</param>
-        /// <param name="z">3D 空間上の Z 座標</param>
-        /// <param name="distance">減衰距離</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="x">X 方向の拡大率</param>
+        /// <param name="y">Y 方向の拡大率</param>
+        /// <param name="z">Z 方向の拡大率</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlaySE3DXYZ( string filePath,  float x,  float y,  float z,  float distance,  int volume = 100,  int pitch = 100);
+        public extern static Result LNMatrix_ScaleXYZ(ref Matrix mat,  float x,  float y,  float z);
 
         /// <summary>
-        /// メモリ上の音声データから SE を演奏する
+        /// 行列をスケーリングする
         /// </summary>
-        /// <param name="data">メモリ上の音声ファイルデータ</param>
-        /// <param name="dataSize">データサイズ (バイト単位)</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
+        /// <param name="mat">演算結果を格納する行列</param>
+        /// <param name="scale">各方向の拡大率</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlaySEMem( IntPtr data,  int dataSize,  int volume = 100,  int pitch = 100);
+        public extern static Result LNMatrix_ScaleVec3(ref Matrix mat, ref Vector3 scale);
 
         /// <summary>
-        /// メモリ上の音声データから SE を演奏する (3D サウンド)
+        /// 行列を乗算する
         /// </summary>
-        /// <param name="data">メモリ上の音声ファイルデータ</param>
-        /// <param name="dataSize">データサイズ (バイト単位)</param>
-        /// <param name="position">3D 空間上の座標</param>
-        /// <param name="distance">減衰距離</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
+        /// <param name="mat1">処理の基になる行列</param>
+        /// <param name="mat2">処理の基になる行列</param>
+        /// <param name="matOut">結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlaySE3DMem( IntPtr data,  int dataSize, ref Vector3 position,  float distance,  int volume = 100,  int pitch = 100);
+        public extern static Result LNMatrix_Multiply(ref Matrix mat1, ref Matrix mat2, out Matrix matOut);
 
         /// <summary>
-        /// メモリ上の音声データから SE を演奏する (3D サウンド)
+        /// 逆行列を求める
         /// </summary>
-        /// <param name="data">メモリ上の音声ファイルデータ</param>
-        /// <param name="dataSize">データサイズ (バイト単位)</param>
-        /// <param name="x">3D 空間上の X 座標</param>
-        /// <param name="y">3D 空間上の Y 座標</param>
-        /// <param name="z">3D 空間上の Z 座標</param>
-        /// <param name="distance">減衰距離</param>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="pitch">ピッチ (50 ～ 200)</param>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="matOut">演算結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_PlaySE3DMemXYZ( IntPtr data,  int dataSize,  float x,  float y,  float z,  float distance,  int volume = 100,  int pitch = 100);
+        public extern static Result LNMatrix_Inverse(ref Matrix mat, out Matrix matOut);
 
         /// <summary>
-        /// すべての SE の演奏を停止する
+        /// 転置行列を求める
         /// </summary>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="matOut">演算結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNAudio_StopSE();
+        public extern static Result LNMatrix_Transpose(ref Matrix mat, out Matrix matOut);
 
         /// <summary>
-        /// 3D 空間の1メートル相当の距離の設定
+        /// 左手座標系ビュー行列を作成する
         /// </summary>
-        /// <param name="distance">距離</param>
+        /// <param name="pos">視点の位置を示す Vector3</param>
+        /// <param name="lookAt">注視点を示す Vector3</param>
+        /// <param name="upDir">上方向を示す Vector3</param>
+        /// <param name="matOut">演算結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_SetMetreUnitDistance( float distance);
+        public extern static Result LNMatrix_ViewTransformLH(ref Vector3 pos, ref Vector3 lookAt, ref Vector3 upDir, out Matrix matOut);
 
         /// <summary>
-        /// 再生中のBGMの音量を設定する (フェードアウト中は無効)
+        /// 右手座標系ビュー行列を作成する
         /// </summary>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="fadeTime">フェードアウトにかける時間 (ミリ秒)</param>
+        /// <param name="pos">視点の位置を示す Vector3</param>
+        /// <param name="lookAt">注視点を示す Vector3</param>
+        /// <param name="upDir">上方向を示す Vector3</param>
+        /// <param name="matOut">演算結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_SetBGMVolume( int volume,  int fadeTime = 0);
+        public extern static Result LNMatrix_ViewTransformRH(ref Vector3 pos, ref Vector3 lookAt, ref Vector3 upDir, out Matrix matOut);
 
         /// <summary>
-        /// 再生中のBGSの音量を設定する (フェードアウト中は無効)
+        /// 左手座標系射影行列の作成
         /// </summary>
-        /// <param name="volume">ボリューム (0 ～ 100)</param>
-        /// <param name="fadeTime">フェードアウトにかける時間 (ミリ秒)</param>
+        /// <param name="fovY">Y 方向への視野角 (ラジアン単位)</param>
+        /// <param name="aspect">アスペクト比</param>
+        /// <param name="nearZ">近くのビュー平面の Z 値</param>
+        /// <param name="farZ">遠くのビュー平面の Z 値</param>
+        /// <param name="matOut">演算結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNAudio_SetBGSVolume( int volume,  int fadeTime = 0);
+        public extern static Result LNMatrix_PerspectiveFovLH( float fovY,  float aspect,  float nearZ,  float farZ, out Matrix matOut);
 
         /// <summary>
-        /// リスナーの位置の設定
+        /// 右手座標系射影行列の作成
         /// </summary>
-        /// <param name="position">3D 空間上の座標</param>
+        /// <param name="fovY">Y 方向への視野角 (ラジアン単位)</param>
+        /// <param name="aspect">アスペクト比</param>
+        /// <param name="nearZ">近くのビュー平面の Z 値</param>
+        /// <param name="farZ">遠くのビュー平面の Z 値</param>
+        /// <param name="matOut">演算結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSoundListener_SetPosition(ref Vector3 position);
+        public extern static Result LNMatrix_PerspectiveFovRH( float fovY,  float aspect,  float nearZ,  float farZ, out Matrix matOut);
 
         /// <summary>
-        /// リスナーの位置の設定
+        /// 左手座標系正射影行列の作成
         /// </summary>
-        /// <param name="x">3D 空間上の X 座標</param>
-        /// <param name="y">3D 空間上の Y 座標</param>
-        /// <param name="z">3D 空間上の Z 座標</param>
+        /// <param name="width">ビューの幅</param>
+        /// <param name="height">ビューの高さ</param>
+        /// <param name="nearZ">近くのビュー平面の Z 値</param>
+        /// <param name="farZ">遠くのビュー平面の Z 値</param>
+        /// <param name="matOut">演算結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNSoundListener_SetPositionXYZ( float x,  float y,  float z);
+        public extern static Result LNMatrix_OrthoLH( float width,  float height,  float nearZ,  float farZ, out Matrix matOut);
 
         /// <summary>
-        /// リスナーの正面方向の設定
+        /// 右手座標系正射影行列の作成
         /// </summary>
-        /// <param name="direction">向き</param>
+        /// <param name="width">ビューの幅</param>
+        /// <param name="height">ビューの高さ</param>
+        /// <param name="nearZ">近くのビュー平面の Z 値</param>
+        /// <param name="farZ">遠くのビュー平面の Z 値</param>
+        /// <param name="matOut">演算結果を格納する行列</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSoundListener_SetDirection(ref Vector3 direction);
+        public extern static Result LNMatrix_OrthoRH( float width,  float height,  float nearZ,  float farZ, out Matrix matOut);
 
         /// <summary>
-        /// リスナーの正面方向の設定
+        /// 右方向を示す 3D ベクトルの取得
         /// </summary>
-        /// <param name="x">向きの X 成分</param>
-        /// <param name="y">向きの Y 成分</param>
-        /// <param name="z">向きの Z 成分</param>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outVec">結果を格納する Vector3 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNSoundListener_SetDirectionXYZ( float x,  float y,  float z);
+        public extern static Result LNMatrix_GetRight(ref Matrix mat, out Vector3 outVec);
 
         /// <summary>
-        /// リスナーの上方向の設定 (正面方向とは直交であること)
+        /// 上方向を示す 3D ベクトルの取得
         /// </summary>
-        /// <param name="direction">上方向</param>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outVec">結果を格納する Vector3 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSoundListener_SetUpDirection(ref Vector3 direction);
+        public extern static Result LNMatrix_GetUp(ref Matrix mat, out Vector3 outVec);
 
         /// <summary>
-        /// リスナーの上方向の設定 (正面方向とは直交であること)
+        /// 正面方向を示す 3D ベクトルの取得
         /// </summary>
-        /// <param name="x">向きの X 成分</param>
-        /// <param name="y">向きの Y 成分</param>
-        /// <param name="z">向きの Z 成分</param>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outVec">結果を格納する Vector3 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNSoundListener_SetUpDirectionXYZ( float x,  float y,  float z);
+        public extern static Result LNMatrix_GetFront(ref Matrix mat, out Vector3 outVec);
 
         /// <summary>
-        /// リスナーの速度の設定
+        /// 位置を示す 3D ベクトルの取得
         /// </summary>
-        /// <param name="velocity">速度</param>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outVec">結果を格納する Vector3 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSoundListener_Velocity(ref Vector3 velocity);
+        public extern static Result LNMatrix_GetPosition(ref Matrix mat, out Vector3 outVec);
 
         /// <summary>
-        /// リスナーの速度の設定
+        /// 回転行列からオイラー角を計算する
         /// </summary>
-        /// <param name="x">速度の X 成分</param>
-        /// <param name="y">速度の Y 成分</param>
-        /// <param name="z">速度の Z 成分</param>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outVec">各軸の回転角度(ラジアン)を格納する Vector3 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNSoundListener_VelocityXYZ( float x,  float y,  float z);
+        public extern static Result LNMatrix_GetEulerAngles(ref Matrix mat, out Vector3 outVec);
 
         /// <summary>
-        /// ファイルから音声を作成する
+        /// 行列をスケーリング、回転、移動成分に分解する
         /// </summary>
-        /// <param name="sound">sound</param>
-        /// <param name="filePath">ファイル名</param>
-        /// <param name="enable3d">true の場合、3D 音源として作成する</param>
-        /// <param name="playType">音声の再生方法</param>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="scale">各軸のスケーリング量を格納する Vector3 変数</param>
+        /// <param name="rot">各軸の回転情報を格納する Quaternion 変数</param>
+        /// <param name="trans">各軸の平行移動量を格納する Vector3 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_Create(out IntPtr sound,  string filePath,  bool enable3d = false,  SoundPlayingType playType = SoundPlayingType.Auto);
+        public extern static Result LNMatrix_Decompose(ref Matrix mat, out Vector3 scale, out Quaternion rot, out Vector3 trans);
 
-        /// <summary>
-        /// メモリ上の音声ファイルデータから音声を作成する
-        /// </summary>
-        /// <param name="sound">sound</param>
-        /// <param name="data">メモリ上の音声データへのポインタ</param>
-        /// <param name="dataSize">データサイズ (バイト単位)</param>
-        /// <param name="enable3d">true の場合、3D 音源として作成する</param>
+        /// <param name="mat"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_CreateMem(out IntPtr sound,  IntPtr data,  int dataSize,  bool enable3d = false);
+        public extern static Result LNMatrix_TranslateD(ref Matrix mat,  double x,  double y,  double z);
 
-        /// <summary>
-        /// ボリュームの設定
-        /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="volume">ボリューム (0～100)</param>
+        /// <param name="mat"></param>
+        /// <param name="radian"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_SetVolume( IntPtr sound,  int volume);
+        public extern static Result LNMatrix_RotateXD(ref Matrix mat,  double radian);
 
-        /// <summary>
-        /// ボリュームの取得
-        /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="volume">ボリュームを格納する変数</param>
+        /// <param name="mat"></param>
+        /// <param name="radian"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_GetVolume( IntPtr sound, out int volume);
+        public extern static Result LNMatrix_RotateYD(ref Matrix mat,  double radian);
 
+        /// <param name="mat"></param>
+        /// <param name="radian"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_RotateZD(ref Matrix mat,  double radian);
+
+        /// <param name="mat"></param>
+        /// <param name="xRad"></param>
+        /// <param name="yRad"></param>
+        /// <param name="zRad"></param>
+        /// <param name="rotOrder"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_RotateD(ref Matrix mat,  double xRad,  double yRad,  double zRad,  RotationOrder rotOrder);
+
+        /// <param name="mat"></param>
+        /// <param name="axis"></param>
+        /// <param name="radian"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_RotateAxisD(ref Matrix mat, ref Vector3 axis,  double radian);
+
+        /// <param name="mat"></param>
+        /// <param name="xyz"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_ScaleD(ref Matrix mat,  double xyz);
+
+        /// <param name="mat"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_ScaleXYZD(ref Matrix mat,  double x,  double y,  double z);
+
+        /// <param name="mat"></param>
+        /// <param name="fovY"></param>
+        /// <param name="aspect"></param>
+        /// <param name="nearZ"></param>
+        /// <param name="farZ"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_PerspectiveFovLHD(ref Matrix mat,  double fovY,  double aspect,  double nearZ,  double farZ);
+
+        /// <param name="mat"></param>
+        /// <param name="fovY"></param>
+        /// <param name="aspect"></param>
+        /// <param name="nearZ"></param>
+        /// <param name="farZ"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_PerspectiveFovRHD(ref Matrix mat,  double fovY,  double aspect,  double nearZ,  double farZ);
+
+        /// <param name="mat"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="nearZ"></param>
+        /// <param name="farZ"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_OrthoLHD(ref Matrix mat,  double width,  double height,  double nearZ,  double farZ);
+
+        /// <param name="mat"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="nearZ"></param>
+        /// <param name="farZ"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_OrthoRHD(ref Matrix mat,  double width,  double height,  double nearZ,  double farZ);
+
         /// <summary>
-        /// ピッチの設定
+        /// クォータニオンに値を設定する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="pitch">ピッチ (50～200)</param>
+        /// <param name="qua">値を格納する Quaternion 変数</param>
+        /// <param name="x">X 値</param>
+        /// <param name="y">Y 値</param>
+        /// <param name="z">Z 値</param>
+        /// <param name="w">W 値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_SetPitch( IntPtr sound,  int pitch);
+        public extern static Result LNQuaternion_Set(out Quaternion qua,  float x,  float y,  float z,  float w);
 
         /// <summary>
-        /// ピッチの取得
+        /// 単位クォータニオンを作成する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="pitch">ピッチを格納する変数</param>
+        /// <param name="qua">結果を格納する Quaternion 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_GetPitch( IntPtr sound, out int pitch);
+        public extern static Result LNQuaternion_Identity(out Quaternion qua);
 
         /// <summary>
-        /// ループ再生の有効設定
+        /// 任意の軸を回転軸にして回転するクォータニオンを作成する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="loopEnable">LN_TRUE = ループ再生する / LN_FALSE = しない</param>
-        /// <param name="begin">ループ領域の先頭位置 (サンプル数単位)</param>
-        /// <param name="length">ループ領域長さ (サンプル数単位)</param>
+        /// <param name="axis">回転軸を示す Vector3 変数</param>
+        /// <param name="r">回転角度 (ラジアン)</param>
+        /// <param name="outQua">演算結果を格納する Quaternion 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_SetLoopState( IntPtr sound,  bool loopEnable,  int begin = 0,  int length = 0);
+        public extern static Result LNQuaternion_RotationAxis(ref Vector3 axis,  float r, out Quaternion outQua);
 
         /// <summary>
-        /// ループ再生が有効かを調べる
+        /// 回転行列からクォータニオンを作成する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="enabled">ループ再生の有無状態を格納する変数</param>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outQua">演算結果を格納する Quaternion 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_IsLoop( IntPtr sound, out bool enabled);
+        public extern static Result LNQuaternion_RotationMatrix(ref Matrix mat, out Quaternion outQua);
 
         /// <summary>
-        /// サウンドの再生状態を取得する
+        /// ヨー、ピッチ、およびロールを指定してクォータニオンを作成する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="state">状態を格納する変数</param>
+        /// <param name="yaw">y 軸を中心とするヨー (ラジアン単位)</param>
+        /// <param name="pitch">x 軸を中心とするピッチ (ラジアン単位)</param>
+        /// <param name="roll">z 軸を中心とするロール (ラジアン単位)</param>
+        /// <param name="outQua">演算結果を格納する Quaternion 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_GetPlayState( IntPtr sound, out SoundPlayingState state);
+        public extern static Result LNQuaternion_RotationYawPitchRoll( float yaw,  float pitch,  float roll, out Quaternion outQua);
 
         /// <summary>
-        /// 音声を再生する
+        /// クォータニオンを正規化する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
+        /// <param name="qua">処理の基になるクォータニオン</param>
+        /// <param name="outQua">演算結果を格納する Quaternion 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_Play( IntPtr sound);
+        public extern static Result LNQuaternion_Normalize(ref Quaternion qua, out Quaternion outQua);
 
         /// <summary>
-        /// 再生を停止する
+        /// クォータニオンの共役を計算する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
+        /// <param name="qua">処理の基になるクォータニオン</param>
+        /// <param name="outQua">演算結果を格納する Quaternion 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_Stop( IntPtr sound);
+        public extern static Result LNQuaternion_Conjugate(ref Quaternion qua, out Quaternion outQua);
 
         /// <summary>
-        /// 一時停止
+        /// 2 つのクォータニオンの積を計算する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="pause">LN_TRUE = 一時停止 / LN_FALSE = 一時停止解除</param>
+        /// <param name="qua1">処理の基になるクォータニオン</param>
+        /// <param name="qua2">処理の基になるクォータニオン</param>
+        /// <param name="outQua">演算結果を格納する Quaternion 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_Pause( IntPtr sound,  bool pause);
+        public extern static Result LNQuaternion_Multiply(ref Quaternion qua1, ref Quaternion qua2, out Quaternion outQua);
 
         /// <summary>
-        /// 音量のフェード
+        /// 2 つのクォータニオンを球面線形補間する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="targetVolume">変更先の音量</param>
-        /// <param name="time">フェードにかける時間 (ミリ秒)</param>
-        /// <param name="fadeState">フェード完了後の動作の指定</param>
+        /// <param name="qua1">処理の基になるクォータニオン</param>
+        /// <param name="qua2">処理の基になるクォータニオン</param>
+        /// <param name="t">補間値</param>
+        /// <param name="outQua">演算結果を格納する Quaternion 変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNQuaternion_Slerp(ref Quaternion qua1, ref Quaternion qua2,  float t, out Quaternion outQua);
+
+        /// <param name="axis"></param>
+        /// <param name="r"></param>
+        /// <param name="outQua"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNQuaternion_RotationAxisD(ref Vector3 axis,  float r, ref Quaternion outQua);
+
+        /// <param name="yaw"></param>
+        /// <param name="pitch"></param>
+        /// <param name="roll"></param>
+        /// <param name="outQua"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNQuaternion_RotationYawPitchRollD( float yaw,  float pitch,  float roll, ref Quaternion outQua);
+
+        /// <param name="qua1"></param>
+        /// <param name="qua2"></param>
+        /// <param name="t"></param>
+        /// <param name="outQua"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_FadeVolume( IntPtr sound,  int targetVolume,  int time,  SoundFadeState fadeState);
+        public extern static Result LNQuaternion_SlerpD(ref Quaternion qua1, ref Quaternion qua2,  float t, ref Quaternion outQua);
 
         /// <summary>
-        /// 再生したサンプル数の取得
+        /// 現在の時間を乱数シードとして、乱数オブジェクトを作成する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="samples">再生したサンプル数を格納する変数</param>
+        /// <param name="random">作成された乱数オブジェクトハンドルを格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_GetUnitsPlayed( IntPtr sound, out int samples);
+        public extern static Result LNRandom_Create(out IntPtr random);
 
         /// <summary>
-        /// 音声データ全体のサンプル数の取得
+        /// 乱数シードを指定し、乱数オブジェクトを作成する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="samples">音声データ全体のサンプル数を格納する変数</param>
+        /// <param name="random">作成された乱数オブジェクトハンドルを格納する変数</param>
+        /// <param name="seed">シード値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_GetTotalUnits( IntPtr sound, out int samples);
+        public extern static Result LNRandom_CreateSeed(out IntPtr random,  int seed);
 
         /// <summary>
-        /// サンプリング周波数の取得
+        /// 乱数オブジェクトに乱数シードを設定する
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="frequency">サンプリング周波数を格納する変数</param>
+        /// <param name="random">乱数オブジェクトハンドル</param>
+        /// <param name="seed">シード値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_GetUnitsParSecond( IntPtr sound, out int frequency);
+        public extern static Result LNRandom_SetSeed( IntPtr random,  int seed);
 
         /// <summary>
-        /// 3D 音源かを調べる
+        /// 整数値乱数の取得
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="enabled">3D 音源かを示す値を格納する変数</param>
+        /// <param name="random">乱数オブジェクトハンドル</param>
+        /// <param name="outValue">整数値を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_Is3DSound( IntPtr sound, out bool enabled);
+        public extern static Result LNRandom_GetInt( IntPtr random, out int outValue);
 
         /// <summary>
-        /// 3D 音源としての位置を設定する
+        /// 範囲を指定して、整数値乱数を取得する ( minValue <= x < maxValue )
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="position">3D 空間上の座標</param>
+        /// <param name="random">乱数オブジェクトハンドル</param>
+        /// <param name="minValue">生成される乱数の下限値</param>
+        /// <param name="maxValue">生成される乱数の上限値</param>
+        /// <param name="outValue">整数値を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_SetEmitterPosition( IntPtr sound, ref Vector3 position);
+        public extern static Result LNRandom_GetIntRange( IntPtr random,  int minValue,  int maxValue, out int outValue);
 
         /// <summary>
-        /// 3D 音源としての位置を設定する
+        /// 範囲を指定して、整数値乱数を取得する (center ± width/2)
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="x">3D 空間上の X 座標</param>
-        /// <param name="y">3D 空間上の Y 座標</param>
-        /// <param name="z">3D 空間上の Z 座標</param>
+        /// <param name="random">乱数オブジェクトハンドル</param>
+        /// <param name="center">生成される乱数の中央値</param>
+        /// <param name="width">生成される乱数の振れ幅</param>
+        /// <param name="outValue">整数値を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_SetEmitterPositionXYZ( IntPtr sound,  float x,  float y,  float z);
+        public extern static Result LNRandom_GetIntWidth( IntPtr random,  int center,  int width, out int outValue);
 
         /// <summary>
-        /// 3D 音源としての速度を設定する
+        /// 実数値乱数の取得
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="velocity">速度</param>
+        /// <param name="random">乱数オブジェクトハンドル</param>
+        /// <param name="outValue">実数値を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_SetEmitterVelocity( IntPtr sound, ref Vector3 velocity);
+        public extern static Result LNRandom_GetFloat( IntPtr random, out float outValue);
 
         /// <summary>
-        /// 3D 音源としての速度を設定する
+        /// 実数値乱数の取得 ( minValue <= x < maxValue )
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="x">速度の X 成分</param>
-        /// <param name="y">速度の Y 成分</param>
-        /// <param name="z">速度の Z 成分</param>
+        /// <param name="random">乱数オブジェクトハンドル</param>
+        /// <param name="minValue">生成される乱数の下限値</param>
+        /// <param name="maxValue">生成される乱数の上限値</param>
+        /// <param name="outValue">実数値を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_SetEmitterVelocityXYZ( IntPtr sound,  float x,  float y,  float z);
+        public extern static Result LNRandom_GetFloatRange( IntPtr random,  float minValue,  float maxValue, out float outValue);
 
         /// <summary>
-        /// 3D 音源の減衰距離 (聴こえなくなる距離) を設定する
+        /// 実数値乱数の取得 (center ± width/2)
         /// </summary>
-        /// <param name="sound">サウンドハンドル</param>
-        /// <param name="distance">距離</param>
+        /// <param name="random">乱数オブジェクトハンドル</param>
+        /// <param name="center">生成される乱数の中央値</param>
+        /// <param name="width">生成される乱数の振れ幅</param>
+        /// <param name="outValue">実数値を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNSound_SetEmitterDistance( IntPtr sound,  float distance);
+        public extern static Result LNRandom_GetFloatWidth( IntPtr random,  float center,  float width, out float outValue);
 
 
 

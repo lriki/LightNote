@@ -112,24 +112,33 @@ LN_EXTENSION_CLASS(LNException)
 #・属性 - 各言語ソースで独自オーバーライド
 #LN_ATTRIBUTE(Override, ...)
 
-・属性 - public 関数
+・修飾子 - public 関数
 LN_INSTANCE_API
 
-・属性 - static 関数
+・修飾子 - static 関数
 LN_STATIC_API
 	例)
 	LUMINO_STATIC_API LNResult LNSoundListener_SetPosition(const LNVector3* position);
 
-・属性 - internal 関数
+・修飾子 - internal 関数
 LN_INTERNAL_API
 ※自動生成の対象にしない。定義ソースを include して使いたいときに使用する。
 
 ・属性 - プロパティ
 LN_PROPERTY
 	例)
-	LUMINO_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_SetPosition(const LNVector3* position);
-	LUMINO_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_GetPosition(LNVector3* position);
+	LN_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_SetPosition(const LNVector3* position);
+	LN_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_GetPosition(LNVector3* position);
 ※"Get", "Set", "Is" で対応を自動生成する
+
+・属性 - 構造体コンストラクタ
+LN_STRUCT_CONSTRUCTOR
+	通常のメソッド定義のほかに、コンストラクタとしても生成する。
+	第1引数が out の構造体である必要がある。
+
+・属性 - ライブラリの初期化関数
+LN_LIBRARY_INITIALIZER
+	言語ごとに必要な初期化処理が自動追加される。
 
 ・戻り値
 LNResult または void

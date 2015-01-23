@@ -23,6 +23,8 @@ namespace BinderMaker
     {
         None,
         Property,
+        StructConstructor,
+        LibraryInitializer,
     }
 
     /// <summary>
@@ -30,7 +32,15 @@ namespace BinderMaker
     /// </summary>
     class CLMethod : CLEntity
     {
+        #region Fields
+        #endregion
+
         #region Properties
+        /// <summary>
+        /// ドキュメント
+        /// </summary>
+        public CLClass OwnerClass { get; set; }
+
         /// <summary>
         /// ドキュメント
         /// </summary>
@@ -47,10 +57,67 @@ namespace BinderMaker
         public CLOption Option { get; private set; }
 
         /// <summary>
+        /// メソッド名 (コンストラクタであれば親クラス名、そうでなければ関数名)
+        /// </summary>
+        public string Name { get { return (IsConstructor) ? OwnerClass.Name : FuncDecl.Name; } }
+
+        /// <summary>
         /// このメソッドをオーバーロードするメソッドリスト
         /// </summary>
         public List<CLMethod> Overloads { get; private set; }
 
+        /// <summary>
+        /// 仮引数リスト (return 振り分け済み。オリジナルを使いたいときは FuncDecl.Param を使う)
+        /// </summary>
+        public List<CLParam> Params { get; private set; }
+
+        /// <summary>
+        /// インスタンスメソッドのとき、自分自身を表す第1引数として選択された Param
+        /// </summary>
+        public CLParam ThisParam { get; private set; }
+
+        /// <summary>
+        /// return として選択された Param
+        /// </summary>
+        public CLParam ReturnParam { get; private set; }
+
+        /// <summary>
+        /// 戻り値型 (オリジナルの仮引数リストから選択されていなければ常に Void)
+        /// </summary>
+        public CLType ReturnType { get { return (ReturnParam != null) ? ReturnParam.Type : CLPrimitiveType.Void; } }
+
+        /// <summary>
+        /// 修飾子
+        /// </summary>
+        public MethodModifier Modifier { get { return FuncDecl.Modifier; } }
+
+        /// <summary>
+        /// インスタンスメソッドであるか
+        /// </summary>
+        public bool IsInstanceMethod 
+        { 
+            get 
+            {
+                return
+                    FuncDecl.Modifier == MethodModifier.Instance ||
+                    IsConstructor;
+            } 
+        }
+
+        /// <summary>
+        /// コンストラクタであるか ("Create" または LN_STRUCT_CONSTRUCTOR)
+        /// </summary>
+        public bool IsConstructor { get { return FuncDecl.IsConstructor || FuncDecl.Attribute == MethodAttribute.StructConstructor; } }
+
+        /// <summary>
+        /// ライブラリの初期化関数であるか
+        /// </summary>
+        public bool IsLibraryInitializer { get { return FuncDecl.Attribute == MethodAttribute.LibraryInitializer; } }
+
+        /// <summary>
+        /// static メソッドであるか
+        /// </summary>
+        public bool IsStatic { get { return !IsInstanceMethod; } }
         #endregion
 
         #region Methods
@@ -87,6 +154,24 @@ namespace BinderMaker
                     var doc = Document.OriginalParams.Find((d) => d.Name == param.Name);
                     if (doc == null) throw new InvalidOperationException("invalid param name.");
                     param.Document = doc;
+                }
+            }
+
+            // return とする引数をチェック & 振り分け
+            // out 属性で一番後ろの引数を選択する。
+            // (out x, out y) のように 2 つ以上 out がある場合は return としない。
+            Params = new List<CLParam>();
+            if (FuncDecl.Params.Count > 0 && !IsConstructor) // out ひとつだけのコンストラクタがこれにマッチするのでここではじく
+            {
+                foreach (var param in FuncDecl.Params)
+                {
+                    if (param == FuncDecl.Params.First() && IsInstanceMethod)
+                        ThisParam = param;      // 第1引数かつインスタンスメソッドの場合は特殊な実引数になる
+                    else if (param == FuncDecl.Params.Last() &&
+                        ((param.IOModifier & IOModifier.In) == 0 && (param.IOModifier & IOModifier.Out) != 0))
+                        ReturnParam = param;   // 終端かつ out の場合は return 扱い。
+                    else
+                        Params.Add(param);
                 }
             }
         }
@@ -230,6 +315,10 @@ namespace BinderMaker
             string attr = new string(apiModifier.ToArray());
             if (attr.Contains(CLManager.APIAttribute_Property))
                 Attribute = MethodAttribute.Property;
+            if (attr.Contains(CLManager.APIAttribute_StructConstructor))
+                Attribute = MethodAttribute.StructConstructor;
+            if (attr.Contains(CLManager.APIAttribute_LibraryInitializer))
+                Attribute = MethodAttribute.LibraryInitializer;
             else
                 Attribute = MethodAttribute.None;
 

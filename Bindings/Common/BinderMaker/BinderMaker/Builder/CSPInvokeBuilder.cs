@@ -86,7 +86,7 @@ public extern static RETURN_TYPE FUNC_NAME(ARGS);
 
             // DLLImport・型名・関数名
             string declText = FuncDeclTempalte.Trim();
-            declText = declText.Replace("RETURN_TYPE", GetReturnTypeName(method.FuncDecl.ReturnType));
+            declText = declText.Replace("RETURN_TYPE", CSBuilderCommon.MakeTypeName(method.FuncDecl.ReturnType));
             declText = declText.Replace("FUNC_NAME", method.FuncDecl.OriginalFullName);
 
             // 仮引数リスト
@@ -118,28 +118,7 @@ public extern static RETURN_TYPE FUNC_NAME(ARGS);
             return output;
         }
 
-        /// <summary>
-        /// C# の型名を求める (戻り値用)
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        private string GetReturnTypeName(CLType type)
-        {
-            // テーブルにあればそれを使う
-            string name;
-            if (CSBuilderCommon.PrimitiveTypeNameTable.TryGetValue(type, out name))
-                return name;
-
-            // enum 型
-            if (type is CLEnum) return ((CLEnum)type).Name;
-            // struct 型
-            //if (type is CLStruct) return ((CLStruct)type).Name;
-            // delegate 型
-            if (type is CLDelegate) return ((CLDelegate)type).Name;
-
-            // return はクラス使わないはず
-            throw new InvalidOperationException();
-        }
+       
 
         /// <summary>
         /// C# の型名を求める (仮引数用)
@@ -147,11 +126,11 @@ public extern static RETURN_TYPE FUNC_NAME(ARGS);
         /// <returns></returns>
         private string GetParamTypeName(CLParam param)
         {
-            if ((param.Type is CLClass) ||
+            if ((param.Type is CLClass && ((CLClass)param.Type).IsReferenceObject) ||
                 (param.Type == CLPrimitiveType.String && param.IOModifier == IOModifier.Out))
                 return string.Format("{0} IntPtr", CSBuilderCommon.GetAPIParamIOModifier(param));
             else
-                return string.Format("{0} {1}", CSBuilderCommon.GetAPIParamIOModifier(param), GetReturnTypeName(param.Type));
+                return string.Format("{0} {1}", CSBuilderCommon.GetAPIParamIOModifier(param), CSBuilderCommon.MakeTypeName(param.Type));
         }
     }
 }

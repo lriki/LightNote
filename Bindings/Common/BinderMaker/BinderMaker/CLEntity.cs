@@ -223,7 +223,7 @@ namespace BinderMaker
         public override void Register()
         {
             base.Register();
-            Manager.AllStructs.Add(this);
+            Manager.AllStructDefs.Add(this);
             Members.ForEach((c) => c.Register());
         }
         #endregion
@@ -239,6 +239,11 @@ namespace BinderMaker
         #endregion
 
         #region Properties
+        /// <summary>
+        /// 型
+        /// </summary>
+        public CLType Type { get; private set; }
+
         /// <summary>
         /// 名前
         /// </summary>
@@ -262,6 +267,14 @@ namespace BinderMaker
             _originalTypeName = typeName.Trim();
             Name = name.Trim();
             Comment = comment.Trim();
+        }
+
+        /// <summary>
+        /// 必要に応じてサブクラスでオーバーライドされ、オリジナルの型名から CLType を検索して参照する
+        /// </summary>
+        public override void LinkTypes()
+        {
+            Type = Manager.FindType(_originalTypeName);
         }
         #endregion
     }

@@ -33,11 +33,15 @@ namespace BinderMaker.Builder
             // クラス
             foreach (var classType in Manager.AllClasses)
             {
+                OnClassLookedStart(classType);
+
                 // メソッド
                 foreach (var method in classType.Methods)
                 {
                     OnMethodLooked(method);
                 }
+
+                OnClassLookedEnd(classType);
             }
 
             // ファイルに出力
@@ -58,6 +62,18 @@ namespace BinderMaker.Builder
         /// </summary>
         /// <param name="enumType"></param>
         protected virtual void OnEnumLooked(CLEnum enumType) { }
+
+        /// <summary>
+        /// クラスor構造体 通知 (開始)
+        /// </summary>
+        /// <param name="enumType"></param>
+        protected virtual void OnClassLookedStart(CLClass classType) { }
+
+        /// <summary>
+        /// クラスor構造体 通知 (終了)
+        /// </summary>
+        /// <param name="enumType"></param>
+        protected virtual void OnClassLookedEnd(CLClass classType) { }
 
         /// <summary>
         /// メソッド 通知

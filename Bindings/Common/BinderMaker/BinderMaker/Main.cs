@@ -22,8 +22,9 @@ namespace BinderMaker
 
             var apiHeaders = new string[]
             {
-                "../../../../../../LightNote/Source/C_API/LFBase.h",
-                "../../../../../../LightNote/Source/C_API/LFAudio2.h",
+                //"../../../../../../LightNote/Source/C_API/LFBase.h",
+                "../../../../../../LightNote/Source/C_API/LFMath.h",
+                //"../../../../../../LightNote/Source/C_API/LFAudio2.h",
             };
 
             var parser = new Parser.CLAPIHeaderParser();

@@ -116,8 +116,10 @@ namespace BinderMaker.Parser
         
         // 関数宣言 - 属性
         private static readonly Parser<IEnumerable<char>> FuncAttribute =
-            Parse.String(CLManager.APIAttribute_Property);      // LN_PROPERTY
-
+                Parse.String(CLManager.APIAttribute_Property)               // LN_PROPERTY
+            .Or(Parse.String(CLManager.APIAttribute_StructConstructor))     // LN_STRUCT_CONSTRUCTOR
+            .Or(Parse.String(CLManager.APIAttribute_LibraryInitializer));   // LN_LIBRARY_INITIALIZER
+        
         // Handle 型
         public static readonly Parser<string> HandleType =
             from start      in Parse.String("LN_HANDLE").Text()
@@ -228,7 +230,7 @@ namespace BinderMaker.Parser
             from methods    in MethodDecl.Many()
             from classOpt   in (OptionComment.GenericToken()).Or(Parse.Return(new CLOption()))
             from end        in Parse.String("LN_CLASS_END")
-            select new CLClass(doc, name, methods, classOpt);
+            select new CLClass(start, doc, name, methods, classOpt);
 
         // モジュール
         private static readonly Parser<CLModule> ModuleDecl =

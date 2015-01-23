@@ -22,6 +22,8 @@ namespace BinderMaker
         public const string APIModifier_Static = "LN_STATIC_API";
         public const string APIModifier_Internal = "LN_INTERNAL_API";
         public const string APIAttribute_Property = "LN_PROPERTY";
+        public const string APIAttribute_StructConstructor = "LN_STRUCT_CONSTRUCTOR";
+        public const string APIAttribute_LibraryInitializer = "LN_LIBRARY_INITIALIZER";
         public const string HandleTypeParamMacro = "LN_HANDLE";
         public const string GenericHandleTypeParamMacro = "LN_HANDLE_GENERIC";
 
@@ -57,10 +59,11 @@ namespace BinderMaker
             { "float",              CLPrimitiveType.Float },
             { "float*",             CLPrimitiveType.Float },
             { "double",             CLPrimitiveType.Double },
+            { "double*",            CLPrimitiveType.Double },
             { "LNBool",             CLPrimitiveType.Bool },
             { "LNBool*",　          CLPrimitiveType.Bool },
-            { "LNU8",               CLPrimitiveType.Byte },
-            { "LNU32",              CLPrimitiveType.UInt32 },
+            { "uint8_t",            CLPrimitiveType.Byte },
+            { "uint32_t",           CLPrimitiveType.UInt32 },
 
             //{ "lnIntPtr",           CLPrimitiveType.IntPtr },
             
@@ -93,7 +96,7 @@ namespace BinderMaker
         /// <summary>
         /// 全 struct 型リスト
         /// </summary>
-        public List<CLStructDef> AllStructs { get; private set; }
+        public List<CLStructDef> AllStructDefs { get; private set; }
 
         /// <summary>
         /// 全 enum 型リスト
@@ -120,7 +123,7 @@ namespace BinderMaker
             AllEntities = new List<CLEntity>();
             AllTypes = new List<CLType>();
             AllClasses = new List<CLClass>();
-            AllStructs = new List<CLStructDef>();
+            AllStructDefs = new List<CLStructDef>();
             AllEnums = new List<CLEnum>();
             AllMethods = new List<CLMethod>();
             AllDelegates = new List<CLDelegate>();
@@ -230,6 +233,10 @@ namespace BinderMaker
                     return t;
             }
 
+            // 構造体
+            var structType = AllClasses.Find((c) => c.IsStruct && name.IndexOf(c.OriginalName) >= 0);
+            if (structType != null) return structType;
+
             // delegate
             foreach (var t in AllDelegates)
             {
@@ -260,7 +267,5 @@ namespace BinderMaker
         }
 
         #endregion
-
-
     }
 }
