@@ -30,7 +30,6 @@ namespace BinderMaker.Builder
             { CLPrimitiveType.Float, "float" },
             { CLPrimitiveType.Double, "double" },
 
-            { CLPrimitiveType.ResultCode, "Result" },
             //{ CLPrimitiveType.ExceptionCallback, "ExceptionCallback" },
             { CLPrimitiveType.IntPtr, "IntPtr" },
             { CLPrimitiveType.HWND, "IntPtr" },

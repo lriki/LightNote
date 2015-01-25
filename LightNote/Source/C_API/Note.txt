@@ -207,6 +207,38 @@ Option*/
 ■環境依存関数
 HWND を取得する関数などは LUMINO_INTERNAL_API を使用し、独自定義する。
 
+
+■バインダ実装時の注意点
+・絶対に起こってはいけないのは、WrapObject が消えているのに、UserData(管理配列番号) を持ったままの NativeObject が残っていること。
+	これは Native 側が NativeObject を自動生成する場合に発生し、間違った WrapObject を参照してしまうことがある。
+	以下のもので発生する。
+	・デフォルトオブジェクト (static)
+	・LNModel が作る LNMeshData (dynamic)
+	
+	対策は、Managed 側で WrapObject の参照を持ち続けること。
+	あるオブジェクト(LNModel)が別のオブジェクト(LNMeshData)の参照を持つなら、
+	WrapObject(Model) は 別のオブジェクトのWrapObject(MeshData) をフィールドに持っておく必要がある。
+	
+	ちなみに、逆に WrapObject だけ残っているときは Native 側で NULL アクセスするので、最悪気づけないということはない。
+	というか、WrapObject のコンストラクタ・Dispose で参照カウントを操作する使用上、ユーザーがおかしなことをしない限り発生しない。
+
+
+・参照オブジェクト型の return はプロパティのみ許可する。
+	例えば、Shader.GetTexture(string name) とか実装したいとする。
+	これは引数によって return するオブジェクトが変わる。内部的なコンテナの実装は Map であるが、インデックスも欲しいかもしれない。
+	
+	return するオブジェクトは return の際、Wrapper が登録されているか必ずチェックするが、
+	そのとき オーナーオブジェクト (Shader) は return するオブジェクト (Texture) を参照していますよということにするため、
+	必ずメンバフィールドに保持していなければならない。
+	つまり、コンテナに合わせたフィールドを作り、さらに↑の name 引数がキーであることを示す情報が無ければならない。
+	これを実装するのは面倒。
+	
+	ただ、ObjectList で代用することができる。
+	Shader.Variables.Find((v) => v.Type == Type.Texture && v.Name == "名前") とか。
+	
+	
+	
+
 ■コールバックの実装
 ・前提
 	バインダで virtual 関数を定義しても無駄。

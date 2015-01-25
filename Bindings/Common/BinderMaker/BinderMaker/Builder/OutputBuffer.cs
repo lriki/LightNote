@@ -45,23 +45,25 @@ namespace BinderMaker.Builder
         /// <summary>
         /// インデントレベルをひとつ増やす
         /// </summary>
-        public void IncreaseIndent()
+        public OutputBuffer IncreaseIndent()
         {
             _indentLevel++;
             _indent = "";
             for (int i = 0; i < _indentLevel; i++)
                 _indent += "    ";
+            return this;
         }
 
         /// <summary>
         /// インデントレベルをひとつ減らす
         /// </summary>
-        public void DecreaseIndent()
+        public OutputBuffer DecreaseIndent()
         {
             _indentLevel--;
             _indent = "";
             for (int i = 0; i < _indentLevel; i++)
                 _indent += "    ";
+            return this;
         }
 
         /// <summary>
@@ -71,6 +73,14 @@ namespace BinderMaker.Builder
         {
             _buffer.Append(str);
             return this;
+        }
+
+        /// <summary>
+        /// 文字列を追加する
+        /// </summary>
+        public OutputBuffer Append(OutputBuffer buffer)
+        {
+            return Append(buffer.ToString());
         }
 
         /// <summary>
@@ -124,10 +134,11 @@ namespace BinderMaker.Builder
         /// <summary>
         /// 改行する (インデントは考慮せず単に \n を追加)
         /// </summary>
-        public void NewLine(int count = 1)
+        public OutputBuffer NewLine(int count = 1)
         {
             for (int i = 0; i < count; i++)
                 _buffer.Append('\n');
+            return this;
         }
 
         /// <summary>

@@ -28,9 +28,12 @@ namespace Core
 {
 namespace Function
 {
+
+// Handle の管理リストの要素
 struct ObjectEntry
 {
 	Base::ReferenceObject*	Object;
+	void*					UserData;	///< バインダ側からセットするユーザーデータ。基本的に管理配列のインデックスとなる。
 	//Base::Interface*		Interface;
 	int						Index;
 	int						RefCount;
@@ -42,6 +45,8 @@ struct ObjectEntry
 		RefCount = 0;
 	}
 };
+
+// Base::ReferenceObject のユーザーデータとして登録する
 struct ObjectRegisterData
 {
 	int						Index;
@@ -108,6 +113,9 @@ public:
 	/// Handleオブジェクト取得
 	static Base::ReferenceObject*	getReferenceObject(int index);
 	//static Base::Interface*			getInterface( int index );
+
+	/// Handle が表す ObjectEntry の取得
+	static ObjectEntry* getObjectEntry(LNHandle handle) { return &mObjectEntryArray[TO_INDEX(handle)]; }
 
 	static LNHandle getInternalObjectHandle(Base::ReferenceObject* obj)
 	{

@@ -65,6 +65,32 @@ namespace BinderMaker
             base.Register();
             Manager.AllTypes.Add(this);
         }
+
+        /// <summary>
+        /// RefObject 型かをチェック
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool CheckRefObjectType(CLType type)
+        {
+            var c = type as CLClass;
+            if (c != null && c.IsReferenceObject)
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// RefObject 型かをチェック
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool CheckStructType(CLType type)
+        {
+            var c = type as CLClass;
+            if (c != null && c.IsStruct)
+                return true;
+            return false;
+        }
         #endregion
     }
 
@@ -84,7 +110,6 @@ namespace BinderMaker
         public static CLPrimitiveType Float = new CLPrimitiveType("Float");
         public static CLPrimitiveType Double = new CLPrimitiveType("Double");
 
-        public static CLPrimitiveType ResultCode = new CLPrimitiveType("ResultCode");
         public static CLPrimitiveType IntPtr = new CLPrimitiveType("IntPtr");
         public static CLPrimitiveType HWND = new CLPrimitiveType("HWND");
         #endregion

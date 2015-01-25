@@ -189,7 +189,7 @@
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-	LNOTEINTERNALAPI void* LNObject_GetTypeUserData(LNHandle hadnleObject)
+	LN_INTERNAL_API void* LNObject_GetTypeUserData(LNHandle hadnleObject)
 	{
 		if (hadnleObject == NULL) return NULL;
 
@@ -204,9 +204,25 @@
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------
-	LNOTEINTERNALAPI void* LNObject_GetInternalObject(LNHandle hadnleObject)
+	LN_INTERNAL_API void* LNObject_GetInternalObject(LNHandle hadnleObject)
 	{
 		return FuncLibManager::getReferenceObject(TO_INDEX(hadnleObject));
+	}
+
+	//----------------------------------------------------------------------
+	//
+	//----------------------------------------------------------------------
+	LN_INTERNAL_API void LNObject_SetUserData(LN_HANDLE(LNObject) hadnleObject, void* data)
+	{
+
+	}
+
+	//----------------------------------------------------------------------
+	//
+	//----------------------------------------------------------------------
+	LN_INTERNAL_API void* LNObject_GetUserData(LN_HANDLE(LNObject) hadnleObject)
+	{
+
 	}
 
 //==============================================================================

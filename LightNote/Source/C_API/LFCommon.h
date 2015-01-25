@@ -187,6 +187,7 @@ typedef intptr_t				lnIntPtr;
 #define LN_INTERNAL_API
 #define LN_STATIC_API
 #define LN_PROPERTY
+#define LN_STRUCT_CONSTRUCTOR
 
 #define LN_HANDLE(x) LNHandle
 

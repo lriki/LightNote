@@ -59,7 +59,7 @@ namespace BinderMaker
         /// <summary>
         /// メソッド名 (コンストラクタであれば親クラス名、そうでなければ関数名)
         /// </summary>
-        public string Name { get { return (IsConstructor) ? OwnerClass.Name : FuncDecl.Name; } }
+        public string Name { get { return (IsRefObjectConstructor) ? OwnerClass.Name : FuncDecl.Name; } }
 
         /// <summary>
         /// このメソッドをオーバーロードするメソッドリスト
@@ -100,14 +100,14 @@ namespace BinderMaker
             {
                 return
                     FuncDecl.Modifier == MethodModifier.Instance ||
-                    IsConstructor;
+                    IsRefObjectConstructor;
             } 
         }
 
         /// <summary>
         /// コンストラクタであるか ("Create" または LN_STRUCT_CONSTRUCTOR)
         /// </summary>
-        public bool IsConstructor { get { return FuncDecl.IsConstructor || FuncDecl.Attribute == MethodAttribute.StructConstructor; } }
+        public bool IsRefObjectConstructor { get { return FuncDecl.IsRefObjectConstructor; } }
 
         /// <summary>
         /// ライブラリの初期化関数であるか
@@ -161,7 +161,7 @@ namespace BinderMaker
             // out 属性で一番後ろの引数を選択する。
             // (out x, out y) のように 2 つ以上 out がある場合は return としない。
             Params = new List<CLParam>();
-            if (FuncDecl.Params.Count > 0 && !IsConstructor) // out ひとつだけのコンストラクタがこれにマッチするのでここではじく
+            //if (FuncDecl.Params.Count > 0 && !IsConstructor) // out ひとつだけのコンストラクタがこれにマッチするのでここではじく
             {
                 foreach (var param in FuncDecl.Params)
                 {
@@ -194,7 +194,7 @@ namespace BinderMaker
         public void LinkOverloads()
         {
             // コンストラクタであれば Create までが一致するかを確認する
-            if (FuncDecl.IsConstructor)
+            if (FuncDecl.IsRefObjectConstructor)
             {
                 int idx = FuncDecl.OriginalFullName.IndexOf("_Create");
                 string name = FuncDecl.OriginalFullName.Substring(0, idx + 7);
@@ -282,7 +282,7 @@ namespace BinderMaker
         /// <summary>
         /// コンストラクタである
         /// </summary>
-        public bool IsConstructor { get; private set; }
+        public bool IsRefObjectConstructor { get; private set; }
 
         /// <summary>
         /// 別のメソッドをオーバーロードする場合は true (オリジナル名がサフィックスを持っていた)
@@ -312,15 +312,15 @@ namespace BinderMaker
                 Modifier = MethodModifier.Internal;
 
             // 属性の決定
-            string attr = new string(apiModifier.ToArray());
+            string attr = new string(apiAtribute.ToArray());
+            Attribute = MethodAttribute.None;
             if (attr.Contains(CLManager.APIAttribute_Property))
                 Attribute = MethodAttribute.Property;
             if (attr.Contains(CLManager.APIAttribute_StructConstructor))
                 Attribute = MethodAttribute.StructConstructor;
             if (attr.Contains(CLManager.APIAttribute_LibraryInitializer))
                 Attribute = MethodAttribute.LibraryInitializer;
-            else
-                Attribute = MethodAttribute.None;
+                
 
             _originalReturnTypeName = returnType;
 
@@ -337,7 +337,7 @@ namespace BinderMaker
             Name = newName;
 
             // 先頭が Create ならコンストラクタ関数
-            IsConstructor = (string.Compare(Name, 0, "Create", 0, 6) == 0);
+            IsRefObjectConstructor = (string.Compare(Name, 0, "Create", 0, 6) == 0);
         }
 
         /// <summary>
@@ -401,6 +401,15 @@ namespace BinderMaker
         /// </summary>
         public IOModifier IOModifier { get { return Document.IOModifier; } }
 
+        /// <summary>
+        /// out string 型であるか
+        /// </summary>
+        public bool IsOutStringType { get { return (Type == CLPrimitiveType.String && IOModifier == BinderMaker.IOModifier.Out); } }
+
+        /// <summary>
+        /// out RefObject 型であるか
+        /// </summary>
+        public bool IsOutRefObjectType { get { return (CLType.CheckRefObjectType(Type) && IOModifier == BinderMaker.IOModifier.Out); } }
         #endregion
 
         #region Methods
@@ -428,6 +437,101 @@ namespace BinderMaker
         public override void LinkTypes()
         {
             Type = Manager.FindType(_originalTypeName);
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// プロパティ。get set の2メソッドのペア。
+    /// </summary>
+    class CLProperty
+    {
+        #region Properties
+        /// <summary>
+        /// プロパティ名
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// getter
+        /// </summary>
+        public CLMethod Getter { get; set; }
+
+        /// <summary>
+        /// setter
+        /// </summary>
+        public CLMethod Setter { get; set; }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="method">getter または setter メソッド</param>
+        public CLProperty(CLMethod method)
+        {
+            Attach(method);
+            Name = GetPropertyName(method);
+        }
+
+        /// <summary>
+        /// メソッドを割り当てる (get/set はこの中で判別)
+        /// </summary>
+        public void Attach(CLMethod method)
+        {
+            if (string.Compare(method.Name, 0, "Get", 0, 3) == 0 ||
+                string.Compare(method.Name, 0, "Is", 0, 2) == 0)
+            {
+                if (Getter != null) throw new InvalidOperationException("get プロパティ割り当て済み");
+                Getter = method;
+            }
+            else if (string.Compare(method.Name, 0, "Set", 0, 3) == 0)
+            {
+                if (Setter != null) throw new InvalidOperationException("set プロパティ割り当て済み");
+                Setter = method;
+
+            }
+        }
+
+        /// <summary>
+        /// プロパティであるメソッドか
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public static bool CheckProperty(CLMethod method)
+        {
+            if (method.FuncDecl.Attribute == MethodAttribute.Property)
+            {
+                if (string.Compare(method.Name, 0, "Get", 0, 3) == 0 ||
+                    string.Compare(method.Name, 0, "Set", 0, 3) == 0 ||
+                    string.Compare(method.Name, 0, "Is", 0, 2) == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// プロパティ名を取得する
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public static string GetPropertyName(CLMethod method)
+        {
+            if (string.Compare(method.Name, 0, "Get", 0, 3) == 0)
+            {
+                return method.Name.Substring(3);
+            }
+            else if (string.Compare(method.Name, 0, "Set", 0, 3) == 0)
+            {
+                return method.Name.Substring(3);
+            }
+            else if (string.Compare(method.Name, 0, "Is", 0, 2) == 0)
+            {
+                return method.Name.Substring(2);
+            }
+            throw new InvalidOperationException();
         }
         #endregion
     }

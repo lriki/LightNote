@@ -97,12 +97,13 @@ namespace BinderMaker.Parser
             from params1    in DocumentCommentParam.Many()      // 引数 (0個以上)
             from return1    in DocumentCommentReturn.Or(Parse.Return(""))
             from details    in DocumentCommentDetails.Or(Parse.Return(""))
+            from extends    in DocumentCommentExtends.Many()
             from replace    in DocumentCommentReplace.Many()
             from postscript in DocumentCommentPostscript.Many()
             from overwrite  in DocumentCommentOverwrite.Many()
             from example    in DocumentCommentExample.Many()
             from text       in Parse.AnyChar.Until(Parse.String("*/")).Text()       // "*/" が見つかるまで任意の文字を繰り返す。見つかった "*/" は破棄される。
-            select new CLDocument(brief, params1, return1, details, replace, postscript, overwrite, example);
+            select new CLDocument(brief, params1, return1, details, extends, replace, postscript, overwrite, example);
 
         #endregion
 

@@ -12,6 +12,7 @@ namespace BinderMaker
 
         /// <summary>
         /// Array 型クラスの定義
+        /// ※これらは  LinkTypes() でも参照オブジェクトではないとする条件で使っているので、追加するときはそこも修正する。
         /// </summary>
         public static CLClass Array = new CLClass("Array", null);
         public static CLClass ByteArray = new CLClass("Array", CLPrimitiveType.Byte);
@@ -34,7 +35,7 @@ namespace BinderMaker
         /// <summary>
         /// クラス名
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// メンバメソッドリスト
@@ -42,14 +43,24 @@ namespace BinderMaker
         public List<CLMethod> Methods { get; private set; }
 
         /// <summary>
+        /// プロパティリスト
+        /// </summary>
+        public List<CLProperty> Properties { get; private set; }
+
+        /// <summary>
         /// オプション
         /// </summary>
         public CLOption Option { get; private set; }
+
+        /// <summary>
+        /// ベースクラス
+        /// </summary>
+        public CLClass BaseClass { get; private set; }
         
         /// <summary>
         /// RefObj クラス であるか
         /// </summary>
-        public bool IsReferenceObject { get { return !IsStatic && !IsStruct; } }
+        public bool IsReferenceObject { get; private set; }
 
         /// <summary>
         /// static クラス であるか
@@ -145,8 +156,46 @@ namespace BinderMaker
         public override void LinkTypes()
         {
             base.LinkTypes();
+
+            // 構造体リンク
             StructData = Manager.AllStructDefs.Find((t) => t.OriginalName == OriginalName);
             if (StructData != null && !IsStruct) throw new InvalidOperationException("invalid struct type.");
+
+            // RefObject 型チェック
+            IsReferenceObject = false;
+            if (!IsStatic && !IsStruct &&
+                this != Array &&
+                this != ByteArray &&
+                this != IntArray)
+            {
+                IsReferenceObject = true;
+            }
+
+            // ベースクラス
+            string baseClassName = Document.GetBaseClassOriginalName();
+            if (IsReferenceObject && string.IsNullOrWhiteSpace(baseClassName))  // ベースクラスを省略している RefObject　型はデフォルト継承
+                BaseClass = Manager.ReferenceObjectClass;
+            else
+                BaseClass = Manager.AllClasses.Find((c) => c.OriginalName == baseClassName);
+        }
+
+        /// <summary>
+        /// メソッドからプロパティを集計する
+        /// </summary>
+        public void CreateProperties()
+        {
+            Properties = new List<CLProperty>();
+            foreach (var method in Methods)
+            {
+                if (CLProperty.CheckProperty(method))
+                {
+                    var prop = Properties.Find((p) => p.Name == CLProperty.GetPropertyName(method));
+                    if (prop != null)
+                        prop.Attach(method);
+                    else
+                        Properties.Add(new CLProperty(method));
+                }
+            }
         }
 
         #endregion

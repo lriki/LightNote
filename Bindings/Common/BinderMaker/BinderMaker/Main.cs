@@ -12,8 +12,34 @@ namespace BinderMaker
 {
     class Program
     {
+        class Test : IDisposable
+        {
+            ~Test()
+            {
+                Console.WriteLine("~");
+                Dispose();
+            }
+
+            public void Dispose()
+            {
+                Console.WriteLine("Dispose");
+            }
+        }
+
+
         static void Main(string[] args)
         {
+            Test ttt = new Test();
+
+            var a = new List<int>(10);
+            var b = new Stack<int>();
+           // a[5] = 0;
+            ttt = null;
+
+            GC.Collect();
+            
+
+
             CLManager.Instance = new CLManager();
             CLManager.Instance.Initialize();
 
@@ -22,7 +48,7 @@ namespace BinderMaker
 
             var apiHeaders = new string[]
             {
-                //"../../../../../../LightNote/Source/C_API/LFBase.h",
+                "../../../../../../LightNote/Source/C_API/LFBase.h",
                 "../../../../../../LightNote/Source/C_API/LFMath.h",
                 //"../../../../../../LightNote/Source/C_API/LFAudio2.h",
             };

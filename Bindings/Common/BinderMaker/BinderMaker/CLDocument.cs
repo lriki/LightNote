@@ -45,6 +45,11 @@ namespace BinderMaker
         public string OriginalDetailsText { get; private set; }
 
         /// <summary>
+        /// 継承要素リスト
+        /// </summary>
+        public List<CLExtendsDocument> ExtendsDocs { get; private set; }
+
+        /// <summary>
         /// 置換要素リスト
         /// </summary>
         public List<CLReplaceDocument> ReplaceDocs { get; private set; }
@@ -77,6 +82,7 @@ namespace BinderMaker
             OriginalParams = new List<CLParamDocument>();
             OriginalReturnText = "";
             OriginalDetailsText = "";
+            ExtendsDocs = new List<CLExtendsDocument>();
             ReplaceDocs = new List<CLReplaceDocument>();
             PostscriptDocs = new List<CLPostscriptDocument>();
             OverwriteDocs = new List<CLOverwriteDocument>();
@@ -91,6 +97,7 @@ namespace BinderMaker
             IEnumerable<CLParamDocument> paramDocs,
             string returnText,
             string detailsText,
+            IEnumerable<CLExtendsDocument> extendsDocs,
             IEnumerable<CLReplaceDocument> replaceDocs,
             IEnumerable<CLPostscriptDocument> postscriptDocs,
             IEnumerable<CLOverwriteDocument> overwriteDocs,
@@ -101,10 +108,21 @@ namespace BinderMaker
             OriginalReturnText = returnText.Trim();
             OriginalDetailsText = detailsText.Trim();
 
+            ExtendsDocs = new List<CLExtendsDocument>(extendsDocs);
             ReplaceDocs = new List<CLReplaceDocument>(replaceDocs);
             PostscriptDocs = new List<CLPostscriptDocument>(postscriptDocs);
             OverwriteDocs = new List<CLOverwriteDocument>(overwriteDocs);
             ExampleDocs = new List<CLExampleDocument>(exampleDocs);
+        }
+
+        /// <summary>
+        /// ベースクラスの名前を取得する (言語にかかわらず継承するもの)
+        /// </summary>
+        /// <returns></returns>
+        public string GetBaseClassOriginalName()
+        {
+            var extends = ExtendsDocs.Find((e) => e.LangFlags == LangFlags.C);
+            return (extends != null) ? extends.OriginalClassName : "";
         }
 
         /// <summary>

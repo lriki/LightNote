@@ -10,6 +10,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            CallTest.Test_Rect();
         }
     }
 }

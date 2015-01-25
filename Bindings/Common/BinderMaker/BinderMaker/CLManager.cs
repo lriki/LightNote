@@ -112,6 +112,17 @@ namespace BinderMaker
         /// 全 delegate リスト
         /// </summary>
         public List<CLDelegate> AllDelegates { get; private set; }
+
+
+        /// <summary>
+        /// Result 列挙型
+        /// </summary>
+        public CLEnum ResultEnumType { get; private set; }
+
+        /// <summary>
+        /// ReferenceObject クラス型
+        /// </summary>
+        public CLClass ReferenceObjectClass { get; private set; }
         #endregion
 
         #region Methods
@@ -154,18 +165,24 @@ namespace BinderMaker
         /// </summary>
         public void LinkEntities()
         {
+            // Result 型を探す
+            ResultEnumType = AllEnums.Find((e) => e.Name == "Result");
+            if (ResultEnumType == null) throw new InvalidOperationException("not found ResultEnumType.");
+
+            // RefObject 型を探す
+            ReferenceObjectClass = AllClasses.Find((e) => e.OriginalName == "LNObject");
+            if (ReferenceObjectClass  == null) throw new InvalidOperationException("not found ReferenceObjectClass.");
+            ReferenceObjectClass.Name = "ReferenceObject";  // 特殊な名前にする
+
             // CLType をリンクする
             foreach (var e in AllEntities)
-            {
                 e.LinkTypes();
-            }
-
             // オーバーロードメソッドの関係をリンクする
             foreach (var e in AllMethods)
-            {
                 e.LinkOverloads();
-            }
-
+            // プロパティを作る
+            foreach (var c in AllClasses)
+                c.CreateProperties();
         }
 
         /// <summary>

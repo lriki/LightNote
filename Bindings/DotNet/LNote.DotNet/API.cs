@@ -1278,6 +1278,247 @@ namespace LN
         internal const CallingConvention DefaultCallingConvention = CallingConvention.Cdecl;
         
         /// <summary>
+        /// 矩形の各要素を設定します。
+        /// </summary>
+        /// <param name="rect">処理の基になる Rect</param>
+        /// <param name="x">左上 X 座標</param>
+        /// <param name="y">左上 Y 座標</param>
+        /// <param name="width">幅</param>
+        /// <param name="height">高さ</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNRect_Set(ref Rect rect,  int x,  int y,  int width,  int height);
+
+        /// <summary>
+        /// 指定した x y 座標の点が矩形に含まれているかを判別する
+        /// </summary>
+        /// <param name="rect">処理の基になる Rect</param>
+        /// <param name="x">X 座標</param>
+        /// <param name="y">Y 座標</param>
+        /// <param name="result">結果を格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNRect_Contains(ref Rect rect,  int x,  int y, out bool result);
+
+        /// <summary>
+        /// 例外発生時にコールバックされる関数を登録する
+        /// </summary>
+        /// <param name="handler"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNException_SetHandler( ExceptionCallback handler);
+
+        /// <summary>
+        /// 例外を発生させる
+        /// </summary>
+        /// <param name="errCode"></param>
+        /// <param name="message"></param>
+        /// <param name="file"></param>
+        /// <param name="line"></param>
+        /// <param name="func"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNException_Raise( Result errCode,  string message,  string file,  int line,  string func);
+
+        /// <summary>
+        /// 最後に発生した例外のエラーコードを取得する
+        /// </summary>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNException_GetLastErrorCode();
+
+        /// <summary>
+        /// 最後に発生した例外に対して、デフォルトの処理を行う (メッセージボックスを表示し、LNException_SetHandled(true))
+        /// </summary>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNException_ProcDefault();
+
+        /// <summary>
+        /// オブジェクトの解放
+        /// </summary>
+        /// <param name="hadnleObject">オブジェクトハンドル</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObject_Release( IntPtr hadnleObject);
+
+        /// <summary>
+        /// オブジェクトの参照カウントをインクリメントする
+        /// </summary>
+        /// <param name="hadnleObject">オブジェクトハンドル</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObject_AddRef( IntPtr hadnleObject);
+
+        /// <summary>
+        /// オブジェクトの参照カウント取得する
+        /// </summary>
+        /// <param name="hadnleObject">オブジェクトハンドル</param>
+        /// <param name="count">参照カウントを格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObject_GetRefCount( IntPtr hadnleObject, out int count);
+
+        /// <param name="hadnleObject"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static byte[] LNObject_GetTypeUserData( IntPtr hadnleObject);
+
+        /// <param name="hadnleObject"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static byte[] LNObject_GetInternalObject( IntPtr hadnleObject);
+
+        /// <param name="hadnleObject"></param>
+        /// <param name="data"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNObject_SetUserData( IntPtr hadnleObject,  byte[] data);
+
+        /// <param name="hadnleObject"></param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static byte[] LNObject_GetUserData( IntPtr hadnleObject);
+
+        /// <summary>
+        /// オブジェクトリストに格納されているオブジェクトの数を取得する
+        /// </summary>
+        /// <param name="objectList">オブジェクトリストハンドル</param>
+        /// <param name="count">要素の数を格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObjectList_GetCount( IntPtr objectList, out int count);
+
+        /// <summary>
+        /// オブジェクトリストの指定したインデックスにオブジェクトを設定する
+        /// </summary>
+        /// <param name="objectList">オブジェクトリストハンドル</param>
+        /// <param name="index">インデックス(要素番号)</param>
+        /// <param name="item">設定するオブジェクト</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObjectList_SetAt( IntPtr objectList,  int index,  IntPtr item);
+
+        /// <summary>
+        /// オブジェクトリストの指定したインデックスのオブジェクトを取得する
+        /// </summary>
+        /// <param name="objectList">オブジェクトリストハンドル</param>
+        /// <param name="index">インデックス(要素番号)</param>
+        /// <param name="outItem">オブジェクトを格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObjectList_GetAt( IntPtr objectList,  int index, out IntPtr outItem);
+
+        /// <summary>
+        /// オブジェクトリストの末尾にオブジェクトを追加する
+        /// </summary>
+        /// <param name="objectList">オブジェクトリストハンドル</param>
+        /// <param name="item">追加するオブジェクト</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObjectList_Add( IntPtr objectList,  IntPtr item);
+
+        /// <summary>
+        /// オブジェクトリストから全てのオブジェクトを削除する
+        /// </summary>
+        /// <param name="objectList">オブジェクトリストハンドル</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObjectList_Clear( IntPtr objectList);
+
+        /// <summary>
+        /// オブジェクトリストの指定したインデックスの位置にオブジェクトを挿入する
+        /// </summary>
+        /// <param name="objectList">オブジェクトリストハンドル</param>
+        /// <param name="index">item を挿入するインデックス</param>
+        /// <param name="item">挿入するオブジェクト</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObjectList_Insert( IntPtr objectList,  int index,  IntPtr item);
+
+        /// <summary>
+        /// オブジェクトリスト内で指定したハンドルと一致する最初のオブジェクトを削除する
+        /// </summary>
+        /// <param name="objectList">オブジェクトリストハンドル</param>
+        /// <param name="item">リストから削除するオブジェクト</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObjectList_Remove( IntPtr objectList,  IntPtr item);
+
+        /// <summary>
+        /// オブジェクトリスト内で指定したハンドルと一致する全てのオブジェクトを削除する
+        /// </summary>
+        /// <param name="objectList">オブジェクトリストハンドル</param>
+        /// <param name="item">リストから削除するオブジェクト</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObjectList_RemoveAll( IntPtr objectList,  IntPtr item);
+
+        /// <summary>
+        /// オブジェクトリストの指定したインデックスにあるオブジェクトを削除する
+        /// </summary>
+        /// <param name="objectList">オブジェクトリストハンドル</param>
+        /// <param name="index">削除するオブジェクトのインデックス番号</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNObjectList_RemoveAt( IntPtr objectList,  int index);
+
+        /// <summary>
+        /// 整数型の多次元配列を作成する
+        /// </summary>
+        /// <param name="intTable">作成されたテーブルハンドルを格納する変数</param>
+        /// <param name="xSize">X 要素数</param>
+        /// <param name="ySize">Y 要素数</param>
+        /// <param name="zSize">Z 要素数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_Create(out IntPtr intTable,  int xSize,  int ySize = 1,  int zSize = 1);
+
+        /// <summary>
+        /// 整数型の多次元配列を作成する
+        /// </summary>
+        /// <param name="intTable">作成されたテーブルハンドルを格納する変数</param>
+        /// <param name="xSize">X 要素数</param>
+        /// <param name="ySize">Y 要素数</param>
+        /// <param name="zSize">Z 要素数</param>
+        /// <param name="srcData">XXXX</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_CreateFromSrcData(out IntPtr intTable,  int xSize,  int ySize,  int zSize,  int[] srcData);
+
+        /// <summary>
+        /// 整数型テーブルの指定したインデックスに値を設定する
+        /// </summary>
+        /// <param name="intTable">整数型テーブルハンドル</param>
+        /// <param name="xSize">X 要素インデックス</param>
+        /// <param name="ySize">Y 要素インデックス</param>
+        /// <param name="zSize">Z 要素インデックス</param>
+        /// <param name="value">設定する整数値</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_SetValue( IntPtr intTable,  int xSize,  int ySize,  int zSize,  int value);
+
+        /// <summary>
+        /// 整数型テーブルの指定したインデックスに値を設定する
+        /// </summary>
+        /// <param name="intTable">整数型テーブルハンドル</param>
+        /// <param name="xSize">X 要素インデックス</param>
+        /// <param name="ySize">Y 要素インデックス</param>
+        /// <param name="zSize">Z 要素インデックス</param>
+        /// <param name="value">値を格納する整数型変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_GetValue( IntPtr intTable,  int xSize,  int ySize,  int zSize, out int value);
+
+        /// <summary>
+        /// 整数型テーブルの要素数を変更する
+        /// </summary>
+        /// <param name="intTable">整数型テーブルハンドル</param>
+        /// <param name="xSize">X 要素数</param>
+        /// <param name="ySize">Y 要素数</param>
+        /// <param name="zSize">Z 要素数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_Resize( IntPtr intTable,  int xSize,  int ySize,  int zSize);
+
+        /// <summary>
+        /// 整数型テーブルの X 要素数を取得する
+        /// </summary>
+        /// <param name="intTable">整数型テーブルハンドル</param>
+        /// <param name="xSize">X 要素数を格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_GetXSize( IntPtr intTable, out int xSize);
+
+        /// <summary>
+        /// 整数型テーブルの Y 要素数を取得する
+        /// </summary>
+        /// <param name="intTable">整数型テーブルハンドル</param>
+        /// <param name="ySize">Y 要素数を格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_GetYSize( IntPtr intTable, out int ySize);
+
+        /// <summary>
+        /// 整数型テーブルの Z 要素数を取得する
+        /// </summary>
+        /// <param name="intTable">整数型テーブルハンドル</param>
+        /// <param name="zSize">Z 要素数を格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_GetZSize( IntPtr intTable, out int zSize);
+
+        /// <summary>
         /// 2D ベクトルに値を設定する
         /// </summary>
         /// <param name="vec">値を格納する 2D ベクトル</param>
