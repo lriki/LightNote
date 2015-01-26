@@ -214,6 +214,9 @@ public:
 	///		アスペクト比固定の場合はこれに対応する深度バッファは生成されない。
     virtual Texture* getBackendBuffer() = 0;
 
+
+	virtual void SaveScreenCapture(const lnChar* filePath) = 0;
+
 protected:
     virtual ~ICanvas() {}
 };

@@ -1224,9 +1224,6 @@
     <ClInclude Include="..\..\Source\Core\Math\RandomEx.h">
       <Filter>Core\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\C_API\LFAudio2.h">
-      <Filter>C_API</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\C_API\LFTypedef2.h">
       <Filter>C_API</Filter>
     </ClInclude>

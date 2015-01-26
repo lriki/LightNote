@@ -214,7 +214,7 @@
 	//----------------------------------------------------------------------
 	LN_INTERNAL_API void LNObject_SetUserData(LN_HANDLE(LNObject) hadnleObject, void* data)
 	{
-
+		FuncLibManager::getObjectEntry(hadnleObject)->UserData = data;
 	}
 
 	//----------------------------------------------------------------------
@@ -222,7 +222,7 @@
 	//----------------------------------------------------------------------
 	LN_INTERNAL_API void* LNObject_GetUserData(LN_HANDLE(LNObject) hadnleObject)
 	{
-
+		return FuncLibManager::getObjectEntry(hadnleObject)->UserData;
 	}
 
 //==============================================================================

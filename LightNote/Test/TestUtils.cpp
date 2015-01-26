@@ -20,3 +20,13 @@ Core::FileIO::PathNameW TestUtils::getFilePath(const char* baseSourceFilePath, c
 	Core::FileIO::PathNameW path(base.getParent(), fileName);
 	return path;
 }
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+void TestUtils::SaveScreenCapture(const char* filePath)
+{
+	Core::Manager* core = (Core::Manager*)LNCore_GetInternalObject();
+	core->getGraphicsManager()->getGraphicsDevice()->getDefaultCanvas()->SaveScreenCapture(filePath);
+}

@@ -115,7 +115,7 @@ public:
 	//static Base::Interface*			getInterface( int index );
 
 	/// Handle が表す ObjectEntry の取得
-	static ObjectEntry* getObjectEntry(LNHandle handle) { return &mObjectEntryArray[TO_INDEX(handle)]; }
+	static ObjectEntry* getObjectEntry(LNHandle handle);
 
 	static LNHandle getInternalObjectHandle(Base::ReferenceObject* obj)
 	{

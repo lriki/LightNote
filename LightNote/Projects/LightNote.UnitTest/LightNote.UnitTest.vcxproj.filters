@@ -13,6 +13,9 @@
     <Filter Include="Core\Base">
       <UniqueIdentifier>{4686c135-6727-435e-8cf0-05f80f43e20e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="C_API">
+      <UniqueIdentifier>{82a4860f-edfd-4b73-a705-26ba59f5f347}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\IO_PathName.cpp">
@@ -37,6 +40,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Test\Core\Base\Test_Base_String.cpp">
       <Filter>Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\C_API\Test_C_API_Scene_Sprite.cpp">
+      <Filter>C_API</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

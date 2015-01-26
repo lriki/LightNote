@@ -5,6 +5,8 @@ class TestUtils
 public:
 	static Core::FileIO::PathNameW getDirectoryPath(const char* baseSourceFilePath);
 	static Core::FileIO::PathNameW getFilePath(const char* baseSourceFilePath, const char* fileName);
+
+	static void SaveScreenCapture(const char* filePath);
 };
 
 // ソースファイルと同じフォルダのファイルパスを取得する

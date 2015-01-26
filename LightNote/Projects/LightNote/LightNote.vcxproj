@@ -641,7 +641,6 @@
     <ClInclude Include="..\..\Source\Core\Utility\ProgressIndicator.h" />
     <ClInclude Include="..\..\Source\C_API\FuncLibManager.h" />
     <ClInclude Include="..\..\Source\C_API\LFAudio.h" />
-    <ClInclude Include="..\..\Source\C_API\LFAudio2.h" />
     <ClInclude Include="..\..\Source\C_API\LFBase.h" />
     <ClInclude Include="..\..\Source\C_API\LFCommon.h" />
     <ClInclude Include="..\..\Source\C_API\LFFile.h" />

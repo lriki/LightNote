@@ -128,9 +128,21 @@ namespace Graphics
 				backbufferSize.X,	0.0f,				0xffffffff, 1.0f + viewOffset.X, 0.0f + viewOffset.Y, 
 				0.0f,				backbufferSize.Y,	0xffffffff, 0.0f + viewOffset.X, 1.0f + viewOffset.Y, 
 				backbufferSize.X,	backbufferSize.Y,	0xffffffff, 1.0f + viewOffset.X, 1.0f + viewOffset.Y );
+
+
+
+
 			gr->end();
 			r->endScene();
 		}
+
+
+
+
+
+
+
+
 
 		//static lnU32 lastTime = 0;
 		//lnU32 tt = ::timeGetTime();
@@ -184,6 +196,46 @@ namespace Graphics
 		//		updateViewBoxMatrix();
 		//	}
 		//}
+	}
+
+	void DX9Canvas::SaveScreenCapture(const lnChar* filePath)
+	{
+#if 0
+		//static int count = 0;
+		//count++;
+
+		//if (count == 60)
+		{
+#pragma comment (lib, "d3dx9.lib")
+			IDirect3DDevice9* dxDevice = this->mGraphicsDevice->getIDirect3DDevice9();
+			//こっからスクリーンショット
+			IDirect3DSurface9 *pSurface;
+
+			int deskTopX = GetSystemMetrics(SM_CXSCREEN);
+			int deskTopY = GetSystemMetrics(SM_CYSCREEN);
+			HRESULT hr = dxDevice->CreateOffscreenPlainSurface(deskTopX, deskTopY, D3DFMT_A8R8G8B8, D3DPOOL_SYSTEMMEM, &pSurface, NULL);
+			hr = dxDevice->GetFrontBufferData(0, pSurface);
+			RECT rect;
+			GetClientRect(mTargetWindowHandle, &rect);
+
+			POINT pt = { 0, 0 };
+			ClientToScreen(mTargetWindowHandle, &pt);
+			rect.left += pt.x;
+			rect.right += pt.x;
+			rect.top += pt.y;
+			rect.bottom += pt.y;
+			//GetWindowRect(mTargetWindowHandle, &rect);
+			//if (windowed == TRUE)
+			{
+				//rect.bottom -= GetSystemMetrics(SM_CYDLGFRAME);
+				//rect.top += GetSystemMetrics(SM_CYDLGFRAME) + GetSystemMetrics(SM_CYCAPTION);
+				//rect.left += GetSystemMetrics(SM_CXDLGFRAME);
+				//rect.right -= GetSystemMetrics(SM_CXDLGFRAME);
+			}
+			hr = D3DXSaveSurfaceToFile(filePath, D3DXIFF_PNG, pSurface, NULL, &rect);
+			SAFE_RELEASE(pSurface);
+		}
+#endif
 	}
 
 	//----------------------------------------------------------------------

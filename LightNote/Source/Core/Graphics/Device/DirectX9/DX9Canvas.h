@@ -52,6 +52,7 @@ public:
     virtual void activate();
     virtual void present();
 	virtual Texture* getBackendBuffer() { return mBackendBuffer; }
+	virtual void SaveScreenCapture(const lnChar* filePath);
 
 public:
 	// GraphicsResource

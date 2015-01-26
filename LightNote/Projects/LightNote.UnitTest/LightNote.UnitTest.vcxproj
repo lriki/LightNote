@@ -88,6 +88,7 @@
     <ClCompile Include="..\..\Test\Core\Base\Test_Base_String.cpp" />
     <ClCompile Include="..\..\Test\Core\IO\Core_IO_Archive.cpp" />
     <ClCompile Include="..\..\Test\Core\IO\Core_IO_Manager.cpp" />
+    <ClCompile Include="..\..\Test\C_API\Test_C_API_Scene_Sprite.cpp" />
     <ClCompile Include="..\..\Test\Test.cpp" />
     <ClCompile Include="..\..\Test\TestUtils.cpp" />
     <ClCompile Include="Core\IO_PathName.cpp" />

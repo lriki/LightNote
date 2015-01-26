@@ -186,6 +186,8 @@ typedef intptr_t				lnIntPtr;
 #define LN_INSTANCE_API
 #define LN_INTERNAL_API
 #define LN_STATIC_API
+#define LN_LIBRARY_INITIALIZER
+#define LN_LIBRARY_TERMINATOR
 #define LN_PROPERTY
 #define LN_STRUCT_CONSTRUCTOR
 

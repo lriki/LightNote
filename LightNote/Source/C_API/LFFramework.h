@@ -190,9 +190,9 @@ LN_CLASS_END
 
 //==============================================================================
 /**
-	@brief		LightNote アプリケーションのクラスです。
+	@brief		LightNote の初期化や更新等、包括的な処理を行うクラスです。
 */
-LN_STATIC_CLASS(LNApplication)
+LN_STATIC_CLASS(LNCore)
 	
 	/**
 		@brief		LightNote を初期化します。
@@ -200,7 +200,7 @@ LN_STATIC_CLASS(LNApplication)
 	*/
 	LN_STATIC_API
 	LN_LIBRARY_INITIALIZER
-	LNResult LNApplication_Initialize();
+	LNResult LNCore_Initialize();
 	/*Option
 		@override[cpp]
 		@override_end
@@ -213,7 +213,7 @@ LN_STATIC_CLASS(LNApplication)
 	*/
 	LN_STATIC_API
 	LN_LIBRARY_INITIALIZER
-	LNResult LNApplication_InitializeFileIO();
+	LNResult LNCore_InitializeFileIO();
 
 	/**
 		@brief		音声機能を初期化します。
@@ -221,7 +221,7 @@ LN_STATIC_CLASS(LNApplication)
 	*/
 	LN_STATIC_API
 	LN_LIBRARY_INITIALIZER
-	LNResult LNApplication_InitializeAudio();
+	LNResult LNCore_InitializeAudio();
 	/*Option
 		@override[hsp]
 		@override_end
@@ -232,7 +232,7 @@ LN_STATIC_CLASS(LNApplication)
 	*/
 	LN_STATIC_API
 	LN_LIBRARY_INITIALIZER
-	LNResult LNApplication_InitializeInput();
+	LNResult LNCore_InitializeInput();
 	/*Option
 		@override[hsp]
 		@override_end
@@ -244,7 +244,7 @@ LN_STATIC_CLASS(LNApplication)
 					この関数は必ず1フレームに1度だけ呼び出す必要があります。
 	*/
 	LN_STATIC_API
-	LNResult LNApplication_Update();
+	LNResult LNCore_Update();
 	/*Option
 		@override[hsp]
 		@override_end
@@ -256,7 +256,7 @@ LN_STATIC_CLASS(LNApplication)
 					極端なフレームスキップが発生しないようにすることができます。
 	*/
 	LN_STATIC_API
-	LNResult LNApplication_ResetFrameDelay();
+	LNResult LNCore_ResetFrameDelay();
 
 	/**
 		@brief		アプリケーションを終了するべきかを確認します。
@@ -265,17 +265,17 @@ LN_STATIC_CLASS(LNApplication)
 					アプリケーションを終了するべき時には LN_FALSE を返します。
 	*/
 	LN_STATIC_API
-	LNResult LNApplication_IsEndRequested(LNBool* requested);
+	LNResult LNCore_IsEndRequested(LNBool* requested);
 
 	/**
 		@brief		LightNote の終了処理を行います。
 	*/
 	LN_STATIC_API
 	LN_LIBRARY_TERMINATOR
-	void LNApplication_Terminate();
+	void LNCore_Terminate();
 
 
-	LN_INTERNAL_API void* LNApplication_GetInternalObject();
+	LN_INTERNAL_API void* LNCore_GetInternalObject();
 
 LN_CLASS_END
 

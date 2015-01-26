@@ -100,6 +100,7 @@ public:
 	/// present() の転送先ウィンドウのウィンドウハンドルの設定
 	virtual void setTargetWindowHandle(HWND hwnd) { mTargetWindowHandle = hwnd; }
 
+
 public:
 
 	/// デバイスリセット直前 GraphicsDevice から呼ばれる

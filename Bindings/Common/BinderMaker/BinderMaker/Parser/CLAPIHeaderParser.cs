@@ -229,7 +229,7 @@ namespace BinderMaker.Parser
             from name       in ParserUtils.Identifier
             from rparen     in Parse.Char(')').GenericToken()
             from lead       in Parse.AnyChar.Except(Parse.String("/**")).Many().Text()  // 最初のドキュメントコメントまでを読み飛ばす (/** は消費しない)
-            from methods    in MethodDecl.Many()
+            from methods    in MethodDecl.XMany()                   // XMany は失敗を許さない。Many だとエラー位置が分かりにくくなる。
             from classOpt   in (OptionComment.GenericToken()).Or(Parse.Return(new CLOption()))
             from end        in Parse.String("LN_CLASS_END")
             select new CLClass(start, doc, name, methods, classOpt);
@@ -241,7 +241,7 @@ namespace BinderMaker.Parser
             from lparen     in Parse.Char('(').GenericToken()
             from name       in ParserUtils.IdentifierOrNumeric.GenericToken()
             from rparen     in Parse.Char(')').GenericToken()
-            from classes    in ClassDecl.Many()
+            from classes    in ClassDecl.XMany()
             from end        in Parse.String("LN_MODULE_END").GenericToken()
             select new CLModule(doc, classes);
 
