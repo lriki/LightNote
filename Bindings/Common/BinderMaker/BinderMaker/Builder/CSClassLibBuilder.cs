@@ -17,11 +17,29 @@ namespace BinderMaker.Builder
         private LangContext _context = new LangContext(LangFlags.CS);
         private OutputBuffer _classText;           // 現在のクラスのテキスト
         private OutputBuffer _fieldsText;          // 現在のクラスのフィールド一覧
+        private OutputBuffer _propertiesText;       // 現在のクラスのプロパティ一覧
         private OutputBuffer _methodsText;         // 現在のクラスのメソッド一覧
         private OutputBuffer _classesText = new OutputBuffer(1);
         private OutputBuffer _typeInfoRegistersText = new OutputBuffer(3);
         private OutputBuffer _typeInfoPInvolesText = new OutputBuffer(2);
         #endregion
+
+        /// <summary>
+        /// ビルド開始前(初期化)通知
+        /// </summary>
+        /// <param name="enumType"></param>
+        protected override void OnInitialize()
+        {
+            // bool コメント置換
+            _context.AddReplacePair("LN_TRUE", "true");
+            _context.AddReplacePair("LN_FALSE", "false");
+
+            // enum メンバのコメント置換
+            foreach (var t in Manager.AllEnums)
+                foreach (var m in t.Members)
+                    _context.AddReplacePair(m.OriginalName, t.Name + "." + m.CapitalizedName);
+            
+        }
 
         /// <summary>
         /// クラスor構造体 通知 (開始)
@@ -33,6 +51,7 @@ namespace BinderMaker.Builder
 
             _classText = new OutputBuffer();
             _fieldsText = new OutputBuffer();
+            _propertiesText = new OutputBuffer();
             _methodsText = new OutputBuffer();
 
             // XMLコメント
@@ -150,13 +169,79 @@ var _{0} = new TypeInfo(){{ Factory = (handle) =>
             _classText.AppendWithIndent("{").NewLine();
             _classText.IncreaseIndent();
             _classText.AppendWithIndent(_fieldsText.ToString()).NewLine();      // フィールド
-            //_classText.AppendWithIndent(_propertiesText.ToString()).NewLine();  // プロパティ
+            _classText.AppendWithIndent(_propertiesText.ToString()).NewLine();  // プロパティ
             _classText.AppendWithIndent(_methodsText.ToString()).NewLine();     // メソッド
             _classText.DecreaseIndent();
             _classText.AppendWithIndent("};").NewLine(2);
 
             // 全クラステキストへ
             _classesText.AppendWithIndent(_classText.ToString());
+        }
+
+        /// <summary>
+        /// プロパティ 通知
+        /// </summary>
+        /// <param name="enumType"></param>
+        protected override void OnPropertyLooked(CLProperty prop)
+        {
+            // XMLコメント
+            var xmlCommentText = new OutputBuffer();
+            CSBuilderCommon.MakeSummaryXMLComment(xmlCommentText, _context.GetBriefText(prop));
+            CSBuilderCommon.MakeRemarksXMLComment(xmlCommentText, _context.GetDetailsText(prop));
+
+            // getter
+            var getterText = new OutputBuffer();
+            if (prop.Getter != null && _context.CheckEnabled(prop.Getter))
+            {
+                // アクセサ作成
+                getterText.AppendWithIndent("get").NewLine();
+                MakeMethodBodyText(prop.Getter, false, getterText, _fieldsText);    // {} はこれに含まれる
+            }
+            // setter
+            var setterText = new OutputBuffer();
+            if (prop.Setter != null && _context.CheckEnabled(prop.Setter))
+            {
+                // アクセサ作成
+                setterText.AppendWithIndent("set").NewLine();
+                MakeMethodBodyText(prop.Setter, true, setterText, _fieldsText);    // {} はこれに含まれる
+            }
+
+            // 修飾子
+            var modifier = "public ";
+            if (prop.IsStatic) modifier += "static ";
+
+            // 修飾子 - override/virtual
+            //if (prop.IsVirtual)
+            //{
+            //    if (prop.IsBaseVirtual)
+            //        modifier += "virtual ";
+            //    else
+            //        modifier += "override ";
+            //}
+            // 型名
+            var typeName = CSBuilderCommon.MakeTypeName(prop.Type);
+            // 結合
+            _propertiesText.AppendWithIndent(xmlCommentText.ToString());
+            _propertiesText.AppendWithIndent("{0}{1} {2}", modifier, typeName, prop.Name).NewLine();
+            _propertiesText.AppendWithIndent("{").NewLine();
+            _propertiesText.IncreaseIndent();
+            _propertiesText.AppendWithIndent(getterText.ToString());
+            _propertiesText.AppendWithIndent(setterText.ToString());
+            _propertiesText.DecreaseIndent();
+            _propertiesText.AppendWithIndent("}").NewLine(2);
+        }
+
+        /// <summary>
+        /// メソッド 通知 (プロパティや internal は通知されない)
+        /// </summary>
+        /// <param name="enumType"></param>
+        protected override void OnMethodLooked(CLMethod method)
+        {
+            // XML コメントと メソッドヘッダを作る
+            MakeMethodHeaderText(method);
+
+            // メソッド本体を作る
+            MakeMethodBodyText(method, false, _methodsText, _fieldsText);
         }
 
         /// <summary>
@@ -169,22 +254,6 @@ var _{0} = new TypeInfo(){{ Factory = (handle) =>
                 .Replace("CLASSES", _classesText.ToString())
                 .Replace("TYPE_INFO_REGISTERS", _typeInfoRegistersText.ToString())
                 .Replace("TYPE_INFO_PINVOKES", _typeInfoPInvolesText.ToString());
-        }
-
-        /// <summary>
-        /// メソッド 通知
-        /// </summary>
-        /// <param name="enumType"></param>
-        protected override void OnMethodLooked(CLMethod method)
-        {
-            // internal は出力しない
-            if (method.Modifier == MethodModifier.Internal) return;
-
-            // XML コメントと メソッドヘッダを作る
-            MakeMethodHeaderText(method);
-
-            // メソッド本体を作る
-            MakeMethodBodyText(method, false);
         }
 
         /// <summary>
@@ -241,21 +310,21 @@ var _{0} = new TypeInfo(){{ Factory = (handle) =>
         }
 
         /// <summary>
-        /// メソッド本体の作成 (開始と終端の '{''}' を含み、_methodsText、_fieldsText に追記する)
+        /// メソッド本体の作成
         /// </summary>
         /// <param name="method"></param>
         /// <param name="returnParam"></param>
         /// <param name="isPropSetter"></param>
-        private void MakeMethodBodyText(CLMethod method, bool isPropSetter)
+        private void MakeMethodBodyText(CLMethod method, bool isPropSetter, OutputBuffer methodsOutput, OutputBuffer fieldsOutput)
         {
-            _methodsText.AppendWithIndent("{").NewLine();
-            _methodsText.IncreaseIndent();
+            methodsOutput.AppendWithIndent("{").NewLine();
+            methodsOutput.IncreaseIndent();
 
             // オーバーライドコードがあればそれを使う
             string overrideCode;
             if (_context.TryGetOverrideCode(method, out overrideCode))
             {
-                _methodsText.AppendWithIndent(overrideCode);
+                methodsOutput.AppendWithIndent(overrideCode);
             }
             else
             {
@@ -266,7 +335,7 @@ var _{0} = new TypeInfo(){{ Factory = (handle) =>
 
                 // Initializer の場合はファクトリ登録処理を埋め込む
                 if (method.IsLibraryInitializer)
-                    initStmtText.AppendWithIndent("TypeInfo.Register();").NewLine();
+                    initStmtText.AppendWithIndent("InternalManager.Initialize();").NewLine();
 
                 // this を表す先頭の仮引数がある
                 if (method.ThisParam != null)
@@ -347,7 +416,7 @@ return {0};".Trim();
                         string modifier = "";
                         if (!method.IsInstanceMethod)
                             modifier += "static";
-                        _fieldsText.AppendWithIndent(string.Format("{0} {1} {2};", modifier, typeName, fieldName)).NewLine();
+                        fieldsOutput.AppendWithIndent(string.Format("{0} {1} {2};", modifier, typeName, fieldName)).NewLine();
 
                         /* 例)
                         IntPtr viewPane;
@@ -386,8 +455,12 @@ return {0};".Trim();
                     postErrorStmt = "if (result != Result.OK) throw new LNoteException(result);" + OutputBuffer.NewLineCode;
                 }
 
+                // Terminator の場合は終了処理を埋め込む
+                if (method.IsLibraryTerminator)
+                    postStmtText.AppendWithIndent("InternalManager.Terminate();").NewLine();
+
                 // 定義文を結合
-                _methodsText.AppendWithIndent(
+                methodsOutput.AppendWithIndent(
                     initStmtText.ToString() +
                     string.Format("{0}API.{1}({2});", preErrorStmt, method.FuncDecl.OriginalFullName, argsText.ToString()) + OutputBuffer.NewLineCode +
                     postErrorStmt +
@@ -395,8 +468,8 @@ return {0};".Trim();
                     returnStmtText);
             }
 
-            _methodsText.DecreaseIndent();
-            _methodsText.AppendWithIndent("}").NewLine(2);
+            methodsOutput.DecreaseIndent();
+            methodsOutput.AppendWithIndent("}").NewLine(2);
         }
     }
 }

@@ -111,7 +111,6 @@ namespace BinderMaker
         public static CLPrimitiveType Double = new CLPrimitiveType("Double");
 
         public static CLPrimitiveType IntPtr = new CLPrimitiveType("IntPtr");
-        public static CLPrimitiveType HWND = new CLPrimitiveType("HWND");
         #endregion
 
         #region Properties

@@ -24,6 +24,7 @@ namespace BinderMaker
         public const string APIAttribute_Property = "LN_PROPERTY";
         public const string APIAttribute_StructConstructor = "LN_STRUCT_CONSTRUCTOR";
         public const string APIAttribute_LibraryInitializer = "LN_LIBRARY_INITIALIZER";
+        public const string APIAttribute_LibraryTerminator = "LN_LIBRARY_TERMINATOR";
         public const string HandleTypeParamMacro = "LN_HANDLE";
         public const string GenericHandleTypeParamMacro = "LN_HANDLE_GENERIC";
 
@@ -64,8 +65,7 @@ namespace BinderMaker
             { "LNBool*",　          CLPrimitiveType.Bool },
             { "uint8_t",            CLPrimitiveType.Byte },
             { "uint32_t",           CLPrimitiveType.UInt32 },
-
-            //{ "lnIntPtr",           CLPrimitiveType.IntPtr },
+            { "intptr_t",           CLPrimitiveType.IntPtr },
             
             { "const int*",         CLClass.IntArray },
         }; 

@@ -31,11 +31,33 @@ namespace BinderMaker
         public const string DetailsTag = "details";
         #endregion
 
-        private LangFlags _langFlags;
+        #region Fields
+        struct ReplacePair
+        {
+            public string OldText;
+            public string NewText;
+        }
 
+        private LangFlags _langFlags;
+        private List<ReplacePair> _textReplacePairs;
+        #endregion
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="langFlags"></param>
         public LangContext(LangFlags langFlags)
         {
             _langFlags = langFlags;
+            _textReplacePairs = new List<ReplacePair>();
+        }
+
+        /// <summary>
+        /// すべてのテキストに対する置換要素の追加
+        /// </summary>
+        public void AddReplacePair(string oldText, string newText)
+        {
+            _textReplacePairs.Add(new ReplacePair() { OldText = oldText, NewText = newText });
         }
 
         /// <summary>
@@ -56,6 +78,31 @@ namespace BinderMaker
         public string GetBriefText(CLMethod method)
         {
             return MakeText(method.Document.OriginalBriefText, method.Document, BriefTag);
+        }
+
+        /// <summary>
+        /// プロパティの brief 説明文
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public string GetBriefText(CLProperty prop)
+        {
+            string getter = (prop.Getter != null) ? MakeText(prop.Getter.Document.OriginalBriefText, prop.Getter.Document, BriefTag) : "";
+            string setter = (prop.Setter != null) ? MakeText(prop.Setter.Document.OriginalBriefText, prop.Setter.Document, BriefTag) : "";
+
+            getter = getter.Replace("の取得", "");
+            getter = getter.Replace("を取得します。", "");
+            setter = setter.Replace("の設定", "");
+            setter = setter.Replace("を設定します。", "");
+
+            // もし両方ある場合はコメント内容が一致しているはず
+            if (!string.IsNullOrEmpty(getter) && !string.IsNullOrEmpty(setter) && getter != setter)
+                throw new InvalidOperationException();
+            // ここで止まる場合、「を設定する」とかになってないかチェック
+
+            if (!string.IsNullOrEmpty(getter)) return getter;
+            if (!string.IsNullOrEmpty(setter)) return setter;
+            throw new InvalidOperationException();
         }
 
         /// <summary>
@@ -89,6 +136,25 @@ namespace BinderMaker
         }
 
         /// <summary>
+        /// プロパティの details 説明文
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public string GetDetailsText(CLProperty prop)
+        {
+            string getter = (prop.Getter != null) ? MakeText(prop.Getter.Document.OriginalDetailsText, prop.Getter.Document, DetailsTag) : "";
+            string setter = (prop.Setter != null) ? MakeText(prop.Setter.Document.OriginalDetailsText, prop.Setter.Document, DetailsTag) : "";
+
+            // 両方あれば間を改行で区切って出力
+            if (!string.IsNullOrEmpty(getter) && !string.IsNullOrEmpty(getter))
+                return getter + Builder.OutputBuffer.NewLineCode + Builder.OutputBuffer.NewLineCode + setter;
+
+            if (!string.IsNullOrEmpty(getter)) return getter;
+            if (!string.IsNullOrEmpty(setter)) return setter;
+            return "";
+        }
+
+        /// <summary>
         /// return Param コメント作成
         /// (return として選択された Param のコメント作成で使用する)
         /// </summary>
@@ -102,6 +168,16 @@ namespace BinderMaker
             // "演算結果を格納する Vector3 変数" 等の後半を切り取る
             var r = new Regex("を格納する.*");
             return r.Replace(text, "");
+        }
+
+        /// <summary>
+        /// メソッドが有効であるかを確認
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckEnabled(CLMethod method)
+        {
+            var b = method.Option.DisableOptions.Find((opt) => opt.LangFlags == _langFlags);
+            return b == null;
         }
 
         /// <summary>
@@ -140,6 +216,12 @@ namespace BinderMaker
             foreach (var overwriteDoc in overwriteDocs)
             {
                 srcText = overwriteDoc.Text;
+            }
+
+            // 置換 (TODO:重くなるようならテキストに "LN" が含まれているかをまずチェックするとか)
+            foreach (var r in _textReplacePairs)
+            {
+                srcText = srcText.Replace(r.OldText, r.NewText);
             }
 
             return srcText;

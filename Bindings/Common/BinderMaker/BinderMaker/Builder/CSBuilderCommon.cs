@@ -32,7 +32,6 @@ namespace BinderMaker.Builder
 
             //{ CLPrimitiveType.ExceptionCallback, "ExceptionCallback" },
             { CLPrimitiveType.IntPtr, "IntPtr" },
-            { CLPrimitiveType.HWND, "IntPtr" },
             
             { CLClass.ByteArray, "byte[]" },
             { CLClass.IntArray, "int[]" },

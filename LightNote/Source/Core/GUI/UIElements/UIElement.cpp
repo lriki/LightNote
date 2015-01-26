@@ -50,6 +50,7 @@ void UIElement::measure(LSize availableSize)
 	// ① Pane ―[measure()   … この範囲内なら配置できるよ]→ Button
 	// ② Pane ←[DesiredSize … じゃあこのサイズでお願いします]― Button
 	// ③ Pane ―[arrange()   … 他の子要素との兼ね合いで最終サイズはコレで]→ Button
+	// http://www.kanazawa-net.ne.jp/~pmansato/wpf/wpf_ctrl_arrange.htm
 	LN_THROW_NotImpl(0);
 }
 

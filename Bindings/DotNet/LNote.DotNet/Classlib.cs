@@ -32,6 +32,7 @@ namespace LN
         public int Height;
 
 
+
         /// <summary>
         /// 各要素を指定して初期化します。
         /// </summary>
@@ -56,7 +57,7 @@ namespace LN
         }
 
         /// <summary>
-        /// 指定した x y 座標の点が矩形に含まれているかを判別する
+        /// 指定した x y 座標の点が矩形に含まれているかを判別します。
         /// </summary>
         /// <param name="x">X 座標</param>
         /// <param name="y">Y 座標</param>
@@ -76,10 +77,56 @@ namespace LN
     public partial class IntTable : ReferenceObject
     {
 
+        /// <summary>
+        /// 整数型テーブルの X 要素数
+        /// </summary>
+        public int XSize
+        {
+            get
+            {
+                var xSize = new int();
+                var result = API.LNIntTable_GetXSize( _handle, out xSize);
+                if (result != Result.OK) throw new LNoteException(result);
+                return xSize;
+            }
+
+        }
+
+        /// <summary>
+        /// 整数型テーブルの Y 要素数
+        /// </summary>
+        public int YSize
+        {
+            get
+            {
+                var ySize = new int();
+                var result = API.LNIntTable_GetYSize( _handle, out ySize);
+                if (result != Result.OK) throw new LNoteException(result);
+                return ySize;
+            }
+
+        }
+
+        /// <summary>
+        /// 整数型テーブルの Z 要素数
+        /// </summary>
+        public int ZSize
+        {
+            get
+            {
+                var zSize = new int();
+                var result = API.LNIntTable_GetZSize( _handle, out zSize);
+                if (result != Result.OK) throw new LNoteException(result);
+                return zSize;
+            }
+
+        }
+
+
         internal IntTable(_LNInternal i) : base(i) {}
 
         /// <summary>
-        /// 整数型の多次元配列を作成する
+        /// 整数型の多次元配列を作成します。
         /// </summary>
         /// <param name="xSize">X 要素数</param>
         /// <param name="ySize">Y 要素数</param>
@@ -93,7 +140,7 @@ namespace LN
         }
 
         /// <summary>
-        /// 整数型の多次元配列を作成する
+        /// 整数型の多次元配列を作成します。
         /// </summary>
         /// <param name="xSize">X 要素数</param>
         /// <param name="ySize">Y 要素数</param>
@@ -108,7 +155,7 @@ namespace LN
         }
 
         /// <summary>
-        /// 整数型テーブルの指定したインデックスに値を設定する
+        /// 整数型テーブルの指定したインデックスに値を設定します。
         /// </summary>
         /// <param name="xSize">X 要素インデックス</param>
         /// <param name="ySize">Y 要素インデックス</param>
@@ -124,7 +171,7 @@ namespace LN
         }
 
         /// <summary>
-        /// 整数型テーブルの指定したインデックスに値を設定する
+        /// 整数型テーブルの指定したインデックスに値を設定します。
         /// </summary>
         /// <param name="xSize">X 要素インデックス</param>
         /// <param name="ySize">Y 要素インデックス</param>
@@ -141,7 +188,7 @@ namespace LN
         }
 
         /// <summary>
-        /// 整数型テーブルの要素数を変更する
+        /// 整数型テーブルの要素数を変更します。
         /// </summary>
         /// <param name="xSize">X 要素数</param>
         /// <param name="ySize">Y 要素数</param>
@@ -153,39 +200,6 @@ namespace LN
         {
             var result = API.LNIntTable_Resize( _handle,  xSize,  ySize,  zSize);
             if (result != Result.OK) throw new LNoteException(result);
-        }
-
-        /// <summary>
-        /// 整数型テーブルの X 要素数を取得する
-        /// </summary>
-        public int GetXSize()
-        {
-            var xSize = new int();
-            var result = API.LNIntTable_GetXSize( _handle, out xSize);
-            if (result != Result.OK) throw new LNoteException(result);
-            return xSize;
-        }
-
-        /// <summary>
-        /// 整数型テーブルの Y 要素数を取得する
-        /// </summary>
-        public int GetYSize()
-        {
-            var ySize = new int();
-            var result = API.LNIntTable_GetYSize( _handle, out ySize);
-            if (result != Result.OK) throw new LNoteException(result);
-            return ySize;
-        }
-
-        /// <summary>
-        /// 整数型テーブルの Z 要素数を取得する
-        /// </summary>
-        public int GetZSize()
-        {
-            var zSize = new int();
-            var result = API.LNIntTable_GetZSize( _handle, out zSize);
-            if (result != Result.OK) throw new LNoteException(result);
-            return zSize;
         }
 
 
@@ -200,6 +214,37 @@ namespace LN
         public float X;
 
         public float Y;
+
+
+        /// <summary>
+        /// 2D ベクトルの長さを計算する
+        /// </summary>
+        public float Length
+        {
+            get
+            {
+                var outLength = new float();
+                var result = API.LNVector2_GetLength(ref this, out outLength);
+                if (result != Result.OK) throw new LNoteException(result);
+                return outLength;
+            }
+
+        }
+
+        /// <summary>
+        /// 2D ベクトルの長さの2乗を計算する
+        /// </summary>
+        public float SquareLength
+        {
+            get
+            {
+                var outLength = new float();
+                var result = API.LNVector2_GetSquareLength(ref this, out outLength);
+                if (result != Result.OK) throw new LNoteException(result);
+                return outLength;
+            }
+
+        }
 
 
         /// <summary>
@@ -220,28 +265,6 @@ namespace LN
         {
             var result = API.LNVector2_Set(ref this,  x,  y);
             if (result != Result.OK) throw new LNoteException(result);
-        }
-
-        /// <summary>
-        /// 2D ベクトルの長さを計算する
-        /// </summary>
-        public float GetLength()
-        {
-            var outLength = new float();
-            var result = API.LNVector2_GetLength(ref this, out outLength);
-            if (result != Result.OK) throw new LNoteException(result);
-            return outLength;
-        }
-
-        /// <summary>
-        /// 2D ベクトルの長さの2乗を計算する
-        /// </summary>
-        public float GetSquareLength()
-        {
-            var outLength = new float();
-            var result = API.LNVector2_GetSquareLength(ref this, out outLength);
-            if (result != Result.OK) throw new LNoteException(result);
-            return outLength;
         }
 
         /// <summary>
@@ -270,6 +293,37 @@ namespace LN
         public float Y;
 
         public float Z;
+
+
+        /// <summary>
+        /// 3Dベクトルの長さを計算する
+        /// </summary>
+        public float Length
+        {
+            get
+            {
+                var outLength = new float();
+                var result = API.LNVector3_GetLength(ref this, out outLength);
+                if (result != Result.OK) throw new LNoteException(result);
+                return outLength;
+            }
+
+        }
+
+        /// <summary>
+        /// 3D ベクトルの長さの2乗を計算する
+        /// </summary>
+        public float SquareLength
+        {
+            get
+            {
+                var outLength = new float();
+                var result = API.LNVector3_GetSquareLength(ref this, out outLength);
+                if (result != Result.OK) throw new LNoteException(result);
+                return outLength;
+            }
+
+        }
 
 
         /// <summary>
@@ -303,28 +357,6 @@ namespace LN
         {
             var result = API.LNVector3_SetVec2(out this, ref vec2,  z);
             if (result != Result.OK) throw new LNoteException(result);
-        }
-
-        /// <summary>
-        /// 3Dベクトルの長さを計算する
-        /// </summary>
-        public float GetLength()
-        {
-            var outLength = new float();
-            var result = API.LNVector3_GetLength(ref this, out outLength);
-            if (result != Result.OK) throw new LNoteException(result);
-            return outLength;
-        }
-
-        /// <summary>
-        /// 3D ベクトルの長さの2乗を計算する
-        /// </summary>
-        public float GetSquareLength()
-        {
-            var outLength = new float();
-            var result = API.LNVector3_GetSquareLength(ref this, out outLength);
-            if (result != Result.OK) throw new LNoteException(result);
-            return outLength;
         }
 
         /// <summary>
@@ -475,6 +507,7 @@ namespace LN
         public float W;
 
 
+
         /// <summary>
         /// 各要素を指定して初期化します。
         /// </summary>
@@ -539,6 +572,67 @@ namespace LN
         public float M43;
 
         public float M44;
+
+
+        /// <summary>
+        /// 右方向を示す 3D ベクトル
+        /// </summary>
+        public Vector3 Right
+        {
+            get
+            {
+                var outVec = new Vector3();
+                var result = API.LNMatrix_GetRight(ref this, out outVec);
+                if (result != Result.OK) throw new LNoteException(result);
+                return outVec;
+            }
+
+        }
+
+        /// <summary>
+        /// 上方向を示す 3D ベクトル
+        /// </summary>
+        public Vector3 Up
+        {
+            get
+            {
+                var outVec = new Vector3();
+                var result = API.LNMatrix_GetUp(ref this, out outVec);
+                if (result != Result.OK) throw new LNoteException(result);
+                return outVec;
+            }
+
+        }
+
+        /// <summary>
+        /// 正面方向を示す 3D ベクトル
+        /// </summary>
+        public Vector3 Front
+        {
+            get
+            {
+                var outVec = new Vector3();
+                var result = API.LNMatrix_GetFront(ref this, out outVec);
+                if (result != Result.OK) throw new LNoteException(result);
+                return outVec;
+            }
+
+        }
+
+        /// <summary>
+        /// 位置を示す 3D ベクトル
+        /// </summary>
+        public Vector3 Position
+        {
+            get
+            {
+                var outVec = new Vector3();
+                var result = API.LNMatrix_GetPosition(ref this, out outVec);
+                if (result != Result.OK) throw new LNoteException(result);
+                return outVec;
+            }
+
+        }
 
 
         /// <summary>
@@ -865,50 +959,6 @@ namespace LN
         }
 
         /// <summary>
-        /// 右方向を示す 3D ベクトルの取得
-        /// </summary>
-        public Vector3 GetRight()
-        {
-            var outVec = new Vector3();
-            var result = API.LNMatrix_GetRight(ref this, out outVec);
-            if (result != Result.OK) throw new LNoteException(result);
-            return outVec;
-        }
-
-        /// <summary>
-        /// 上方向を示す 3D ベクトルの取得
-        /// </summary>
-        public Vector3 GetUp()
-        {
-            var outVec = new Vector3();
-            var result = API.LNMatrix_GetUp(ref this, out outVec);
-            if (result != Result.OK) throw new LNoteException(result);
-            return outVec;
-        }
-
-        /// <summary>
-        /// 正面方向を示す 3D ベクトルの取得
-        /// </summary>
-        public Vector3 GetFront()
-        {
-            var outVec = new Vector3();
-            var result = API.LNMatrix_GetFront(ref this, out outVec);
-            if (result != Result.OK) throw new LNoteException(result);
-            return outVec;
-        }
-
-        /// <summary>
-        /// 位置を示す 3D ベクトルの取得
-        /// </summary>
-        public Vector3 GetPosition()
-        {
-            var outVec = new Vector3();
-            var result = API.LNMatrix_GetPosition(ref this, out outVec);
-            if (result != Result.OK) throw new LNoteException(result);
-            return outVec;
-        }
-
-        /// <summary>
         /// 回転行列からオイラー角を計算する
         /// </summary>
         public Vector3 GetEulerAngles()
@@ -948,6 +998,7 @@ namespace LN
         public float Z;
 
         public float W;
+
 
 
         /// <summary>
@@ -1090,6 +1141,23 @@ namespace LN
     public partial class Random : ReferenceObject
     {
 
+        /// <summary>
+        /// 乱数オブジェクトに乱数シードを設定する
+        /// </summary>
+        /// <remarks>
+        /// random が NULL の場合、グローバル乱数オブジェクトに設定します。
+        /// </remarks>
+        public int Seed
+        {
+            set
+            {
+                var result = API.LNRandom_SetSeed( _handle,  value);
+                if (result != Result.OK) throw new LNoteException(result);
+            }
+
+        }
+
+
         internal Random(_LNInternal i) : base(i) {}
 
         /// <summary>
@@ -1113,19 +1181,6 @@ namespace LN
             var result = API.LNRandom_CreateSeed(out random,  seed);
             if (result != Result.OK) throw new LNoteException(result);
             InternalManager.RegisterWrapperObject(this, random);
-        }
-
-        /// <summary>
-        /// 乱数オブジェクトに乱数シードを設定する
-        /// </summary>
-        /// <param name="seed">シード値</param>
-        /// <remarks>
-        /// random が NULL の場合、グローバル乱数オブジェクトに設定します。
-        /// </remarks>
-        public void SetSeed( int seed)
-        {
-            var result = API.LNRandom_SetSeed( _handle,  seed);
-            if (result != Result.OK) throw new LNoteException(result);
         }
 
         /// <summary>
@@ -1214,6 +1269,338 @@ namespace LN
 
     };
 
+    /// <summary>
+    /// LightNote の初期設定を行うための関数郡です。
+    /// </summary>
+    public partial class Config
+    {
+
+
+        /// <summary>
+        /// デフォルトで作成されるウィンドウのタイトル文字列を設定します。
+        /// </summary>
+        /// <param name="title">ウィンドウタイトル文字列</param>
+        public static void SetWindowTitle( string title)
+        {
+            API.LNConfig_SetWindowTitle( title);
+        }
+
+        /// <summary>
+        /// デフォルトで作成されるウィンドウのサイズ (クライアント領域) を設定します。
+        /// </summary>
+        /// <param name="width">クライアント領域の幅 (default:640)</param>
+        /// <param name="height">クライアント領域の高さ (default:480)</param>
+        public static void SetWindowSize( int width,  int height)
+        {
+            API.LNConfig_SetWindowSize( width,  height);
+        }
+
+        /// <summary>
+        /// デフォルトで作成されるバックバッファのサイズを設定します。
+        /// </summary>
+        /// <param name="width">バックバッファの幅 (default:0)</param>
+        /// <param name="height">バックバッファの高さ (default:0)</param>
+        /// <remarks>
+        /// ウィンドウサイズとは異なるサイズでバックバッファを作成する時、
+        /// 					バックバッファのサイズを指定します。
+        /// 					サイズが 0 の場合、ウィンドウサイズと同じサイズで作成します。
+        /// </remarks>
+        public static void SetBackbufferSize( int width,  int height)
+        {
+            API.LNConfig_SetBackbufferSize( width,  height);
+        }
+
+        /// <summary>
+        /// フレームレートを設定します。
+        /// </summary>
+        /// <param name="frameRate">フレームレート (default:60)</param>
+        public static void SetFrameRate( int frameRate)
+        {
+            API.LNConfig_SetFrameRate( frameRate);
+        }
+
+        /// <summary>
+        /// ライブラリ更新時時のフレーム待ち処理の有無を設定します。
+        /// </summary>
+        /// <param name="enabled">true=有効 / false=無効 (default:true)</param>
+        public static void SetEnableFrameWait( bool enabled)
+        {
+            API.LNConfig_SetEnableFrameWait( enabled);
+        }
+
+        /// <summary>
+        /// 自動更新時のタイムスケールを設定します。
+        /// </summary>
+        /// <param name="timeScale">タイムスケール (default:0.0)</param>
+        /// <remarks>
+        /// SceneNode や ViewFilter の自動フレーム更新の際、
+        /// 					前回フレームからの経過時間に乗算される値を設定します。
+        /// 					この値を 1.0 にすると、エフェクト等の遷移時間を時間単位、
+        /// 					フレームレートと同じ値にするとフレーム単位で指定できるようになります。
+        /// 					0.0 の場合、フレームレートの値を使用します。
+        /// </remarks>
+        public static void SetAutoUpdateTimeScale( float timeScale)
+        {
+            API.LNConfig_SetAutoUpdateTimeScale( timeScale);
+        }
+
+        /// <summary>
+        /// デフォルトで作成されるウィンドウがリサイズ可能であるかを設定します。
+        /// </summary>
+        /// <param name="enabled">true の場合、ウィンドウ枠をD&Dすることでサイズ変更が可能 (default:true)</param>
+        public static void SetWindowResizeEnabled( bool enabled)
+        {
+            API.LNConfig_SetWindowResizeEnabled( enabled);
+        }
+
+        /// <summary>
+        /// アクセラレータキーとして割り当てるキーを設定します。
+        /// </summary>
+        /// <param name="acceleratorKey">アクセラレータの種別</param>
+        /// <param name="keyCode">割り当てるキーコード</param>
+        /// <param name="isShift">true を指定すると、Shift キーを修飾子とする</param>
+        /// <param name="isCtrl">true を指定すると、Ctrl キーを修飾子とする</param>
+        /// <param name="isAlt">true を指定すると、Alt キーを修飾子とする</param>
+        /// <remarks>
+        /// 初期状態では以下のように割り当てられています。
+        /// 					- AcceleratorKey.ToggleFullscreen
+        /// 						Alt + Enter キー
+        /// 					- AcceleratorKey.ShowDebugStatistics
+        /// 						なし
+        /// </remarks>
+        public static void SetAcceleratorKey( AcceleratorKey acceleratorKey,  KeyCode keyCode,  bool isShift,  bool isCtrl,  bool isAlt)
+        {
+            API.LNConfig_SetAcceleratorKey( acceleratorKey,  keyCode,  isShift,  isCtrl,  isAlt);
+        }
+
+        /// <summary>
+        /// ログファイルの出力有無を設定します。
+        /// </summary>
+        /// <param name="flag">true=ログファイルを出力する / false=しない (default:false)</param>
+        public static void SetLogFileEnabled( bool flag)
+        {
+            API.LNConfig_SetLogFileEnabled( flag);
+        }
+
+        /// <summary>
+        /// コンソールウィンドウの割り当て有無を設定します。
+        /// </summary>
+        /// <param name="flag">true=割り当てる / false=割り当てない (default:false)</param>
+        public static void SetConsoleEnabled( bool flag)
+        {
+            API.LNConfig_SetConsoleEnabled( flag);
+        }
+
+        /// <summary>
+        /// ファイルを開くときにアクセスする暗号化アーカイブを登録します。
+        /// </summary>
+        /// <param name="filePath">アーカイブファイル名</param>
+        /// <param name="password">アーカイブファイルを開くためのパスワード</param>
+        public static void RegisterArchive( string filePath,  string password)
+        {
+            API.LNConfig_RegisterArchive( filePath,  password);
+        }
+
+        /// <summary>
+        /// ファイルへのアクセス優先順位を設定します。
+        /// </summary>
+        /// <param name="priority">制限方法 (default:FileAccessPriority.DirectoryFirst)</param>
+        public static void SetFileAccessPriority( FileAccessPriority priority)
+        {
+            API.LNConfig_SetFileAccessPriority( priority);
+        }
+
+        /// <summary>
+        /// DirectMusic の初期化方法を設定します。
+        /// </summary>
+        /// <param name="mode">DirectMusic の初期化方法 (default:DirectMusicInitMode.NotUse)</param>
+        public static void SetDirectMusicInitMode( DirectMusicInitMode mode)
+        {
+            API.LNConfig_SetDirectMusicInitMode( mode);
+        }
+
+        /// <summary>
+        /// 音声データの最大キャッシュ数を設定します。
+        /// </summary>
+        /// <param name="count">最大数 (default:32)</param>
+        public static void SetSoundMaxCacheCount( int count)
+        {
+            API.LNConfig_SetSoundMaxCacheCount( count);
+        }
+
+        /// <summary>
+        /// 音声再生方法の自動選択の音声データバイト数閾値を設定します。
+        /// </summary>
+        /// <param name="bytes">最大数 (default:100000)</param>
+        /// <remarks>
+        /// 再生方法(オンメモリorストリーミング)の自動選択時、
+        /// 					音声データのバイト数がこの閾値よりも大きい場合ストリーミング、
+        /// 					以下の場合はオンメモリで再生されます。
+        /// 					MP3等の圧縮フォーマットではデコード後のサイズでチェックします。
+        /// </remarks>
+        public static void SoundPlayTypeThreshold( int bytes)
+        {
+            API.LNConfig_SoundPlayTypeThreshold( bytes);
+        }
+
+        /// <summary>
+        /// 使用するフォントファイルを登録使用します。
+        /// </summary>
+        /// <param name="filePath">フォントファイル名</param>
+        /// <remarks>
+        /// 登録したフォントファイルはフォントオブジェクト作成時に
+        /// 						ファミリ名を指定することで使用できます。
+        /// </remarks>
+        public static void RegisterFontFile( string filePath)
+        {
+            API.LNConfig_RegisterFontFile( filePath);
+        }
+
+        /// <summary>
+        /// テクスチャの最大キャッシュ数を設定します。
+        /// </summary>
+        /// <param name="count">最大数 (default:32)</param>
+        public static void SetTextureCacheSize( int count)
+        {
+            API.LNConfig_SetTextureCacheSize( count);
+        }
+
+        /// <summary>
+        /// シェーダの最大キャッシュ数を設定します。
+        /// </summary>
+        /// <param name="count">最大数 (default:32)</param>
+        public static void SetShaderCacheSize( int count)
+        {
+            API.LNConfig_SetShaderCacheSize( count);
+        }
+
+        /// <summary>
+        /// 例外エラー発生時のメッセージボックス表示有無を設定します。
+        /// </summary>
+        /// <param name="enabled">true の場合、表示する (default:true)</param>
+        public static void SetExceptionMessageBoxEnabled( bool enabled)
+        {
+            API.LNConfig_SetExceptionMessageBoxEnabled( enabled);
+        }
+
+        /// <summary>
+        /// ユーザー定義のウィンドウハンドルを設定します。
+        /// </summary>
+        /// <param name="hWnd">ユーザー定義のウィンドウハンドル (default:NULL)</param>
+        public static void SetWin32UserWindowHandle( IntPtr hWnd)
+        {
+            API.LNConfig_SetWin32UserWindowHandle( hWnd);
+        }
+
+
+    };
+
+    /// <summary>
+    /// LightNote アプリケーションのクラスです。
+    /// </summary>
+    public partial class Application
+    {
+
+
+        /// <summary>
+        /// LightNote を初期化します。
+        /// </summary>
+        /// <remarks>
+        /// ライブラリのすべての機能を使用できるように初期化を行います。
+        /// </remarks>
+        public static void Initialize()
+        {
+            InternalManager.Initialize();
+            var result = API.LNApplication_Initialize();
+            if (result != Result.OK) throw new LNoteException(result);
+        }
+
+        /// <summary>
+        /// ファイル入出力機能を初期化します。
+        /// </summary>
+        public static void InitializeFileIO()
+        {
+            InternalManager.Initialize();
+            var result = API.LNApplication_InitializeFileIO();
+            if (result != Result.OK) throw new LNoteException(result);
+        }
+
+        /// <summary>
+        /// 音声機能を初期化します。
+        /// </summary>
+        /// <remarks>
+        /// ファイル入出力機能も同時に初期化されます。
+        /// </remarks>
+        public static void InitializeAudio()
+        {
+            InternalManager.Initialize();
+            var result = API.LNApplication_InitializeAudio();
+            if (result != Result.OK) throw new LNoteException(result);
+        }
+
+        /// <summary>
+        /// 入力機能を初期化します。
+        /// </summary>
+        public static void InitializeInput()
+        {
+            InternalManager.Initialize();
+            var result = API.LNApplication_InitializeInput();
+            if (result != Result.OK) throw new LNoteException(result);
+        }
+
+        /// <summary>
+        /// フレームを更新します。
+        /// </summary>
+        /// <remarks>
+        /// LightNote の状態を更新し、時間を1フレーム分進めます。
+        /// 					この関数は必ず1フレームに1度だけ呼び出す必要があります。
+        /// </remarks>
+        public static void Update()
+        {
+            var result = API.LNApplication_Update();
+            if (result != Result.OK) throw new LNoteException(result);
+        }
+
+        /// <summary>
+        /// 画面の更新タイミングをリセットします。
+        /// </summary>
+        /// <remarks>
+        /// 時間のかかる処理の後にこのメソッドを呼ぶことで、
+        /// 					極端なフレームスキップが発生しないようにすることができます。
+        /// </remarks>
+        public static void ResetFrameDelay()
+        {
+            var result = API.LNApplication_ResetFrameDelay();
+            if (result != Result.OK) throw new LNoteException(result);
+        }
+
+        /// <summary>
+        /// アプリケーションを終了するべきかを確認します。
+        /// </summary>
+        /// <remarks>
+        /// ウィンドウのクローズボタンが押された場合等、
+        /// 					アプリケーションを終了するべき時には false を返します。
+        /// </remarks>
+        public static bool IsEndRequested()
+        {
+            var requested = new bool();
+            var result = API.LNApplication_IsEndRequested(out requested);
+            if (result != Result.OK) throw new LNoteException(result);
+            return requested;
+        }
+
+        /// <summary>
+        /// LightNote の終了処理を行います。
+        /// </summary>
+        public static void Terminate()
+        {
+            API.LNApplication_Terminate();
+            InternalManager.Terminate();
+        }
+
+
+    };
+
 	
 
     /// <summary>
@@ -1246,7 +1633,6 @@ namespace LN
     /// </summary>
     public class ReferenceObject : IDisposable
     {
-        internal static bool SystemInitialized = false;
         internal IntPtr _handle;
 
         internal ReferenceObject() {}
@@ -1274,7 +1660,7 @@ namespace LN
         {
             if (_handle != IntPtr.Zero)
             {
-                if (SystemInitialized)
+                if (InternalManager.SystemInitialized)
                 {
                     InternalManager.UnregisterWrapperObject(this);
                     API.LNObject_Release(_handle);
@@ -1473,16 +1859,34 @@ namespace LN
         [DllImport(API.DLLName, CallingConvention = API.DefaultCallingConvention)]
 		private static extern IntPtr LNObject_GetUserData(IntPtr handle);
 
-        // コンストラクタ
-        static InternalManager()
-        {
-            _userDataListIndexStack = new Stack<int>(InitialListSize);
-            _userDataList = new List<UserData>(InitialListSize); 
+		// init ～ terminate
+        public static bool SystemInitialized = false;
 
-            // 空き番号を詰める
-            for (int i = 0; i < InitialListSize; i++)
-                _userDataListIndexStack.Push(i);
-        }
+		// 初期化
+		public static void Initialize()
+		{
+			if (!SystemInitialized)
+			{
+				_userDataListIndexStack = new Stack<int>(InitialListSize);
+				_userDataList = new List<UserData>(InitialListSize); 
+
+				// 管理リストの空き番号を詰める
+				for (int i = 0; i < InitialListSize; i++)
+					_userDataListIndexStack.Push(i);
+					
+				// 型情報の登録
+				TypeInfo.Register();
+
+				SystemInitialized = true;
+			}
+		}
+
+		// 終了処理
+		public static void Terminate()
+		{
+			SystemInitialized = false;
+			GC.Collect();
+		}
 
         // ハンドルからラップオブジェクトを返す
         public static T GetWrapperObject<T>(IntPtr handle) where T : ReferenceObject

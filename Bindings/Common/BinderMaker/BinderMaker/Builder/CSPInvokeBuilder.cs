@@ -65,6 +65,18 @@ public extern static RETURN_TYPE FUNC_NAME(ARGS);
         }
 
         /// <summary>
+        /// プロパティ 通知
+        /// </summary>
+        /// <param name="enumType"></param>
+        protected override void OnPropertyLooked(CLProperty prop)
+        {
+            // プロパティとして割り振られたメソッドは OnMethodLooked() ではなくこの OnPropertyLooked() にくる。
+            // やりたいことは OnMethodLooked() と同じなのでそちらにまわす。
+            if (prop.Getter != null) OnMethodLooked(prop.Getter);
+            if (prop.Setter != null) OnMethodLooked(prop.Setter);
+        }
+
+        /// <summary>
         /// メソッド 通知
         /// </summary>
         /// <param name="enumType"></param>

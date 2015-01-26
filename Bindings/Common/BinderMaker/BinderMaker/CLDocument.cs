@@ -26,21 +26,25 @@ namespace BinderMaker
 
         /// <summary>
         /// オリジナルの概要テキスト
+        /// (このテキストはそのまま出力せず、LangContext を通すこと)
         /// </summary>
         public string OriginalBriefText { get; private set; }
 
         /// <summary>
         /// オリジナルの仮引数リスト
+        /// (このテキストはそのまま出力せず、LangContext を通すこと)
         /// </summary>
         public List<CLParamDocument> OriginalParams { get; private set; }
 
         /// <summary>
         /// オリジナルの戻り値テキスト
+        /// (このテキストはそのまま出力せず、LangContext を通すこと)
         /// </summary>
         public string OriginalReturnText { get; private set; }
 
         /// <summary>
         /// オリジナルの詳細テキスト
+        /// (このテキストはそのまま出力せず、LangContext を通すこと)
         /// </summary>
         public string OriginalDetailsText { get; private set; }
 
@@ -148,7 +152,7 @@ namespace BinderMaker
                     flags |= LangFlags.CS;
                 else if (t == "java")
                     flags |= LangFlags.Java;
-                else if (t == "rb")
+                else if (t == "ruby")
                     flags |= LangFlags.Ruby;
                 else if (t == "py")
                     flags |= LangFlags.Python;

@@ -24,6 +24,8 @@ namespace BinderMaker.Builder
         {
             Manager = manager;
 
+            OnInitialize();
+
             // enum
             foreach (var e in Manager.AllEnums)
             {
@@ -35,10 +37,21 @@ namespace BinderMaker.Builder
             {
                 if (OnClassLookedStart(classType))
                 {
+                    // プロパティ
+                    foreach (var prop in classType.Properties)
+                    {
+                        OnPropertyLooked(prop);
+                    }
+
                     // メソッド
                     foreach (var method in classType.Methods)
                     {
-                        OnMethodLooked(method);
+                        // プロパティ や internal は出力しない
+                        if (method.PropertyNameType == PropertyNameType.NotProperty &&
+                            method.Modifier != MethodModifier.Internal)
+                        {
+                            OnMethodLooked(method);
+                        }
                     }
 
                     OnClassLookedEnd(classType);
@@ -59,6 +72,12 @@ namespace BinderMaker.Builder
         }
 
         /// <summary>
+        /// ビルド開始前(初期化)通知
+        /// </summary>
+        /// <param name="enumType"></param>
+        protected virtual void OnInitialize() { }
+
+        /// <summary>
         /// enum 通知
         /// </summary>
         /// <param name="enumType"></param>
@@ -77,7 +96,13 @@ namespace BinderMaker.Builder
         protected virtual void OnClassLookedEnd(CLClass classType) { }
 
         /// <summary>
-        /// メソッド 通知
+        /// プロパティ 通知
+        /// </summary>
+        /// <param name="enumType"></param>
+        protected virtual void OnPropertyLooked(CLProperty prop) { }
+
+        /// <summary>
+        /// メソッド 通知 (プロパティや internal は通知されない)
         /// </summary>
         /// <param name="enumType"></param>
         protected virtual void OnMethodLooked(CLMethod method) { }

@@ -119,7 +119,8 @@ namespace BinderMaker.Parser
         private static readonly Parser<IEnumerable<char>> FuncAttribute =
                 Parse.String(CLManager.APIAttribute_Property)               // LN_PROPERTY
             .Or(Parse.String(CLManager.APIAttribute_StructConstructor))     // LN_STRUCT_CONSTRUCTOR
-            .Or(Parse.String(CLManager.APIAttribute_LibraryInitializer));   // LN_LIBRARY_INITIALIZER
+            .Or(Parse.String(CLManager.APIAttribute_LibraryInitializer))    // LN_LIBRARY_INITIALIZER
+            .Or(Parse.String(CLManager.APIAttribute_LibraryTerminator));    // LN_LIBRARY_TERMINATOR
         
         // Handle 型
         public static readonly Parser<string> HandleType =

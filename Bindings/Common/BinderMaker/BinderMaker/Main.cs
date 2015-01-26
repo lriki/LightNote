@@ -51,6 +51,7 @@ namespace BinderMaker
                 "../../../../../../LightNote/Source/C_API/LFBase.h",
                 "../../../../../../LightNote/Source/C_API/LFMath.h",
                 //"../../../../../../LightNote/Source/C_API/LFAudio2.h",
+                "../../../../../../LightNote/Source/C_API/LFFramework.h",
             };
 
             var parser = new Parser.CLAPIHeaderParser();

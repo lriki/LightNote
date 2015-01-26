@@ -129,7 +129,9 @@ LN_PROPERTY
 	例)
 	LN_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_SetPosition(const LNVector3* position);
 	LN_STATIC_API LUMINO_PROPERTY LNResult LNSoundListener_GetPosition(LNVector3* position);
-※"Get", "Set", "Is" で対応を自動生成する
+	※"Get", "Set", "Is" で対応を自動生成する。
+	  プロパティの @brief は、末尾の「の取得」「を取得します。」「の設定」「を設定します。」を削除する。
+	  プロパティの @details は、各々の説明文を改行で区切ってひとつの説明文にまとめる。
 
 ・属性 - 構造体コンストラクタ
 LN_STRUCT_CONSTRUCTOR
@@ -139,6 +141,11 @@ LN_STRUCT_CONSTRUCTOR
 ・属性 - ライブラリの初期化関数
 LN_LIBRARY_INITIALIZER
 	言語ごとに必要な初期化処理が自動追加される。
+
+・属性 - ライブラリの終了処理関数
+LN_LIBRARY_TERMINATOR
+	言語ごとに必要な終了処理関数が自動追加される。
+
 
 ・戻り値
 LNResult または void
@@ -237,7 +244,9 @@ HWND を取得する関数などは LUMINO_INTERNAL_API を使用し、独自定義する。
 	Shader.Variables.Find((v) => v.Type == Type.Texture && v.Name == "名前") とか。
 	
 	
-	
+■演算子のオーバーロード
+・算術系だけで十分だと思う。それなら手書きでもまぁいいか。
+・Ruby では Rect とか == で中身見たいときは定義しないとダメ。http://d.hatena.ne.jp/k-sato_at_oiax/20100614/1276519946
 
 ■コールバックの実装
 ・前提
@@ -376,4 +385,122 @@ HWND を取得する関数などは LUMINO_INTERNAL_API を使用し、独自定義する。
 ・戻り値
 ・例外
 
+
+
+■仮想関数
+※ CreateTexture とかダメ。C_API 側で new ができないとこの方法は使えない。
+
+class LNIntTable_Wrap : public Base::IntTable
+{
+// 仮想関数が無ければ空実装。
+};
+
+class LNFile_Wrap : public IO::File
+{
+};
+
+// C_API
+class LNSprite_Wrap : public Scene::Sprite
+{
+	virtual bool update(float elapsedTime)
+	{
+		bool* outTest;
+		result = m_LNSprite_UpdateV_Callback(m_LNSprite_UpdateV_userData, elapsedTime, &outTest);
+		CheckRaiseException(result);
+	}
+	void default_update(float elapsedTime)
+	{
+		Sprite::update();
+	}
+	void SetUpdateCallback(LNSprite_UpdateV_Callback callback, void* userData)
+	{
+		m_LNSprite_UpdateV_Callback = callback;
+		m_LNSprite_UpdateV_userData = userData;
+	}
+	LNSprite_UpdateV_Callback m_LNSprite_UpdateV_Callback;		// 今のDelegateは戻り値が void 限定なので使えない。
+	void* m_LNSprite_UpdateV_userData
+};
+
+void LNSprite_UpdateV(LNHandle handle, LNSprite_UpdateV_Callback callback, void* userData)
+{
+	handle->SetUpdateCallback(callback, userData);
+}
+
+// これが呼ばれたときはオーラーライド関係なしに直接ベースを呼びにいく
+LNResult LNSprite_Update(LNHandle handle, float elapsedTime, bool* outTest)	// 仮の戻り値 outTest
+{
+	*outTest = handle->default_update(elapsedTime);
+	*outTest = handle->Sprite::update(elapsedTime);		// これでもいい？
+}
+
+// C#
+class Sprite : SceneNode
+{
+	private LNResult LNSprite_UpdateV_Callback(float elapsedTime, IntPtr userData)	// C# では static である必要は無い
+	{
+		try {
+			this.Update();
+		}
+		catch (e) {
+			return ToLNResult(e)
+		}
+		return OK;
+	}
+	
+	/// 公開
+	public override void Update(float elapsedTime)	// ベースの SceneNode で定義されるので override
+	{
+		LNSprite_Update(_handle, elapsedTime);
+	}
+	
+	internal override RefObject.SetHandle(IntPtr handle)
+	{
+		base.SetHandle(handle);
+		LNSprite_UpdateV(handle, LNSprite_UpdateV_Callback, null);
+	}
+	
+	internal override void Dispose()
+	{
+		LNSprite_SetUpdateV(handle, null);	// 解除
+	}
+}
+
+// Ruby
+static VALUE LNSprite_allocate2( VALUE klass, lnHandle handle )	// ファクトリ
+{
+	...
+	wrapObj->SetHandle(handle);	// 今までstructメンバに直代入だったが、メンバ関数を設けて virtual にする。
+}
+
+class wrapSprite : wrapSceneNode
+{
+	LNResult LNSprite_UpdateV_Callback(void* userData, float elapsedTime, LNBool* outTest)
+	{
+		try {
+			//r = rub_funccall("update");
+			r = userData->update(elapsedTime);	// このほうがいいか
+			*outTest = r;
+		}
+		catch {	// 使うのは rb_rescue2
+			return ToLNResult();
+		}
+		return OK;
+	}
+	
+	virtual void SetHandle(LNHandle handle)
+	{
+		wrapSceneNode::SetHandle(handle);
+		LNSprite_UpdateV(handle, LNSprite_UpdateV_Callback, this);	// this を入れてOK (C#と違い、クラスを表すのはネイティブポインタである)
+	}
+	
+	static VALUE update(VALUE values...)
+	{
+		LNBool* b;
+		LNSprite_Update(_handle, elapsedTime, &b);
+		return b;
+	}
+}
+
+
+// C++
 

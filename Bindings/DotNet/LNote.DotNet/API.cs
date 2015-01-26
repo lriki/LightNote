@@ -1289,7 +1289,7 @@ namespace LN
         public extern static void LNRect_Set(ref Rect rect,  int x,  int y,  int width,  int height);
 
         /// <summary>
-        /// 指定した x y 座標の点が矩形に含まれているかを判別する
+        /// 指定した x y 座標の点が矩形に含まれているかを判別します。
         /// </summary>
         /// <param name="rect">処理の基になる Rect</param>
         /// <param name="x">X 座標</param>
@@ -1299,7 +1299,7 @@ namespace LN
         public extern static void LNRect_Contains(ref Rect rect,  int x,  int y, out bool result);
 
         /// <summary>
-        /// 例外発生時にコールバックされる関数を登録する
+        /// 例外発生時にコールバックされる関数を登録します。
         /// </summary>
         /// <param name="handler"></param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
@@ -1317,58 +1317,41 @@ namespace LN
         public extern static void LNException_Raise( Result errCode,  string message,  string file,  int line,  string func);
 
         /// <summary>
-        /// 最後に発生した例外のエラーコードを取得する
+        /// 最後に発生した例外のエラーコードを取得します。
         /// </summary>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNException_GetLastErrorCode();
 
         /// <summary>
-        /// 最後に発生した例外に対して、デフォルトの処理を行う (メッセージボックスを表示し、LNException_SetHandled(true))
+        /// 最後に発生した例外に対して、デフォルトの処理を行います。(メッセージボックスを表示し、LNException_SetHandled(true))
         /// </summary>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static void LNException_ProcDefault();
 
         /// <summary>
-        /// オブジェクトの解放
+        /// オブジェクトを解放します。
         /// </summary>
         /// <param name="hadnleObject">オブジェクトハンドル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNObject_Release( IntPtr hadnleObject);
 
         /// <summary>
-        /// オブジェクトの参照カウントをインクリメントする
+        /// オブジェクトの参照カウントをインクリメントします。
         /// </summary>
         /// <param name="hadnleObject">オブジェクトハンドル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNObject_AddRef( IntPtr hadnleObject);
 
         /// <summary>
-        /// オブジェクトの参照カウント取得する
+        /// オブジェクトの参照カウント取得します。
         /// </summary>
         /// <param name="hadnleObject">オブジェクトハンドル</param>
         /// <param name="count">参照カウントを格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNObject_GetRefCount( IntPtr hadnleObject, out int count);
 
-        /// <param name="hadnleObject"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static byte[] LNObject_GetTypeUserData( IntPtr hadnleObject);
-
-        /// <param name="hadnleObject"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static byte[] LNObject_GetInternalObject( IntPtr hadnleObject);
-
-        /// <param name="hadnleObject"></param>
-        /// <param name="data"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static void LNObject_SetUserData( IntPtr hadnleObject,  byte[] data);
-
-        /// <param name="hadnleObject"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static byte[] LNObject_GetUserData( IntPtr hadnleObject);
-
         /// <summary>
-        /// オブジェクトリストに格納されているオブジェクトの数を取得する
+        /// オブジェクトリストに格納されているオブジェクトの数を取得します。
         /// </summary>
         /// <param name="objectList">オブジェクトリストハンドル</param>
         /// <param name="count">要素の数を格納する変数</param>
@@ -1376,7 +1359,7 @@ namespace LN
         public extern static Result LNObjectList_GetCount( IntPtr objectList, out int count);
 
         /// <summary>
-        /// オブジェクトリストの指定したインデックスにオブジェクトを設定する
+        /// オブジェクトリストの指定したインデックスにオブジェクトを設定します。
         /// </summary>
         /// <param name="objectList">オブジェクトリストハンドル</param>
         /// <param name="index">インデックス(要素番号)</param>
@@ -1385,7 +1368,7 @@ namespace LN
         public extern static Result LNObjectList_SetAt( IntPtr objectList,  int index,  IntPtr item);
 
         /// <summary>
-        /// オブジェクトリストの指定したインデックスのオブジェクトを取得する
+        /// オブジェクトリストの指定したインデックスのオブジェクトを取得します。
         /// </summary>
         /// <param name="objectList">オブジェクトリストハンドル</param>
         /// <param name="index">インデックス(要素番号)</param>
@@ -1394,7 +1377,7 @@ namespace LN
         public extern static Result LNObjectList_GetAt( IntPtr objectList,  int index, out IntPtr outItem);
 
         /// <summary>
-        /// オブジェクトリストの末尾にオブジェクトを追加する
+        /// オブジェクトリストの末尾にオブジェクトを追加します。
         /// </summary>
         /// <param name="objectList">オブジェクトリストハンドル</param>
         /// <param name="item">追加するオブジェクト</param>
@@ -1402,14 +1385,14 @@ namespace LN
         public extern static Result LNObjectList_Add( IntPtr objectList,  IntPtr item);
 
         /// <summary>
-        /// オブジェクトリストから全てのオブジェクトを削除する
+        /// オブジェクトリストから全てのオブジェクトを削除します。
         /// </summary>
         /// <param name="objectList">オブジェクトリストハンドル</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNObjectList_Clear( IntPtr objectList);
 
         /// <summary>
-        /// オブジェクトリストの指定したインデックスの位置にオブジェクトを挿入する
+        /// オブジェクトリストの指定したインデックスの位置にオブジェクトを挿入します。
         /// </summary>
         /// <param name="objectList">オブジェクトリストハンドル</param>
         /// <param name="index">item を挿入するインデックス</param>
@@ -1418,7 +1401,7 @@ namespace LN
         public extern static Result LNObjectList_Insert( IntPtr objectList,  int index,  IntPtr item);
 
         /// <summary>
-        /// オブジェクトリスト内で指定したハンドルと一致する最初のオブジェクトを削除する
+        /// オブジェクトリスト内で指定したハンドルと一致する最初のオブジェクトを削除します。
         /// </summary>
         /// <param name="objectList">オブジェクトリストハンドル</param>
         /// <param name="item">リストから削除するオブジェクト</param>
@@ -1426,7 +1409,7 @@ namespace LN
         public extern static Result LNObjectList_Remove( IntPtr objectList,  IntPtr item);
 
         /// <summary>
-        /// オブジェクトリスト内で指定したハンドルと一致する全てのオブジェクトを削除する
+        /// オブジェクトリスト内で指定したハンドルと一致する全てのオブジェクトを削除します。
         /// </summary>
         /// <param name="objectList">オブジェクトリストハンドル</param>
         /// <param name="item">リストから削除するオブジェクト</param>
@@ -1434,7 +1417,7 @@ namespace LN
         public extern static Result LNObjectList_RemoveAll( IntPtr objectList,  IntPtr item);
 
         /// <summary>
-        /// オブジェクトリストの指定したインデックスにあるオブジェクトを削除する
+        /// オブジェクトリストの指定したインデックスにあるオブジェクトを削除します。
         /// </summary>
         /// <param name="objectList">オブジェクトリストハンドル</param>
         /// <param name="index">削除するオブジェクトのインデックス番号</param>
@@ -1442,7 +1425,31 @@ namespace LN
         public extern static Result LNObjectList_RemoveAt( IntPtr objectList,  int index);
 
         /// <summary>
-        /// 整数型の多次元配列を作成する
+        /// 整数型テーブルの X 要素数を取得します。
+        /// </summary>
+        /// <param name="intTable">整数型テーブルハンドル</param>
+        /// <param name="xSize">X 要素数を格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_GetXSize( IntPtr intTable, out int xSize);
+
+        /// <summary>
+        /// 整数型テーブルの Y 要素数を取得します。
+        /// </summary>
+        /// <param name="intTable">整数型テーブルハンドル</param>
+        /// <param name="ySize">Y 要素数を格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_GetYSize( IntPtr intTable, out int ySize);
+
+        /// <summary>
+        /// 整数型テーブルの Z 要素数を取得します。
+        /// </summary>
+        /// <param name="intTable">整数型テーブルハンドル</param>
+        /// <param name="zSize">Z 要素数を格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNIntTable_GetZSize( IntPtr intTable, out int zSize);
+
+        /// <summary>
+        /// 整数型の多次元配列を作成します。
         /// </summary>
         /// <param name="intTable">作成されたテーブルハンドルを格納する変数</param>
         /// <param name="xSize">X 要素数</param>
@@ -1452,7 +1459,7 @@ namespace LN
         public extern static Result LNIntTable_Create(out IntPtr intTable,  int xSize,  int ySize = 1,  int zSize = 1);
 
         /// <summary>
-        /// 整数型の多次元配列を作成する
+        /// 整数型の多次元配列を作成します。
         /// </summary>
         /// <param name="intTable">作成されたテーブルハンドルを格納する変数</param>
         /// <param name="xSize">X 要素数</param>
@@ -1463,7 +1470,7 @@ namespace LN
         public extern static Result LNIntTable_CreateFromSrcData(out IntPtr intTable,  int xSize,  int ySize,  int zSize,  int[] srcData);
 
         /// <summary>
-        /// 整数型テーブルの指定したインデックスに値を設定する
+        /// 整数型テーブルの指定したインデックスに値を設定します。
         /// </summary>
         /// <param name="intTable">整数型テーブルハンドル</param>
         /// <param name="xSize">X 要素インデックス</param>
@@ -1474,7 +1481,7 @@ namespace LN
         public extern static Result LNIntTable_SetValue( IntPtr intTable,  int xSize,  int ySize,  int zSize,  int value);
 
         /// <summary>
-        /// 整数型テーブルの指定したインデックスに値を設定する
+        /// 整数型テーブルの指定したインデックスに値を設定します。
         /// </summary>
         /// <param name="intTable">整数型テーブルハンドル</param>
         /// <param name="xSize">X 要素インデックス</param>
@@ -1485,7 +1492,7 @@ namespace LN
         public extern static Result LNIntTable_GetValue( IntPtr intTable,  int xSize,  int ySize,  int zSize, out int value);
 
         /// <summary>
-        /// 整数型テーブルの要素数を変更する
+        /// 整数型テーブルの要素数を変更します。
         /// </summary>
         /// <param name="intTable">整数型テーブルハンドル</param>
         /// <param name="xSize">X 要素数</param>
@@ -1493,39 +1500,6 @@ namespace LN
         /// <param name="zSize">Z 要素数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNIntTable_Resize( IntPtr intTable,  int xSize,  int ySize,  int zSize);
-
-        /// <summary>
-        /// 整数型テーブルの X 要素数を取得する
-        /// </summary>
-        /// <param name="intTable">整数型テーブルハンドル</param>
-        /// <param name="xSize">X 要素数を格納する変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_GetXSize( IntPtr intTable, out int xSize);
-
-        /// <summary>
-        /// 整数型テーブルの Y 要素数を取得する
-        /// </summary>
-        /// <param name="intTable">整数型テーブルハンドル</param>
-        /// <param name="ySize">Y 要素数を格納する変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_GetYSize( IntPtr intTable, out int ySize);
-
-        /// <summary>
-        /// 整数型テーブルの Z 要素数を取得する
-        /// </summary>
-        /// <param name="intTable">整数型テーブルハンドル</param>
-        /// <param name="zSize">Z 要素数を格納する変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNIntTable_GetZSize( IntPtr intTable, out int zSize);
-
-        /// <summary>
-        /// 2D ベクトルに値を設定する
-        /// </summary>
-        /// <param name="vec">値を格納する 2D ベクトル</param>
-        /// <param name="x">X 値</param>
-        /// <param name="y">Y 値</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector2_Set(ref Vector2 vec,  float x,  float y);
 
         /// <summary>
         /// 2D ベクトルの長さを計算する
@@ -1544,6 +1518,15 @@ namespace LN
         public extern static Result LNVector2_GetSquareLength(ref Vector2 vec, out float outLength);
 
         /// <summary>
+        /// 2D ベクトルに値を設定する
+        /// </summary>
+        /// <param name="vec">値を格納する 2D ベクトル</param>
+        /// <param name="x">X 値</param>
+        /// <param name="y">Y 値</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNVector2_Set(ref Vector2 vec,  float x,  float y);
+
+        /// <summary>
         /// 2D ベクトルを正規化する
         /// </summary>
         /// <param name="vec">処理の基になる 2D ベクトル</param>
@@ -1551,15 +1534,21 @@ namespace LN
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNVector2_Normalize(ref Vector2 vec, out Vector2 outVec);
 
-        /// <param name="vec"></param>
-        /// <param name="length"></param>
+        /// <summary>
+        /// 3Dベクトルの長さを計算する
+        /// </summary>
+        /// <param name="vec">処理の基になるベクトル</param>
+        /// <param name="outLength">ベクトルの長さを格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector2_GetLengthD(ref Vector2 vec,  double length);
+        public extern static Result LNVector3_GetLength(ref Vector3 vec, out float outLength);
 
-        /// <param name="vec"></param>
-        /// <param name="length"></param>
+        /// <summary>
+        /// 3D ベクトルの長さの2乗を計算する
+        /// </summary>
+        /// <param name="vec">処理の基になる Vector3</param>
+        /// <param name="outLength">ベクトルの長さの2乗を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector2_GetSquareLengthD(ref Vector2 vec,  double length);
+        public extern static Result LNVector3_GetSquareLength(ref Vector3 vec, out float outLength);
 
         /// <summary>
         /// 3Dベクトルに値を設定する
@@ -1579,22 +1568,6 @@ namespace LN
         /// <param name="z">Z 値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNVector3_SetVec2(out Vector3 vec, ref Vector2 vec2,  float z);
-
-        /// <summary>
-        /// 3Dベクトルの長さを計算する
-        /// </summary>
-        /// <param name="vec">処理の基になるベクトル</param>
-        /// <param name="outLength">ベクトルの長さを格納する変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector3_GetLength(ref Vector3 vec, out float outLength);
-
-        /// <summary>
-        /// 3D ベクトルの長さの2乗を計算する
-        /// </summary>
-        /// <param name="vec">処理の基になる Vector3</param>
-        /// <param name="outLength">ベクトルの長さの2乗を格納する変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector3_GetSquareLength(ref Vector3 vec, out float outLength);
 
         /// <summary>
         /// 3D ベクトルを正規化する
@@ -1680,38 +1653,6 @@ namespace LN
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNVector3_TransformCoord(ref Vector3 vec, ref Matrix mat, out Vector3 outVec);
 
-        /// <param name="vec"></param>
-        /// <param name="length"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector3_GetLengthD(ref Vector3 vec,  double length);
-
-        /// <param name="vec"></param>
-        /// <param name="length"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector3_GetSquareLengthD(ref Vector3 vec,  double length);
-
-        /// <param name="vec1"></param>
-        /// <param name="vec2"></param>
-        /// <param name="dot"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector3_DotD(ref Vector3 vec1, ref Vector3 vec2,  double dot);
-
-        /// <param name="vec1"></param>
-        /// <param name="vec2"></param>
-        /// <param name="t"></param>
-        /// <param name="outVec"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector3_LerpD(ref Vector3 vec1, ref Vector3 vec2,  double t, ref Vector3 outVec);
-
-        /// <param name="vec1"></param>
-        /// <param name="vec2"></param>
-        /// <param name="vec3"></param>
-        /// <param name="vec4"></param>
-        /// <param name="t"></param>
-        /// <param name="outVec"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNVector3_CatmullRomD(ref Vector3 vec1, ref Vector3 vec2, ref Vector3 vec3, ref Vector3 vec4,  double t, ref Vector3 outVec);
-
         /// <summary>
         /// 3Dベクトルに値を設定する
         /// </summary>
@@ -1722,6 +1663,38 @@ namespace LN
         /// <param name="w">W 値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNVector4_Set(out Vector4 vec,  float x,  float y,  float z,  float w);
+
+        /// <summary>
+        /// 右方向を示す 3D ベクトルの取得
+        /// </summary>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outVec">結果を格納する Vector3 変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_GetRight(ref Matrix mat, out Vector3 outVec);
+
+        /// <summary>
+        /// 上方向を示す 3D ベクトルの取得
+        /// </summary>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outVec">結果を格納する Vector3 変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_GetUp(ref Matrix mat, out Vector3 outVec);
+
+        /// <summary>
+        /// 正面方向を示す 3D ベクトルの取得
+        /// </summary>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outVec">結果を格納する Vector3 変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_GetFront(ref Matrix mat, out Vector3 outVec);
+
+        /// <summary>
+        /// 位置を示す 3D ベクトルの取得
+        /// </summary>
+        /// <param name="mat">処理の基になる行列</param>
+        /// <param name="outVec">結果を格納する Vector3 変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNMatrix_GetPosition(ref Matrix mat, out Vector3 outVec);
 
         /// <summary>
         /// 単位行列を作成する
@@ -1925,38 +1898,6 @@ namespace LN
         public extern static Result LNMatrix_OrthoRH( float width,  float height,  float nearZ,  float farZ, out Matrix matOut);
 
         /// <summary>
-        /// 右方向を示す 3D ベクトルの取得
-        /// </summary>
-        /// <param name="mat">処理の基になる行列</param>
-        /// <param name="outVec">結果を格納する Vector3 変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_GetRight(ref Matrix mat, out Vector3 outVec);
-
-        /// <summary>
-        /// 上方向を示す 3D ベクトルの取得
-        /// </summary>
-        /// <param name="mat">処理の基になる行列</param>
-        /// <param name="outVec">結果を格納する Vector3 変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_GetUp(ref Matrix mat, out Vector3 outVec);
-
-        /// <summary>
-        /// 正面方向を示す 3D ベクトルの取得
-        /// </summary>
-        /// <param name="mat">処理の基になる行列</param>
-        /// <param name="outVec">結果を格納する Vector3 変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_GetFront(ref Matrix mat, out Vector3 outVec);
-
-        /// <summary>
-        /// 位置を示す 3D ベクトルの取得
-        /// </summary>
-        /// <param name="mat">処理の基になる行列</param>
-        /// <param name="outVec">結果を格納する Vector3 変数</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_GetPosition(ref Matrix mat, out Vector3 outVec);
-
-        /// <summary>
         /// 回転行列からオイラー角を計算する
         /// </summary>
         /// <param name="mat">処理の基になる行列</param>
@@ -1973,86 +1914,6 @@ namespace LN
         /// <param name="trans">各軸の平行移動量を格納する Vector3 変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNMatrix_Decompose(ref Matrix mat, out Vector3 scale, out Quaternion rot, out Vector3 trans);
-
-        /// <param name="mat"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_TranslateD(ref Matrix mat,  double x,  double y,  double z);
-
-        /// <param name="mat"></param>
-        /// <param name="radian"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_RotateXD(ref Matrix mat,  double radian);
-
-        /// <param name="mat"></param>
-        /// <param name="radian"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_RotateYD(ref Matrix mat,  double radian);
-
-        /// <param name="mat"></param>
-        /// <param name="radian"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_RotateZD(ref Matrix mat,  double radian);
-
-        /// <param name="mat"></param>
-        /// <param name="xRad"></param>
-        /// <param name="yRad"></param>
-        /// <param name="zRad"></param>
-        /// <param name="rotOrder"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_RotateD(ref Matrix mat,  double xRad,  double yRad,  double zRad,  RotationOrder rotOrder);
-
-        /// <param name="mat"></param>
-        /// <param name="axis"></param>
-        /// <param name="radian"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_RotateAxisD(ref Matrix mat, ref Vector3 axis,  double radian);
-
-        /// <param name="mat"></param>
-        /// <param name="xyz"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_ScaleD(ref Matrix mat,  double xyz);
-
-        /// <param name="mat"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_ScaleXYZD(ref Matrix mat,  double x,  double y,  double z);
-
-        /// <param name="mat"></param>
-        /// <param name="fovY"></param>
-        /// <param name="aspect"></param>
-        /// <param name="nearZ"></param>
-        /// <param name="farZ"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_PerspectiveFovLHD(ref Matrix mat,  double fovY,  double aspect,  double nearZ,  double farZ);
-
-        /// <param name="mat"></param>
-        /// <param name="fovY"></param>
-        /// <param name="aspect"></param>
-        /// <param name="nearZ"></param>
-        /// <param name="farZ"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_PerspectiveFovRHD(ref Matrix mat,  double fovY,  double aspect,  double nearZ,  double farZ);
-
-        /// <param name="mat"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="nearZ"></param>
-        /// <param name="farZ"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_OrthoLHD(ref Matrix mat,  double width,  double height,  double nearZ,  double farZ);
-
-        /// <param name="mat"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="nearZ"></param>
-        /// <param name="farZ"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNMatrix_OrthoRHD(ref Matrix mat,  double width,  double height,  double nearZ,  double farZ);
 
         /// <summary>
         /// クォータニオンに値を設定する
@@ -2134,25 +1995,13 @@ namespace LN
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNQuaternion_Slerp(ref Quaternion qua1, ref Quaternion qua2,  float t, out Quaternion outQua);
 
-        /// <param name="axis"></param>
-        /// <param name="r"></param>
-        /// <param name="outQua"></param>
+        /// <summary>
+        /// 乱数オブジェクトに乱数シードを設定する
+        /// </summary>
+        /// <param name="random">乱数オブジェクトハンドル</param>
+        /// <param name="seed">シード値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNQuaternion_RotationAxisD(ref Vector3 axis,  float r, ref Quaternion outQua);
-
-        /// <param name="yaw"></param>
-        /// <param name="pitch"></param>
-        /// <param name="roll"></param>
-        /// <param name="outQua"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNQuaternion_RotationYawPitchRollD( float yaw,  float pitch,  float roll, ref Quaternion outQua);
-
-        /// <param name="qua1"></param>
-        /// <param name="qua2"></param>
-        /// <param name="t"></param>
-        /// <param name="outQua"></param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNQuaternion_SlerpD(ref Quaternion qua1, ref Quaternion qua2,  float t, ref Quaternion outQua);
+        public extern static Result LNRandom_SetSeed( IntPtr random,  int seed);
 
         /// <summary>
         /// 現在の時間を乱数シードとして、乱数オブジェクトを作成する
@@ -2168,14 +2017,6 @@ namespace LN
         /// <param name="seed">シード値</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNRandom_CreateSeed(out IntPtr random,  int seed);
-
-        /// <summary>
-        /// 乱数オブジェクトに乱数シードを設定する
-        /// </summary>
-        /// <param name="random">乱数オブジェクトハンドル</param>
-        /// <param name="seed">シード値</param>
-        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
-        public extern static Result LNRandom_SetSeed( IntPtr random,  int seed);
 
         /// <summary>
         /// 整数値乱数の取得
@@ -2232,6 +2073,202 @@ namespace LN
         /// <param name="outValue">実数値を格納する変数</param>
         [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
         public extern static Result LNRandom_GetFloatWidth( IntPtr random,  float center,  float width, out float outValue);
+
+        /// <summary>
+        /// デフォルトで作成されるウィンドウのタイトル文字列を設定します。
+        /// </summary>
+        /// <param name="title">ウィンドウタイトル文字列</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetWindowTitle( string title);
+
+        /// <summary>
+        /// デフォルトで作成されるウィンドウのサイズ (クライアント領域) を設定します。
+        /// </summary>
+        /// <param name="width">クライアント領域の幅 (default:640)</param>
+        /// <param name="height">クライアント領域の高さ (default:480)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetWindowSize( int width,  int height);
+
+        /// <summary>
+        /// デフォルトで作成されるバックバッファのサイズを設定します。
+        /// </summary>
+        /// <param name="width">バックバッファの幅 (default:0)</param>
+        /// <param name="height">バックバッファの高さ (default:0)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetBackbufferSize( int width,  int height);
+
+        /// <summary>
+        /// フレームレートを設定します。
+        /// </summary>
+        /// <param name="frameRate">フレームレート (default:60)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetFrameRate( int frameRate);
+
+        /// <summary>
+        /// ライブラリ更新時時のフレーム待ち処理の有無を設定します。
+        /// </summary>
+        /// <param name="enabled">LN_TRUE=有効 / LN_FALSE=無効 (default:LN_TRUE)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetEnableFrameWait( bool enabled);
+
+        /// <summary>
+        /// 自動更新時のタイムスケールを設定します。
+        /// </summary>
+        /// <param name="timeScale">タイムスケール (default:0.0)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetAutoUpdateTimeScale( float timeScale);
+
+        /// <summary>
+        /// デフォルトで作成されるウィンドウがリサイズ可能であるかを設定します。
+        /// </summary>
+        /// <param name="enabled">LN_TRUE の場合、ウィンドウ枠をD&Dすることでサイズ変更が可能 (default:LN_TRUE)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetWindowResizeEnabled( bool enabled);
+
+        /// <summary>
+        /// アクセラレータキーとして割り当てるキーを設定します。
+        /// </summary>
+        /// <param name="acceleratorKey">アクセラレータの種別</param>
+        /// <param name="keyCode">割り当てるキーコード</param>
+        /// <param name="isShift">LN_TRUE を指定すると、Shift キーを修飾子とする</param>
+        /// <param name="isCtrl">LN_TRUE を指定すると、Ctrl キーを修飾子とする</param>
+        /// <param name="isAlt">LN_TRUE を指定すると、Alt キーを修飾子とする</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetAcceleratorKey( AcceleratorKey acceleratorKey,  KeyCode keyCode,  bool isShift,  bool isCtrl,  bool isAlt);
+
+        /// <summary>
+        /// ログファイルの出力有無を設定します。
+        /// </summary>
+        /// <param name="flag">LN_TRUE=ログファイルを出力する / LN_FALSE=しない (default:LN_FALSE)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetLogFileEnabled( bool flag);
+
+        /// <summary>
+        /// コンソールウィンドウの割り当て有無を設定します。
+        /// </summary>
+        /// <param name="flag">LN_TRUE=割り当てる / LN_FALSE=割り当てない (default:LN_FALSE)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetConsoleEnabled( bool flag);
+
+        /// <summary>
+        /// ファイルを開くときにアクセスする暗号化アーカイブを登録します。
+        /// </summary>
+        /// <param name="filePath">アーカイブファイル名</param>
+        /// <param name="password">アーカイブファイルを開くためのパスワード</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_RegisterArchive( string filePath,  string password);
+
+        /// <summary>
+        /// ファイルへのアクセス優先順位を設定します。
+        /// </summary>
+        /// <param name="priority">制限方法 (default:LN_FILEACCESSPRIORITY_DIRECTORY_FIRST)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetFileAccessPriority( FileAccessPriority priority);
+
+        /// <summary>
+        /// DirectMusic の初期化方法を設定します。
+        /// </summary>
+        /// <param name="mode">DirectMusic の初期化方法 (default:LN_DMINITMODE_NOT_USE)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetDirectMusicInitMode( DirectMusicInitMode mode);
+
+        /// <summary>
+        /// 音声データの最大キャッシュ数を設定します。
+        /// </summary>
+        /// <param name="count">最大数 (default:32)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetSoundMaxCacheCount( int count);
+
+        /// <summary>
+        /// 音声再生方法の自動選択の音声データバイト数閾値を設定します。
+        /// </summary>
+        /// <param name="bytes">最大数 (default:100000)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SoundPlayTypeThreshold( int bytes);
+
+        /// <summary>
+        /// 使用するフォントファイルを登録使用します。
+        /// </summary>
+        /// <param name="filePath">フォントファイル名</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_RegisterFontFile( string filePath);
+
+        /// <summary>
+        /// テクスチャの最大キャッシュ数を設定します。
+        /// </summary>
+        /// <param name="count">最大数 (default:32)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetTextureCacheSize( int count);
+
+        /// <summary>
+        /// シェーダの最大キャッシュ数を設定します。
+        /// </summary>
+        /// <param name="count">最大数 (default:32)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetShaderCacheSize( int count);
+
+        /// <summary>
+        /// 例外エラー発生時のメッセージボックス表示有無を設定します。
+        /// </summary>
+        /// <param name="enabled">LN_TRUE の場合、表示する (default:LN_TRUE)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetExceptionMessageBoxEnabled( bool enabled);
+
+        /// <summary>
+        /// ユーザー定義のウィンドウハンドルを設定します。
+        /// </summary>
+        /// <param name="hWnd">ユーザー定義のウィンドウハンドル (default:NULL)</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNConfig_SetWin32UserWindowHandle( IntPtr hWnd);
+
+        /// <summary>
+        /// LightNote を初期化します。
+        /// </summary>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNApplication_Initialize();
+
+        /// <summary>
+        /// ファイル入出力機能を初期化します。
+        /// </summary>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNApplication_InitializeFileIO();
+
+        /// <summary>
+        /// 音声機能を初期化します。
+        /// </summary>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNApplication_InitializeAudio();
+
+        /// <summary>
+        /// 入力機能を初期化します。
+        /// </summary>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNApplication_InitializeInput();
+
+        /// <summary>
+        /// フレームを更新します。
+        /// </summary>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNApplication_Update();
+
+        /// <summary>
+        /// 画面の更新タイミングをリセットします。
+        /// </summary>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNApplication_ResetFrameDelay();
+
+        /// <summary>
+        /// アプリケーションを終了するべきかを確認します。
+        /// </summary>
+        /// <param name="requested">終了要求の有無を格納する変数</param>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static Result LNApplication_IsEndRequested(out bool requested);
+
+        /// <summary>
+        /// LightNote の終了処理を行います。
+        /// </summary>
+        [DllImport(DLLName, CharSet = DLLCharSet, CallingConvention = DefaultCallingConvention)]
+        public extern static void LNApplication_Terminate();
 
 
 

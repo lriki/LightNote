@@ -25,6 +25,18 @@ namespace BinderMaker
         Property,
         StructConstructor,
         LibraryInitializer,
+        LibraryTerminator,
+    }
+
+    /// <summary>
+    /// プロパティ名種別
+    /// </summary>
+    enum PropertyNameType
+    {
+        NotProperty,
+        Get,
+        Set,
+        Is,
     }
 
     /// <summary>
@@ -115,9 +127,19 @@ namespace BinderMaker
         public bool IsLibraryInitializer { get { return FuncDecl.Attribute == MethodAttribute.LibraryInitializer; } }
 
         /// <summary>
+        /// ライブラリの終了処理関数であるか
+        /// </summary>
+        public bool IsLibraryTerminator { get { return FuncDecl.Attribute == MethodAttribute.LibraryTerminator; } }
+
+        /// <summary>
         /// static メソッドであるか
         /// </summary>
         public bool IsStatic { get { return !IsInstanceMethod; } }
+
+        /// <summary>
+        /// プロパティ種別
+        /// </summary>
+        public PropertyNameType PropertyNameType { get; set; }
         #endregion
 
         #region Methods
@@ -320,7 +342,9 @@ namespace BinderMaker
                 Attribute = MethodAttribute.StructConstructor;
             if (attr.Contains(CLManager.APIAttribute_LibraryInitializer))
                 Attribute = MethodAttribute.LibraryInitializer;
-                
+            if (attr.Contains(CLManager.APIAttribute_LibraryTerminator))
+                Attribute = MethodAttribute.LibraryTerminator;
+            
 
             _originalReturnTypeName = returnType;
 
@@ -461,6 +485,35 @@ namespace BinderMaker
         /// setter
         /// </summary>
         public CLMethod Setter { get; set; }
+
+        /// <summary>
+        /// 型
+        /// </summary>
+        public CLType Type
+        {
+            get
+            {
+                // ※getter 優先にしておく。(Getter がある場合、 Type は return であることが前提)
+                // getter の戻り値型
+                if (Getter != null) return Getter.ReturnType;
+                // setter
+                if (Setter != null) return Setter.Params[0].Type;
+                throw new InvalidOperationException();
+            }
+        }
+
+        /// <summary>
+        /// static プロパティであるか
+        /// </summary>
+        public bool IsStatic 
+        {
+            get
+            {
+                if (Getter != null && Getter.IsStatic) return true;
+                if (Setter != null && Setter.IsStatic) return true;
+                return false;
+            }
+        }
         #endregion
 
         #region Methods
@@ -479,17 +532,23 @@ namespace BinderMaker
         /// </summary>
         public void Attach(CLMethod method)
         {
-            if (string.Compare(method.Name, 0, "Get", 0, 3) == 0 ||
-                string.Compare(method.Name, 0, "Is", 0, 2) == 0)
+            if (string.Compare(method.Name, 0, "Get", 0, 3) == 0)
             {
                 if (Getter != null) throw new InvalidOperationException("get プロパティ割り当て済み");
                 Getter = method;
+                Getter.PropertyNameType = PropertyNameType.Get;
+            }
+            else if (string.Compare(method.Name, 0, "Is", 0, 2) == 0)
+            {
+                if (Getter != null) throw new InvalidOperationException("get プロパティ割り当て済み");
+                Getter = method;
+                Getter.PropertyNameType = PropertyNameType.Is;
             }
             else if (string.Compare(method.Name, 0, "Set", 0, 3) == 0)
             {
                 if (Setter != null) throw new InvalidOperationException("set プロパティ割り当て済み");
                 Setter = method;
-
+                Setter.PropertyNameType = PropertyNameType.Set;
             }
         }
 

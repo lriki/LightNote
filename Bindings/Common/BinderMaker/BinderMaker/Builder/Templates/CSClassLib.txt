@@ -37,7 +37,6 @@ CLASSES
     /// </summary>
     public class ReferenceObject : IDisposable
     {
-        internal static bool SystemInitialized = false;
         internal IntPtr _handle;
 
         internal ReferenceObject() {}
@@ -65,7 +64,7 @@ CLASSES
         {
             if (_handle != IntPtr.Zero)
             {
-                if (SystemInitialized)
+                if (InternalManager.SystemInitialized)
                 {
                     InternalManager.UnregisterWrapperObject(this);
                     API.LNObject_Release(_handle);
@@ -238,16 +237,34 @@ TYPE_INFO_PINVOKES
         [DllImport(API.DLLName, CallingConvention = API.DefaultCallingConvention)]
 		private static extern IntPtr LNObject_GetUserData(IntPtr handle);
 
-        // コンストラクタ
-        static InternalManager()
-        {
-            _userDataListIndexStack = new Stack<int>(InitialListSize);
-            _userDataList = new List<UserData>(InitialListSize); 
+		// init ～ terminate
+        public static bool SystemInitialized = false;
 
-            // 空き番号を詰める
-            for (int i = 0; i < InitialListSize; i++)
-                _userDataListIndexStack.Push(i);
-        }
+		// 初期化
+		public static void Initialize()
+		{
+			if (!SystemInitialized)
+			{
+				_userDataListIndexStack = new Stack<int>(InitialListSize);
+				_userDataList = new List<UserData>(InitialListSize); 
+
+				// 管理リストの空き番号を詰める
+				for (int i = 0; i < InitialListSize; i++)
+					_userDataListIndexStack.Push(i);
+					
+				// 型情報の登録
+				TypeInfo.Register();
+
+				SystemInitialized = true;
+			}
+		}
+
+		// 終了処理
+		public static void Terminate()
+		{
+			SystemInitialized = false;
+			GC.Collect();
+		}
 
         // ハンドルからラップオブジェクトを返す
         public static T GetWrapperObject<T>(IntPtr handle) where T : ReferenceObject
